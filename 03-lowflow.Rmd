@@ -1,0 +1,14 @@
+# Low Flow Events {#lfe}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Henri Funk*
+
+Low flow events in hydrology refer to periods when water flow in rivers, streams, or creeks falls below a critical threshold, often leading to various ecological, economic, and social impacts. These events can result from prolonged periods of below-average precipitation, increased water usage, or changes in land use that affect the hydrological cycle. Low flow conditions can compromise water quality, reduce water availability for agricultural, industrial, and domestic uses, and disrupt aquatic ecosystems.
+
+## Concept of Extremeness by Return Periods
+
+The "extremeness" of hydrological events, including low flow conditions, is often characterized by return periods. A return period, also known as a recurrence interval, is a statistical measure used to estimate the frequency at which a certain intensity of an event (e.g., flow rate, rainfall amount) is likely to be equaled or exceeded. It is typically expressed in years.
+
+- **Definition**: The return period is calculated based on historical data and is intended to provide an estimate of the likelihood of experiencing an event of a certain magnitude or greater within any given year. For example, a 100-year return period for a low flow event means that, on average, the flow rate is expected to fall to that level or lower once every 100 years. This does not imply the events will occur exactly 100 years apart but rather conveys a 1% chance of occurrence in any given year.
+@du

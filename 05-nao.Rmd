@@ -1,0 +1,20 @@
+# Teleconnections North Atlantic Oscillation {#nao}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Henri Funk*
+
+The concept of teleconnections in climate science refers to climate anomalies or patterns that are related across large distances, often thousands of kilometers apart. Teleconnections represent atmospheric interactions that link weather and climate conditions in one region of the globe with those in another, often through the movement and behavior of large-scale atmospheric wave patterns. These connections are crucial for understanding regional climate variations, predicting weather patterns, and assessing climate change impacts.
+
+## North Atlantic Oscillation (NAO) and Its Implications
+
+The North Atlantic Oscillation (NAO) is a prime example of a teleconnection pattern, characterized by variations in the difference of atmospheric pressure at sea level between the Icelandic Low and the Azores High. The NAO influences weather and climate conditions across the North Atlantic region and beyond, affecting winter temperatures and storm tracks.
+
+- **Positive Phase**: During a positive phase of the NAO, there is a stronger than usual pressure difference between the Icelandic Low and the Azores High. This leads to an intensification of the westerly winds across the North Atlantic, bringing mild and wet winter conditions to Europe, particularly in the western and northern parts. Conversely, the eastern United States may experience colder and drier conditions.
+
+- **Negative Phase**: In a negative phase, the pressure difference between the Icelandic Low and the Azores High is weaker than normal. This situation can result in fewer and weaker westerly winds across the North Atlantic, leading to colder and drier conditions in northern Europe and milder, wetter conditions in the southeastern United States and the Mediterranean region.
+
+## Implications for Our Climate
+
+Understanding the NAO and other teleconnection patterns is essential for accurate weather forecasting, climate prediction, and the development of strategies to mitigate the impacts of climate variability and change. Researchers use observations, climate models, and paleoclimate reconstructions to study these patterns, aiming to improve our ability to predict their future behavior under different climate change scenarios.
+@hurrell

@@ -1,0 +1,15 @@
+# Causal Discovery {#cd}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Henri Funk*
+
+The concept of causal discovery in climate research refers to a set of computational and statistical methods used to identify and understand cause-and-effect relationships within climate data. Unlike traditional statistical methods that may only highlight correlations or associations between variables, causal discovery techniques aim to discern directional influences, suggesting how one variable may cause changes in another. This is particularly important in climate science, where understanding the causal mechanisms behind observed climate patterns and changes can help improve climate models, predict future climate conditions, and inform climate policy and adaptation strategies.
+
+## How Causal Discovery Works
+
+Causal discovery methods typically involve analyzing large datasets to uncover patterns and dependencies that can suggest causal relationships. These methods can be broadly categorized into two types:
+
+1. **Constraint-based methods**: These methods, such as the PC algorithm (named after its creators, Peter Spirtes and Clark Glymour), use statistical tests to identify conditional independencies in the data. By finding variables that are independent of each other given a set of other variables, these methods can infer a network of causal relationships that best explains the observed dependencies and independencies.
+
+2. **Score-based methods**: These methods assign a score to different causal models based on how well they fit the data, using criteria such as likelihood, Bayesian information criteria, or other fitting measures. The model with the best score is considered the most likely to represent the true causal relationships among the variables.

@@ -1,0 +1,17 @@
+# Natural Variability by internal variability {#iv}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Henri Funk*
+
+Natural variability refers to the inherent fluctuations in the climate system that occur without external forcings, such as changes in solar radiation, volcanic eruptions, or human-induced alterations of the Earth's atmosphere and surface. This variability can be due to a variety of factors, including atmospheric processes, ocean currents, the El Niño-Southern Oscillation (ENSO), and other dynamic components of the Earth system. Natural variability occurs across all time scales, from short-term (daily, seasonal) to long-term (decadal, centennial) fluctuations.
+
+## Quantification by Internal Variability of a Climate Model Ensemble
+
+Climate models are sophisticated tools that simulate the interactions within the Earth's climate system. To understand and quantify natural variability, scientists use ensembles of climate model simulations. An ensemble consists of multiple runs of the same model, or different models, where each run has slightly different initial conditions or model parameters. This approach helps to capture the range of possible climate outcomes due to the inherent uncertainty and variability in the system.
+
+- **Internal Variability**: Within the context of climate model ensembles, internal variability refers to the variations in climate that arise from the system's internal processes, independent of external forcings. This variability is a fundamental part of the climate system's dynamics and can lead to different outcomes even if the external conditions are the same.
+
+- **Quantification Process**: By comparing the outcomes from multiple model simulations (ensemble members), researchers can quantify the internal variability of the climate system. This is achieved by assessing how much the climate outcomes (such as temperature, precipitation patterns, etc.) diverge among the ensemble members under identical external forcing scenarios. The spread of results in the ensemble gives an indication of the internal variability: a wider spread suggests greater variability, while a narrower spread indicates less.
+@deser
+
