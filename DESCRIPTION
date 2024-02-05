@@ -1,5 +1,5 @@
-Package: seminar-skeleton
-Title: Seminar Skeleton
+Package: seminar-climate-statistics
+Title: Seminar SS24 Climate And Statistics
 Version: 0.0.1
 Depends:
   devtools,

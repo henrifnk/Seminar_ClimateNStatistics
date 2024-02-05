@@ -1,6 +1,6 @@
 ---
-title: "Seminar Skeleton"
-author: ""
+title: "Climate And Statistics"
+author: "Helmut Küchenhoff, Henri Funk"
 date: "`r Sys.Date()`"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
@@ -10,7 +10,7 @@ colorlinks: yes
 lot: False
 lof: False
 site: bookdown::bookdown_site
-description: "DESCRIPTION OF THE SEMINAR"
+description: "A Seminar about statistical methods in climate research in SS24."
 graphics: yes
 ---
 <!--- cover-image: images/cover.png -->
@@ -25,27 +25,19 @@ is.html = !is.null(output) && output == "html"
 
 # Preface {-}
 
-<!---
-```{r cover, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = is.html}
-# knitr::include_graphics('images/cover.png')
+*Author: Henri Funk*
+
+```{r cover, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+knitr::include_graphics('figures/cover.jpg')
 ```
--->
 
-<!---
-This book explains limitations of current methods in interpretable machine learning.
-The methods include partial dependence plots (PDP), Accumulated Local Effects (ALE), permutation feature importance, leave-one-covariate out (LOCO) and local interpretable model-agnostic explanations (LIME).
-All of those methods can be used to explain the behavior and predictions of trained machine learning models.
-But the interpretation methods might not work well in the following cases:
+As the world faces the reality of climate change, natural hazards and extreme weather events have become a major concern, with devastating consequences for nature and humans. The quantification and definition of climate change, extreme events and its implications for life and health on our planet is one of the major concerns in climate science. 
 
-- if a model models interactions (e.g. when a random forest is used)
-- if features strongly correlate with each other
-- if the model does not correctly model causal relationships
-- if parameters of the interpretation method are not set correctly
+This book explains current statistical methods in climate science and their application.
+The methods include compound events, low flow events and return periods, natural variability, teleconnections and causal discovery.
+All of those methods are used to quantify and anticipate the changing climate.
 
-This book is the outcome of the seminar "Limitations of Interpretable Machine Learning" which took place in summer 2019 at the Department of Statistics, LMU Munich.
-
-Cover by [\@YvonneDoinel](https://twitter.com/YvonneDoinel)
--->
+This book is the outcome of the seminar "Climate and Statistics" which took place in summer 2024 at the Department of Statistics, LMU Munich.
 
 ![Creative Commons License](figures/by-nc-sa.png)
 
