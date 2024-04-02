@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Teleconnections North Atlantic Oscillation | Climate And Statistics</title>
   <meta name="description" content="A Seminar about statistical methods in climate research in SS24." />
-  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.38 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Teleconnections North Atlantic Oscillation | Climate And Statistics" />
   <meta property="og:type" content="book" />
@@ -23,15 +23,15 @@
 <meta name="author" content="Helmut Küchenhoff, Henri Funk" />
 
 
-<meta name="date" content="2024-02-06" />
+<meta name="date" content="2024-04-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ce.html"/>
-<link rel="next" href="cd.html"/>
+<link rel="prev" href="ac.html"/>
+<link rel="next" href="lfe.html"/>
 <script src="libs/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -64,6 +64,7 @@
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -117,24 +118,26 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.1" data-path="spei.html"><a href="spei.html#definition"><i class="fa fa-check"></i><b>3.1</b> Definition</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="lfe.html"><a href="lfe.html"><i class="fa fa-check"></i><b>4</b> Low Flow Events</a>
+<li class="chapter" data-level="4" data-path="ce.html"><a href="ce.html"><i class="fa fa-check"></i><b>4</b> Compound events</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="lfe.html"><a href="lfe.html#concept-of-extremeness-by-return-periods"><i class="fa fa-check"></i><b>4.1</b> Concept of Extremeness by Return Periods</a></li>
+<li class="chapter" data-level="4.1" data-path="ce.html"><a href="ce.html#example-hot-and-dry-events"><i class="fa fa-check"></i><b>4.1</b> Example: Hot and Dry Events</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="ce.html"><a href="ce.html"><i class="fa fa-check"></i><b>5</b> Compound events</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="ce.html"><a href="ce.html#example-hot-and-dry-events"><i class="fa fa-check"></i><b>5.1</b> Example: Hot and Dry Events</a></li>
-</ul></li>
+<li class="chapter" data-level="5" data-path="ac.html"><a href="ac.html"><i class="fa fa-check"></i><b>5</b> Assymetric bivariate Copulas for compounds</a></li>
 <li class="chapter" data-level="6" data-path="nao.html"><a href="nao.html"><i class="fa fa-check"></i><b>6</b> Teleconnections North Atlantic Oscillation</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="nao.html"><a href="nao.html#north-atlantic-oscillation-nao-and-its-implications"><i class="fa fa-check"></i><b>6.1</b> North Atlantic Oscillation (NAO) and Its Implications</a></li>
 <li class="chapter" data-level="6.2" data-path="nao.html"><a href="nao.html#implications-for-our-climate"><i class="fa fa-check"></i><b>6.2</b> Implications for Our Climate</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="cd.html"><a href="cd.html"><i class="fa fa-check"></i><b>7</b> Causal Discovery</a>
+<li class="chapter" data-level="7" data-path="lfe.html"><a href="lfe.html"><i class="fa fa-check"></i><b>7</b> Low Flow Events</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="cd.html"><a href="cd.html#how-causal-discovery-works"><i class="fa fa-check"></i><b>7.1</b> How Causal Discovery Works</a></li>
+<li class="chapter" data-level="7.1" data-path="lfe.html"><a href="lfe.html#concept-of-extremeness-by-return-periods"><i class="fa fa-check"></i><b>7.1</b> Concept of Extremeness by Return Periods</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>8</b> Acknowledgements</a></li>
+<li class="chapter" data-level="8" data-path="sm.html"><a href="sm.html"><i class="fa fa-check"></i><b>8</b> Statistical streamflow modelling</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="sm.html"><a href="sm.html#physical-hydrological-models"><i class="fa fa-check"></i><b>8.1</b> Physical Hydrological Models</a></li>
+<li class="chapter" data-level="8.2" data-path="sm.html"><a href="sm.html#statistical-hydrological-models"><i class="fa fa-check"></i><b>8.2</b> Statistical Hydrological Models</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>9</b> Acknowledgements</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -160,6 +163,7 @@ div.csl-indent {
 <h1><span class="header-section-number">Chapter 6</span> Teleconnections North Atlantic Oscillation<a href="nao.html#nao" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><em>Authors: Author 1, Author 2</em></p>
 <p><em>Supervisor: Henri Funk</em></p>
+<p><em>Suggested degree: Bachelor/Master</em></p>
 <p>The concept of teleconnections in climate science refers to climate anomalies or patterns that are related across large distances, often thousands of kilometers apart. Teleconnections represent atmospheric interactions that link weather and climate conditions in one region of the globe with those in another, often through the movement and behavior of large-scale atmospheric wave patterns. These connections are crucial for understanding regional climate variations, predicting weather patterns, and assessing climate change impacts.</p>
 <div id="north-atlantic-oscillation-nao-and-its-implications" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> North Atlantic Oscillation (NAO) and Its Implications<a href="nao.html#north-atlantic-oscillation-nao-and-its-implications" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -168,12 +172,12 @@ div.csl-indent {
 <div id="implications-for-our-climate" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Implications for Our Climate<a href="nao.html#implications-for-our-climate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Understanding the NAO and other teleconnection patterns is essential for accurate weather forecasting, climate prediction, and the development of strategies to mitigate the impacts of climate variability and change. Researchers use observations, climate models, and paleoclimate reconstructions to study these patterns, aiming to improve our ability to predict their future behavior under different climate change scenarios.
-<span class="citation">Hurrell and Deser (<a href="#ref-hurrell" role="doc-biblioref">2010</a>)</span></p>
+<span class="citation">Hurrell and Deser (<a href="#ref-hurrell">2010</a>)</span></p>
 
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-hurrell" class="csl-entry">
 Hurrell, James W, and Clara Deser. 2010. <span>“North Atlantic Climate Variability: The Role of the North Atlantic Oscillation.”</span> <em>Journal of Marine Systems</em> 79 (3-4): 231–44.
 </div>
@@ -183,8 +187,8 @@ Hurrell, James W, and Clara Deser. 2010. <span>“North Atlantic Climate Variabi
           </div>
         </div>
       </div>
-<a href="ce.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="cd.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ac.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lfe.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
