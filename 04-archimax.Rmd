@@ -1,0 +1,14 @@
+# Assymetric bivariate Copulas for compounds {#ac}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Henri Funk*
+
+*Suggested degree: Master*
+
+In compounds, particularly in environmental and hydrological contexts, bivariate relationships can be used to study how two different environmental factors, such as temperature and precipitation, interact with each other. These relationships are critical for modeling the joint behavior of these variables, which can be essential for predicting weather events, designing structures, or managing natural resources.
+
+In the study of environmental and hydrological systems, recognizing and accurately modeling the asymmetry in bivariate relationships is crucial for making reliable predictions and informed decisions. Techniques such as copulas, are often used in this context to model and analyze these complex and dependencies effectively. To model the asymmetry in dependencies, Archimax could be used.
+
+@charpentier
+@bacigal

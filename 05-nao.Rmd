@@ -4,6 +4,8 @@
 
 *Supervisor: Henri Funk*
 
+*Suggested degree: Bachelor/Master*
+
 The concept of teleconnections in climate science refers to climate anomalies or patterns that are related across large distances, often thousands of kilometers apart. Teleconnections represent atmospheric interactions that link weather and climate conditions in one region of the globe with those in another, often through the movement and behavior of large-scale atmospheric wave patterns. These connections are crucial for understanding regional climate variations, predicting weather patterns, and assessing climate change impacts.
 
 ## North Atlantic Oscillation (NAO) and Its Implications

@@ -1,0 +1,21 @@
+# Statistical streamflow modelling {#sm}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Henri Funk*
+
+*Suggested degree: Master*
+
+Hydrological models are tools used to understand, simulate, and predict the movement, distribution, and quality of water within natural and engineered water systems. These models help in water resource management, flood forecasting, environmental protection, and understanding the impact of climate change on water resources.
+
+There are mainly two types of hydrological models: physical and statistical.
+
+## Physical Hydrological Models
+
+Physical hydrological models are based on the physical processes that occur within the hydrological cycle. They use mathematical representations of these processes to simulate the behavior of water in the environment. Physical models consider processes such as precipitation, evaporation, infiltration, surface runoff, and groundwater flow. These models are often more complex and require detailed data about the terrain, soil properties, vegetation, and meteorological conditions.
+
+## Statistical Hydrological Models
+
+Statistical hydrological models use historical data to identify patterns and relationships between different hydrological variables. These models apply statistical methods to predict future water conditions based on past observations. They do not necessarily simulate the physical processes but rather rely on the statistical properties of the data, such as trends, cycles, and variability. Statistical models are often used when the physical processes are too complex to model directly or when there is insufficient data to build a detailed physical model.
+
+@sabzipour
