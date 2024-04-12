@@ -1,6 +1,6 @@
 # Teleconnections North Atlantic Oscillation {#nao}
 
-*Authors: Author 1, Author 2*
+*Author: Author*
 
 *Supervisor: Henri Funk*
 

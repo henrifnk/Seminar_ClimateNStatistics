@@ -1,6 +1,6 @@
 # Risk Projections   {#he4}
 
-*Authors: Author 1, Author 2*
+*Author: Author*
 
 *Supervisor: Helmut Kuechenhoff*
 

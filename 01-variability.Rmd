@@ -1,6 +1,6 @@
 # Natural Variability by internal variability {#iv}
 
-*Authors: Author 1, Author 2*
+*Author: Author*
 
 *Supervisor: Henri Funk*
 

@@ -14,6 +14,8 @@ This book is the outcome of the seminar "Climate and Statistics" which took plac
 
 There are four subdirectories:
 
+work/
+
 - code
 - data
 - figures

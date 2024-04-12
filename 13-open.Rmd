@@ -1,6 +1,6 @@
 # Open issue
 
-*Authors: Author 1*
+*Author: Author*
 
 *Supervisor: Helmut Kuechenhoff*
 

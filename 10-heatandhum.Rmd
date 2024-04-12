@@ -1,6 +1,6 @@
 # Controverial issue : heat and humidity    {#he3}
 
-*Authors: Author 1*
+*Author: Author*
 
 *Supervisor: Helmut Kuechenhoff*
 
