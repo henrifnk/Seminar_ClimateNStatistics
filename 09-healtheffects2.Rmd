@@ -1,0 +1,29 @@
+#  Epidemiologic studies on the heat effects     {#he1}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Degree: Bachelor*   
+
+There are many epidemiological studies for assessing the effect of heat on health.
+One strategy is to use daily mortality data and weather data in certain areas to 
+estimate heat related mortality by regression models. Two recent papers by groups of 
+researchers give an overview: 
+
+## General effects 
+"Excess mortality attributed to heat and cold: a health impact
+assessment study in 854 cities in Europe" 
+Lancet Planet Health 2023;
+7: e271–81
+Published Online
+March 16, 2023
+https://doi.org/10.1016/
+S2542-5196(23)00023-2
+
+## Joint effects of air pollution and heat 
+"Joint effect of heat and air pollution on mortality in 620 cities of
+36 countries" 
+  Environment International 181 (2023) 108258
+  
+

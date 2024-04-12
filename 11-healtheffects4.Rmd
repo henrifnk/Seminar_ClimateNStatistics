@@ -1,0 +1,28 @@
+# Projections 1   {#he4}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Degree: Bachelor*   
+
+In many studies, the effects of climate change in the future is discussed. 
+In a tutorial paper by Gasparini, statistical methods for modelling future risks due to climate devlopement are presented. In a paper by Breitner et al the future effects of ozone related are presented.  
+
+
+## Study:  
+Hands-on Tutorial on a Modeling Framework for
+Projections of Climate Change Impacts on Health
+Ana M. Vicedo-Cabrera, Francesco Sera and Antonio Gasparrinia
+
+## Examples: 
+Ozone-related acute excess mortality projected to
+increase in the absence of climate and air quality
+controls consistent with the Paris Agreement. 
+Nina G.G. Domingo et al. 
+
+Projection of Temperature-Related Myocardial
+Infarction in Augsburg, Germany
+Kai Chen, Susanne Breitner, Kathrin Wolf, Masna Rai, Christa Meisinger, Margit Heier, Bernhard Kuch,
+Annette Peters, Alexandra Schneider; on behalf of the KORA Study Group
+

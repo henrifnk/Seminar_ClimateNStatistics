@@ -1,0 +1,18 @@
+# Controverial issue : heat and humidity    {#he3}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Degree: Master*   
+
+In a paper the possible interaction of humidity and  heat is discussed. 
+In particular, possible pitfalls in in epidemiological studies are highlighted.
+Statistical and methodological aspects should be highlighted. 
+
+
+## Study:  
+Baldwin, J.W. et al.:  Humidity’s Role in Heat-Related Health Outcomes:A Heated Debate
+ Environmental Health perspectives. 
+ https://doi.org/10.1289/EHP11807. 
+
