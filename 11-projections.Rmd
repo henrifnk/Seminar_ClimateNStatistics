@@ -1,0 +1,18 @@
+# Projections 1   {#he4}
+
+*Authors: Author 1, Author 2*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Degree: Bachelor*   
+
+In many studies, the effects of climate change in the future is discussed. 
+In a tutorial paper by Gasparini, statistical methods for modelling future risks due to climate devlopement are presented. In a paper by Breitner et al the future effects of ozone related are presented.  
+
+
+## Study:  
+@vincedo
+
+## Examples: 
+@domingo
+@chen
