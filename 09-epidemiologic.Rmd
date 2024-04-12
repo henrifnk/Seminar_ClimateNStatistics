@@ -1,6 +1,6 @@
 #  Epidemiologic studies on the heat effects     {#he2}
 
-*Authors: Author 1, Author 2*
+*Authors: Author 1*
 
 *Supervisor: Helmut Kuechenhoff*
 
@@ -11,10 +11,10 @@ One strategy is to use daily mortality data and weather data in certain areas to
 estimate heat related mortality by regression models. Two recent papers by groups of 
 researchers give an overview: 
 
-## General effects 
+#. General effects 
 @masselot
 
-## Joint effects of air pollution and heat 
+#. Joint effects of air pollution and heat 
 @stafoggia
   
-
+Results and statistical methods should be presented

@@ -1,20 +1,16 @@
 # The Lancet Report 2023    {#he1}
 
-*Authors: Author 1, Author 2*
+*Authors: Author 1*
 
 *Supervisor: Helmut Kuechenhoff*
 
 *Suggested degree: Bachelor* 
 
-The 2023 report of the Lancet Countdown on health and
-climate change: the imperative for a health-centred response
-in a world facing irreversible harms Lancet 2023; 402: 2346–94. 
-
 In yearly reports one of the leading scientific journals in health research 
 gives an overview on the state of the art knowledge on the effect of climate 
-change on health.        
-1. ** Main results and message ** 
-2. ** Communication of results ** 
-3. ** Arguments based on statistical methods 
+change on health (@romanello).  The following aspects should be treated: 
 
+#. Main results and message 
+#.  Communication of results 
+#. Arguments based on statistical methods 
 

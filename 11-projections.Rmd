@@ -1,4 +1,4 @@
-# Projections 1   {#he4}
+# Risk Projections   {#he4}
 
 *Authors: Author 1, Author 2*
 
@@ -7,12 +7,6 @@
 *Degree: Bachelor*   
 
 In many studies, the effects of climate change in the future is discussed. 
-In a tutorial paper by Gasparini, statistical methods for modelling future risks due to climate devlopement are presented. In a paper by Breitner et al the future effects of ozone related are presented.  
+In a tutorial paper (@vicedo) , statistical methods for modelling future risks due to climate devlopement are presented. In a two other papers paper the future effects of ozone and heat  related are presented (@domingo,@chen).   
 
 
-## Study:  
-@vincedo
-
-## Examples: 
-@domingo
-@chen
