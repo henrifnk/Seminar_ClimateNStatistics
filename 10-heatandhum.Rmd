@@ -1,14 +1,22 @@
-# Controverial issue : heat and humidity    {#he3}
+# Controversial issue : heat and humidity    {#he3}
 
-*Author: Author*
+*Author: Mona Niethammer*
 
 *Supervisor: Helmut Kuechenhoff*
 
 *Degree: Master*   
 
-In a paper the possible interaction of humidity and  heat is discussed (@baldwin). 
-In particular, possible pitfalls in in epidemiological studies are highlighted.
-Statistical and methodological aspects should be highlighted. 
+## Abstract 
+
+Heat and Humidity are increased by the climate change as both gain higher values as the greenhouse gases rise. Physiologically one knows that temperature and humidity are associated with human heat stress and negatively influences the human body. Besides that a broad range of epidemiological studies concluded that there is either no or just a weak effect of humidity on human heat stress and negative health outcomes. However, those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. This two information lead to a controversial issue as physiologically it is known, that there is an effect of humidity on health outcomes. 
+In the following sections this topic will be described more deeply. 
+.................
+
+## Introduction 
+
+### Heat
+
+### Humidity 
 
 
   
