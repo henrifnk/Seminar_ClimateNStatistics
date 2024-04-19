@@ -7,17 +7,58 @@
 *Degree: Master*   
 
 ## Abstract 
-
-Heat and Humidity are increased by the climate change as both gain higher values as the greenhouse gases rise. Physiologically one knows that temperature and humidity are associated with human heat stress and negatively influences the human body. Besides that a broad range of epidemiological studies concluded that there is either no or just a weak effect of humidity on human heat stress and negative health outcomes. However, those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. This two information lead to a controversial issue as physiologically it is known, that there is an effect of humidity on health outcomes. 
-In the following sections this topic will be described more deeply. 
-.................
+At the end 
 
 ## Introduction 
 
-### Heat
+### Background 
+
+Climate change is a broad and hot discussed topic as the number of heat-related deaths and the air-temperature break records.
+Heat and Humidity are increased by the climate change as both gain higher values as the greenhouse gases rise. Physiologically one knows that heat and humidity are associated with human heat stress and negatively influences the human body.[1] Heat stress occurs when environmental conditions overwhelm body‘s cooling mechanism[2].
+Besides that a broad range of epidemiological studies concluded that there is either no or just a weak effect of humidity on human heat stress and negative health outcomes. However, those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. This two information lead to a controversial issue as physiologically it is known, that there is an effect of humidity on health outcomes.
 
 ### Humidity 
 
+Humidity has several definitions and one need to be careful which of those is selected to answer a research question. Therefore it is essential to use an appropriate measure for humidity. There are four categories: 
+- Simple relative variables:  (HR, DPD, Saturation deficit) 
+- Mass-based variables: (Specific humidity, absolute humidity, dew point temperature, vapor pressure, mixing ratio)
+- Combined metrics: (Heat index, Humidex, Wet-bulb-temperature, UTCI…) 
+- Physiologic-based humidity indicators: (Maximum evaporation, required evaporation, total evaporation) 
+
+
+### Physiological background 
+
+### Epidemiological conclusions
+
+### Controversial Issue
+
+## Possible Pitfalls in Epidemiological Studies 
+
+### Methodological Aspects
+
+
+
+
+### Statistical Aspects 
+
+
+
+### Physiological explanations
+
+#### Heat-vulnerable patients with sweating impairments
+
+#### Environmental thresholds 
+
+#### Other causes of death 
+
+#### Dehydration 
+
+
 
   
+  
+## References 
+[1] Jane W. Baldwin, T.B., Kristie L. Ebi, Ollie Jay, Nicholas J. Lutsko, and Jennifer K. Vanos, Humidity’s Role in Heat-Related Health Outcomes: A Heated Debate. EHP Publishing, 2023. 131(5).
+[2] Buzan, J.R. and M. Huber, Moist Heat Stress on a Hotter Earth. Annual Review of Earth and Planetary Sciences, 2020. 48(1): p. 623-655.
+
 
