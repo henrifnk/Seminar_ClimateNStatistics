@@ -13,9 +13,42 @@ TODO
 
 ### Background 
 
-Climate change is a broad and hot discussed topic as the number of heat-related deaths and the air-temperature break records.
-Heat and Humidity are increased by the climate change as both gain higher values as the greenhouse gases rise. Physiologically one knows that heat and humidity are associated with human heat stress and negatively influences the human body.[1] Heat stress occurs when environmental conditions overwhelm body‘s cooling mechanism[2].
-Besides that a broad range of epidemiological studies concluded that there is either no or just a weak effect of humidity on human heat stress and negative health outcomes. However, those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. This two information lead to a controversial issue as physiologically it is known, that there is an effect of humidity on health outcomes. Heat in this chapter is used as synonym for high ambient temperature. 
+Climate change is a broad and hot discussed topic as the number of heat-related deaths and the air-temperature break records. More extreme weather events occur and environmental and health risk factors increase with the climate change. Especially Heat and Humidity are increased by the climate change as both gain higher values as the greenhouse gases rise. Physiologically one knows that heat and humidity are associated with human heat stress and negatively influences the human body.[1] Heat stress occurs when environmental conditions overwhelm body‘s cooling mechanism [2]. If the body's cooling mechanism is not able to cool down the core temperature this has a huge negative impact on the health of an individual. This heat stress can lead in extremes to death. It is known from a physiological perspective that the mechanism to cool down the core temperature are driven by the heat and humidity the body is surrounded by. Contrary to that, a broad range of epidemiological studies concluded that there is either no or just a weak effect of humidity on human heat stress and negative health outcomes. Those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. This two information lead to a controversial issue as physiologically it is known, that there is an effect of humidity on health outcomes, whereas in epidemiological studies they did not find an effect of humidity on health outcomes. Figure 1 describes this contradiction between physiological knowledge and epidemiological studies.
+Heat in this chapter is used as synonym for high ambient temperature. 
+                 
+
+More background? 
+
+### Epidemiological Studies 
+
+Several epidemiological studies aimed to show an influence of humidity and heat on negative health outcomes such as death or cardiovascular diseases. Results of these studies are mixed regarding the association of humidity with negative health outcomes. A study in New York (US) found a positive association between high levels of relative humidity (RH) and cardio-respiratory hospitalizations. But this study is one of the only ones who found an association between humidity and a negative health outcome. 
+
+Armstrong et al.found ..
+Other Example study found what... 
+
+
+### Physiological background/Knowledge 
+
+Physiological it is known that heat and humidity should increase the risks for human health. Morbidity, Mortality, reduction in physical work capacity and further negative health outcomes are projected to increase further with the climate crisis. 
+The human body has it's own cooling mechanism to control the body temperature. There are two ways of the body to respond to heat stress. One way is to redistribute the blood flow towards the skin (vasodilation) such that metabolically generated heat from inside the body reaches the skin surface and subsequently the environment. This way of cooling the body down requires an increased blood flow and increases the cardiac demand. People with heart conditions can lead to cardiovascular diseases.
+The other way is to secret sweat onto the skin, which evaporates to the environment and heat from the body is removed. This cooling mechanisms are necessary for the human body to maintain the human core temperature.[4]
+This mechanism to cool down the body lose their effectiveness with the increase of heat and humidity. With higher ambient humidity the proportion of sweat that evaporates from the skin to the environment, i.e the effectiveness of sweating decreases. Hence, sweating does not lead to heat loss anymore which leads to a continuation of the body temperature rise. The human body corresponds to that with further sweating, until enough sweat is generated to evaporate from the skin. But this increase of sweating can lead to heat stroke, dehydration or a sweat rate which exceeds the body's physical limits.[1]
+Furthermore, there are several risk populations for whom the mechanisms of the body to cool itself down are already less efficient or even not working. For example people older than 65 has a diminished sweating ability or people with cardiovascular diseases can not pump more blood through the heart to transport the heat from inside the body to the skin. These are just two examples, but there are many more conditions which further influences the mechanisms to cool down the body.[4] Summarizing one can say that if the body is not able to cool itself down anymore one suffer heat stress. 
+ 
+This physiological conclusions were not shown in the majority of epidemiological studies. Several methodological aspect my lead to such results but also physiological explanations can lead to such results. Possible physiological reasons will be discussed.
+
+First Sweating impairments
+2. Environmental thresholds at which differences in humidity impact thermoregulatory strain are rarely attained.
+3. Most heat-related deaths and hospitalizations may be due to causes unaffected by humidity
+4. Dehydration-related reductions in sweating 
+
+
+
+
+### Controversial Issue
+--> muss das hier nochmal diskutiert werden, würde ich im Abstract & Background klar machen und mit einer Figure beschreiben (aus Paper?)
+
+
 
 ### Humidity 
 
@@ -27,53 +60,22 @@ Humidity has several definitions and one need to be careful which of those is se
 Davis et al. did a review on commonly used humidity variables in epidemiological studies and found that 62% of all the studies they reviewed used RH as a humidity variable, whereas absolute humidity and specific humidity as humidity variables were used in 5.3% and 1.5% of the studies, respectively. Furthermore, the authors discussed how to use the different humidity variables and when it is appropriate to use which one.[3]
 
 
-### Physiological background
 
-Physiological it is known that heat and humidity should increase the risks for human health. Morbidity, Mortality, reduction in physical work capacity and further negative health outcomes are projected to increase further with the climate crisis. 
-The human body has it's own cooling mechanism to control the body temperature. There are two ways of the body to respond to heat stress. One way is to redistribute the blood flow towards the skin (vasodilation) such that metabolically generated heat from inside the body reaches the skin surface and subsequently the environment. This way of cooling the body down requires an increased blood flow and increases the cardiac demand. People with heart conditions can lead to cardiovascular diseases.
-The other way is to secret sweat onto the skin, which evaporates to the environment and heat from the body is removed. This cooling mechanisms are necessary for the human body to maintain the human core temperature.[4]
-This mechanism to cool down the body lose their effectiveness with the increase of heat and humidity. With higher ambient humidity the proportion of sweat that evaporates from the skin to the environment, i.e the effectiveness of sweating decreases. Hence, sweating does not lead to heat loss anymore which leads to a continuation of the body temperature rise. The human body corresponds to that with further sweating, until enough sweat is generated to evaporate from the skin. But this increase of sweating can lead to heat stroke, dehydration or a sweat rate which exceeds the body's physical limits.[1]
-Furthermore, there are several risk populations for whom the mechanisms of the body to cool itself down are already less efficient or even not working. For example people older than 65 has a diminished sweating ability or people with cardiovascular diseases can not pump more blood through the heart to transport the heat from inside the body to the skin. These are just two examples, but there are many more conditions which further influences the mechanisms to cool down the body.[4]
-Summarizing one can say that if the body is not able to cool itself down anymore one suffer heat stress. 
+## Methods/Definitions/Heat and Humidity in Studies 
 
+### Humidity definitions 
 
-### Epidemiological conclusions
+### Composite Indicators 
 
+### Confounder
 
+### Effect Modification and Interaction 
 
-### Controversial Issue
-
-## Possible Pitfalls in Epidemiological Studies 
-
-### Methodological Aspects
-
-#### RH as humidity variable 
-
-#### Composite Indicators
-
-#### Data Limitations 
+### Data Limitations 
 
 
 
-### Statistical Aspects 
-
-#### Humidity as Confounder 
-
-#### Interaction between Humidity and Heat 
-
-
-
-
-
-### Physiological explanations
-
-#### Heat-vulnerable patients with sweating impairments
-
-#### Environmental thresholds 
-
-#### Other causes of death 
-
-#### Dehydration 
+## Examples 
 
 
 
