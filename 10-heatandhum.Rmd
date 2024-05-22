@@ -1,7 +1,8 @@
 ---
 output:
-  pdf_document: default
+  word_document: default
   html_document: default
+  pdf_document: default
 ---
 # Controversial issue : heat and humidity    {#he3}
 
@@ -38,7 +39,7 @@ Several epidemiological studies investigated the influence of humidity and heat 
 Baldwin et al. reviewed several epidemiological studies, did further research, and concluded six key reasons why epidemiological studies found less or even no effect of humidity on health outcomes. 
 1) they figured, that at high temperatures there is truly little influence of humidity on health outcomes. 2) limited data sets may influence the results of the studies. 3) analyses focus on vulnerable populations such as older people or people with sweating impairments and thus evaporative impairments. 4) they discuss that extremely high levels of heat and humidity are necessary for humidity to impact the heat strain of subjects. Such extreme events were rarely recorded. 5) the relationship between heat and humidity was not considered properly and therefore the model results may be inappropriate. As last reason they argue that sub-daily meteorological phenomena, such as rain, occur at high heat and humidity, and may bias studies based on daily data.  (@baldwin)
 
-### Physiological background/Knowledge 
+### Physiological knowledge 
 Physiologically it is known that heat and humidity should increase the risks for human health. Morbidity, Mortality, reduction in physical work capacity and further negative health outcomes are presumed to increase further with the climate crisis. (@buzan)
 The human body has two cooling mechanism to control the body temperature. One way is to redistribute the blood flow towards the skin (vasodilation) such that metabolically generated heat from inside the body reaches the skin’s surface and subsequently the environment. This way of cooling the body down requires an increased blood flow and increases the cardiac demand. People with heart conditions will suffer cardiovascular events such as myocardial infarct and others. 
 The other way is to secret sweat onto the skin, which evaporates to the environment and heat from the body is removed. These cooling mechanisms are necessary for the human body to maintain the human core temperature. (@ebi)
