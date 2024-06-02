@@ -1,8 +1,8 @@
 import lightning.pytorch as pl
 from lightning.pytorch.callbacks import EarlyStopping, LearningRateMonitor
 from lightning.pytorch.tuner import Tuner
-from pytorch_forecasting import TimeSeriesDataSet, TemporalFusionTransformer, AutoRegressiveBaseModel,AutoRegressiveBaseModelWithCovariates
-from pytorch_forecasting.metrics import MAE,RMSE
+from pytorch_forecasting import TimeSeriesDataSet, MultiHorizonMetric,AutoRegressiveBaseModelWithCovariates
+from pytorch_forecasting.metrics import RMSE
 import os
 import pandas as pd # type: ignore
 import matplotlib.pyplot as plt # type: ignore
@@ -11,13 +11,50 @@ import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
 from pytorch_forecasting.models.nn import LSTM
-from typing import Dict
+from typing import Dict,List,Tuple
 from sklearn.preprocessing import StandardScaler
 import random
 
 
+class KGE(MultiHorizonMetric):
+    def loss(self, y_pred, target):
+        y_pred = self.to_prediction(y_pred)
 
-class LSTMModel(AutoRegressiveBaseModel):
+        kge_list = []
+        for i in range(y_pred.size(0)):
+            pred = y_pred[i,:]
+            true = target[i,:]
+
+            # Compute correlation coefficient
+            r = torch.corrcoef(torch.stack((pred, true)))[0, 1]
+            
+            # Compute alpha and beta
+            alpha = pred.std() / true.std()
+            beta = pred.mean() / true.mean()
+            
+            # Calculate KGE
+            kge = 1 - torch.sqrt((r - 1)**2 + (alpha - 1)**2 + (beta - 1)**2)
+            
+            kge_list.append(-1*kge)
+
+        kge_tensor = torch.stack(kge_list)
+            
+        return kge_tensor
+    
+
+class MAE(MultiHorizonMetric):
+    """
+    Mean average absolute error.
+
+    Defined as ``(y_pred - target).abs()``
+    """
+
+    def loss(self, y_pred, target):
+        loss = (self.to_prediction(y_pred) - target).abs()
+        return loss
+
+
+class LSTMModel(AutoRegressiveBaseModelWithCovariates):
     def __init__(
         self,
         input_size:int,
@@ -25,8 +62,21 @@ class LSTMModel(AutoRegressiveBaseModel):
         target_lags: Dict[str, Dict[str, int]],
         n_layers: int,
         hidden_size: int,
+        x_reals: List[str],
+        x_categoricals: List[str],
+        embedding_sizes: Dict[str, Tuple[int, int]],
+        embedding_labels: Dict[str, List[str]],
+        static_categoricals: List[str],
+        static_reals: List[str],
+        time_varying_categoricals_encoder: List[str],
+        time_varying_categoricals_decoder: List[str],
+        time_varying_reals_encoder: List[str],
+        time_varying_reals_decoder: List[str],
+        embedding_paddings: List[str],
+        categorical_groups: Dict[str, List[str]],
         dropout: float = 0.1,
         **kwargs,
+
     ):
         # arguments target and target_lags are required for autoregressive models
         # even though target_lags cannot be used without covariates
@@ -43,9 +93,8 @@ class LSTMModel(AutoRegressiveBaseModel):
             dropout=self.hparams.dropout,
             batch_first=True,
         )
+        self.dropout_layer = nn.Dropout(p = 0.2)
         self.output_layer = nn.Linear(self.hparams.hidden_size, 1)
-        
-
 
     def encode(self, x: Dict[str, torch.Tensor]):
         # we need at least one encoding step as because the target needs to be lagged by one time step
@@ -53,17 +102,10 @@ class LSTMModel(AutoRegressiveBaseModel):
         # but can handle lengths of >= 1
         assert x["encoder_lengths"].min() >= 1
         input_vector = x["encoder_cont"].clone()
-        # lag target by one
-        input_vector[..., self.target_positions] = torch.roll(
-            input_vector[..., self.target_positions], shifts=1, dims=1
-        )
-        input_vector = input_vector[:, 1:]  # first time step cannot be used because of lagging
 
-        # determine effective encoder_length length
-        effective_encoder_lengths = x["encoder_lengths"] - 1
         # run through LSTM network
         _, hidden_state = self.lstm(
-            input_vector, lengths=effective_encoder_lengths, enforce_sorted=False  # passing the lengths directly
+            input_vector, enforce_sorted=False  # passing the lengths directly
         )  # second ouput is not needed (hidden state)
         return hidden_state
 
@@ -93,7 +135,6 @@ class LSTMModel(AutoRegressiveBaseModel):
 
         else:  # prediction mode
             target_pos = self.target_positions
-            test = input_vector[:, 0, target_pos]
 
             def decode_one(idx, lagged_targets, hidden_state):
                 x = input_vector[:, [idx]]
@@ -101,7 +142,7 @@ class LSTMModel(AutoRegressiveBaseModel):
                 x[:, 0, target_pos] = lagged_targets[-1]  # take most recent target (i.e. lag=1)
                 lstm_output, hidden_state = self.lstm(x, hidden_state)
                 # transform into right shape
-                prediction = self.output_layer(lstm_output)[:, 0]  # take first timestep
+                prediction = self.output_layer(self.dropout_layer(lstm_output))[:, 0]  # take first timestep
                 return prediction, hidden_state
 
             # make predictions which are fed into next step
@@ -121,21 +162,6 @@ class LSTMModel(AutoRegressiveBaseModel):
         output = self.decode(x, hidden_state)  # decode leveraging hidden state
 
         return self.to_network_output(prediction=output)
-    
-    @property
-    def target_positions(self) -> torch.LongTensor:
-        """
-        Positions of target variable(s) in covariates.
-
-        Returns:
-            torch.LongTensor: tensor of positions.
-        """
-        # todo: expand for categorical targets
-        return torch.tensor(
-            [-1],
-            device=self.device,
-            dtype=torch.long,
-        )
 
 
 if __name__ == '__main__':
@@ -153,7 +179,7 @@ if __name__ == '__main__':
     data['date'] = data.index
 
 
-    max_pred_len = 2
+    max_pred_len = 9
     enc_len = 3
     training_cutoff = int(data["date"].max()*0.7) - max_pred_len
     val_cutoff = int(data["date"].max()*0.85) - max_pred_len
@@ -177,9 +203,9 @@ if __name__ == '__main__':
 
     validation = TimeSeriesDataSet.from_dataset(training,data.iloc[training_cutoff: val_cutoff],min_prediction_idx=training_cutoff+365,stop_randomization=True)
 
-    val_dataloader = validation.to_dataloader(train=False, batch_size=1, num_workers=1)
+    val_dataloader = validation.to_dataloader(train=False, batch_size=2, num_workers=1)
 
-    train_dataloader = training.to_dataloader(train=True, batch_size=1, num_workers=1)
+    train_dataloader = training.to_dataloader(train=True, batch_size=32, num_workers=1)
 
 
 
@@ -193,18 +219,18 @@ if __name__ == '__main__':
     )
 
     model = LSTMModel.from_dataset(training,
-                               input_size = 3,
-                               learning_rate = 0.001,
-                               n_layers=1,
-                               hidden_size = 2,
-                               loss = MAE(),
-                               dropout = 0.2,
-                               optimizer = 'adam',
-                               reduce_on_plateau_patience = 10,
-                               weight_decay = 0.001)
+                                input_size = 3,
+                                learning_rate = 0.0005,
+                                n_layers=1,
+                                hidden_size = 128,
+                                loss = MAE(),
+                                dropout = 0.2,
+                                optimizer = 'adam',
+                                reduce_on_plateau_patience = 10,
+                                weight_decay = 0.001)
 
     trainer.fit(
-        model,
-        train_dataloaders=train_dataloader,
-        val_dataloaders=val_dataloader,
-    )
+            model,
+            train_dataloaders=train_dataloader,
+            val_dataloaders=val_dataloader,
+        )
