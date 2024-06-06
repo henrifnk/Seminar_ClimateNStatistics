@@ -52,7 +52,7 @@ Baldwin et al. reviewed numerous epidemiological studies, conducted further rese
 ### Physiological knowledge 
 Physiological evidence indicates that heat and humidity increase health risks, leading to higher rates of morbidity, mortality, reduced physical work capacity, and other adverse health outcomes as the climate crisis worsens. (@buzan)
 
-The human body has two primary cooling mechanism to control the body temperature. One mechanism involves redistributing blood flow to the skin (vasodilation),  allowing metabolically generated heat from inside the body to reach the skin’s surface and subsequently the environment. This process requires increased blood flow and elevates cardiac demand, potentially triggering cardiovascular events such as myocardial infarction in individuals with heart conditions.
+The human body has two primary cooling mechanism to control the body temperature. One mechanism involves redistributing blood flow to the skin (vasodilation), allowing metabolically generated heat from inside the body to reach the skin’s surface and subsequently the environment. This process requires increased blood flow and elevates cardiac demand, potentially triggering cardiovascular events such as myocardial infarction in individuals with heart conditions.
 The other mechanism involves secreting sweat onto the skin, which evaporates to the environment and heat from the body is removed. These cooling mechanisms are crucial for the human body to maintain the human core temperature. (@ebi)
 
 However, the effectiveness of these mechanisms diminishes with increased heat and humidity. Higher ambient humidity reduces the proportion of sweat that evaporates from the skin, decreasing the effectiveness of sweating. Consequently, sweating does not lead to heat loss anymore, causing a continuous rise in body temperature. The human body responds to that by producing more sweat, which can lead to heat stroke, dehydration, or exceed the body's physical limits. (@baldwin) 
@@ -102,7 +102,11 @@ $$
 Ε[Y│t,h]= β_0+ β_1*t+ β_2*h
 $$
 
-Here, Y represents the health outcome of interest, t is heat, and h humidity. In this model, $β_1$ represents the conditional total effect of heat on the health outcome, while $β_2$ represents the direct effect of humidity on the outcome. However, interpreting confounding estimates can be misleading. (@baldwin, @westreich) 
+
+Here, Y represents the health outcome of interest, t is heat, and h humidity. In this model, $β_1$ represents the direct effect of heat on the health outcome, while $β_2$ represents the total effect of humidity on the outcome. As we adjust for humidity, we close the backdoor path from heat to the outcome. Therefore, we can interpret $\beta_1$ as the direct effect of heat on the outcome. A total effect refers to the net of all associations of a variable through all causal pathways to the outcome. As there are two paths, one direct path and one indirect path through heat (mediator) $\beta_2$ can only be interpreted as total effect. 
+
+Therefore, interpretation of estimates can get very complex and the causal relation between the variables needs to be considered carefully. 
+Hence, interpreting confounding estimates can be misleading. (@baldwin, @westreich) 
 
 One significant drawback of adjusting for confounding is the potential for multicollinearity issues. 
 If heat (the exposure of interest) and humidity (the confounder) are highly correlated, including both variables in a regression model can lead to multicollinearity. This situation results in estimates that capture similar information, making it difficult to interpret the individual effects of the variables. Additionally, the precision of the estimated coefficients may be reduced. Including calendar variables to adjust for long-term or seasonal trends can further exacerbate multicollinearity if the correlation between heat and humidity varies significantly over time. 
