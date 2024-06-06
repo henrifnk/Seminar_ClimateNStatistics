@@ -103,7 +103,7 @@ $$
 $$
 
 
-Here, Y represents the health outcome of interest, t is heat, and h humidity. In this model, $β_1$ represents the direct effect of heat on the health outcome, while $β_2$ represents the total effect of humidity on the outcome. As we adjust for humidity, we close the backdoor path from heat to the outcome. Therefore, we can interpret $\beta_1$ as the direct effect of heat on the outcome. A total effect refers to the net of all associations of a variable through all causal pathways to the outcome. As there are two paths, one direct path and one indirect path through heat (mediator) $\beta_2$ can only be interpreted as total effect. 
+Here, Y represents the health outcome of interest, t is heat, and h humidity. In this model, $β_1$ represents conditional total effect of heat on the health outcome at any given level of humidity. $β_2$ represents the direct effect of humidity on the outcome. That is the causal effect of humidity on the outcome when heat is held fix at a given level, thus blocking the humidity effect on heat. 
 
 Therefore, interpretation of estimates can get very complex and the causal relation between the variables needs to be considered carefully. 
 Hence, interpreting confounding estimates can be misleading. (@baldwin, @westreich) 
