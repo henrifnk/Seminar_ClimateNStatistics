@@ -75,7 +75,8 @@ Humidity has multiple definitions, making it crucial to select the appropriate m
 1. Simple relative variables including Relative Humidity (RH), Dew-point depression (DPD) and Saturation deficit. \
 2. Mass-based variables including specific humidity, absolute humidity, dew point temperature, vapor pressure and mixing ratio. \
 3. Composite indicators such as the Heat index, Humidex, Wet-bulb-temperature, UTCI and further more. \
-4. Physiologic-based humidity indicators including maximum evaporation, required evaporation, total evaporation. \
+4. Physiologic-based humidity indicators including maximum evaporation, required evaporation, total evaporation. 
+
 Davis et al. reviewed the use of humidity variables in epidemiological studies, finding that 62% of studies used RH, while absolute humidity and specific humidity were used in only 5.3% and 1.5% of the studies, respectively. They discussed the appropriate use of different humidity variables, cautioning against the frequent use of RH due to its strong inverse correlation with temperature and its diurnal and seasonal variability. Instead, they recommend using mass-based variables like absolute or specific humidity, which provide a more accurate measure of exposure to humidity levels. \
 The selection of humidity variables must be done carefully, as they can be highly correlated with other variables, particularly heat. Davis et al. concluded that using RH is often inappropriate and should be done with caution if necessary. (@davis)
 
@@ -87,9 +88,11 @@ As discussed in the section on humidity definitions, composite indicators are fr
 ### Confounder
 A confounder is a variable that affects both the exposure of interest and the outcome. Figure 2 illustrates how humidity acts as a confounder in the relationship between heat and a health outcome. 
 
+
 ```{r confounder, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('Confounder.png')
 ```
+
 
 **Figure 2:** Humidity as confounding effect.
 
@@ -112,8 +115,10 @@ Including humidity as an effect modifier or interaction with heat is another met
 Often, the two terms *Effect Modification* and *Interaction* are used interchangeably. However, from a causal view these two concepts differ in a counterfactual perspective and slightly differ in their definition. The counterfactual perspective involves hypothetical scenarios, asking “What if?” questions such as, “What if heat remained the same but humidity was lower? Would the health outcome change?”. (@bours) Counterfactual outcomes are typically written with a superscript such as $Y^t$ and answers the question: "What would the outcome Y be if the exposure was t?". Or as another example $Y^{th}$ answers the question: "What would the outcome Y be if both exposures t and h occurred together?". As in real-world data typically not all combinations of exposures are observed in each individual we talk here about hypothetical scenarios.  
 Both concepts are scale dependent and their presence depends on the scale used. Here, we use the risk difference scale for formal definitions. 
 
-**Interaction** refers to the combined causal effect of two exposures, such as heat and humidity. **Effect modification** pertains to how the causal effect of one exposure changes across different levels of a second exposure. For example, “How does the effect of heat change across different levels of humidity?”. Let T refer to heat, H to humidity and Y represent the outcome of interest such as heat-related death. $Y^t$ is the counterfactual outcome under exposure t and $Y^{th}$ is the counterfactual outcome under t and h.
-Humidity (H) is an effect modifier on the risk difference scale for the effect of heat (T) on the outcome (Y) if H is not affected by T and there are two levels of T ($t_0$,$t_1$) and two levels of H ($h_0$,$h_1$), such that:
+*Interaction* refers to the combined causal effect of two exposures, such as heat and humidity. *Effect modification* pertains to how the causal effect of one exposure changes across different levels of a second exposure. For example, “How does the effect of heat change across different levels of humidity?”. 
+Let T refer to heat, H to humidity and Y represent the outcome of interest such as heat-related death. $Y^t$ is the counterfactual outcome under exposure t and $Y^{th}$ is the counterfactual outcome under t and h. 
+
+Humidity (H) is **effect modifier** on the risk difference scale for the effect of heat (T) on the outcome (Y) if H is not affected by T and there are two levels of T ($t_0$,$t_1$) and two levels of H ($h_0$,$h_1$), such that:
 
 $$
 Ε[Y^{t_1}│H=h_1] - E[Y^{t_0}│H=h_1] ≠ E[Y^{t_1}|H=h_0]- E[Y^{t_0}|H=h_0]
@@ -121,7 +126,7 @@ $$
 
 Effect modification indicates that the effect of heat on the outcome differs across levels of humidity. Recognizing effect modification allows for public health interventions to better address how heat exposure interacts with humidity, enabling more targeted strategies to mitigate health risks associated with specific combinations of heat and humidity.
 
-There is an interaction on the risk difference scale between T and H on Y if there are two levels of T ($t_0$,$t_1$) and two levels of H ($h_0$,$h_1$), such that:
+There is an **interaction** on the risk difference scale between heat (T) and humidity (H) on the outcome (Y) if there are two levels of T ($t_0$,$t_1$) and two levels of H ($h_0$,$h_1$), such that:
 $$
 Ε[Y^{t_1, h_1}] - E[Y^{t_0, h_1}] ≠ E[Y^{t_1, h_0}]- E[Y^{t_0, h_0}]
 $$
