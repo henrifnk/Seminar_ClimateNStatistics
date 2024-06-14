@@ -96,14 +96,14 @@ knitr::include_graphics('Confounder.png')
 
 **Figure 2:** Humidity as confounding effect.
 
-In many epidemiological studies, humidity has been used as a confounder in analyzing the effect of heat on health outcomes. By adjusting for humidity, researchers aim to remove the confounding influence of humidity on the relationship between heat and health outcomes, effectively eliminating the indirect path from heat to the health outcome through humidity. This adjustment leads to a different interpretation of the estimates, as shown in the following linear model:
+In many epidemiological studies, humidity has been used as a confounder in analyzing the effect of heat on health outcomes. By adjusting for humidity, researchers aim to remove the confounding influence of humidity on the relationship between heat and health outcomes, effectively eliminating the indirect effect of humidity through heat. Not adjusting for such an confounder may lead to an overestimation of the causal effect of heat. This adjustment leads to a different interpretation of the estimates, as shown in the following linear model:
 
 $$
 Ε[Y│t,h]= β_0+ β_1*t+ β_2*h
 $$
 
 
-Here, Y represents the health outcome of interest, t is heat, and h humidity. In this model, $β_1$ represents conditional total effect of heat on the health outcome at any given level of humidity. $β_2$ represents the direct effect of humidity on the outcome. That is the causal effect of humidity on the outcome when heat is held fix at a given level, thus blocking the humidity effect on heat. 
+Here, Y represents the health outcome of interest, t is heat, and h humidity. In this model, $β_1$ represents the conditional total effect of heat on the health outcome at any given level of humidity. $β_2$ represents the direct effect of humidity on the outcome. That is the causal effect of humidity on the outcome when heat is held fix at a given level, thus blocking the humidity effect on heat. 
 
 Therefore, interpretation of estimates can get very complex and the causal relation between the variables needs to be considered carefully. 
 Hence, interpreting confounding estimates can be misleading. (@baldwin, @westreich) 
