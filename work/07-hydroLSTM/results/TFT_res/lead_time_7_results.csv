@@ -1,0 +1,2 @@
+,lag: 7,lag: 6,lag: 5,lag: 4,lag: 3,lag: 2,lag: 1
+0,"tensor(0.6580, dtype=torch.float64)","tensor(0.6724, dtype=torch.float64)","tensor(0.6799, dtype=torch.float64)","tensor(0.6777, dtype=torch.float64)","tensor(0.6611, dtype=torch.float64)","tensor(0.6603, dtype=torch.float64)","tensor(0.7118, dtype=torch.float64)"
