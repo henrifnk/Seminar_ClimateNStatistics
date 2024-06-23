@@ -1,2 +1,2 @@
-,lag: 2,lag: 1
-0,"tensor(0.9074, dtype=torch.float64)","tensor(0.9440, dtype=torch.float64)"
+,lag: 1,lag: 2
+0,tensor(0.9742),tensor(0.8839)
