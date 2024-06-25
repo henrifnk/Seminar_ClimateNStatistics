@@ -348,7 +348,8 @@ with $C_0 = 2.515517, C_1 = 0.802853, C_2 = 0.010328, C_3 = -0.000220$ $d_1 = 1.
 long_data <- climate_data %>%
   dplyr::select(Jahr, Monat, Datum, spei1, spei3, spei6, spei12, spei18, spei24) %>%
   pivot_longer(cols = starts_with("spei"), names_to = "time_scale", values_to = "spei") %>%
-  mutate(time_scale = factor(time_scale, levels = c("spei1", "spei3", "spei6", "spei12", "spei18", "spei24"))) %>%
+  mutate(time_scale = factor(time_scale, levels = c("spei1", "spei3", "spei6", "spei12", "spei18", "spei24"), labels = c(
+    "SPEI1", "SPEI3", "SPEI6", "SPEI12", "SPEI18", "SPEI24"))) %>%
   filter(!is.na(spei))
   
 
@@ -378,7 +379,7 @@ climate_data %>%
   ggplot(aes(x = Datum, y = spei12)) +
   geom_area() +
   geom_hline(yintercept = -2, linetype = "dashed", color = "red") +
-  labs(x = "Year", y = "spei12")
+  labs(x = "Year", y = "SPEI12")
 ```
 
 ## Extreme Drought Conditions
@@ -388,11 +389,11 @@ climate_data %>%
   filter(Jahr > 1920) %>%
   mutate(extreme = ifelse(spei12 < -2, 1, 0)) %>%
   # for 10 years sum the number of extreme droughts
-  mutate(extreme_sum = rollapply(extreme, 120, sum, fill = NA, align = "right")) %>%
+  mutate(extreme_sum = rollapply(extreme, 120, sum, fill = NA, align = "right")/120) %>%
   filter(!is.na(extreme_sum)) %>%
   ggplot(aes(x = Datum, y = extreme_sum)) +
   geom_line() +
-  labs(x = "Year", y = "Number of spei12 less then -2 \n in the Last 10 Years")
+  labs(x = "Year", y = "Proportion of SPEI12 less then -2 \n in the Last 10 Years")
 ```
 
 ## Average SPEI is decreasing
@@ -404,7 +405,7 @@ climate_data %>%
   filter(!is.na(spei_avg)) %>%
   ggplot(aes(x = Datum, y = spei_avg)) +
   geom_line() +
-  labs(x = "Year", y = "Moving average of spei12 over 10 year period")
+  labs(x = "Year", y = "Moving Average of SPEI12 over 10 Year Period")
 ```
 
 ## 
@@ -423,12 +424,12 @@ Jahr > 1920) %>%
          spei_avg18 = rollapply(spei18, 120, mean, fill = NA, align = "right"),
          spei_avg24 = rollapply(spei24, 120, mean, fill = NA, align = "right")) %>%
   pivot_longer(cols = starts_with("spei_avg"), names_to = "time_scale", values_to = "spei_avg") %>%
-  mutate(time_scale = factor(time_scale, levels = c("spei_avg1", "spei_avg3", "spei_avg6", "spei_avg12", "spei_avg18", "spei_avg24"))) %>%
+  mutate(time_scale = factor(time_scale, levels = c("spei_avg1", "spei_avg3", "spei_avg6", "spei_avg12", "spei_avg18", "spei_avg24"), labels = c("SPEI1", "SPEI3", "SPEI6", "SPEI12", "SPEI18", "SPEI24"))) %>%
   filter(!is.na(spei_avg)) %>%
   ggplot(aes(x = Datum, y = spei_avg)) +
   geom_line() +
   labs(x = "Year", y = "Moving average of spei over 10 year period") +
-  ggtitle("Moving average of spei for different time scales over a 10 years period") +
+  ggtitle("Moving Average of SPEI for Different Time Scales over a 10 Years Period") +
   facet_wrap(~ time_scale, ncol = 1, strip.position = "left") +
   theme(strip.background = element_blank(),
         strip.placement = "outside",
@@ -450,10 +451,11 @@ climate_data %>%
          spei_avg15 = rollapply(spei12, 180, mean, fill = NA, align = "right"),
          spei_avg20 = rollapply(spei12, 240, mean, fill = NA, align = "right")) %>%
   pivot_longer(cols = starts_with("spei_avg"), names_to = "period", values_to = "spei_avg") %>%
-  mutate(period = factor(period, levels = c("spei_avg1", "spei_avg5", "spei_avg10", "spei_avg15", "spei_avg20"))) %>%
+  mutate(period = factor(period, levels = c("spei_avg1", "spei_avg5", "spei_avg10", "spei_avg15", "spei_avg20"), labels = c(
+   "1 Year", "5 Years", "10 Years", "15 Years", "20 Years"))) %>%
   ggplot(aes(x = Datum, y = spei_avg)) +
   geom_line() +
-  labs(x = "Year", title = "Moving average of spei12 over different time periods") +
+  labs(x = "Year", title = "Moving Average of SPEI12 over Different Time Periods") +
   facet_wrap(~ period, ncol = 1, strip.position = "left") +
   theme(strip.background = element_blank(),
         strip.placement = "outside",
@@ -475,19 +477,19 @@ climate_data %>%
          extreme12 = ifelse(spei12 < -2, 1, 0),
          extreme18 = ifelse(spei18 < -2, 1, 0),
          extreme24 = ifelse(spei24 < -2, 1, 0)) %>%
-  mutate(extreme_sum1 = rollapply(extreme1, 120, sum, fill = NA, align = "right"),
-         extreme_sum3 = rollapply(extreme3, 120, sum, fill = NA, align = "right"),
-         extreme_sum6 = rollapply(extreme6, 120, sum, fill = NA, align = "right"),
-         extreme_sum12 = rollapply(extreme12, 120, sum, fill = NA, align = "right"),
-         extreme_sum18 = rollapply(extreme18, 120, sum, fill = NA, align = "right"),
-         extreme_sum24 = rollapply(extreme24, 120, sum, fill = NA, align = "right")) %>%
+  mutate(extreme_sum1 = rollapply(extreme1, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum3 = rollapply(extreme3, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum6 = rollapply(extreme6, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum12 = rollapply(extreme12, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum18 = rollapply(extreme18, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum24 = rollapply(extreme24, 120, sum, fill = NA, align = "right")/120) %>%
   pivot_longer(cols = starts_with("extreme_sum"), names_to = "time_scale", values_to = "extreme_sum") %>%
-  mutate(time_scale = factor(time_scale, levels = c("extreme_sum1", "extreme_sum3", "extreme_sum6", "extreme_sum12", "extreme_sum18", "extreme_sum24"))) %>%
+  mutate(time_scale = factor(time_scale, levels = c("extreme_sum1", "extreme_sum3", "extreme_sum6", "extreme_sum12", "extreme_sum18", "extreme_sum24"), labels = c("SPEI1", "SPEI3", "SPEI6", "SPEI12", "SPEI18", "SPEI24"))) %>%
   filter(!is.na(extreme_sum)) %>%
   ggplot(aes(x = Datum, y = extreme_sum)) +
   geom_line() +
-  labs(x = "Year", y = "Number of spei12 less then -2 \n in the Last 10 Years") +
-  ggtitle("Number of extreme drought conditions in the last 10 years for different time scales") +
+  labs(x = "Year") +
+  ggtitle("Proportion of Extreme Drought Conditions in the Last 10 Years for Different Time Scales") +
   facet_wrap(~ time_scale, ncol = 1, strip.position = "left") +
   theme(strip.background = element_blank(),
         strip.placement = "outside",
@@ -503,17 +505,18 @@ climate_data %>%
 climate_data %>%
   filter(Jahr > 1920) %>%
   mutate(extreme = ifelse(spei12 < -2, 1, 0)) %>%
-  mutate(extreme_sum1 = rollapply(extreme, 12, sum, fill = NA, align = "right"),
-         extreme_sum5 = rollapply(extreme, 60, sum, fill = NA, align = "right"),
-         extreme_sum10 = rollapply(extreme, 120, sum, fill = NA, align = "right"),
-         extreme_sum15 = rollapply(extreme, 180, sum, fill = NA, align = "right"),
-         extreme_sum20 = rollapply(extreme, 240, sum, fill = NA, align = "right")) %>%
+  mutate(extreme_sum1 = rollapply(extreme, 12, sum, fill = NA, align = "right")/12,
+         extreme_sum5 = rollapply(extreme, 60, sum, fill = NA, align = "right")/60,
+         extreme_sum10 = rollapply(extreme, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum15 = rollapply(extreme, 180, sum, fill = NA, align = "right")/180,
+         extreme_sum20 = rollapply(extreme, 240, sum, fill = NA, align = "right")/240) %>%
   pivot_longer(cols = starts_with("extreme_sum"), names_to = "period", values_to = "extreme_sum") %>%
-  mutate(period = factor(period, levels = c("extreme_sum1", "extreme_sum5", "extreme_sum10", "extreme_sum15", "extreme_sum20")))%>%
+  mutate(period = factor(period, levels = c("extreme_sum1", "extreme_sum5", "extreme_sum10", "extreme_sum15", "extreme_sum20"), labels = c(
+"1 Year", "5 Years", "10 Years", "15 Years", "20 Years"))) %>%
   ggplot(aes(x = Datum, y = extreme_sum)) +
   geom_line() +
-  labs(x = "Year", y = "Number of spei12 less then -2 \n in the Last 10 Years") +
-  ggtitle("Number of extreme drought conditions in the last 10 years for different periods") +
+  labs(x = "Year", y = "Number of spei12 less then -2 \n") +
+  ggtitle("Proportion of Extreme Drought Conditions in SPEI12 for Different Periods") +
   facet_wrap(~ period, ncol = 1, strip.position = "left") +
   theme(strip.background = element_blank(),
         strip.placement = "outside",
