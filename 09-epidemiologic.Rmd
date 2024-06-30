@@ -1,20 +1,159 @@
-#  Epidemiologic studies on the heat effects     {#he2}
+---
+title: "Epidemiologic Studies on the Heat Effects"
+author: "Oussama Mesbah"
+supervisor: "Helmut Kuechenhoff"
+degree: "Bachelor"
+date: "26.06.2024"
+output: html_document
+---
 
-*Author: Oussama Mesbah*
+# Agenda
 
-*Supervisor: Helmut Kuechenhoff*
+1. Excess mortality attributed to heat and cold (2023; Masselot et al.)
+   - Background for study
+   - Added value
+   - Limitations
+   - Findings
+2. Data and framework
+   - Modelling framework
+   - Partial least squares regression
+   - Akaike information criterion
+3. Methods
+   - Quasi Poisson Regression model
+   - Distributed lag non-linear model
+4. Joint effect of heat and air pollution on mortality (2023; Stafoggia et al.)
+   - Findings
+   - Model
+5. Discussion
 
-*Degree: Bachelor*   
+# Excess Mortality Attributed to Heat and Cold (2023; Masselot et al.)
 
-There are many epidemiological studies for assessing the effect of heat on health.
-One strategy is to use daily mortality data and weather data in certain areas to 
-estimate heat related mortality by regression models. Two recent papers by groups of 
-researchers give an overview: 
+## Background for Study
 
-#. General effects 
-@masselot
+- **Goal**: Comprehensive and robust mortality impact assessment.
+- **Context**: Both heat and cold are established risk factors with numerous studies on the subject.
+- Previous studies often focus on country-specific data or miss important factors.
+- Referenced Studies:
+  - Global, regional, and national burden of mortality associated with non-optimal ambient temperatures from 2000 to 2019 (2021; Zhao Q, Guo Y, Ye T, et al.)
+  - Mortality risk attributable to high and low ambient temperature (2015; Gasparrini et al.)
+  - Temperature-related mortality: a systematic review and investigation of effect modifiers (2019; Son J-Y, Liu JC, Bell ML.)
 
-#. Joint effects of air pollution and heat 
-@stafoggia
-  
-Results and statistical methods should be presented
+## Added Value
+
+### General
+
+- **Unprecedented City Coverage**: Covers 854 urban areas across Europe, offering a more comprehensive assessment than prior studies focused on specific countries or regions.
+- **Focus on Both Heat and Cold**: Provides a balanced assessment of both heat and cold impacts, offering a more complete picture of temperature-related health risks.
+- **Age-Specific and Standardized Analysis**: Models age-specific risks and provides age-standardized mortality rates, highlighting the heightened vulnerability of the elderly.
+- **Integration of Vulnerability Factors**: Incorporates a wide range of city-specific socioeconomic, infrastructural, and environmental characteristics to create composite vulnerability indices.
+
+### Comparison
+
+| Feature                       | Zhao et al. (2021)            | Masselot et al. (2023)               | Added Benefit of Masselot et al. (2023)                       |
+|-------------------------------|-------------------------------|--------------------------------------|---------------------------------------------------------------|
+| **Geographical Scope**        | Global (750 locations in 43 countries) | Europe (854 cities in 30 countries)   | More detailed focus on a specific region.                      |
+| **Temporal Scope**            | 2000-2019                     | 2000-2019                            | Allows direct comparison of results.                           |
+| **Exposure Data**             | Gridded temperature data (0.5° x 0.5°) | ERA5-Land reanalysis data (9 km resolution) | Higher resolution data provides more accurate exposure assessment. |
+| **Outcome Data**              | Daily all-cause or non-external mortality counts | Daily all-cause or non-accidental mortality counts, with age-specific data for a subset of cities | Inclusion of age-specific mortality data allows for nuanced analysis. |
+| **Modeling Framework**        | Three-stage: time-series regression, meta-regression, prediction | Three-stage: quasi-Poisson regression with DLNM, meta-regression with PLS, kriging interpolation | Incorporation of PLS for dimensionality reduction and kriging for spatial interpolation. |
+| **Vulnerability Assessment**  | Limited to 5 meta-predictors | Includes 22 city-specific characteristics | Comprehensive assessment of vulnerability factors. |
+| **Age-Specific Analysis**     | Not explicitly mentioned      | Provides age-specific relative risks and age-standardized mortality rates | More targeted understanding of vulnerable age groups.         |
+
+## Limitations
+
+- **Geographical Extrapolation**: Extrapolation of exposure-response functions (ERFs) across European cities may introduce bias, especially in less covered areas like Eastern Europe.
+- **Age-Specific Limitations**: Could not reliably estimate ERFs for people younger than 20 years due to low death counts, limiting the analysis to broader age bands for younger populations.
+
+## Findings
+
+- **Headline Figures**:
+  - Annual excess of 203,620 (95% CI 180,882-224,613) deaths due to cold.
+  - Annual excess of 20,173 (95% CI 17,261-22,934) deaths due to heat.
+  - Age-standardized excess death rates of 129 (95% CI 114-142) per 100,000 person-years for cold and 13 (95% CI 11-14) per 100,000 person-years for heat.
+- **Key Message**: Non-optimal temperatures have a substantial impact on mortality in European cities, with cold being a much larger contributor than heat. Results varied across Europe and age groups, with the highest effects in eastern European cities. Vulnerability increases with age, especially for the elderly (85+ years).
+
+# Data and Framework
+
+## Scope
+
+- 854 Urban audit cities from Eurostat.
+- 232 Multicountry Multi-city (MCC) Collaborative Research Network cities.
+
+## Framework
+
+- **Stage 1**: City-Specific Risk Estimation.
+- **Stage 2**: Meta-Regression and Spatial Interpolation.
+- **Stage 3**: Prediction and Impact Assessment.
+
+## Meta-Predictors
+
+1. Total population
+2. Proportion of population above 65 years old
+3. Population density
+4. Proportion of single-person households
+5. Life expectancy at birth
+6. Gross domestic product (GDP) per capita
+7. Unemployment rate
+8. Education level (proportion of population with higher education)
+9. Deprivation rate
+10. Hospital bed rates
+11. Imperviousness (percentage of soil sealing)
+12. Tree cover density
+13. Grassland cover
+14. Water and wetness
+15. Small woody features density
+16. Elevation
+17. Coastal region type (distance to coast)
+18. Normalized Difference Vegetation Index (NDVI)
+19. PM2.5 concentration
+20. Nitrogen dioxide (NO2) concentration
+21. Annual temperature range
+22. Mean annual temperature
+
+# Methods
+
+## Overview
+
+- Quasi-Poisson Time Series Model
+- Distributed Lag Non-Linear Model (DLNM)
+- Quadratic B-Spline
+- Cubic Natural Spline
+- Meta-Regression
+- Partial Least Squares (PLS) Regression
+- Natural Spline (ns)
+- Multivariate Multilevel Model
+- Best Linear Unbiased Prediction (BLUP)
+- Akaike Information Criterion (AIC)
+- Kriging
+- Health Impact Assessment (HIA)
+
+## Quasi-Poisson Time Series (QPTS)
+
+- **GLM Components**: Distribution for modeling \(Y_i\), a linear predictor \(\eta = X\beta\), and a link function \(g\) such that \(E[Y] = \mu = g^{-1}(\eta)\).
+- **QPTS Definition**:
+  - \(Y_i \sim \text{Poisson}(\lambda_i)\)
+  - \(\eta_i = X_i \beta\)
+  - \(g(\lambda_i) = \log(\lambda_i) = \eta_i\), thus \(\lambda_i = g^{-1}(\eta_i) = \exp(\eta_i)\)
+- **Overdispersion**:
+  - \(Var(Y_i) = \theta \lambda_i\)
+  - If \(\theta = 1\), data conforms to Poisson assumption. If \(\theta > 1\), data is overdispersed. If \(\theta < 1\), data is underdispersed.
+
+## Distributed Lag Non-Linear Model (DLNM)
+
+- **Purpose**: Assess how an exposure affects outcomes over time, capturing delayed impacts.
+- **Model**:
+  - \(log(E[Y_i]) = \alpha + s(temp_i, \eta) + \sum_{p=1}^{P} h_p(z_{p,i}, \gamma_p)\)
+  - Where \(E[Y_i]\) is the expected daily death count on day \(i\), \(s(temp_i, \eta)\) is the distributed lag non-linear function for temperature, and \(h_p(z_{p,i}, \gamma_p)\) represents the contribution of the \(p\)-th confounder.
+
+# Joint Effect of Heat and Air Pollution on Mortality (2023; Stafoggia et al.)
+
+## Findings
+
+- **Scope**: Analyzed data from 620 cities in 36 countries.
+- **Key Findings**:
+  - Increased Mortality with Combined Exposure: Both high temperatures and air pollution independently increase mortality rates, but their combined effect is even more significant.
+  - Temperature increase (75th to 99th percentile) leads to 8.9% rise in mortality.
+
+# Discussion
+
+Time for discussion.
