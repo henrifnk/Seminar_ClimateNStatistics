@@ -120,7 +120,7 @@ If heat (the exposure of interest) and humidity (the confounder) are highly corr
 Baldwin et al. suggest using alternative approaches to significance testing that do not rely solely on p-values. Furthermore, it is crucial to carefully consider the relationship between heat and humidity and their individual effects on health outcomes to avoid misleading results. (@bald)
 
 ### Effect Modification and Interaction 
-Including humidity as an effect modifier or interaction with heat is another method to test an effect of humidity in the framework of negative health outcomes and was used in some epidemiological studies (@baldwin). Unlike confounding, which distorts relationships and should therefore be eliminated, effect modification and interaction are desirable biases. They provide valuable insights into how variables interact and influence outcomes, revealing inherent aspects of causal relationships that need clarification. 
+Including humidity as an effect modifier or interaction with heat is another method to test an effect of humidity in the framework of negative health outcomes and was used in some epidemiological studies (@bald). Unlike confounding, which distorts relationships and should therefore be eliminated, effect modification and interaction are desirable biases. They provide valuable insights into how variables interact and influence outcomes, revealing inherent aspects of causal relationships that need clarification. 
 
 Often, the two terms *Effect Modification* and *Interaction* are used interchangeably. However, from a causal view these two concepts differ in a counterfactual perspective and slightly differ in their definition. The counterfactual perspective involves hypothetical scenarios, asking “What if?” questions such as, “What if heat remained the same but humidity was lower? Would the health outcome change?”. (@bours) Counterfactual outcomes are typically written with a superscript such as $Y^t$ and answers the question: "What would the outcome Y be if the exposure was t?". Or as another example $Y^{th}$ answers the question: "What would the outcome Y be if both exposures t and h occurred together?". As in real-world data typically not all combinations of exposures are observed in each individual we are talking about hypothetical scenarios.  
 Both concepts are scale dependent and their presence depends on the scale used. Here, we use the risk difference scale for formal definitions. 
@@ -180,7 +180,8 @@ Barreca conducted a study that found an effect of heat and humidity on mortality
 To estimate the effects of heat and humidity, Barreca employed an ordinary-least-squares model with the following equation: 
 
 $$
-MORT_{cmy} = \sum_b \beta^b*TEMP^b_{cmy} + \sum_{b'} \alpha^{b'} * HUMID^{b'}_{cmy} + X_{cmy} \gamma + \mu_{my} +  \phi_{cm} + \delta_{cm} * TIME + \pi_{cm}*TIME^2 + \epsilon_{kym}
+MORT_{cmy} = \sum_b \beta^b*TEMP^b_{cmy} + \sum_{b'} \alpha^{b'} * HUMID^{b'}_{cmy} + X_{cmy} \gamma + \mu_{my} + \\
+\phi_{cm} + \delta_{cm} * TIME + \pi_{cm}*TIME^2 + \epsilon_{kym}
 $$
 
 In this model:
