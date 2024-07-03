@@ -14,3 +14,4 @@ book.tex
 packages.bib
 */07-hydroLSTM/*.DS_Store
 */07-hydroLSTM/*/lightning_logs/*
+*/07-hydroLSTM/images/.DS_Store
