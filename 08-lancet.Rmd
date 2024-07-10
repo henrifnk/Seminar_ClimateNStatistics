@@ -22,9 +22,14 @@ The remainder of this chapter provides some background information on climate mo
 
 ## Background
 
-sdafdsf
+Shared Socioeconomic pathways (SSPs) (@RIAHI2017153) were established by the climate research community in order to make the analysis of future climate impacts, vulnerabilities, adaptation, and mitigation possible. They describe alternative socioeconomic developments regarding their energy, land use, and emissions implications, e.g. more or less renewable energy vs. fossile fuels. The following SSPs are of interest for the rest of this chapter:
 
-```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+#. SSP1: Sustainability (low challenges to mitigation and adaption), corresponding to a 2°C emission scenario
+#. SSP3: Regional Rivalry (high challenges to mitigation and adaptation), corresponding to a 3.7°C emission scenario
+
+These pathways are considered by climate models, e.g. CMIP6 (@gmd-9-1937-2016), in order to describe multiple scenarios for climate projections. Figure \@ref(fig:cmip6) shows CMIP6 simulations for multiple models and all SSPs. In this chapter, we consider SSP1, representing a sustainable path, and SSP3, representing a non-sustainable path, which humanity is following right now.
+
+```{r cmip6, echo=FALSE, fig.cap="CMIP6 climate simulations for SSPs with projections until 2100 (https://www.dkrz.de/en/communication/climate-simulations/cmip6-en/cmip6-acivities-at-dkrz-overview?set_language=en; accessed on July 10, 2024)", out.width = '100%'}
 knitr::include_graphics("work/08-lancet/figures/cmip6.jpg")
 ```
 
