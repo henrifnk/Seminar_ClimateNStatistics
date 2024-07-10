@@ -1,14 +1,52 @@
 # The Lancet Report 2023    {#he1}
 
-*Author: Author*
+*Author: Michael Strobl*
 
-*Supervisor: Helmut Kuechenhoff*
+*Supervisor: Prof. Dr. Helmut Küchenhoff*
 
-*Suggested degree: Bachelor* 
+THis is an abstract
+
+## Introduction
+
+asdfdsf
+
+## Background
+
+sdfdsf
+
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("work/08-lancet/figures/cmip6.jpg")
+```
+
+## Selected Indicators
+
+sdfdsfds
+
+### First one
+
+sdfdsfds
+
+### second one 
+
+sdfdsfds
+
+### third one
+
+sdfdsfdsf
+
+## Discussion
+
+sdfdsfds
+
+## Conclusion
+
+sdfdsf
 
 In yearly reports one of the leading scientific journals in health research 
 gives an overview on the state of the art knowledge on the effect of climate 
-change on health (@romanello).  The following aspects should be treated: 
+change on health (@romanello20232023).  The following aspects should be treated: 
+
+
 
 #. Main results and message 
 #.  Communication of results 
