@@ -4,15 +4,25 @@
 
 *Supervisor: Prof. Dr. Helmut Küchenhoff*
 
-THis is an abstract
+
 
 ## Introduction
 
-asdfdsf
+The 2023 report of the Lancet Countdown on health and climate change (@romanello20232023) aims to monitor the evolving impact of climate change on health and the emerging health opportunities of climate action. It is in its eighth iteration and was created by 114 scientists and health practitioners from 52 research institutions and UN agencies from all continents (but Antarctica). 
+
+The current report focuses on 47 indicators, tracking changes based on observed data as well as projections, in the following fields:
+
+#. Health hazards, exposures, and impacts
+#. Adaptation, planning, and resilience for health
+#. Mitigation actions and health co-benefits
+#. Economics and fincance
+#. Public and political engagement with health and climate change
+
+The remainder of this chapter provides some background information on climate models, detailed information on three indicators, and a conclusion.
 
 ## Background
 
-sdfdsf
+sdafdsf
 
 ```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
 knitr::include_graphics("work/08-lancet/figures/cmip6.jpg")
@@ -33,10 +43,6 @@ sdfdsfds
 ### third one
 
 sdfdsfdsf
-
-## Discussion
-
-sdfdsfds
 
 ## Conclusion
 
