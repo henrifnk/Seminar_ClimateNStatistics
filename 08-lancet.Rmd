@@ -35,17 +35,19 @@ knitr::include_graphics("work/08-lancet/figures/cmip6.jpg")
 
 ## Selected Indicators
 
+We selected three indicators from the first field (Health hazards, exposures, and impacts) with detailed descriptions and outcomes.
+
+### Indicator 1.1.2: Exposure of vulnerable populations to heatwaves
+
+Heatwaves have a severe or even life-threatening impact on human health, e.g. high temperatures can cause heat stroke, heat exhaustion, heat syncope, and heat cramps (see for example @doi:10.1161/CIRCULATIONAHA.122.061832 or @chambers2020). The following variables (among others) can influence mortality: increased risk for older adults (>65 years of age), low-income countries due to a reduced number of health workers, or pre-existing cardiovascular and chronic respiratory conditions.
+
+This indicator tracks the number of heatwave days and the exposure of vulnerable populations (older adults and infants <1 years of age) to heatwaves. A heatwave day is a period of 2 or more days where both the minimum and maximum temperatures are above the 95th percentile of temperatures in 1986-2005.
+
+### Indicator 1.1.5: Heat-related mortality
+
 sdfdsfds
 
-### First one
-
-sdfdsfds
-
-### second one 
-
-sdfdsfds
-
-### third one
+### Indicator 1.4: Food insecurity and undernutrition
 
 sdfdsfdsf
 
