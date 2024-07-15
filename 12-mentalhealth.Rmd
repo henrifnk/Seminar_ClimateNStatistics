@@ -13,7 +13,7 @@ bibliography: bib_12_MH.bib
 
 *Degree: Master*  
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(bookdown)
 ```
