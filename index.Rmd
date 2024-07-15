@@ -17,7 +17,8 @@ graphics: yes
 
 ```{r setup, include=FALSE}
 options(
-  htmltools.dir.version = FALSE, formatR.indent = 2, width = 55, digits = 4
+  htmltools.dir.version = FALSE, formatR.indent = 2, width = 55, digits = 4,
+  knitr.duplicate.label = "allow"
 )
 output <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 is.html = !is.null(output) && output == "html"
