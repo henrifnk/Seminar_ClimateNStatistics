@@ -11,6 +11,8 @@ output:
 
 *Supervisor: Prof. Dr. Helmut Küchenhoff*
 
+*Suggested degree: Bachelor*
+
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(bookdown)
 library(svglite)
@@ -28,7 +30,7 @@ The current report focuses on 47 indicators, tracking changes based on observed 
 #. Economics and fincance
 #. Public and political engagement with health and climate change
 
-The remainder of this chapter provides some background information on climate models, detailed information on three indicators, and a conclusion.
+The remainder of this chapter provides some background information on climate models, detailed information on three indicators, and a discussion.
 
 ## Background
 
@@ -49,7 +51,7 @@ We selected three indicators from the first field (Health hazards, exposures, an
 
 ### Indicator 1.1.2: Exposure of vulnerable populations to heatwaves
 
-Heatwaves have a severe or even life-threatening impact on human health, e.g. high temperatures can cause heat stroke, heat exhaustion, heat syncope, and heat cramps (see for example @doi:10.1161/CIRCULATIONAHA.122.061832 or @chambers2020). The following variables (among others) can influence mortality: increased risk for older adults (>65 years of age), low-income countries due to a reduced number of health workers, or pre-existing cardiovascular and chronic respiratory conditions.
+Heatwaves have a severe or even life-threatening impact on human health, e.g. high temperatures can cause heat stroke, heat exhaustion, heat syncope, and heat cramps (see, for example, @doi:10.1161/CIRCULATIONAHA.122.061832 or @chambers2020). The following variables (among others) can influence mortality: increased risk for older adults (>65 years of age), low-income countries due to a reduced number of health workers, or pre-existing cardiovascular and chronic respiratory conditions.
 
 This indicator tracks the number of heatwave days and the exposure of vulnerable populations (older adults and infants <1 years of age) to heatwaves. A heatwave day is a period of 2 or more days where both the minimum and maximum temperatures are above the 95th percentile of temperatures in 1986-2005.
 
@@ -58,7 +60,7 @@ The following datasets were used for this indicator:
 * ERA5 monthly averaged data on single levels (@hersbach2020era5): World-wide weather data on a lat-lon grid of 0.25 degrees from 1940 onwards.
 * ISIMP3b Bias Adjustment dataset (@lange2021isimip3b): A bias adjusted and downscaled version of the output of CMIP6 climate models with projections up to the year 2100.
 * Hybrid gridded demographic data for the world (@Chambers_2020): Demographics data from 1950-2020 with 5-year population bands and a 0.5 degree grid.
-* 2020 Revision of World Population Prospects (https://population.un.org/wpp/): This dataset contains population estimates as well as projections for 237 countries or areays between 1950 and 2100.
+* 2020 Revision of World Population Prospects (https://population.un.org/wpp/): This dataset contains population estimates as well as projections for 237 countries or areas between 1950 and 2100.
 * A global downscaled age structure dataset for assessing human impacts of climate change (@briggsdaviddownscaled): This dataset contains historic population estimates starting in 1970 and projections considering SSP1 and SSP3 in a 0.5 degree grid.
 
 Headline Finding:
@@ -76,7 +78,7 @@ knitr::include_graphics("work/08-lancet/figures/indicator_1_2.png")
 
 The change in the number of heatwave days ranges from approximately -1 in Portugal to 16 in Tajikistan, with only minimal differences between infants and older adults.
 
-Similarly, the ISIMP3b Bias Adjustment dataset combined with the global downscaled age structure dataset can be used to project the change in heatwave days up until the year 2100. Figures \@ref(fig:heatwaves2ssp1strobl) and \@ref(fig:heatwaves2ssp3strobl) show the projected change in heatwave days for older adults at mid-century (2041-2060) with baseline period 1995-2014. For example, for the increase for Venezuela ranges from approximately 88 (SSP1) to 153 (SSP3) heatwave days for both emission scenarios.
+Similarly, the ISIMP3b Bias Adjustment dataset combined with the global downscaled age structure dataset can be used to project the change in heatwave days up until the year 2100. Figures \@ref(fig:heatwaves2ssp1strobl) and \@ref(fig:heatwaves2ssp3strobl) show the projected change in heatwave days for older adults at mid-century (2041-2060) with baseline period 1995-2014. For example, the increase for Venezuela ranges from approximately 88 (SSP1) to 153 (SSP3) heatwave days per year.
 
 ```{r heatwaves2ssp1strobl, cache=FALSE, out.width="100%", eval=TRUE, echo=FALSE, fig.cap="Projections of the change in number of heatwave days for older adults per country for SSP1 (under 2 degree scenario) for mid-century (2041-2060) with baseline period 1995-2014."}
 knitr::include_graphics("work/08-lancet/figures/indicator_1_3.png")
@@ -87,29 +89,29 @@ knitr::include_graphics("work/08-lancet/figures/indicator_1_4.png")
 
 ### Indicator 1.1.5: Heat-related mortality
 
-This indicator is tracking days with temperatures exceeding safe levels for humans and heat-related mortality. Again, older adults are considered.
+This indicator is tracking days with temperatures exceeding safe levels for humans and heat-related mortality. Only older adults are considered.
 
 Similar datasets are used here as for the previous indicator. However, the difficulty arises due to the fact that safe temperatures may vary across regions (see @Honda2014). 
 
 Headline Finding:
 
-"In 2018-2022, people experienced on average 86 days of health-threatening high temperatures annually. 60% of such temperatures were made more than twice as likely to occur by human-caused climate change"
+"In 2018-2022, people experienced on average 86 days of health-threatening high temperatures annually. 60% of such temperatures were made more than twice as likely to occur by human-caused climate change."
 
 Therefore, @Honda2014 created the notion of an Optimum Temperature (OT), at which the mortality is the lowest. Figure \@ref(fig:mortalityhondastrobl) shows an example for the Tokyo Prefecture and the period 1972-2008. A smoothing spline with six degrees of freedom was used to model the Relative Risk (RR) for mortality and observed daily maximum temperature data. OT represents the daily maximum temperature where RR is the lowest. RR was used here in order to account for different populations of regions and an RR=1.0 is the reference mortality at around OT, i.e. the average number of deaths observed when the daily maximum temperature was within the range of the 75th to the 85th percentile for each year.
 
-```{r mortalityhondastrobl, cache=FALSE, out.width="100%", eval=TRUE, echo=FALSE, fig.cap="A smoothing spline with six degrees of freedom was used for temperature data from the Tokyo Prefector and the period 1972-2008, showing the daily maximum temperatures and the Relative Risk (RR) for mortality."}
+```{r mortalityhondastrobl, cache=FALSE, out.width="100%", eval=TRUE, echo=FALSE, fig.cap="A smoothing spline with six degrees of freedom was used for temperature data from the Tokyo Prefecture and the period 1972-2008, showing the daily maximum temperatures and the Relative Risk (RR) for mortality."}
 knitr::include_graphics("work/08-lancet/figures/121_3.png")
 ```
 
-The shaded area to the right of OT represents temperatures with increased mortality, i.e. daily maximum temperatures above OT are considered as risky for older adults. The average OT temperatures percentile of 47 Japanese prefectures was 83.6, which was used to decide which daily maximum temperatures exceeded safe levels for this indicator. In addition, a distributed lag nonlinear model (@Armstrong2006-mv) was used to model the increase in mortality (represented by RR) depending on temperature. This model is considered as a response function, which can be used to calculate the RR and therefore the absolute increase of mortality depending on the observed or projected temperatures.
+The shaded area to the right of OT represents temperatures with increased mortality, i.e. daily maximum temperatures above OT are considered as risky for older adults. The average OT percentile of 47 Japanese prefectures was 83.6, which was used to decide which daily maximum temperatures exceeded safe levels for this indicator. In addition, a distributed lag nonlinear model (@Armstrong2006-mv) was used to model the increase in mortality (represented by RR) depending on temperature. This model is considered as a response function, which can be used to calculate the RR and therefore the absolute increase of mortality depending on the observed or projected temperatures.
 
-Figure \@ref(fig:mortality1strobl) shows the increase in the number of days with unsafe temperatures (daily maximum temperatures exceeding OT). This includes the increasing number of days that were made at least twice as likely due to human induced climate change.
+Figure \@ref(fig:mortality1strobl) shows the increase in the number of days with unsafe temperatures (daily maximum temperatures exceeding OT). This includes the increasing number of days that were made at least twice as likely due to human induced climate change (it is not described how the red line was created).
 
 ```{r mortality1strobl, cache=FALSE, out.width="100%", eval=TRUE, echo=FALSE, fig.cap="Average number of days with unsafe temperatures for older adults from 1997 to 2022, including days that are twice as likely due to climate change."}
 knitr::include_graphics("work/08-lancet/figures/indicator_2_1.png")
 ```
 
-In addition, Figures \@ref(fig:mortality2ssp1strobl) and \@ref(fig:mortality2ssp3strobl) show the absolute projected increase in heat-related mortality per country for older adults at mid-century (2041-2060) compared to 1995-2014 as baseline, for SSP1 and SSP3, respectively. In both cases there is an increase, although it seems that the two scenarios, SSP1 and SSP3, have been flipped and only the absolute increase is shown, i.e. it is obvious that highly populated countries, such as India and China, have a very high increase compared to smaller countries.
+In addition, Figures \@ref(fig:mortality2ssp1strobl) and \@ref(fig:mortality2ssp3strobl) show the absolute projected increase in heat-related mortality per country for older adults at mid-century (2041-2060) compared to 1995-2014 as baseline, for SSP1 and SSP3, respectively. In both cases there is an increase, although it seems that the two scenarios, SSP1 and SSP3, have been flipped accidentially. In addition, only the absolute increase is shown, i.e. it is obvious that highly populated countries, such as India and China, have a very high increase compared to smaller countries. 
 
 ```{r mortality2ssp1strobl, cache=FALSE, out.width="100%", eval=TRUE, echo=FALSE, fig.cap="Projections of the absolute change in heat-related mortality for older adults per country for SSP1 (under 2 degree scenario) for mid-century (2041-2060) with baseline period 1995-2014."}
 knitr::include_graphics("work/08-lancet/figures/indicator_2_4.png")
@@ -117,6 +119,8 @@ knitr::include_graphics("work/08-lancet/figures/indicator_2_4.png")
 ```{r mortality2ssp3strobl, cache=FALSE, out.width="100%", eval=TRUE, echo=FALSE, fig.cap="Projections of the absolute change in heat-related mortality for older adults per country for SSP3 (3.7 degree scenario) for mid-century (2041-2060) with baseline period 1995-2014."}
 knitr::include_graphics("work/08-lancet/figures/indicator_2_5.png")
 ```
+
+The response function is kept constant for these projections, i.e. adaptation is ignored for this indicator. Also, absolute numbers of mortality are used here, i.e. it was not distinguished between heat-related deaths and other causes.
 
 ### Indicator 1.4: Food insecurity and undernutrition
 
