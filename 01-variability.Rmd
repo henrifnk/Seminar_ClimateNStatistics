@@ -85,12 +85,9 @@ Overall, these methods represent different approaches to reducing uncertainties 
 
 ## 2.3 Example of a climate model ensemble
 
-```{r Ensemble, cache=FALSE, out.width="500", fig.align="center", echo = FALSE, eval = TRUE}
-knitr::include_graphics('work/01-variability/figures/Ensemble.png')
+```{r EnsembleSenta, eval=, echo=FALSE, fig.align="center", fig.cap="CCSM3 40-member ensemble (@deser)" cache=FALSE, out.width="500"}
+knitr::include_graphics('work/01-variability/figures/EnsembleSenta.png')
 ```
-**Figure 1:** <font size="2">) CCSM3 40-member ensemble mean epoch differences (2051–2060 minus 2005–2014) in DJF for
-SLP,Precip and TS. (@deser)
-
 
 The climate model ensemble from (@deser) in more detail. A coupled ocean-atmosphere-land-cryosphere general circulation model (CCSM3) is used. It realistically simulates the main patterns of climate variability, but shows a higher regularity and frequency for ENSO than in nature. The 40-member CCSM3 ensemble uses the T42 version with specific resolutions for the different components and considers the A1B greenhouse gas scenario. The initial conditions for ocean, land and sea ice are identical for each ensemble member and are from 1 January 2000, while the atmospheric conditions vary. 
 In addition, a 10,000-year control integration of CAM3, the atmospheric component of CCSM3, is used. This integration takes into account recurring seasonal cycles without annual variability based on observations from 1980-2000.
