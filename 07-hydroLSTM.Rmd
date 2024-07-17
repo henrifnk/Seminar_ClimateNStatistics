@@ -30,7 +30,7 @@ Streamflow forecasting plays a crucial role in water resource management, partic
 
 Hydropower is the dominant source of renewable energy, accounting for 16% of the world's electricity output and 62% of renewable electricity generation (@hess-26-2431-2022). Precise streamflow predictions can be beneficial in optimizing reservoir operations. @hess-26-2431-2022 show that this is the case for 94% of all analyzed dams dependent on forecasting ability and reservoir characteristics.
 
-A Streamflow refers to the flow of water in rivers, streams or other water bodies, originating from precipitation, melting snow, and groundwater discharge. It is typically measured in cubic meters per second (m³/s).
+A streamflow refers to the flow of water in rivers, streams or other water bodies, originating from precipitation, melting snow, and groundwater discharge. It is typically measured in cubic meters per second (m³/s).
 
 In recent years, machine learning techniques have emerged as powerful tools for forecasting in various domains, including hydrology. Traditional hydrological models often rely on extensive datasets and intricate physical parameters, which can be challenging to obtain and process. In contrast, machine learning models such as Long Short-Term Memory (LSTM) networks offer an alternative approach by learning patterns directly from historical data.
 
@@ -42,11 +42,11 @@ This study aims to evaluate and compare the performance of LSTM and TFT models i
 
 The streamflow data is gathered from the bavarian hydrology authority (GKD). They provide freely accessible data on most water bodies in Bavaria @bayerisches_landesamt. Focusing on rivers of medium size where the entire length of the river is located inside of the state of Bavaria, the river Regen positioned north/east of the city of Regensburg was chosen as a bases for this study. The GKD has data on 21 streamflow gauging stations located at the Regen or any of its tributary rivers. For the Regen river, data between 2014 and 2024 is available with daily measurements on the streamflows including the coordinates of the the gauging station. This study focused on the 15207507 Marienthal gauging station that was located closest to the final outflow towards the Danube river within the city of Regensburg. Utilizing the HydroRIVERS dataset, which contains the shapes of rivers all over the world, it was possible the acquire the shape of the Regen along with its geolocation as shown in figure \@ref(fig:regen-shape) @lehner.
 
-```{r regen-shape,fig.cap = 'Streamflow Gauging Stations that provide there measurements at the GKD along the Regen river (adapted from @OpenStreetMap)', cache=FALSE, out.width="400px", fig.align="center", echo=FALSE, eval = TRUE}
+```{r regen-shape,fig.cap = 'Streamflow gauging stations that provide there measurements at the GKD along the Regen river (adapted from @OpenStreetMap)', cache=FALSE, out.width="400px", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/regen_stations.png')
 ```
 
-A catchment also known as a drainage basin or watershed, is an area of land where all precipitation collects and drains off into a common outlet, such as a river, bay, or other body of water. The boundaries of a catchment are defined by the highest points of land around the drainage area, often referred to as the drainage divide. These catchment areas will later be used to determine the variables for precipitation that are used to forecast the streamflows of the river. Taking advantage of the HydroBASINS dataset, that contains the shapes of basins all over the world in different resolutions @lehner. With the software QGIS a Geoinformation System (GIS) all basins were chosen that completely contain the river Regen shape, which led to the 19 defined catchments that can be seen figure \@ref(fig:regen-catch).
+A catchment also known as a drainage basin or watershed, is an area of land where all precipitation collects and drains off into a common outlet, such as a river, bay, or other body of water. The boundaries of a catchment are defined by the highest points of land around the drainage area, often referred to as the drainage divide. These catchment areas will later be used to determine the variables for precipitation that are used to forecast the streamflows of the river. Taking advantage of the HydroBASINS dataset, that contains the shapes of basins all over the world in different resolutions @lehner. With the software QGIS a geoinformation system (GIS) all basins were chosen that completely contain the river Regen shape, which led to the 19 defined catchments that can be seen figure \@ref(fig:regen-catch).
 
 ```{r regen-catch, cache=FALSE, fig.cap = 'Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from @OpenStreetMap)',out.width="400px", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/river_catch.png')
@@ -168,8 +168,8 @@ hyperparameter_data <- data.frame(
   Hyperparameter = c("Batch Size", "Epochs", "Hidden Size", "Attention Head Size", "Learning Rate",
                      "Dropout", "Weight Decay", "Gradient Clipping", "Loss Function", "Optimizer",
                      "Reduce on Plateau Patience", "Time Varying Known Features", "Time Varying Unknown Features"),
-  LSTM = c(128, 100, 128, "-", 0.001, 0.2, 0.001, 0.1, "Mean Absolute Error", "Adam", 7, "t2m, tp", "Streamflow 15207507"),
-  TFT = c(128, 80, 128, 2, 0.003, 0.1, 0.0001, 0.1, "Mean Absolute Error", "Adam", 7, "t2m, tp", "Streamflow 15207507")
+  LSTM = c(128, 100, 128, "-", 0.001, 0.2, 0.001, 0.1, "Mean Absolute Error", "Adam", 7, "t2m, tp", "streamflow 15207507"),
+  TFT = c(128, 80, 128, 2, 0.003, 0.1, 0.0001, 0.1, "Mean Absolute Error", "Adam", 7, "t2m, tp", "streamflow 15207507")
 )
 knitr::kable(hyperparameter_data, caption = "Hyperparameter comparison between LSTM and TFT.")
 ```
