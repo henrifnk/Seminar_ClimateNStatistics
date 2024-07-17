@@ -68,7 +68,7 @@ The authors hypothesised that the significant increase in prevalence might be ex
 ```{r, label = tabResults, warning=FALSE, message=FALSE, tab.cap="Table 1. Effects of hurricane-related stress on PTSD outcome as shown in Kessler et al. (2008)."}
 library(knitr)
 library(kableExtra)
-library(papaja)
+# library(papaja)
 
 # Data for the table
 data <- data.frame(
