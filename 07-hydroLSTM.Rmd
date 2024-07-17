@@ -7,18 +7,18 @@ output:
   html_document: default
 ---
 
-*Author: Lennart Marx*
-
-*Supervisor: Henri Funk*
-
-*Degree: Master*
-
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 library(bookdown)
 library(svglite)
 ```
 
 # Statistical streamflow modelling {#sm}
+
+*Author: Lennart Marx*
+
+*Supervisor: Henri Funk*
+
+*Degree: Master*
 
 ## Abstract
 
