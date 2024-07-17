@@ -2,7 +2,6 @@
 output:
   html_document: default
   pdf_document: default
-bibliography: bib_12_MH.bib
 ---
 
 # Climate Crisis and Mental Health    {#menh3}
