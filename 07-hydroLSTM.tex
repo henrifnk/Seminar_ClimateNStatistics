@@ -93,17 +93,19 @@
 
 This study evaluates and compares the performance of Long Short-Term
 Memory (LSTM) networks and Temporal Fusion Transformers (TFT) in
-forecasting streamflows up to seven days ahead, using historical
-streamflow data alongside precipitation and temperature as covariates.
-Data from the Regen River in Bavaria, Germany, was used. Preprocessing
-involved spatial averaging of meteorological data within defined
-catchments. Results indicate that while both models face challenges in
-predicting extreme values, TFT maintains more consistent accuracy over
-longer forecast horizons while pure LSTM model's predictions decline
-sharply in performance with increasing lead time. The study highlights
-the importance of future known meteorological variables in achieving
-accurate predictions and suggests avenues for future research to enhance
-model robustness and data preprocessing techniques.
+forecasting streamflows for up to seven day ahead forecasts, using
+historical streamflow data alongside precipitation and temperature as
+covariates. Freely available data published by the bavarian hydrological
+authority from the Regen river in Bavaria, Germany, was used in
+conjunction with meteorological data from the ERA5 reanalysis dataset.
+River basins are defined via the HydroRIVERS and HydroBASINS dataset to
+obtain the area over which precipitation is aggregated. Results indicate
+that while both models face challenges in predicting extreme values, TFT
+maintains more consistent accuracy over longer forecast horizons while
+pure LSTM model's predictions decline sharply in performance with
+increasing lead times. The study highlights the importance of future
+known meteorological variables in achieving accurate predictions and
+suggests avenues for future research to enhance model predictive abilty.
 
 \hypertarget{introduction}{%
 \subsection{Introduction}\label{introduction}}
@@ -112,13 +114,14 @@ Accurate streamflow prediction is beneficial for a variety of
 applications, including flood forecasting or hydroelectric power
 generation. Timely and precise flood predictions can mitigate the impact
 of flood events, protecting lives and property. Similarly, reliable
-streamflow forecasts are essential for optimizing the operation of
+streamflow forecasts are useful for optimizing the operation of
 hydroelectric plants, ensuring efficient energy production and
 contributing to the stability of power grids.
 
-Streamflow refers to the flow of water in rivers and streams,
-originating from precipitation, melting snow, and groundwater discharge.
-It is typically measured in cubic meters per second (m³/s).
+A Streamflow refers to the flow of water in rivers, streams or other
+water bodies, originating from precipitation, melting snow, and
+groundwater discharge. It is typically measured in cubic meters per
+second (m³/s).
 
 In recent years, machine learning techniques have emerged as powerful
 tools for forecasting in various domains, including hydrology.
@@ -133,7 +136,7 @@ hydrological systems.
 This study aims to evaluate and compare the performance of LSTM and TFT
 models in forecasting streamflows up to seven days ahead. By
 incorporating precipitation and temperature as future known covariates
-alongside historical streamflow data, we seek to determine the
+alongside historical streamflow data, this work seeks to determine the
 effectiveness of these models in predicting streamflows.
 
 Understanding the strengths and limitations of these models is essential
@@ -142,8 +145,8 @@ values that can be difficult to predict accurately, while hydroelectric
 generation requires consistent and reliable forecasts over varying time
 horizons. Thus, this research not only assesses the overall accuracy of
 LSTM and TFT models but also examines their performance in predicting
-extreme streamflow values and their resource dependency, providing
-insights into their feasibility for real-world applications.
+extreme streamflow values and providing insights into their feasibility
+for real-world applications.
 
 \hypertarget{data}{%
 \subsection{Data}\label{data}}
@@ -153,26 +156,27 @@ insights into their feasibility for real-world applications.
 
 The streamflow data is gathered from the bavarian hydrology authority
 (GKD). They provide freely accessible data on most water bodies in
-Bavaria.Focusing on rivers of medium size where the entire length is
-flowing inside of the area of the state of Bavaria, the river Regen
-located north/east of the city of Regensburg was chosen as a bases for
-this study.The GKD posesses 21 streamflow gauging stations located at
-the Regen or any of its tributary rivers. For the Regen river, data
-between 2014 and 2024 was available with daily measurements on the
-streamflows including the coordinates of the the gauging station. This
-study focused on the 15207507 Marienthal gauging station that was
-located closest to the final outflow towards the Danube river. Utilizing
-the HydroRIVERS dataset, which contains the shapes of rivers all over
-the world, it was possible the acquire the shape of the Regen along with
-its geolocation as shown in figure @ref(fig:1).
+Bavaria @bayerisches\_landesamt. Focusing on rivers of medium size where
+the entire length of the river is located inside of the state of
+Bavaria, the river Regen positioned north/east of the city of Regensburg
+was chosen as a bases for this study. The GKD has data on 21 streamflow
+gauging stations located at the Regen or any of its tributary rivers.
+For the Regen river, data between 2014 and 2024 is available with daily
+measurements on the streamflows including the coordinates of the the
+gauging station. This study focused on the 15207507 Marienthal gauging
+station that was located closest to the final outflow towards the Danube
+river within the city of Regensburg. Utilizing the HydroRIVERS dataset,
+which contains the shapes of rivers all over the world, it was possible
+the acquire the shape of the Regen along with its geolocation as shown
+in figure @ref(fig:1) @lehner.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{work/07-hydroLSTM/images/regen_stations} 
+{\centering \includegraphics[width=500px]{work/07-hydroLSTM/images/regen_stations} 
 
 }
 
-\caption{Streamflow Gauging Stations that provide there measurements at the GKD along the Regen river}\label{fig:1}
+\caption{Streamflow Gauging Stations that provide there measurements at the GKD along the Regen river (adapted from @OpenStreetMap)}\label{fig:1}
 \end{figure}
 
 A catchment also known as a drainage basin or watershed, is an area of
@@ -183,44 +187,43 @@ drainage area, often referred to as the drainage divide. These catchment
 areas will later be used to determine the variables for precipitation
 that are used to forecast the streamflows of the river. Taking advantage
 of the HydroBASINS dataset, that contains the shapes of basins all over
-the world in different resolutions. With the software QGIS a
+the world in different resolutions @lehner. With the software QGIS a
 Geoinformation System (GIS) all basins were chosen that completely
 contain the river Regen Shape, which led to the 19 defined chatchments
 that can be seen figure @ref(fig:2).
 
 \begin{figure}
 
-{\centering \includegraphics[width=500]{work/07-hydroLSTM/images/river_catch} 
+{\centering \includegraphics[width=500px]{work/07-hydroLSTM/images/river_catch} 
 
 }
 
-\caption{Catchments defined for the Regen river based on the HydroBASINS shapefile dataset}\label{fig:2}
+\caption{Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from @OpenStreetMap)}\label{fig:2}
 \end{figure}
 
-The ERA5 reanalysis Dataset published by the copernicus project,
-contains a plethora of meteorological Data in the form of rasterized
-Data. Each data cell contains information of when it occured,where it
-occured in the form of longitude and latitude coordinates as well as the
-information on a meteorological variables. As suggested in (PAPER
-SOURCE), for this study the variables 2 meter temperature and total
-precipitation were selected in the area of the Regen and for the past 10
-years.
+The ERA5 reanalysis dataset, contains a plethora of meteorological data
+in a of rasterized form. Each data cell contains information of when it
+occured, where it occured in the form of longitude and latitude
+coordinates as well as the information on a meteorological variables
+@hersbach2023era5. As proposed in @sabzipour, for this study the
+variables 2 meter temperature and total precipitation were selected
+around the area of the Regen and for the past 10 years.
 
 \hypertarget{preprocessing}{%
 \subsubsection{Preprocessing}\label{preprocessing}}
 
 The measuring station 15207507 contained 1 missing value which was
-imputed by linear interpolation. As suggested in (PAPER Source) non
-centered moving average smoothing with a window size of 3 was applied to
-the streamflow data as can be seen in figure @ref(fig:3).
+imputed by linear interpolation. As suggested in @sabzipour non centered
+moving average smoothing with a window size of 3 was applied to the
+streamflow data as can be seen in figure @ref(fig:3).
 
 \begin{figure}
 
-{\centering \includegraphics[width=500]{work/07-hydroLSTM/images/Moving_Average} 
+{\centering \includegraphics[width=500px]{work/07-hydroLSTM/images/Moving_Average} 
 
 }
 
-\caption{streamflows of the 15207507 Marienthal gauging stations before and after applying moving average smoothing}\label{fig:3}
+\caption{streamflows of the 15207507 Marienthal gauging stations before (blue) and after (orange) applying moving average smoothing}\label{fig:3}
 \end{figure}
 
 To combine the rasterized meteorological data from ERA5 with the
@@ -233,7 +236,7 @@ visualization in figure @ref(fig:4).
 
 \begin{figure}
 
-{\centering \includegraphics[width=500]{work/07-hydroLSTM/images/spatial_averaging} 
+{\centering \includegraphics[width=500px]{work/07-hydroLSTM/images/spatial_averaging} 
 
 }
 
@@ -258,17 +261,17 @@ The Long Short-Term Memory (LSTM) cell (figure @ref(fig:5)) is a type of
 recurrent neural network (RNN) architecture designed to model temporal
 sequences and their long-range dependencies more accurately than
 traditional RNNs. LSTMs were introduced by Sepp Hochreiter and Jürgen
-Schmidhuber in 1997 ( Citation missing) to address the issue of
-vanishing and exploding gradients encountered in traditional RNNs, which
-struggle to maintain context over long sequences.
+Schmidhuber in 1997 to address the issue of vanishing and exploding
+gradients encountered in traditional RNNs, which struggle to maintain
+context over long sequences @hochreiter.
 
 \begin{figure}
 
-{\centering \includegraphics[width=500]{work/07-hydroLSTM/images/LSTM} 
+{\centering \includegraphics[width=500px]{work/07-hydroLSTM/images/LSTM} 
 
 }
 
-\caption{visualization of a LSTM cell at time step t}\label{fig:5}
+\caption{visualization of a LSTM cell at time step t (image adapted from @lstm_image}\label{fig:5}
 \end{figure}
 
 \begin{enumerate}
@@ -341,15 +344,15 @@ forecasting. It combines the strengths of both recurrent and
 attention-based models, offering an advanced approach to handling
 complex time series data. The TFT was introduced by Bryan Lim et al.~in
 2019, aiming to provide interpretability and accuracy for forecasting
-tasks.
+tasks @LIM20211748.
 
 \begin{figure}
 
-{\centering \includegraphics[width=500]{work/07-hydroLSTM/images/TFT} 
+{\centering \includegraphics[width=500px]{work/07-hydroLSTM/images/TFT} 
 
 }
 
-\caption{model architecture for the Temporal Fusion Transformer}\label{fig:6}
+\caption{model architecture for the Temporal Fusion Transformer (image from @LIM20211748}\label{fig:6}
 \end{figure}
 
 A TFT consists of several key components:
@@ -474,9 +477,9 @@ inputs. The model always predicts incrementally in the sense that for
 example to predict a 3 step ahead forecast it firsts predicts 1 and 2
 step forecast and uses both forecasts to then predict the 3 step
 prediction. Both model architectures were used from the
-pytorch-forecasting library (SOURCE). The models were retrained for the
-different lead times. The used hyperparameters for both models are shown
-in Table @ref(tab:tab-1).
+pytorch-forecasting library. The models were retrained for the different
+lead times. The used hyperparameters for both models are shown in Table
+@ref(tab:tab-1).
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4286}}
@@ -553,17 +556,19 @@ Lead.Time & TFT.KGE & LSTM.KGE \\
 7 & \textbf{0.5717} & 0.3185 \\
 \end{longtable}
 
-The forecasting the peaks of the streamflows is especially challenging
-and neither model performs particularly well on this task. Especially
-when considering that the peaks were drastically reduced due to the
-moving average smoothing of the target variable. This behaviour can be
-observed on most lead times here shown for a lead time of 5 days for the
-LSTM Model and the TFT Model in figure @ref(fig:7) and in figure
-@ref(fig:8) respectively.
+Forecasting the peaks of the streamflows is especially challenging and
+neither model performs particularly well on this task. Especially when
+considering that the peaks were already drastically reduced due to the
+moving average smoothing of the target variable. The model routinely
+undershoots the observed true streamflows here shown for a lead time of
+5 days for the LSTM Model and the TFT Model in figure @ref(fig:7) and in
+figure @ref(fig:8) respectively. This behavior can be observed for all
+lead times except 1 and 2 days where the performance is reasonable even
+in the peaks.
 
 \begin{figure}
 
-{\centering \includegraphics[width=500]{work/07-hydroLSTM/images/lag5_lstm} 
+{\centering \includegraphics[width=500px]{work/07-hydroLSTM/images/lag5_lstm} 
 
 }
 
@@ -572,7 +577,7 @@ LSTM Model and the TFT Model in figure @ref(fig:7) and in figure
 
 \begin{figure}
 
-{\centering \includegraphics[width=500]{work/07-hydroLSTM/images/lag5_tft} 
+{\centering \includegraphics[width=500px]{work/07-hydroLSTM/images/lag5_tft} 
 
 }
 
@@ -582,12 +587,15 @@ LSTM Model and the TFT Model in figure @ref(fig:7) and in figure
 \hypertarget{conclusion}{%
 \subsection{Conclusion}\label{conclusion}}
 
-In this study, we compared the performance of LSTM (Long Short-Term
-Memory) and Temporal Fusion Transformer (TFT) models in forecasting
-streamflows up to seven days ahead, using precipitation and temperature
-as future known covariates alongside historical streamflow data.
+This study compares the performance of LSTM (Long Short-Term Memory) and
+Temporal Fusion Transformer (TFT) models in forecasting streamflows of
+the bavarian Regen river for up to seven days ahead, using precipitation
+and temperature as future known covariates alongside historical
+streamflow data. The data used was obtained from freely available data
+provided by the Bavarian hydrology authority and Copernicus Climate
+Project.
 
-Our findings indicate that both models exhibit limitations in predicting
+The findings indicate that both models exhibit limitations in predicting
 extreme values such as floods, with KGE (Kling-Gupta Efficiency) scores
 significantly lower than those reported in similar studies, likely due
 to reduced data availability and the challenges inherent in modeling a
@@ -595,11 +603,12 @@ river system instead of a reservoir. The results also demonstrate a
 clear difference in performance trends between the two models across
 different lead times.
 
-The LSTM model's KGE scores decline sharply with increasing lead time,
-starting at 0.9696 for a one-day lead time and dropping to 0.3185 for a
-seven-day lead time. Conversely, the TFT model shows a more gradual
-decline, from 0.8352 at one day to 0.5717 at seven days, suggesting it
-maintains more consistent accuracy over longer forecast horizons.
+Although the KGE was not used as the loss function in training the
+models. The LSTM's observed KGE scores are high starting at 0.9696 for a
+one-day lead time, before dropping sharply to 0.3185 for a seven-day
+lead time. Conversely, the TFT model shows a more gradual decline, from
+0.8352 at one day to 0.5717 at seven days, suggesting it maintains more
+consistent accuracy over longer forecast horizons.
 
 Despite the sharper decline in performance for longer lead times, the
 LSTM model is notably less resource-dependent, making it a viable option
@@ -608,27 +617,22 @@ attempts to forecast streamflows without future known meteorological
 variables were unsuccessful, underscoring the importance of these
 covariates in achieving accurate predictions.
 
-In summary, while TFT demonstrates better stability over extended
-forecast periods, the LSTM model offers advantages in resource
-efficiency. Future work should explore strategies to improve model
-robustness for extreme value prediction and investigate additional data
-sources to enhance forecast accuracy.
+While the moving average is used in @sabzipour, it is not advised to use
+this tool for streamflow forecasting. By reducing the peaks in the
+target variable it artificially boosts the predictive abitlity of the
+model and forces the model to miss the peaks by an even larger margin.
+In a flood scenario even with a high KGE, the model would miss the exact
+streamflow value as it was trained on lower peaks and would
+underestimate the posed danger in the situation.
 
 \hypertarget{outlook}{%
 \subsection{Outlook}\label{outlook}}
 
-Firstly, implementing a robust hyperparameter tuning routine is
-essential to optimize model performance. This process will require
-additional computational resources due to the complexity and extensive
-search space. Given the high dependency of hyperparameters on lag, it is
-crucial to carefully adjust them to capture the temporal dynamics
-accurately.
-
-Improving data preprocessing is another critical aspect. This includes
-downscaling meteorological variables to ensure the input data aligns
-better with the spatial and temporal resolution required for accurate
-streamflow predictions. Performance optimization techniques will also be
-explored to streamline the computational efficiency of the models.
+Implementing a robust hyper-parameter tuning routine is essential to
+optimize model performance. This process will require additional
+computational resources due to the complexity and extensive search
+space. Given the high dependency of hyper-parameters on lag, it might be
+necessary to tune hyper-parameters for each lead time separately.
 
 To make the models more sensitive to extreme events such as floods,
 specialized training techniques and loss functions will be employed.
@@ -636,18 +640,15 @@ Experimentation with different model architectures could offer insights
 into more effective structures for capturing the complex patterns in
 river streamflow data.
 
+The ERA5 dataset used for obtaining meterological data in this study
+only provides a very coarse representation of the underlying variables.
+The use of down scaling techniques to obtain a finer grid than the one
+used in this study might be able to boost the accuracy of the model.
+
 The models need to generalize across different rivers, which involves
 accounting for diverse hydrological and geographical characteristics.
 Including static variables such as river basin properties and land use
-information will help in creating a more comprehensive model that can
+information can help in creating a more comprehensive model that can
 adapt to various river systems.
-
-While the moving average is used in (PAPER SOURCE), it is not advised to
-use it for streamflow forecasting. By reducing the peaks in the target
-variable it artificially boosts the predictive abitlity of the model,
-but also forces the model to miss the peaks by an even larger margin. In
-a flood scenario even with a high KGE, the model would always miss the
-exact streamflow value as it was trained on lower peaks and would
-underestimate the posed danger in the situation.
 
 \end{document}
