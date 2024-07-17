@@ -18,7 +18,7 @@ jobs:
           brew update
           brew install cairo
       - uses: r-lib/actions/setup-pandoc@v2
-      - name: Install rmarkdown
+      - name: Install rmarkdown and deps
         run: Rscript -e 'install.packages(c("rmarkdown","bookdown", "svglite", "tinytex", "kableExtra", "tidyverse", "devtools", "ggpubr"));tinytex::install_tinytex()'
       - name: Render Book
         run: make
