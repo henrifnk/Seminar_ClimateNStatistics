@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 13 Climate Crisis and Mental Health | Climate And Statistics</title>
+  <meta name="description" content="A Seminar about statistical methods in climate research in SS24." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 13 Climate Crisis and Mental Health | Climate And Statistics" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A Seminar about statistical methods in climate research in SS24." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 13 Climate Crisis and Mental Health | Climate And Statistics" />
+  
+  <meta name="twitter:description" content="A Seminar about statistical methods in climate research in SS24." />
+  
+
+<meta name="author" content="Helmut Küchenhoff, Henri Funk" />
+
+
+<meta name="date" content="2024-07-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="he4.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Climate and Statistics</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="foreword.html"><a href="foreword.html"><i class="fa fa-check"></i>Foreword</a>
+<ul>
+<li class="chapter" data-level="" data-path="foreword.html"><a href="foreword.html#technical-setup"><i class="fa fa-check"></i>Technical Setup</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#intro-about-the-seminar-topic"><i class="fa fa-check"></i><b>1.1</b> Intro About the Seminar Topic</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#outline-of-the-booklet"><i class="fa fa-check"></i><b>1.2</b> Outline of the Booklet</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="iv.html"><a href="iv.html"><i class="fa fa-check"></i><b>2</b> Natural Variability by internal variability</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="iv.html"><a href="iv.html#climate-model-ensemble"><i class="fa fa-check"></i><b>2.1</b> Climate Model Ensemble</a></li>
+<li class="chapter" data-level="2.2" data-path="iv.html"><a href="iv.html#internal-variability"><i class="fa fa-check"></i><b>2.2</b> Internal Variability</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spei.html"><a href="spei.html"><i class="fa fa-check"></i><b>3</b> Standard Precipitation Evapotranspiration Index</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="spei.html"><a href="spei.html#definition"><i class="fa fa-check"></i><b>3.1</b> Definition</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ce.html"><a href="ce.html"><i class="fa fa-check"></i><b>4</b> Compound events</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ce.html"><a href="ce.html#example-hot-and-dry-events"><i class="fa fa-check"></i><b>4.1</b> Example: Hot and Dry Events</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="ac.html"><a href="ac.html"><i class="fa fa-check"></i><b>5</b> Assymetric bivariate Copulas for compounds</a></li>
+<li class="chapter" data-level="6" data-path="nao.html"><a href="nao.html"><i class="fa fa-check"></i><b>6</b> Teleconnections North Atlantic Oscillation</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="nao.html"><a href="nao.html#north-atlantic-oscillation-nao-and-its-implications"><i class="fa fa-check"></i><b>6.1</b> North Atlantic Oscillation (NAO) and Its Implications</a></li>
+<li class="chapter" data-level="6.2" data-path="nao.html"><a href="nao.html#implications-for-our-climate"><i class="fa fa-check"></i><b>6.2</b> Implications for Our Climate</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="lfe.html"><a href="lfe.html"><i class="fa fa-check"></i><b>7</b> Low Flow Events</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="lfe.html"><a href="lfe.html#concept-of-extremeness-by-return-periods"><i class="fa fa-check"></i><b>7.1</b> Concept of Extremeness by Return Periods</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="sm.html"><a href="sm.html"><i class="fa fa-check"></i><b>8</b> Statistical streamflow modelling</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="sm.html"><a href="sm.html#physical-hydrological-models"><i class="fa fa-check"></i><b>8.1</b> Physical Hydrological Models</a></li>
+<li class="chapter" data-level="8.2" data-path="sm.html"><a href="sm.html#statistical-hydrological-models"><i class="fa fa-check"></i><b>8.2</b> Statistical Hydrological Models</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="he1.html"><a href="he1.html"><i class="fa fa-check"></i><b>9</b> The Lancet Report 2023</a></li>
+<li class="chapter" data-level="10" data-path="he2.html"><a href="he2.html"><i class="fa fa-check"></i><b>10</b> Epidemiologic studies on the heat effects</a></li>
+<li class="chapter" data-level="11" data-path="he3.html"><a href="he3.html"><i class="fa fa-check"></i><b>11</b> Controversial issue : heat and humidity</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="he3.html"><a href="he3.html#abstract"><i class="fa fa-check"></i><b>11.1</b> Abstract</a></li>
+<li class="chapter" data-level="11.2" data-path="he3.html"><a href="he3.html#introduction-1"><i class="fa fa-check"></i><b>11.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="he3.html"><a href="he3.html#background"><i class="fa fa-check"></i><b>11.2.1</b> Background</a></li>
+<li class="chapter" data-level="11.2.2" data-path="he3.html"><a href="he3.html#epidemiological-studies"><i class="fa fa-check"></i><b>11.2.2</b> Epidemiological Studies</a></li>
+<li class="chapter" data-level="11.2.3" data-path="he3.html"><a href="he3.html#physiological-knowledge"><i class="fa fa-check"></i><b>11.2.3</b> Physiological knowledge</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="he3.html"><a href="he3.html#heat-and-humidity-in-studies"><i class="fa fa-check"></i><b>11.3</b> Heat and Humidity in Studies</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="he3.html"><a href="he3.html#humidity-definitions"><i class="fa fa-check"></i><b>11.3.1</b> Humidity definitions</a></li>
+<li class="chapter" data-level="11.3.2" data-path="he3.html"><a href="he3.html#composite-indicators"><i class="fa fa-check"></i><b>11.3.2</b> Composite Indicators</a></li>
+<li class="chapter" data-level="11.3.3" data-path="he3.html"><a href="he3.html#confounder"><i class="fa fa-check"></i><b>11.3.3</b> Confounder</a></li>
+<li class="chapter" data-level="11.3.4" data-path="he3.html"><a href="he3.html#effect-modification-and-interaction"><i class="fa fa-check"></i><b>11.3.4</b> Effect Modification and Interaction</a></li>
+<li class="chapter" data-level="11.3.5" data-path="he3.html"><a href="he3.html#data-limitations"><i class="fa fa-check"></i><b>11.3.5</b> Data Limitations</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="he3.html"><a href="he3.html#examples"><i class="fa fa-check"></i><b>11.4</b> Examples</a></li>
+<li class="chapter" data-level="11.5" data-path="he3.html"><a href="he3.html#discussion"><i class="fa fa-check"></i><b>11.5</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="he4.html"><a href="he4.html"><i class="fa fa-check"></i><b>12</b> Risk Projections</a></li>
+<li class="chapter" data-level="13" data-path="menh3.html"><a href="menh3.html"><i class="fa fa-check"></i><b>13</b> Climate Crisis and Mental Health</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="menh3.html"><a href="menh3.html#introduction-2"><i class="fa fa-check"></i><b>13.1</b> 1. Introduction</a></li>
+<li class="chapter" data-level="13.2" data-path="menh3.html"><a href="menh3.html#challenges-of-quantifying-climate-change-impact-on-mental-health"><i class="fa fa-check"></i><b>13.2</b> 2. Challenges of Quantifying Climate Change Impact on Mental Health</a></li>
+<li class="chapter" data-level="13.3" data-path="menh3.html"><a href="menh3.html#data-sources-and-methods-used-to-investigate-climate-change-impact"><i class="fa fa-check"></i><b>13.3</b> 3. Data Sources and Methods Used to Investigate Climate Change Impact</a></li>
+<li class="chapter" data-level="13.4" data-path="menh3.html"><a href="menh3.html#the-impact-of-hurricanes-on-posttraumatic-stress-disorder-ptsd"><i class="fa fa-check"></i><b>13.4</b> 4. The Impact of Hurricanes on Posttraumatic Stress Disorder (PTSD)</a></li>
+<li class="chapter" data-level="13.5" data-path="menh3.html"><a href="menh3.html#adaption-and-mitigation-strategies"><i class="fa fa-check"></i><b>13.5</b> 5. Adaption and Mitigation Strategies</a></li>
+<li class="chapter" data-level="13.6" data-path="menh3.html"><a href="menh3.html#conclusion"><i class="fa fa-check"></i><b>13.6</b> 6. Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>14</b> References</a></li>
+<li class="chapter" data-level="15" data-path="open-issue.html"><a href="open-issue.html"><i class="fa fa-check"></i><b>15</b> Open issue</a></li>
+<li class="chapter" data-level="16" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>16</b> Acknowledgements</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Climate And Statistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="menh3" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Climate Crisis and Mental Health<a href="menh3.html#menh3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Nina Straub</em></p>
+<p><em>Supervisor: Helmut Küchenhoff</em></p>
+<p><em>Degree: Master</em></p>
+<div id="introduction-2" class="section level2 hasAnchor" number="13.1">
+<h2><span class="header-section-number">13.1</span> 1. Introduction<a href="menh3.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>It is widely recognized that climate change (CC) is impacting both economy and society. However, it is also increasingly acknowledged as critical factor influencing various aspects of human health. In 2009, the World Health Organisation (WHO) declared CC as one of the largest threads to human health of the twenty-first century and recognised the need for a research agenda to understand complex linkages between climate change and health <span class="citation">(<a href="#ref-worldhealthorganizationProtectingHealthClimate2009">World Health Organization 2009</a>)</span>. In following years, initiatives such as the Lancet Countdown, a global monitoring system designed to track research and support policy decisions on Health and CC, drew resources and attention to this pressing problem <span class="citation">(<a href="#ref-wattsLancetCountdownHealth2018">Watts, Amann, Ayeb-Karlsson, et al. 2018</a>)</span>. Despite these efforts, some health conditions are still little researched and the impact of climate change on them is poorly understood. Among them are mental health (MH) and human well-being <span class="citation">(<a href="#ref-romanello2023ReportLancet2023a">Romanello et al. 2023</a>)</span>.
+According to the OECD, 20-30% of the working population are affected by a MH condition. Mental disorders are the worldwide leading cause of years lived with disability <span class="citation">Hewlett, E. and Moran, V. (<a href="#ref-hewlette.MakingMentalHealth2014">2014</a>)</span> and a considerable burden not only for individuals but also society and economy. In 2010, the direct and indirect costs were estimated to amount to 2493 billion US dollars worldwide <span class="citation">(<a href="#ref-hewlette.MakingMentalHealth2014">Hewlett, E. and Moran, V. 2014</a>)</span> and the lost economic value amounts to 4-8% of GDP in different regions <span class="citation">(<a href="#ref-ariasQuantifyingGlobalBurden2022">Arias, Saxena, and Verguet 2022</a>)</span>. However, health care systems spend a disproportional amount on treatment. In England, MH conditions make out about 26% of the burden of disease, but only 13% of health expenditure are attributed to treatment <span class="citation">(<a href="#ref-hewlette.MakingMentalHealth2014">Hewlett, E. and Moran, V. 2014</a>)</span>. Globally, 80% of people do not get sufficient treatment at all <span class="citation">(<a href="#ref-worldhealthorganizationComprehensiveMentalHealth2021">World Health Organization 2021</a>)</span>.
+Given the proportion of MH in global burden of disease, it seems surprising that little research has investigated how CC might affect MH. The aim of this chapter is to outline the challenges in researching the impact of CC on MH and to present research approaches on this topic. Emphasis will be placed on the methodological and statistical difficulties.</p>
+</div>
+<div id="challenges-of-quantifying-climate-change-impact-on-mental-health" class="section level2 hasAnchor" number="13.2">
+<h2><span class="header-section-number">13.2</span> 2. Challenges of Quantifying Climate Change Impact on Mental Health<a href="menh3.html#challenges-of-quantifying-climate-change-impact-on-mental-health" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Important to notice is that CC does not directly impact MH, but rather the consequences of a changing climate, like the increase in magnitude, frequency and intensity of extreme climate events mediate the effect of CC on MH <span class="citation">(<a href="#ref-hayesClimateChangeMental2018">Hayes et al. 2018</a>)</span>. The Intergovernmental Panel On Climate Change (IPCC) report identified multiple pathways how CC could impact MH. The direct pathway includes exposure to traumatic events such as floods, hurricanes or other severe weather-related events. The indirect pathway consists of the consequences of prolonged events such as drought or sea level rise that lead to displacement, food shortages or economic hardship. The last pathway, vicarious exposure or overarching/diffuse exposure refers to the long-term emotional distress caused by the awareness of the negative consequences of CC and the associated feelings of helplessness and despair <span class="citation">(<a href="#ref-intergovernmentalpanelonclimatechangeClimateChange20222023">Intergovernmental Panel On Climate Change 2023</a>)</span>.
+Although in the IPCC report most of the adverse effects of CC on MH are assessed with “very high confidence”, no concrete projections are given as to how many additional people will suffer from mental disorders. This is peculiar because for other health effects that are assessed with very high confidence, figures for additionally affected individuals are given <span class="citation">(<a href="#ref-intergovernmentalpanelonclimatechangeClimateChange20222023">Intergovernmental Panel On Climate Change 2023</a>)</span>.
+The discrepancy between confidence and tangible figures is caused by multiple challenges of attributing CC to MH, which can be clustered in external and internal difficulties. The external difficulties of quantification mainly consist of the globally insufficient resources devoted to monitoring and treating MH. Although the Lancet Countdown emphasised the need to integrate MH in future CC health considerations, only five out of 16 countries included MH in their health adaption plans <span class="citation">(<a href="#ref-watts2018ReportLancet2018">Watts, Amann, Arnell, et al. 2018</a>)</span>. In the most recent Countdown report it was noted that the development of an indicator to cover the relations between CC and MH is still ongoing <span class="citation">(<a href="#ref-romanello2023ReportLancet2023a">Romanello et al. 2023</a>)</span>. One major problems hereby is that current prevalence estimates for mental illnesses are unreliable, as mental illness is severely underdiagnosed, especially in third world countries <span class="citation">(<a href="#ref-worldhealthorganizationComprehensiveMentalHealth2021">World Health Organization 2021</a>)</span>. With the lack of a baseline, good projection estimates are difficult.
+The internal difficulties of quantification evolve around the complex nature of MH itself. Hayes et al. (2018) identified four key aspects which complicate the estimation of CC impact: Firstly, the risk of pathologizing normal stress responses due to a changing climate while adverse mental health outcomes are underdiagnosed. Secondly, multiple causal pathways in which one CC correlate can influence different MH outcomes. Thirdly, effects of CC may only become apparent after a considerable time period, which complicates the investigation of causal effects. Lastly, existing complex interactions between MH and other social determinants of health, and their relationship with CC, is insufficiently understood.</p>
+<p><img src="work/12-mentalhealth/figures/drought_impact.png" width="550px" style="display: block; margin: auto;" /></p>
+<p><em>Figure 1.</em> <font size="2">Causal process diagram of the impact of drought on the mental health outcomes depression, anxiety and suicide. Numbers in brackets are number of papers meeting the search criteria for each factor. Figure adapted from Vins et al. (2015).</font></p>
+<p>The four aspects can be illustrated by a causal process diagram, shown in Figure 1, which depicts the multiple pathways by which droughts can influence MH outcomes <span class="citation">(<a href="#ref-vinsMentalHealthOutcomes2015">Vins et al. 2015</a>)</span>. Most apparent is the economic route: Droughts have a negative impact on crop yield, influencing employment and financial stability in the agricultural sector. Financial hardship has been shown to have a negative impact on MH, leading to depression and, in severe cases, even suicide <span class="citation">Edwards, Gray, and Hunter (<a href="#ref-edwardsImpactDroughtMental2015">2015</a>)</span>. Another causal route is the one concerned with the decreased availability of food, leading to dietary changes or famine. This can directly influence neurodevelopment of children or anxiety in adults, but also indirectly cause migration, which can lead to social isolation and loss of cultural identity, again having a negative impact on MH outcomes. To estimate the impact of droughts on MH e. g. via the migration route, it would require not only to estimate the increase and severity of droughts due to CC, but also how much migration this would cause and how many of the affected individuals would consequently develop a mental illness. This is a genuine challenge for accurate climate projections, as estimation of migration movements and the development of mental illness depend on many interrelated factors <span class="citation">(<a href="#ref-mazhinMigrationHealthCrisis2020">Mazhin et al. 2020</a>)</span>. Some individual linkages between events (e. g. the influence of economic hardship on MH) are well-researched. Future research needs to integrate these pathways and link them to different climate scenarios to better understand the overall causal processes and make accurate projections possible <span class="citation">(<a href="#ref-vinsMentalHealthOutcomes2015">Vins et al. 2015</a>)</span>.</p>
+</div>
+<div id="data-sources-and-methods-used-to-investigate-climate-change-impact" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">13.3</span> 3. Data Sources and Methods Used to Investigate Climate Change Impact<a href="menh3.html#data-sources-and-methods-used-to-investigate-climate-change-impact" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To enable evidence-based policies to protect health from climate change, the WHO has identified five research priorities: (i) Assessing risks with data-based studies and, in a second step, projections and modelling, (ii) identifying the most effective interventions, (iii) guiding health-promoting mitigation and adaption decisions in other sectors, (iv) improving decision-support and (v) estimating costs <span class="citation">(<a href="#ref-worldhealthorganizationProtectingHealthClimate2009">World Health Organization 2009</a>)</span>.
+While this research agenda has advanced in relation to some health outcomes, research on MH and CC is almost exclusively concerned with the first step of the first priority <span class="citation">(<a href="#ref-cianconiImpactClimateChange2020">Cianconi, Betrò, and Janiri 2020</a>)</span>. Methods used to describe future MH risks vary, but most quantitative studies can be grouped into a few broad categories relating to the data and measurement instruments, the study design and the statistical analysis applied <span class="citation">(<a href="#ref-charlsonClimateChangeMental2021">Charlson et al. 2021</a>)</span>. The two main data sources are either official statistics or (representative) surveys. Official statistics such as mortality data or hospitalisation rates are low in cost for the researcher and have the advantage of being more objective than self-assessment questionnaires or interviews. But there are some considerable downsides. Some health outcomes, e. g. suicide rates, are often underreported, especially in countries where there is high stigmatisation. Furthermore, proxy variables sometimes have to replace variables of interest. For example, when examining the impact of drought on farmer suicide rates, occupation is not captured in the mortality statistics and one is limited to analysing rural males aged 30-60 years, assuming that they are working in agriculture <span class="citation">(<a href="#ref-carletonCropdamagingTemperaturesIncrease2017">Carleton 2017</a>)</span>. Surveys do not have this downside, as one can collect variables of interest and potential confounders directly, leading to more fine-grained information <span class="citation">(<a href="#ref-edwardsImpactDroughtMental2015">Edwards, Gray, and Hunter 2015</a>)</span>. However, survey data is more prone to self-selection bias and dropouts, particularly in longitudinal designs <span class="citation">(<a href="#ref-kesslerTrendsMentalIllness2008">Kessler et al. 2008</a>)</span>. In addition, measuring instruments can have a low validity and data collection is costly in terms of both time and monetary resources. Which data source is chosen is largely dependent on the research question and study design.
+The most common study designs are cross-sectional, followed by case-studies. Little studies attempt to model outcomes <span class="citation">(<a href="#ref-charlsonClimateChangeMental2021">Charlson et al. 2021</a>)</span>.
+The specific statistical analysis depends on the data source and the study design. Classic linear regression (in case of a continuous outcome, e. g. general wellbeing) and logit models (in case of binary outcome, e. g. has a mental illness – does not have a mental illness) are most often used, but also more flexible models, allowing for non-linear effects of climatic covariates such as temperature or precipitation, are possible.
+For a more detailed review on studies about environmental exposure and MH outcomes, see Charlson et al. (2021).
+It can be summarized that research concerning the impact of CC on MH is less advanced than research on other health outcomes and mostly restricted to assessing risks. A methodological difficulty inherent to research questions regarding MH is firstly the measurement of MH outcomes, relying on psychometric instruments or diagnostic interviews, and secondly the large number of potential unmeasured confounders, especially when working with official statistics.
+An important motivation for researching the interactions between CC and health is that, based on a good understanding of causality and reliable projections, evidence-based measures can contribute to the adaptation of health care systems and prevent the most adverse outcomes. However, in the most frequently used cross-sectional studies on CC and MH, causal interpretations must be carefully scrutinised, particularly when dealing with complex causal processes. Different designs such as longitudinal or interventional designs, a shift towards the other WHO research priorities ii)-v) and a greater focus on non-western regions and populations may contribute to a more reliable, causal understanding.</p>
+</div>
+<div id="the-impact-of-hurricanes-on-posttraumatic-stress-disorder-ptsd" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> 4. The Impact of Hurricanes on Posttraumatic Stress Disorder (PTSD)<a href="menh3.html#the-impact-of-hurricanes-on-posttraumatic-stress-disorder-ptsd" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To illustrate how the above theoretical principals are operationalised in practice, an exemplary study and its results will be described in the following. The paper “Trends in Mental Illness and Suicidality after Hurricane Katrina” <span class="citation">(<a href="#ref-kesslerTrendsMentalIllness2008">Kessler et al. 2008</a>)</span> is concerned with the impact of one of the most destructive natural catastrophes in the history of the United States <span class="citation">(<a href="#ref-graumannHurricaneKatrinaClimatological2006">Graumann et al. 2006</a>)</span>. To investigate the effect on MH, 815 pre-hurricane residents of the most affected areas were interviewed 5-8 months after the event (baseline) and again one year later (follow-up). In these interviews, data on hurricane-related stressors, demographic variables (age, gender, ethnicity, household income, education, etc.) and different MH conditions (anxiety and mood disorders, PTSD, suicidality, severity of mental illness) were collected. As the first screening interview found that individuals with higher hurricane-related stress levels chose to not participate in the study, weights were applied to the baseline hurricane-related stress variable to account for this selection bias. Additionally, the authors differentiated between individuals from the New Orleans Metropolitan area (metro subsample) and individuals from other areas (non-metro subsample). Multiple logistic regression models of the form</p>
+<p><span class="math display">\[
+\pi_i = P(Y_i = \text{mental illness} \mid \eta_i) = h(\eta_i) = \frac{\exp(\eta_i)}{1 + \exp(\eta_i)}
+\]</span>
+with linear predictors</p>
+<p><span class="math display">\[
+\eta_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip}
+\]</span></p>
+<p>were used to investigate the different outcomes of mental illnesses. In the following, only the results of the outcome of PTSD shall be outlined.
+The overall prevalence of PTSD was high in both subsamples and on both measurement points (14.9% on baseline, 20.9% on follow-up for the total sample), compared to the US-wide prevalence of 6% <span class="citation">(<a href="#ref-goldsteinEpidemiologyDSM5Posttraumatic2016">Goldstein et al. 2016</a>)</span>. A two-tailed, within-responded paired t-test showed that prevalence increased significantly over time. Significance was driven by increase of prevalence in the non-metro subsample (11.8 vs 20.0%, <em>p</em> &lt; 0.001), while the prevalence of the metro-subsample stagnated over time (25.9 vs 24.1%, <em>p</em> = 0.37). Recovery rate in the follow-up was low as 66.4% of baseline cases continued to have PTSD, 16.9% classified for another diagnosis and only 16.7% recovered. In the logistic regression model, only two of the demographic variables, participants age and family income, had a significant influence on PTSD outcome.
+The authors hypothesised that the significant increase in prevalence might be explained by an increase in hurricane-related stress. However, this hypothesis was not confirmed by the data. Regarding hurricane-related stress as outcome variable, one can find that stress decreased significantly over time in the whole sample (91.7 vs 57.5%, <em>p</em> = 0.001), but in the follow-up, stress was significantly higher in the metro subsample than the non-metro subsample (78.3 vs 51.7%, <em>p</em> &lt; 0.001). This contrasts with the increase of PTSD in the non-metro subsample. One can conclude that higher levels of residual hurricane-related stress cannot explain the increase of PTSD prevalence over time in the non-metro subsample. In turn, when taking hurricane-related stress of the follow-up into the model as a predictor variable, one can find that it is indeed significant for both subsamples. In this final model, stress exposure was a key predictor which explained substantial variation in PTSD. The results can be seen in Table 1. Remarkable are the odds-ratios of 20.3 for severe and 12.8 for serious stress compared to individuals with no hurricane-related stress, after controlling for socio-demographic variables and diagnosis of PTSD in the baseline interview. The authors argue that, if interpreted causally, the population-attributable risk proportion of PTSD due to hurricane-related stress is 31.9%, meaning that this proportion would be expected to remit if all hurricane-related stress would be resolved. Although the causality assumption may not be fulfilled, this statement is interesting as it could be a methodological approach to estimate additional PTSD diagnoses due to natural disasters.</p>
+<table>
+<caption><span id="tab:tabResults">TABLE 13.1: </span>Table 1. Effects of hurricane-related stress on PTSD outcome as shown in Kessler et al. (2008).</caption>
+<thead>
+<tr class="header">
+<th align="left">Severity</th>
+<th align="left">OR</th>
+<th align="left">CI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Severe</td>
+<td align="left">20.3*</td>
+<td align="left">(4.9–84.6)</td>
+</tr>
+<tr class="even">
+<td align="left">Serious</td>
+<td align="left">12.8*</td>
+<td align="left">(3.0–53.7)</td>
+</tr>
+<tr class="odd">
+<td align="left">Moderate</td>
+<td align="left">4.4*</td>
+<td align="left">(1.2–16.1)</td>
+</tr>
+<tr class="even">
+<td align="left">Mild</td>
+<td align="left">3.5</td>
+<td align="left">(1.0–12.6)</td>
+</tr>
+<tr class="odd">
+<td align="left">None</td>
+<td align="left">1.0</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\chi^2\)</span> (<span class="math inline">\(p\)</span>-value)</td>
+<td align="left">21.0</td>
+<td align="left">(&lt; .001)</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note.</em> <font size="2">CI, confidence interval; OR, odds ratio; PTSD, posttraumatic stress disorder. Effects estimated with multiple logistic regression model controlling for sociodemographic variables, baseline value of PTSD and subsample. Reference category were participants with no hurricane-related stress. Significance level was 0.05.</font></p>
+<p>The study has four mayor limitations: First, in addition to the mentioned selection bias after the first screening, the dropout rate between measurement points was 21.9%. Although a weight was used to account for the selection bias, it is possible that other, non-collected variables might influence participation or dropout. Second, only screening scales instead of diagnostic interviews were used for diagnosis. Hurricane-related stress was measured using self-assessment questionnaires, which is both subjective and retrospective and possibly biased by current emotional functioning. Third, although interpreted causally, hurricane-related stress and PTSD might be influenced by unmeasured common causes, influencing the observed association. Lastly, there is no true pre-hurricane baseline for the sample, and preexisting mental illness was not recorded in the survey.
+The results of the presented study are partially contradicting similar studies which found a decline in PTSD over time <span class="citation">(<a href="#ref-chenIncidencePosttraumaticStress2015">Chen and Liu 2015</a>)</span>. The authors hypothesise that the increase in prevalence in the non-metro subsample may be caused by greater media attention and resources being allocated to the New Orleans metropolitan region, leading to a sense of neglect and slower reconstruction of infrastructure in other areas. It is also remarked that other stressors only indirectly linked to the hurricane, such as economic stress or displacement, might influence MH outcomes. This is an interesting point of discussion, as it shows that the IPCC categorization of climate change exposures impacting MH is not as simple as outlined before. Events that fall into the category of direct exposure, such as hurricanes, might have prolonged effects on mental health outcomes, e. g. via economic hardship. This in turn makes it very difficult to attribute MH outcomes to specific CC events, as effects can be observed directly after the event, but can also have a prolonged onset. The potential causal pathways of short-term and long-term stressors on PTSD are depicted in Figure 2.</p>
+<p><img src="work/12-mentalhealth/figures/DAG_hurricane.png" width="450px" style="display: block; margin: auto;" /></p>
+<p><em>Figure 2.</em> <font size="2">Potential direct and indirect causal pathways through which hurricanes might influence the development of posttraumatic stress disorder (PTSD).</font></p>
+<p>To conclude, the study shows that disaster-related stress does play a significant role in PTSD outcome. Since adverse effects are only weakly related to socio-demographic variables, efforts for sufficient treatment must extend to the entire population. High residual hurricane-related stress after two years and its strong relation to PTSD emphasizes the need for evidence-based measures to address residual stress in multiple ways, ranging from rebuilding infrastructure to providing counselling and financial support.
+Although the study itself does not link the results to CC, it would be possible to draw a connection between this single, natural disaster and future CC impact on MH. According to the IPCC (2023), hurricanes are projected to increase in frequency and severity. If, as claimed in the study, hurricane-related stress plays a causal role in the development of PTSD, this increase in hurricanes would have a considerable effect on the number of individuals suffering from PTSD and would need to be taken into account for future health care adaption plans.</p>
+</div>
+<div id="adaption-and-mitigation-strategies" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> 5. Adaption and Mitigation Strategies<a href="menh3.html#adaption-and-mitigation-strategies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Although the IPCC classifies the adverse impact of CC on MH to be of very high confidence, little attention has been directed to mitigation and adaption strategies for mental health and treatment systems <span class="citation">(<a href="#ref-charlsonClimateChangeMental2021">Charlson et al. 2021</a>)</span>. In Berry et al. (2018), a possible approach to deal with the high complexity of the matter is outlined. They criticise that today’s policies and epidemiological research is focused mainly on individual outcomes, proximate causes and measurements on short timescales. To address the impact of CC on MH more holistically, they propose “systems thinking”, which they define as a set of skills used to examine interacting factors that produce outcomes, predict their behaviour and design interventions. More precisely, in research they demand a mixture of CC projections and experimental designs to understand causal influences. In policy, behaviour change should be accomplished through social policy and collective actions instead of aiming at individuals. In direct actions and interventions, they demand a shift from the single-hazard perspective of e. g. extreme weather events to a strategic long-term planning accounting for an increase in those extreme events <span class="citation">(<a href="#ref-berryCaseSystemsThinking2018">Berry et al. 2018</a>)</span>.
+An example for system thinking would be the protection of infrastructure to benefit MH. This sounds far-fetched, but considering that the cost of damage to critical infrastructure is estimated to increase tenfold <span class="citation">(<a href="#ref-forzieriEscalatingImpactsClimate2018">Forzieri et al. 2018</a>)</span>, and that these costs divert resources from public health, put pressure on the functioning of society and take up individual resources – all factors that have a negative impact on MH – infrastructure protection could be a promotional strategy to protect MH from the impact of CC. The causal diagram of this process is depicted in Figure 3.</p>
+<p><img src="work/12-mentalhealth/figures/DAG_infra_2.png" width="450px" style="display: block; margin: auto;" /></p>
+<p><em>Figure 3.</em> <font size="2">Top-level process diagramm depicting linkages between climate change, infratructure and mental health, as shown in Berry et al. (2018).</font></p>
+<p>The proposal by Berry et al. (2018) is a broad framework that may be useful to approach most of the problems discussed in this chapter. However, the individual components are yet to be tested in future research and policy designs.
+On the more practical side, Hayes et al. (2018) and Newnham et al. (2020) proposed several practical measures that could protect MH from direct and indirect CC impact. For acute response to disaster, first-aid responders and nurses need to be trained in basic psychological first aid. It has also proven beneficial for subsequent MH outcomes to prepare people living in vulnerable areas (e.g. near rivers that will flood more frequently in the future) for the possibility that the event might occur <span class="citation">(<a href="#ref-munroEffectEvacuationDisplacement2017">Munro et al. 2017</a>)</span>. Intermediate adaption could include capacity building for therapy and counselling, education and programmes to reduce stigma as well as community-building and preparation training for extreme weather-related events <span class="citation">(<a href="#ref-newnhamPreparingMentalHealth2020">Newnham, Titov, and McEvoy 2020</a>)</span>. Long-term prevention and mitigation require governments to include MH in their strategic health planning and the development of tools to predict risks, costs and needed resources. Ultimately, a swift transition towards a carbon-neutral economy would be the most cost-effective and efficient way of protecting MH from the impacts of CC.</p>
+</div>
+<div id="conclusion" class="section level2 hasAnchor" number="13.6">
+<h2><span class="header-section-number">13.6</span> 6. Conclusion<a href="menh3.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Climate change will have considerable effects on public health, including MH and wellbeing. As the latter has received little attention in research and politics, scientifically sound methods to quantify the impact of CC on MH are still being developed and research has yet not advanced from assessing the risks to estimating the costs or designing adaption strategies. Considering the importance of MH and wellbeing for individual life as well as society and economic production, more research and policy action is needed to understand this complex topic and prevent or at least attenuate the adverse impact of a changing climate on mental health.</p>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<h3>References<a href="references-1.html#references-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-ariasQuantifyingGlobalBurden2022" class="csl-entry">
+Arias, Daniel, Shekhar Saxena, and Stéphane Verguet. 2022. <span>“Quantifying the Global Burden of Mental Disorders and Their Economic Value.”</span> <em>eClinicalMedicine</em> 54 (December). <a href="https://doi.org/10.1016/j.eclinm.2022.101675">https://doi.org/10.1016/j.eclinm.2022.101675</a>.
+</div>
+<div id="ref-berryCaseSystemsThinking2018" class="csl-entry">
+Berry, Helen L., Thomas D. Waite, Keith B. G. Dear, Anthony G. Capon, and Virginia Murray. 2018. <span>“The Case for Systems Thinking about Climate Change and Mental Health.”</span> <em>Nature Climate Change</em> 8 (4): 282–90. <a href="https://doi.org/10.1038/s41558-018-0102-4">https://doi.org/10.1038/s41558-018-0102-4</a>.
+</div>
+<div id="ref-carletonCropdamagingTemperaturesIncrease2017" class="csl-entry">
+Carleton, Tamma A. 2017. <span>“Crop-Damaging Temperatures Increase Suicide Rates in <span>India</span>.”</span> <em>Proceedings of the National Academy of Sciences</em> 114 (33): 8746–51. <a href="https://doi.org/10.1073/pnas.1701354114">https://doi.org/10.1073/pnas.1701354114</a>.
+</div>
+<div id="ref-charlsonClimateChangeMental2021" class="csl-entry">
+Charlson, Fiona, Suhailah Ali, Tarik Benmarhnia, Madeleine Pearl, Alessandro Massazza, Jura Augustinavicius, and James G. Scott. 2021. <span>“Climate <span>Change</span> and <span>Mental Health</span>: <span>A Scoping Review</span>.”</span> <em>International Journal of Environmental Research and Public Health</em> 18 (9): 4486. <a href="https://doi.org/10.3390/ijerph18094486">https://doi.org/10.3390/ijerph18094486</a>.
+</div>
+<div id="ref-chenIncidencePosttraumaticStress2015" class="csl-entry">
+Chen, Long, and Aizhong Liu. 2015. <span>“The <span>Incidence</span> of <span>Posttraumatic Stress Disorder After Floods</span>: <span>A Meta-Analysis</span>.”</span> <em>Disaster Medicine and Public Health Preparedness</em> 9 (3): 329–33. <a href="https://doi.org/10.1017/dmp.2015.17">https://doi.org/10.1017/dmp.2015.17</a>.
+</div>
+<div id="ref-cianconiImpactClimateChange2020" class="csl-entry">
+Cianconi, Paolo, Sophia Betrò, and Luigi Janiri. 2020. <span>“The <span>Impact</span> of <span>Climate Change</span> on <span>Mental Health</span>: <span>A Systematic Descriptive Review</span>.”</span> <em>Frontiers in Psychiatry</em> 11 (March). <a href="https://doi.org/10.3389/fpsyt.2020.00074">https://doi.org/10.3389/fpsyt.2020.00074</a>.
+</div>
+<div id="ref-edwardsImpactDroughtMental2015" class="csl-entry">
+Edwards, Ben, Matthew Gray, and Boyd Hunter. 2015. <span>“The <span>Impact</span> of <span>Drought</span> on <span>Mental Health</span> in <span>Rural</span> and <span>Regional Australia</span>.”</span> <em>Social Indicators Research</em> 121 (1): 177–94. <a href="https://doi.org/10.1007/s11205-014-0638-2">https://doi.org/10.1007/s11205-014-0638-2</a>.
+</div>
+<div id="ref-forzieriEscalatingImpactsClimate2018" class="csl-entry">
+Forzieri, Giovanni, Alessandra Bianchi, Filipe Batista e Silva, Mario A. Marin Herrera, Antoine Leblois, Carlo Lavalle, Jeroen C. J. H. Aerts, and Luc Feyen. 2018. <span>“Escalating Impacts of Climate Extremes on Critical Infrastructures in <span>Europe</span>.”</span> <em>Global Environmental Change</em> 48 (January): 97–107. <a href="https://doi.org/10.1016/j.gloenvcha.2017.11.007">https://doi.org/10.1016/j.gloenvcha.2017.11.007</a>.
+</div>
+<div id="ref-goldsteinEpidemiologyDSM5Posttraumatic2016" class="csl-entry">
+Goldstein, Risë B., Sharon M. Smith, S. Patricia Chou, Tulshi D. Saha, Jeesun Jung, Haitao Zhang, Roger P. Pickering, W. June Ruan, Boji Huang, and Bridget F. Grant. 2016. <span>“The Epidemiology of <span>DSM-5</span> Posttraumatic Stress Disorder in the <span>United States</span>: Results from the <span>National Epidemiologic Survey</span> on <span>Alcohol</span> and <span>Related Conditions-III</span>.”</span> <em>Social Psychiatry and Psychiatric Epidemiology</em> 51 (8): 1137–48. <a href="https://doi.org/10.1007/s00127-016-1208-5">https://doi.org/10.1007/s00127-016-1208-5</a>.
+</div>
+<div id="ref-graumannHurricaneKatrinaClimatological2006" class="csl-entry">
+Graumann, Axel, Tamara G. Houston, Jay H. Lawrimore, David H. ) Levinson, Neal Lott, Sam McCown, Scott Stephens, and David B. Wuertz. 2006. <span>“Hurricane <span>Katrina</span> : A Climatological Perspective : Preliminary Report,”</span> National <span>Climatic Data Center</span> technical report ; no. 2005-01,.
+</div>
+<div id="ref-hayesClimateChangeMental2018" class="csl-entry">
+Hayes, Katie, G. Blashki, J. Wiseman, S. Burke, and L. Reifels. 2018. <span>“Climate Change and Mental Health: Risks, Impacts and Priority Actions.”</span> <em>International Journal of Mental Health Systems</em> 12 (June): 28. <a href="https://doi.org/10.1186/s13033-018-0210-6">https://doi.org/10.1186/s13033-018-0210-6</a>.
+</div>
+<div id="ref-hewlette.MakingMentalHealth2014" class="csl-entry">
+Hewlett, E., and Moran, V. 2014. <em>Making <span>Mental Health Count</span>: <span>The Social</span> and <span>Economic Costs</span> of <span>Neglecting Mental Health Care</span></em>. Paris: OECD Health Policy Studies, OECD Publishing.
+</div>
+<div id="ref-intergovernmentalpanelonclimatechangeClimateChange20222023" class="csl-entry">
+Intergovernmental Panel On Climate Change. 2023. <em>Climate <span>Change</span> 2022 – <span>Impacts</span>, <span>Adaptation</span> and <span>Vulnerability</span>: <span>Working Group II Contribution</span> to the <span>Sixth Assessment Report</span> of the <span>Intergovernmental Panel</span> on <span>Climate Change</span></em>. 1st ed. Cambridge University Press. <a href="https://doi.org/10.1017/9781009325844">https://doi.org/10.1017/9781009325844</a>.
+</div>
+<div id="ref-kesslerTrendsMentalIllness2008" class="csl-entry">
+Kessler, R. C., S. Galea, M. J. Gruber, N. A. Sampson, R. J. Ursano, and S. Wessely. 2008. <span>“Trends in Mental Illness and Suicidality After <span>Hurricane Katrina</span>.”</span> <em>Molecular Psychiatry</em> 13 (4): 374–84. <a href="https://doi.org/10.1038/sj.mp.4002119">https://doi.org/10.1038/sj.mp.4002119</a>.
+</div>
+<div id="ref-mazhinMigrationHealthCrisis2020" class="csl-entry">
+Mazhin, Sadegh Ahmadi, Hamidreza Khankeh, Mehrdad Farrokhi, Mohsen Aminizadeh, and Mohsen Poursadeqiyan. 2020. <span>“Migration Health Crisis Associated with Climate Change: <span>A</span> Systematic Review.”</span> <em>Journal of Education and Health Promotion</em> 9 (April): 97. <a href="https://doi.org/10.4103/jehp.jehp_4_20">https://doi.org/10.4103/jehp.jehp_4_20</a>.
+</div>
+<div id="ref-munroEffectEvacuationDisplacement2017" class="csl-entry">
+Munro, Alice, R. Sari Kovats, G. James Rubin, Thomas David Waite, Angie Bone, Ben Armstrong, and English National Study of Flooding and Health Study Group. 2017. <span>“Effect of Evacuation and Displacement on the Association Between Flooding and Mental Health Outcomes: A Cross-Sectional Analysis of <span>UK</span> Survey Data.”</span> <em>The Lancet. Planetary Health</em> 1 (4): 134–41. <a href="https://doi.org/10.1016/S2542-5196(17)30047-5">https://doi.org/10.1016/S2542-5196(17)30047-5</a>.
+</div>
+<div id="ref-newnhamPreparingMentalHealth2020" class="csl-entry">
+Newnham, Elizabeth A, Nickolai Titov, and Peter McEvoy. 2020. <span>“Preparing Mental Health Systems for Climate Crisis.”</span> <em>The Lancet Planetary Health</em> 4 (3): e89–90. <a href="https://doi.org/10.1016/S2542-5196(20)30036-X">https://doi.org/10.1016/S2542-5196(20)30036-X</a>.
+</div>
+<div id="ref-romanello2023ReportLancet2023a" class="csl-entry">
+Romanello, Marina, Claudia di Napoli, Carole Green, Harry Kennard, Pete Lampard, Daniel Scamman, Maria Walawender, et al. 2023. <span>“The 2023 Report of the <span>Lancet Countdown</span> on Health and Climate Change: The Imperative for a Health-Centred Response in a World Facing Irreversible Harms.”</span> <em>The Lancet</em> 402 (10419): 2346–94. <a href="https://doi.org/10.1016/S0140-6736(23)01859-7">https://doi.org/10.1016/S0140-6736(23)01859-7</a>.
+</div>
+<div id="ref-vinsMentalHealthOutcomes2015" class="csl-entry">
+Vins, Holly, Jesse Bell, Shubhayu Saha, and Jeremy J. Hess. 2015. <span>“The <span>Mental Health Outcomes</span> of <span>Drought</span>: <span>A Systematic Review</span> and <span>Causal Process Diagram</span>.”</span> <em>International Journal of Environmental Research and Public Health</em> 12 (10): 13251–75. <a href="https://doi.org/10.3390/ijerph121013251">https://doi.org/10.3390/ijerph121013251</a>.
+</div>
+<div id="ref-watts2018ReportLancet2018" class="csl-entry">
+Watts, Nick, Markus Amann, Nigel Arnell, Sonja Ayeb-Karlsson, Kristine Belesova, Helen Berry, Timothy Bouley, et al. 2018. <span>“The 2018 Report of the <span>Lancet Countdown</span> on Health and Climate Change: Shaping the Health of Nations for Centuries to Come.”</span> <em>The Lancet</em> 392 (10163): 2479–2514. <a href="https://doi.org/10.1016/S0140-6736(18)32594-7">https://doi.org/10.1016/S0140-6736(18)32594-7</a>.
+</div>
+<div id="ref-wattsLancetCountdownHealth2018" class="csl-entry">
+Watts, Nick, Markus Amann, Sonja Ayeb-Karlsson, Kristine Belesova, Timothy Bouley, Maxwell Boykoff, Peter Byass, et al. 2018. <span>“The <span>Lancet Countdown</span> on Health and Climate Change: From 25 Years of Inaction to a Global Transformation for Public Health.”</span> <em>The Lancet</em> 391 (10120): 581–630. <a href="https://doi.org/10.1016/S0140-6736(17)32464-9">https://doi.org/10.1016/S0140-6736(17)32464-9</a>.
+</div>
+<div id="ref-worldhealthorganizationProtectingHealthClimate2009" class="csl-entry">
+World Health Organization. 2009. <span>“Protecting Health from Climate Change : Global Research Priorities.”</span> <em>World Health Organization</em>. https://doi.org/<a href="https://iris.who.int/handle/10665/44133">https://iris.who.int/handle/10665/44133</a>.
+</div>
+<div id="ref-worldhealthorganizationComprehensiveMentalHealth2021" class="csl-entry">
+———. 2021. <em>Comprehensive <span>Mental Health Action Plan</span> 2013-2030</em>. Geneva: World Health Organization.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="he4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["book.pdf", "book.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

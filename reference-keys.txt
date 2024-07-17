@@ -1,3 +1,4 @@
+tab:tabResults
 introduction
 intro-about-the-seminar-topic
 outline-of-the-booklet
@@ -34,6 +35,13 @@ data-limitations
 examples
 discussion
 he4
-he5
+menh3
+introduction-2
+challenges-of-quantifying-climate-change-impact-on-mental-health
+data-sources-and-methods-used-to-investigate-climate-change-impact
+the-impact-of-hurricanes-on-posttraumatic-stress-disorder-ptsd
+adaption-and-mitigation-strategies
+conclusion
+references
 open-issue
 acknowledgements
