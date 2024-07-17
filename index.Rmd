@@ -2,10 +2,7 @@
 title: "Climate And Statistics"
 author: "Helmut Küchenhoff, Henri Funk"
 date: "`r Sys.Date()`"
-output: pdf_document
-bibliography:
-- book.bib
-- packages.bib
+bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: true
 colorlinks: true

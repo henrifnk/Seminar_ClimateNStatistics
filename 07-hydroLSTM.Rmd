@@ -90,7 +90,7 @@ knitr::include_graphics('work/07-hydroLSTM/images/tp_correlation_table.png')
 
 The Long Short-Term Memory (LSTM) cell (figure \@ref(fig:lstm)) is a type of recurrent neural network (RNN) architecture designed to model temporal sequences and their long-range dependencies more accurately than traditional RNNs. LSTMs were introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997 to address the issue of vanishing and exploding gradients encountered in traditional RNNs @hochreiter.
 
-```{r lstm, cache=FALSE, out.width="70%", fig.cap = 'visualization of a LSTM cell at time step t (image adapted from @lstm_image',fig.align="center", echo=FALSE, eval = TRUE}
+```{r lstm, cache=FALSE, out.width="70%", fig.cap = 'visualization of a LSTM cell at time step t (image adapted from @lstmimage)',fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/LSTM.png')
 ```
 

@@ -29,7 +29,7 @@ Climate change is a broad and pressing topic as the number of heat-related death
 
 In contrast, a wide range of epidemiological studies have found either no or only a weak correlation between humidity and human heat stress or adverse health outcomes. Those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. These two contradictions lead, according to (@bald), to a controversial issue as physiologically it is known that there is an effect of humidity on health outcomes, whereas in epidemiological studies they did not find evidence for such an effect. Figure 1 describes this contradiction between physiological knowledge and epidemiological studies. Heat in this chapter is used as synonym for high ambient temperature. 
 
-```{r controversial, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+```{r controversial, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('Controversial Issue.png')
 ```
 
@@ -96,7 +96,7 @@ Composite indicators are frequently used in studies. There are over 120 heat str
 A confounder is a variable that affects both the exposure of interest and the outcome. Figure 2 illustrates how humidity acts as a confounder in the relationship between heat and health outcomes. 
 
 
-```{r confounder, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+```{r confounder, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('Confounder.png')
 ```
 
@@ -160,7 +160,7 @@ Another limitation is that typically only relative humidity (RH) is measured at 
 
 In summary, the lack of weather data can result in an underestimation of the impact of humidity on health outcomes. Researchers should consider these data limitations, especially when generalizing results to different countries and weather conditions. (@bald)
 
-```{r HadISD, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+```{r HadISD, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('hadisdimage1.png')
 ```
 

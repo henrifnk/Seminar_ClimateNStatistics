@@ -41,7 +41,7 @@ Shared Socioeconomic pathways (SSPs) (@RIAHI2017153) were established by the cli
 
 These pathways are considered by climate models, e.g. CMIP6 (@gmd-9-1937-2016), in order to describe multiple scenarios for climate projections. Figure \@ref(fig:cmip6strobl) shows CMIP6 simulations for multiple models and all SSPs. In this chapter, we consider SSP1, representing a sustainable path, and SSP3, representing a non-sustainable path, which humanity is following right now.
 
-```{r cmip6strobl, cache=FALSE, out.width="100%", eval=TRUE, echo=FALSE, fig.cap="CMIP6 climate simulations for SSPs with projections until 2100 (https://www.dkrz.de/en/communication/climate-simulations/cmip6-en/cmip6-acivities-at-dkrz-overview?set_language=en; accessed on July 10, 2024)"}
+```{r cmip6strobl, cache=FALSE, out.width="100%", eval=TRUE, echo=FALSE, fig.cap="CMIP6 climate simulations for SSPs with projections until 2100 (https://www.dkrz.de/en/communication/climate-simulations/cmip6-en/cmip6-acivities-at-dkrz-overview?set\\_language=en; accessed on July 10, 2024)"}
 knitr::include_graphics("work/08-lancet/figures/cmip6.jpg")
 ```
 
