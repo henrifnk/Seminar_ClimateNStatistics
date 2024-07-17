@@ -225,6 +225,9 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="sm" class="section level1 hasAnchor" number="8">
 <h1><span class="header-section-number">Chapter 8</span> Statistical streamflow modelling<a href="sm.html#sm" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Author: Lennart Marx</em></p>
+<p><em>Supervisor: Henri Funk</em></p>
+<p><em>Degree: Master</em></p>
 <div id="abstract" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Abstract<a href="sm.html#abstract" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This study evaluates and compares the performance of Long Short-Term Memory (LSTM) networks and Temporal Fusion Transformers (TFT) in forecasting streamflows for up to seven day ahead forecasts, using historical streamflow data alongside precipitation and temperature as covariates. Freely available data published by the bavarian hydrological authority from the Regen river in Bavaria, Germany, was used in conjunction with meteorological data from the ERA5 reanalysis dataset. River basins are defined via the HydroRIVERS and HydroBASINS dataset to obtain the area over which precipitation is aggregated. Results indicate that while both models face challenges in predicting extreme values, TFT maintains more consistent accuracy over longer forecast horizons while pure LSTM model’s predictions decline sharply in performance with increasing lead times.</p>
@@ -243,14 +246,14 @@ div.csl-indent {
 <h3><span class="header-section-number">8.3.1</span> Preperation<a href="sm.html#preperation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The streamflow data is gathered from the bavarian hydrology authority (GKD). They provide freely accessible data on most water bodies in Bavaria <span class="citation">Bayerisches Landesamt für Umwelt, Gewässerkundlicher Dienst Bayern (<a href="#ref-bayerisches_landesamt">2024</a>)</span>. Focusing on rivers of medium size where the entire length of the river is located inside of the state of Bavaria, the river Regen positioned north/east of the city of Regensburg was chosen as a bases for this study. The GKD has data on 21 streamflow gauging stations located at the Regen or any of its tributary rivers. For the Regen river, data between 2014 and 2024 is available with daily measurements on the streamflows including the coordinates of the the gauging station. This study focused on the 15207507 Marienthal gauging station that was located closest to the final outflow towards the Danube river within the city of Regensburg. Utilizing the HydroRIVERS dataset, which contains the shapes of rivers all over the world, it was possible the acquire the shape of the Regen along with its geolocation as shown in figure <a href="sm.html#fig:regen-shape">8.1</a> <span class="citation">Lehner, Verdin, and Jarvis (<a href="#ref-lehner">2008</a>)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:regen-shape"></span>
-<img src="work/07-hydroLSTM/images/regen_stations.png" alt="Streamflow gauging stations that provide there measurements at the GKD along the Regen river (adapted from @OpenStreetMap)" width="400px" />
+<img src="work/07-hydroLSTM/images/regen_stations.png" alt="Streamflow gauging stations that provide there measurements at the GKD along the Regen river (adapted from @OpenStreetMap)" width="70%" />
 <p class="caption">
 FIGURE 8.1: Streamflow gauging stations that provide there measurements at the GKD along the Regen river (adapted from <span class="citation">OpenStreetMap contributors (<a href="#ref-OpenStreetMap">2017</a>)</span>)
 </p>
 </div>
 <p>A catchment also known as a drainage basin or watershed, is an area of land where all precipitation collects and drains off into a common outlet, such as a river, bay, or other body of water. The boundaries of a catchment are defined by the highest points of land around the drainage area, often referred to as the drainage divide. These catchment areas will later be used to determine the variables for precipitation that are used to forecast the streamflows of the river. Taking advantage of the HydroBASINS dataset, that contains the shapes of basins all over the world in different resolutions <span class="citation">Lehner, Verdin, and Jarvis (<a href="#ref-lehner">2008</a>)</span>. With the software QGIS a geoinformation system (GIS) all basins were chosen that completely contain the river Regen shape, which led to the 19 defined catchments that can be seen figure <a href="sm.html#fig:regen-catch">8.2</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:regen-catch"></span>
-<img src="work/07-hydroLSTM/images/river_catch.png" alt="Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from @OpenStreetMap)" width="400px" />
+<img src="work/07-hydroLSTM/images/river_catch.png" alt="Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from @OpenStreetMap)" width="70%" />
 <p class="caption">
 FIGURE 8.2: Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from <span class="citation">OpenStreetMap contributors (<a href="#ref-OpenStreetMap">2017</a>)</span>)
 </p>
@@ -261,14 +264,14 @@ FIGURE 8.2: Catchments defined for the Regen river based on the HydroBASINS shap
 <h3><span class="header-section-number">8.3.2</span> Preprocessing<a href="sm.html#preprocessing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The measuring station 15207507 contained 1 missing value which was imputed by linear interpolation. As suggested in <span class="citation">Sabzipour et al. (<a href="#ref-sabzipour">2023</a>)</span> non centered moving average smoothing with a window size of 3 was applied to the streamflow data as can be seen in figure <a href="sm.html#fig:marien-stream">8.3</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:marien-stream"></span>
-<img src="work/07-hydroLSTM/images/Moving_Average.png" alt="streamflows of the 15207507 Marienthal gauging stations before (blue) and after (orange) applying moving average smoothing" width="500px" />
+<img src="work/07-hydroLSTM/images/Moving_Average.png" alt="streamflows of the 15207507 Marienthal gauging stations before (blue) and after (orange) applying moving average smoothing" width="80%" />
 <p class="caption">
 FIGURE 8.3: streamflows of the 15207507 Marienthal gauging stations before (blue) and after (orange) applying moving average smoothing
 </p>
 </div>
 <p>To combine the rasterized meteorological data from ERA5 with the streamflows of the Regen, it is necessary to only take precipitation into account that occurs within the defined catchments. To achieve this, a weighted average is calculated, where the weights are determined by the area size of the intersection between the raster cell of the meteorological data and the catchment. This can be seen in a schematic visualization in figure <a href="sm.html#fig:spatial-avg">8.4</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:spatial-avg"></span>
-<img src="work/07-hydroLSTM/images/spatial_averaging.png" alt="schematic visualization of the spatial averaging performed for temperature and total precipitation during data preprocessing" width="500px" />
+<img src="work/07-hydroLSTM/images/spatial_averaging.png" alt="schematic visualization of the spatial averaging performed for temperature and total precipitation during data preprocessing" width="80%" />
 <p class="caption">
 FIGURE 8.4: schematic visualization of the spatial averaging performed for temperature and total precipitation during data preprocessing
 </p>
@@ -282,7 +285,7 @@ tp : total precipitation</p>
 </div>
 <p>Since the catchments are geospatially very close to each other, the different catchments are highly correlated to each other and therefore provide little variance (see Figure <a href="sm.html#fig:tp-corr">8.5</a>). To reduce the feature space for both variables temperature and precipitation, the mean is taken over all catchments. Finally to reduce the noise in the features a moving average of window size 3 was applied.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tp-corr"></span>
-<img src="work/07-hydroLSTM/images/tp_correlation_table.png" alt="correlation table for total precipitation over all catchments" width="400px" />
+<img src="work/07-hydroLSTM/images/tp_correlation_table.png" alt="correlation table for total precipitation over all catchments" width="70%" />
 <p class="caption">
 FIGURE 8.5: correlation table for total precipitation over all catchments
 </p>
@@ -295,7 +298,7 @@ FIGURE 8.5: correlation table for total precipitation over all catchments
 <h3><span class="header-section-number">8.4.1</span> LSTM<a href="sm.html#lstm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Long Short-Term Memory (LSTM) cell (figure <a href="sm.html#fig:lstm">8.6</a>) is a type of recurrent neural network (RNN) architecture designed to model temporal sequences and their long-range dependencies more accurately than traditional RNNs. LSTMs were introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997 to address the issue of vanishing and exploding gradients encountered in traditional RNNs <span class="citation">Hochreiter and Schmidhuber (<a href="#ref-hochreiter">1997</a>)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lstm"></span>
-<img src="work/07-hydroLSTM/images/LSTM.png" alt="visualization of a LSTM cell at time step t (image adapted from @lstm_image" width="400px" />
+<img src="work/07-hydroLSTM/images/LSTM.png" alt="visualization of a LSTM cell at time step t (image adapted from @lstm_image" width="70%" />
 <p class="caption">
 FIGURE 8.6: visualization of a LSTM cell at time step t (image adapted from <span class="citation">Chevalier (<a href="#ref-lstm_image">2023</a>)</span>
 </p>
@@ -328,7 +331,7 @@ FIGURE 8.6: visualization of a LSTM cell at time step t (image adapted from <spa
 <h3><span class="header-section-number">8.4.2</span> Temporal Fusion Transformer<a href="sm.html#temporal-fusion-transformer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Temporal Fusion Transformer (TFT) (figure <a href="sm.html#fig:tft">8.7</a>) is a neural network architecture specifically designed for multi-horizon time series forecasting. It combines the strengths of both recurrent and attention-based models, offering an advanced approach to handling complex time series data. The TFT was introduced by Bryan Lim et al. in 2019, aiming to provide interpretability and accuracy for forecasting tasks <span class="citation">Lim et al. (<a href="#ref-LIM20211748">2021</a>)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tft"></span>
-<img src="work/07-hydroLSTM/images/TFT.png" alt="model architecture for the Temporal Fusion Transformer (image from @LIM20211748" width="500px" />
+<img src="work/07-hydroLSTM/images/TFT.png" alt="model architecture for the Temporal Fusion Transformer (image from @LIM20211748" width="80%" />
 <p class="caption">
 FIGURE 8.7: model architecture for the Temporal Fusion Transformer (image from <span class="citation">Lim et al. (<a href="#ref-LIM20211748">2021</a>)</span>
 </p>
@@ -515,13 +518,13 @@ FIGURE 8.7: model architecture for the Temporal Fusion Transformer (image from <
 </table>
 <p>Forecasting the peaks of the streamflows is challenging and neither model performs particularly well on this task. Especially when considering that the peaks were already drastically reduced due to the moving average smoothing of the target variable. The model routinely undershoots the observed true streamflows here shown for a lead time of 5 days for the LSTM Model and the TFT Model in figure <a href="sm.html#fig:lstm-pred">8.8</a> and in figure <a href="sm.html#fig:tft-pred">8.9</a> respectively. This behavior can be observed for all lead times except 1 and 2 days where the performance is reasonable even in the peaks.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lstm-pred"></span>
-<img src="work/07-hydroLSTM/images/lag5_lstm.png" alt="LSTM predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)" width="500px" />
+<img src="work/07-hydroLSTM/images/lag5_lstm.png" alt="LSTM predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)" width="80%" />
 <p class="caption">
 FIGURE 8.8: LSTM predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tft-pred"></span>
-<img src="work/07-hydroLSTM/images/lag5_tft.png" alt="TFT predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)" width="500px" />
+<img src="work/07-hydroLSTM/images/lag5_tft.png" alt="TFT predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)" width="80%" />
 <p class="caption">
 FIGURE 8.9: TFT predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)
 </p>
@@ -532,25 +535,25 @@ FIGURE 8.9: TFT predicted streamflows for a lead time of 5 days (orange) compare
 <p>For an inspection of feature dependence it is possible to make use of the inbuilt function that the pytorch-forecasting library provides. The models show very similar behavior for both used covariates. As can be seen in <a href="sm.html#fig:tp-tft-imp">8.11</a> the TFT model observes a slightly stronger relationship between high total precipitation and large streamflows, but the plot for for both models has the expected shape, that high precipitation leads to high streamflows and vice versa.</p>
 <p>In analyzing the relationship between t2m and streamflow, both graphs demonstrate a positive relationship. Specifically, the TFT dependence plot in Figure <a href="sm.html#fig:t2m-tft-imp">8.13</a> shows an increase up to approximately 280 K, beyond which the effect plateaus. Similarly, the LSTM model depicted in Figure <a href="sm.html#fig:t2m-lstm-imp">8.12</a> shows a more gradual increase, with the effect leveling off at higher mean temperatures of around 295 K.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tp-lstm-imp"></span>
-<img src="work/07-hydroLSTM/images/mean_tp_feature_importance_lstm.png" alt="Feature dependence plot for mean total precipitation for a lead time 5 trained LSTM" width="400px" />
+<img src="work/07-hydroLSTM/images/mean_tp_feature_importance_lstm.png" alt="Feature dependence plot for mean total precipitation for a lead time 5 trained LSTM" width="70%" />
 <p class="caption">
 FIGURE 8.10: Feature dependence plot for mean total precipitation for a lead time 5 trained LSTM
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tp-tft-imp"></span>
-<img src="work/07-hydroLSTM/images/mean_tp_feature_importance_tft.png" alt="Feature dependence plot for mean total precipitation for a lead time 5 trained TFT" width="400px" />
+<img src="work/07-hydroLSTM/images/mean_tp_feature_importance_tft.png" alt="Feature dependence plot for mean total precipitation for a lead time 5 trained TFT" width="70%" />
 <p class="caption">
 FIGURE 8.11: Feature dependence plot for mean total precipitation for a lead time 5 trained TFT
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:t2m-lstm-imp"></span>
-<img src="work/07-hydroLSTM/images/mean_t2m_feature_importance_lstm.png" alt="Feature dependence plot for mean two meter temperature for a lead time 5 trained LSTM" width="400px" />
+<img src="work/07-hydroLSTM/images/mean_t2m_feature_importance_lstm.png" alt="Feature dependence plot for mean two meter temperature for a lead time 5 trained LSTM" width="70%" />
 <p class="caption">
 FIGURE 8.12: Feature dependence plot for mean two meter temperature for a lead time 5 trained LSTM
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:t2m-tft-imp"></span>
-<img src="work/07-hydroLSTM/images/mean_t2m_feature_importance_tft.png" alt="Feature dependence plot for mean two meter temperature for a lead time 5 trained TFT" width="400px" />
+<img src="work/07-hydroLSTM/images/mean_t2m_feature_importance_tft.png" alt="Feature dependence plot for mean two meter temperature for a lead time 5 trained TFT" width="70%" />
 <p class="caption">
 FIGURE 8.13: Feature dependence plot for mean two meter temperature for a lead time 5 trained TFT
 </p>
