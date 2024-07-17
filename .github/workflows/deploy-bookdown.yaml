@@ -17,7 +17,7 @@ jobs:
       - name: Install rmarkdown
         run: Rscript -e 'install.packages(c("rmarkdown","bookdown", "svglite", "tinytex", "kableExtra", "tidyverse", "devtools", "ggpubr"));tinytex::install_tinytex()'
       - name: Render Book
-        run: Rscript -e 'bookdown::render_book("index.Rmd")'
+        run: make
       - uses: actions/upload-artifact@v4
         with:
           name: _book
