@@ -31,7 +31,7 @@ is.html = !is.null(output) && output == "html"
 
 *Author: Henri Funk*
 
-```{r cover, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+```{r cover, cache=FALSE, out.width="75%", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('cover.jpg')
 ```
 

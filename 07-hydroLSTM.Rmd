@@ -42,13 +42,13 @@ This study aims to evaluate and compare the performance of LSTM and TFT models i
 
 The streamflow data is gathered from the bavarian hydrology authority (GKD). They provide freely accessible data on most water bodies in Bavaria @bayerisches_landesamt. Focusing on rivers of medium size where the entire length of the river is located inside of the state of Bavaria, the river Regen positioned north/east of the city of Regensburg was chosen as a bases for this study. The GKD has data on 21 streamflow gauging stations located at the Regen or any of its tributary rivers. For the Regen river, data between 2014 and 2024 is available with daily measurements on the streamflows including the coordinates of the the gauging station. This study focused on the 15207507 Marienthal gauging station that was located closest to the final outflow towards the Danube river within the city of Regensburg. Utilizing the HydroRIVERS dataset, which contains the shapes of rivers all over the world, it was possible the acquire the shape of the Regen along with its geolocation as shown in figure \@ref(fig:regen-shape) @lehner.
 
-```{r regen-shape,fig.cap = 'Streamflow gauging stations that provide there measurements at the GKD along the Regen river (adapted from @OpenStreetMap)', cache=FALSE, out.width="400px", fig.align="center", echo=FALSE, eval = TRUE}
+```{r regen-shape,fig.cap = 'Streamflow gauging stations that provide there measurements at the GKD along the Regen river (adapted from @OpenStreetMap)', cache=FALSE, out.width="70%", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/regen_stations.png')
 ```
 
 A catchment also known as a drainage basin or watershed, is an area of land where all precipitation collects and drains off into a common outlet, such as a river, bay, or other body of water. The boundaries of a catchment are defined by the highest points of land around the drainage area, often referred to as the drainage divide. These catchment areas will later be used to determine the variables for precipitation that are used to forecast the streamflows of the river. Taking advantage of the HydroBASINS dataset, that contains the shapes of basins all over the world in different resolutions @lehner. With the software QGIS a geoinformation system (GIS) all basins were chosen that completely contain the river Regen shape, which led to the 19 defined catchments that can be seen figure \@ref(fig:regen-catch).
 
-```{r regen-catch, cache=FALSE, fig.cap = 'Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from @OpenStreetMap)',out.width="400px", fig.align="center", echo=FALSE, eval = TRUE}
+```{r regen-catch, cache=FALSE, fig.cap = 'Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from @OpenStreetMap)',out.width="70%", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/river_catch.png')
 ```
 
@@ -58,13 +58,13 @@ The ERA5 reanalysis dataset, contains a plethora of meteorological data in a of 
 
 The measuring station 15207507 contained 1 missing value which was imputed by linear interpolation. As suggested in @sabzipour non centered moving average smoothing with a window size of 3 was applied to the streamflow data as can be seen in figure \@ref(fig:marien-stream).
 
-```{r marien-stream, cache=FALSE, out.width="500px",fig.cap = 'streamflows of the 15207507 Marienthal gauging stations before (blue) and after (orange) applying moving average smoothing', fig.align="center", echo=FALSE, eval = TRUE}
+```{r marien-stream, cache=FALSE, out.width="80%",fig.cap = 'streamflows of the 15207507 Marienthal gauging stations before (blue) and after (orange) applying moving average smoothing', fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/Moving_Average.png')
 ```
 
 To combine the rasterized meteorological data from ERA5 with the streamflows of the Regen, it is necessary to only take precipitation into account that occurs within the defined catchments. To achieve this, a weighted average is calculated, where the weights are determined by the area size of the intersection between the raster cell of the meteorological data and the catchment. This can be seen in a schematic visualization in figure \@ref(fig:spatial-avg).
 
-```{r spatial-avg, cache=FALSE, out.width="500px",fig.cap = 'schematic visualization of the spatial averaging performed for temperature and total precipitation during data preprocessing', fig.align="center", echo=FALSE, eval = TRUE}
+```{r spatial-avg, cache=FALSE, out.width="80%",fig.cap = 'schematic visualization of the spatial averaging performed for temperature and total precipitation during data preprocessing', fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/spatial_averaging.png')
 ```
 
@@ -80,7 +80,7 @@ tp : total precipitation
 
 Since the catchments are geospatially very close to each other, the different catchments are highly correlated to each other and therefore provide little variance (see Figure \@ref(fig:tp-corr)). To reduce the feature space for both variables temperature and precipitation, the mean is taken over all catchments. Finally to reduce the noise in the features a moving average of window size 3 was applied.
 
-```{r tp-corr, cache=FALSE, out.width="400px", fig.cap = 'correlation table for total precipitation over all catchments',fig.align="center", echo=FALSE, eval = TRUE}
+```{r tp-corr, cache=FALSE, out.width="70%", fig.cap = 'correlation table for total precipitation over all catchments',fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/tp_correlation_table.png')
 ```
 
@@ -90,7 +90,7 @@ knitr::include_graphics('work/07-hydroLSTM/images/tp_correlation_table.png')
 
 The Long Short-Term Memory (LSTM) cell (figure \@ref(fig:lstm)) is a type of recurrent neural network (RNN) architecture designed to model temporal sequences and their long-range dependencies more accurately than traditional RNNs. LSTMs were introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997 to address the issue of vanishing and exploding gradients encountered in traditional RNNs @hochreiter.
 
-```{r lstm, cache=FALSE, out.width="400px", fig.cap = 'visualization of a LSTM cell at time step t (image adapted from @lstm_image',fig.align="center", echo=FALSE, eval = TRUE}
+```{r lstm, cache=FALSE, out.width="70%", fig.cap = 'visualization of a LSTM cell at time step t (image adapted from @lstm_image',fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/LSTM.png')
 ```
 
@@ -117,7 +117,7 @@ Streamflow forecasting involves predicting the flow of water in rivers and strea
 
 The Temporal Fusion Transformer (TFT) (figure \@ref(fig:tft)) is a neural network architecture specifically designed for multi-horizon time series forecasting. It combines the strengths of both recurrent and attention-based models, offering an advanced approach to handling complex time series data. The TFT was introduced by Bryan Lim et al. in 2019, aiming to provide interpretability and accuracy for forecasting tasks @LIM20211748.
 
-```{r tft, cache=FALSE, out.width="500px", fig.cap = 'model architecture for the Temporal Fusion Transformer (image from @LIM20211748', fig.align="center", echo=FALSE, eval = TRUE}
+```{r tft, cache=FALSE, out.width="80%", fig.cap = 'model architecture for the Temporal Fusion Transformer (image from @LIM20211748', fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/TFT.png')
 ```
 
@@ -191,11 +191,11 @@ knitr::kable(performance_data, caption = "Performance comparison between TFT and
 
 Forecasting the peaks of the streamflows is challenging and neither model performs particularly well on this task. Especially when considering that the peaks were already drastically reduced due to the moving average smoothing of the target variable. The model routinely undershoots the observed true streamflows here shown for a lead time of 5 days for the LSTM Model and the TFT Model in figure \@ref(fig:lstm-pred) and in figure \@ref(fig:tft-pred) respectively. This behavior can be observed for all lead times except 1 and 2 days where the performance is reasonable even in the peaks.
 
-```{r lstm-pred, cache=FALSE, out.width="500px", fig.cap = 'LSTM predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)', fig.align="center", echo=FALSE, eval = TRUE}
+```{r lstm-pred, cache=FALSE, out.width="80%", fig.cap = 'LSTM predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)', fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/lag5_lstm.png')
 ```
 
-```{r tft-pred, cache=FALSE, out.width="500px", fig.cap = 'TFT predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)', fig.align="center", echo=FALSE, eval = TRUE}
+```{r tft-pred, cache=FALSE, out.width="80%", fig.cap = 'TFT predicted streamflows for a lead time of 5 days (orange) compared to the observed streamflows (blue)', fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/lag5_tft.png')
 ```
 
@@ -205,19 +205,19 @@ For an inspection of feature dependence it is possible to make use of the inbuil
 
 In analyzing the relationship between t2m and streamflow, both graphs demonstrate a positive relationship. Specifically, the TFT dependence plot in Figure \@ref(fig:t2m-tft-imp) shows an increase up to approximately 280 K, beyond which the effect plateaus. Similarly, the LSTM model depicted in Figure \@ref(fig:t2m-lstm-imp) shows a more gradual increase, with the effect leveling off at higher mean temperatures of around 295 K.
 
-```{r tp-lstm-imp, cache=FALSE, out.width="400px", fig.cap = 'Feature dependence plot for mean total precipitation for a lead time 5 trained LSTM', fig.align="center", echo=FALSE, eval = TRUE}
+```{r tp-lstm-imp, cache=FALSE, out.width="70%", fig.cap = 'Feature dependence plot for mean total precipitation for a lead time 5 trained LSTM', fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/mean_tp_feature_importance_lstm.png')
 ```
 
-```{r tp-tft-imp, cache=FALSE, out.width="400px", fig.cap = 'Feature dependence plot for mean total precipitation for a lead time 5 trained TFT', fig.align="center", echo=FALSE, eval = TRUE}
+```{r tp-tft-imp, cache=FALSE, out.width="70%", fig.cap = 'Feature dependence plot for mean total precipitation for a lead time 5 trained TFT', fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/mean_tp_feature_importance_tft.png')
 ```
 
-```{r t2m-lstm-imp, cache=FALSE, out.width="400px", fig.cap = 'Feature dependence plot for mean two meter temperature for a lead time 5 trained LSTM', fig.align="center", echo=FALSE, eval = TRUE}
+```{r t2m-lstm-imp, cache=FALSE, out.width="70%", fig.cap = 'Feature dependence plot for mean two meter temperature for a lead time 5 trained LSTM', fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/mean_t2m_feature_importance_lstm.png')
 ```
 
-```{r t2m-tft-imp, cache=FALSE, out.width="400px", fig.cap = 'Feature dependence plot for mean two meter temperature for a lead time 5 trained TFT', fig.align="center", echo=FALSE, eval = TRUE}
+```{r t2m-tft-imp, cache=FALSE, out.width="70%", fig.cap = 'Feature dependence plot for mean two meter temperature for a lead time 5 trained TFT', fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/07-hydroLSTM/images/mean_t2m_feature_importance_tft.png')
 ```
 
