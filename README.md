@@ -1,5 +1,7 @@
 # Seminar Climate and Statistics
 
+See the actual version of the [book](https://henrifnk.github.io/Seminar_ClimateNStatistics/)
+
 As the world faces the reality of climate change, natural hazards and extreme weather events have become a major concern, with devastating consequences for nature and humans. The quantification and definition of climate change, extreme events and its implications for nature, life and health on our planet is one of the major concerns in climate science. 
 
 This book explains current statistical methods in climate science and their application.
