@@ -104,6 +104,7 @@ C=\tilde{C}.
 Note that the definition of exchangeability presented above can be generalized to \(d\)-variate copulas. This generalization is based on the concept of a  symmetry and in particular the group of symmetries under the operation of composition. This group includes permutations (see @durante2016, pp. 30-31 for details), on which the definition above is based.
 
 In the bivariate case, on which this chapter focuses, this translates to a copula being exchangeable if 
+
 \begin{equation}
 C=C^T,
 (\#eq:defsymm)
@@ -112,6 +113,7 @@ C=C^T,
 where \(C^T(u,v) = C(v,u)\) for all \((u,v) \in [0,1]^2\), i.e. \(C^T\) is the copula that results from permuting \(C\)'s arguments, and \(C^T\) is also called the transpose of \(C\) (see @durante2016, p. 31).
 
 Thus, a slightly different form of definition \@ref(eq:defsymm) one often finds in the literature is that a copula is exchangeable if (see e.g. @genest2013, p. 92)
+
 \begin{equation}
 C(u,v)=C(v,u) \quad \forall (u,v) \in [0,1]^2.
 (\#eq:defsymm2)
@@ -281,7 +283,7 @@ Well-known examples of extreme value copulas are the independence copula \(\Pi(u
 
 ### Asymmetry {#asymarchi}
 
-While the majority of classical copulas is symmetric (see @genest2013, p.92), according to @bacigal2011, an Archimax copula \(C_{\phi, A}\) as defined in \@ref(eq:archimax) is symmetric if and only if 
+While the majority of classical copulas is symmetric (see @genest2013, p. 92), according to @bacigal2011, an Archimax copula \(C_{\phi, A}\) as defined in \@ref(eq:archimax) is symmetric if and only if 
 
 \begin{equation}
 A(t) = A(1-t) \quad \forall t \in [0,1].
