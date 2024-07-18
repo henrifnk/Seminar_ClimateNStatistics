@@ -2,15 +2,17 @@
 title: "Epidemiologic Studies on the Heat Effects"
 author: "Oussama Mesbah"
 date: "26.06.2024"
-output:
-  pdf_document: default
-  word_document: default
-  html_document: default
+output: 
+  bookdown::gitbook:
+    keep_md: true
+  bookdown::pdf_book:
+    keep_tex: true
+bibliography: book.bib
 ---
 
 # Introduction
 
-This presentation covers epidemiologic studies on the effects of heat on health. The aim is to discuss the excess mortality attributed to heat and cold based on recent studies by Masselot et al. (2023) and the joint effects of air pollution and heat on mortality as examined by Stafoggia et al. (2023).
+This presentation covers epidemiologic studies on the effects of heat on health. The aim is to discuss the excess mortality attributed to heat and cold based on recent studies by Masselot et al. (2023) [@masselot2023] and the joint effects of air pollution and heat on mortality as examined by Stafoggia et al. (2023) [@stafoggia2023].
 
 ## Excess Mortality Attributed to Heat and Cold
 
@@ -420,5 +422,3 @@ Both studies highlight the significant impact of temperature on mortality, but t
 ### Conclusion
 
 Both studies contribute valuable insights into the public health impacts of temperature extremes. Masselot et al. (2023) highlighted the broader spectrum of temperature effects across Europe, while Stafoggia et al. (2023) provided a nuanced understanding of the combined effects of heat and air pollution. Together, these studies underscore the importance of considering both direct and interactive effects of environmental stressors in epidemiological research and public health planning.
-
-
