@@ -86,7 +86,7 @@ Overall, these methods represent different approaches to reducing uncertainties 
 
 ## 2.3 Example of a climate model ensemble
 
-```{r EnsembleSenta, eval=, echo=FALSE, fig.align="center", fig.cap="CCSM3 40-member ensemble (@deser)", out.width="80%"}
+```{r EnsembleSenta, echo=FALSE, fig.align="center", fig.cap="CCSM3 40-member ensemble (@deser)", out.width="80%"}
 knitr::include_graphics('work/01-variability/figures/EnsembleSenta.png')
 ```
 
