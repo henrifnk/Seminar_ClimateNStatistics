@@ -1,12 +1,229 @@
 # Standard Precipitation Evapotranspiration Index {#spei}
 
-*Author: Author*
+*Author: Sophie Hopp*
 
 *Supervisor: Henri Funk*
 
 *Suggested degree: Bachelor*
 
-## Definition
+## Abstract
 
-The SPEI is a statistical indicator that shows dry and wet periods on the basis of the climatic water balance (total precipitation minus total potential evaporation). It captures water deficits or surpluses on the land surface better than the Standardised Precipitation Index (SPI), which focuses solely on precipitation. The potential evaporation can be based on the so-called FAO grass evaporation, which takes into account radiation, air temperature, relative humidity and wind speed over a standard grass area. The time series is broken down into 12 monthly frequency sums, to each of which a cumulative log-logistic distribution is fitted. This is transformed into a corresponding cumulative standard normal distribution, the abscissa value of which - referred to as SPEI - allows simple assignment to probability classes.
-@vicente
+The SPEI is a climatic drought index that combines precipitation and potential evapotranspiration to assess water availability. It address the limitations of the SPI and PDSI by considering temperature and evapotranspiration in addition to precipitation and by allowing calculation for different time scales.
+This report presents the calculation of the SPEI for Bavaria using meteorological data from 1921 to 2024. The results show the distribution of the water balance for different time scales and the proportion of extreme droughts over time. The findings indicate an increase in the frequency of extreme drought conditions in recent years, particularly at longer time scales.
+
+```{r setup_spei, include=FALSE}
+source("work/02-spei/R/plots.R")
+```
+
+## Introduction
+
+Droughts are a common phenomenon that occurs worldwide and are characterized by prolonged periods of water shortage. Water shortages can happen for reasons such as a lack of precipitation or high temperatures causing increased evaporation rates. These conditions can arise from natural climate variability and can be worsened by climate change. Droughts can have serious impacts, including agricultural effects such as crop failures and food shortages, disruptions to water supplies, and socio-economic consequences due to restrictions on shipping caused by low water levels (@wilhite1985). Therefore, it is important to monitor and assess droughts effectively.
+
+Drought indices can be used to quantify the severity, duration, and spatial extent of droughts.
+There are different types of droughts, such as meteorological, hydrologic, agricultural, and socio-economic droughts (@wilhite1985). The subjectivity in defining droughts has made it challenging to establish a universal drought index, leading to the development of various indices (@vicente).
+
+The Standardized Precipitation Index (SPI) is a commonly used index that is based on the probability of precipitation. 
+It can be calculated for different time scales, which enables to distinguish between short and long-term droughts and is important to functionally separate different drought types. For example, agricultural droughts usually have a much shorter time scale than hydrological droughts (@mckee1993).
+However, the SPI does not take into account the temperature, which can be a critical factor in drought development. It assumes that the variability of precipitation is much higher than that of other variables like temperature and potential evapotranspiration, and considers these variables stationary, meaning they have no temporal trend (@vicente). These assumptions are problematic, especially given the well-documented increases in temperature due to climate change, which can have an impact on drought conditions.
+
+The Palmer Drought Severity Index (PDSI), an index mostly used for meteorological droughts, includes temperature by using a soil water balance equation that incorporates prior precipitation, moisture supply, runoff, and surface-level evaporation demand. However, it cannot be calculated for different time scales, has a strong influence of the calibration period, and faces issues with spatial comparability. The self-calibrated Palmer Drought Severity Index (scPDSI) was developed to address some of these issues, but it is still not multiscalar. Since droughts are multiscalar phenomena, they need to be assessed at different time scales (@vicente, @mckee1993).
+
+To combine the advantages of both SPI and PDSI, the Standardized Precipitation Evapotranspiration Index (SPEI) was developed. The SPEI is based on the climatic water balance, which is the difference between precipitation and potential evapotranspiration. Like the SPI, the SPEI is based on a probabilistic approach, making the calculation easy and fast. It also shares the multitemporal nature of the SPI, allowing calculation for different time scales (@vicente).
+The inclusion of evapotranspiration in the SPEI allows a better capture of water deficits or surpluses on the land surface, making it a more effective tool for monitoring and assessing droughts, especially under changing climatic conditions.
+
+This report begins with an introduction to the data, followed by a description of the methods used to calculate the SPEI. The results of the SPEI calculation for Bavaria are then presented, including the comparison of different distributions for the water balance, and the proportion of extreme droughts over time. The report concludes with a discussion of the results.
+
+## Data and Methods
+
+### Data
+
+Meteorological data from January 1881 to March 2024 were provided by the Open Data Portal of the Climate Data Center of the German Weather Service (@dwd2024). The dataset includes regional average monthly observations of the average air temperatures and precipitation in Bavaria. These data were aggregated from grid fields to represent the average conditions for the region.
+Bavaria is a federal state in the southeast of Germany with a latitude range of approximately 47° to 50° N and a longitude range of approximately 9° to 13° E.
+
+### Implementation of the SPEI
+
+To implement the SPEI, we utilized the freely accessible SPEI package (@spei2024). This process requires the water balance, for the calculation of which the potential evapotranspiration must first be determined.
+
+Potential evapotranspiration $PET$ represents the amount of water that would evaporate from the soil and transpire from plants if water supply were not limited. Although various methods exist for calculating $PET$, it has been shown that their differences have minimal impact on the results of the SPEI (@vicente). For simplicity, we use the Thornthwaite method to calculate $PET$. This method relies on the monthly average temperature $T_i$, the latitude of the study area, and the month of the year. Latitude and time of year are used to estimate solar radiation. Other methods to calculate the potential evapotranspiration also include wind speed, relative humidity, and solar radiation, but these data are often not available.
+
+The water balance $D_i$ is the difference between precipitation $P_i$ and potential evapotranspiration $PET_i$ for month $i$. It is calculated for each month of the year as:
+
+\begin{equation}
+D_i = P_i - PET_i, \quad D_i \in [-\infty, \infty] \text{.}
+\end{equation}
+
+Negative values of the water balance indicate a water deficit, while positive values indicate a water surplus.
+
+To calculate the SPEI for different time scales, the water balance is summed over the desired time scale. 
+The aggregated water balance for a time scale of $k$ months ($D^{(k)}_i$) is calculated as:
+
+\begin{equation}
+D^{(k)}_i = D_{i-k+1} + D_{i-k+2} + \ldots + D_i \text{.}
+\end{equation}
+
+To model the distribution of the aggregated water balance values $D^{(k)}_i$, a distribution function $F_D(x)$ capable of handling negative values and skewed distributions is used.
+
+For the SPI, the gamma distribution is typically employed to model precipitation since precipitation values are strictly non-negative. 
+However, the gamma distribution is unsuitable for the SPEI because the water balance $D_i$ can be negative. Instead, the three-parameter log-logistic distribution is used for the SPEI due to its flexibility in modeling skewed distributions, its ability to handle negative values and its more gradual decrease in the curve for low values compared to other distributions. This leads to more coherent probabilities for very low water balance values, which is in contrast to the extremely low cumulative probabilities observed for other distributions and would imply that such low values occur extremely rarely, especially at shorter time scales.
+
+The probability density function of the three-parameter log-logistic distribution is given by:
+
+\begin{equation}
+f(x) = \frac{\beta}{\alpha} \left( \frac{x - \gamma}{\alpha} \right)^{\beta - 1} \left( 1 + \left( \frac{x - \gamma}{\alpha} \right)^{\beta} \right)^{-2}
+\end{equation}
+
+and its cumulative distribution function is defined as:
+
+\begin{equation}
+F(x) = (1 + \frac{x - \gamma}{\alpha}^{-\beta})^{-1}, \quad \alpha > 0, \beta > 0, x > \gamma \text{,}
+\end{equation}
+
+where $\alpha$ is the scale parameter, $\beta$ is the shape parameter, $\gamma$ is the origin parameter that can shift the distribution to model negative values, (and $x$ is the value of the water balance.)
+
+These parameters are estimated using the method of L-moments. L-moments are analogous to conventional moments but are less sensitive to outliers, making them a robust and easy approach for parameter estimation (@vicente).
+
+The distribution for the SPEI is fitted on a reference period, which is typically 30 years. During this period, the climate is assumed to be stationary. The calibration using reference climate data allows for the intercomparison of the index among different stations or periods. Such reference periods are particularly important in climate change studies, as they offer a consistent baseline for assessing temporal changes in drought characteristics (@um2017).
+In this report, the reference period used is from 1981 to 2010. This period serves as a baseline to better understand the extent and severity of droughts in the context of climate variability.
+
+The SPEI values are obtained as the standardized values of $F_D(x)$, meaning that the values are centered around zero and have a standard deviation of one. This transformation allows for easy comparison of the SPEI values across different time scales and regions (@vicente).
+One approximation for the SPEI values is given by:
+
+\begin{equation}
+SPEI = W - \frac{C_0 + C_1W + C_2W^2 + C_3W^3}{1 + d_1W + d_2W^2 + d_3W^3}
+\end{equation}
+
+with
+\begin{equation}
+W = \begin{cases}
+\sqrt{-2\ln(P)} & \text{, for } P \le 0.5 \\
+-\sqrt{-2\ln(1-P)} & \text{, for } P > 0.5 \end{cases}
+\end{equation}
+
+and P is the probability that, for a given water balance value $D^{(k)}_i$, a random value from the fitted log-logistic distribution is greater than the observed value. This probability is calculated as:
+
+\begin{equation}
+P = 1 - F_D(x) \text{.}
+\end{equation}
+
+\begin{equation}
+P = 1 - F_D(D^{(k)}_i) \text{.}
+\end{equation}
+
+The constants are:
+$C_0 = 2.515517, \quad C_1 = 0.802853, \quad C_2 = 0.010328, \quad C_3 = -0.000220,$ $d_1 = 1.432788, \quad d_2 = 0.189269, \quad d_3 = 0.001308.$
+
+## Results
+
+### Comparison of Water Balance Distributions
+
+To compare the water balance distributions in Bavaria for different time scales, histograms of the water balance values for the commonly used time scales of 1, 3, 6, 12, 18, and 24 months were created for the reference period from 1981 to 2010 (see Figure \@ref(fig:modelfittingSPEI)). Both a normal and a log-logistic distribution were fitted to the empirical data. The additional normal distribution is fitted to provide a comparison to the log-logistic distribution. Moreover Figure \@ref(fig:modelfittingSPEI) suggests that the normal distribution might be a good fit due to the bell-shaped, symmetric histograms.
+
+For the normal distribution, parameters were estimated using Maximum Likelihood Estimation, which involves using the sample mean and standard deviation to determine $\mu$ and $\sigma$. 
+
+```{r modelfittingSPEI, echo=FALSE, warning=FALSE, fig.cap="Histograms of the water balance for different time scales (1, 3, 6, 12, 18, and 24 months) with fitted log-logistic and normal distributions for the reference period 1981 - 2010."}
+
+modelfitting_plot
+
+```
+
+To compare the goodness of fit of the normal and log-logistic distributions to the empirical water balance data, the Wasserstein distance was calculated. 
+
+The Wasserstein distance is a measure of the distance between two probability distributions. The Wasserstein distance is calculated by
+
+\begin{equation}
+\mathcal{W} = \int_{-\infty}^{\infty} |F_{\text{empirical}}(x) - F_{\text{theoretical}}(x)| dx \text{,}
+\end{equation}
+
+with $F_{\text{empirical}}(x)$ being the empirical cumulative distribution function and $F_{\text{theoretical}}(x)$ being the fitted theoretical cumulative distribution function. The smaller the Wasserstein distance, the better the fit of the theoretical distribution to the empirical distribution.
+
+The results of the Wasserstein distance calculation between the empirical distribution and both the fitted log-logistic distribution and the fitted normal distribution for all time scales are shown in Table \@ref(tab:wassersteinDistance).
+
+```{r wassersteinDistance, echo=FALSE, tab.cap="Wasserstein distances between the empirical distribution of the water balance in the reference period from 1981 to 2010 and the fitted normal and log-logistic distributions for different time scales."}
+
+knitr::kable(wasserstein_distances, booktabs = TRUE)
+```
+
+The Wasserstein distance between the empirical distribution and the fitted normal distribution is smaller than that between the empirical distribution and the fitted log-logistic distribution for all time scales except the 12-month time scale.
+This suggests that the normal distribution fits the empirical distribution better than the log-logistic distribution for most of the given time scales in the reference period and the region of Bavaria.
+However, the log-logistic distribution with its three parameters offers more flexibility and can model skewness not captured by the normal distribution.
+Given that the water balance can be skewed, the log-logistic distribution is  used for the calculation of the SPEI.
+
+### SPEI in Bavaria
+
+```{r spei, echo=FALSE, fig.cap="The 1-, 3-, 6-, 12-, 18-, and 24-month SPEI for Bavaria (1921 - 2024).", warning=FALSE}
+
+spei_plot
+```
+
+The SPEI for Bavaria for different time scales is shown in the figure \@ref(fig:spei).
+Values below 0 indicate that there is less water available than usual, while values above 0 indicate that water availability is higher than on average.
+All subplots show fluctuations around the zero line, indicating periods of wet and dry conditions. Longer aggregation periods show more smoothed patterns compared to shorter periods.
+The 1-month SPEI shows the highest variability, because it is more sensitive to short-term fluctuations in precipitation and temperature.
+There is a trend towards more negative SPEI values in the last years, indicating a decrease in water availability and increasing drought conditions. This trend is mostly visible in the longer time scales. 
+Historically, there have been longer periods with negative SPEI values, as well as periods with positive SPEI values. But in the last years, there haven't been any longer periods with positive SPEI values visible in the 12-, 18-, and 24-month SPEI.
+
+```{r speiClassification, echo=FALSE, tab.cap="Classification of Droughts based on the SPEI (@mckee1993)."}
+spei_classification <- data.frame(
+  SPEI = c("0 to -0.99", "-1 to -1.49", "-1.5 to -1.99", "$\\leq -2$"),
+  Classification = c("Mild Drought", "Moderate Drought", "Severe Drought", "Extreme Drought"))
+
+knitr::kable(spei_classification, booktabs = TRUE)
+```
+
+Table \@ref(tab:speiClassification) shows the classification of droughts based on the SPEI. Those drought categories were originally defined for the SPI, but are commonly used for the SPEI due to the standardized nature of the indices. 
+An index below -2 indicates extreme drought (@mckee1993).
+
+To visualize the frequency of extreme droughts in Bavaria over time, the proportion of months experiencing extreme drought within a given period is calculated using the following formula:
+
+\begin{equation}
+prop_{i,m}^{(k)} = \frac{\sum_{j=i-m+1}^{i} \text{I}(SPEI_{j}^{(k)} < -2)}{m}
+\end{equation}
+
+where $prop_{i,m}^{(k)}$ represents the proportion of months experiencing extreme drought for a specific SPEI scale $k$ within the period ending at month $i$ and covering the last $m$ months. $\text{I}$ is an indicator function that equals 1 if the SPEI value is less than -2 and 0 otherwise.
+
+```{r extremeDroughts, echo=FALSE, fig.cap="Proportion of 12-month SPEI values below -2 for periods of 10 years in Bavaria (1921 - 2024).", warning=FALSE}
+extreme_droughts <- climate_data %>%
+  filter(Jahr > 1920) %>%
+  mutate(extreme = ifelse(spei12 < -2, 1, 0)) %>%
+  # for 10 years sum the number of extreme droughts
+  mutate(extreme_sum = rollapply(extreme, 120, sum, fill = NA, align = "right")/120) %>%
+  filter(!is.na(extreme_sum))
+
+extreme_droughts_plot
+```
+
+Figure \@ref(fig:extremeDroughts) displays the proportion of 12-month SPEI values below -2 over consecutive 10-year periods. Historically, Bavaria has experienced periods of extreme drought, however the proportion of months classified under extreme drought conditions has continuously increased over the past decade. Currently, this proportion is at its highest level in the past century, with `r tail(extreme_droughts$extreme_sum, 1) * 100`% of the months recording an $SPEI^{(12)}$ value below -2.
+
+```{r extremeDroughts2, echo=FALSE, fig.cap="The proportion of extreme droughts in Bavaria in the last 10 years for different time scales of the SPEI (1, 3, 6, 12, 18, and 24 months)."}
+
+extreme_droughts_time_scales_plot
+```
+
+When comparing the proportion of extreme droughts using different time scales for the SPEI, it is evident that the proportion of extreme droughts has increased across all time scales in recent years (see Figure \@ref(fig:extremeDroughts2)). The data shows that the longer the time scale, the higher the proportion of extreme droughts. 
+For the 24-month SPEI, the proportion of extreme droughts is at the moment above 50%.
+However, for the 3-month SPEI, the proportion of extreme droughts is not at its highest level in the last 100 years. Notably, from approximately 1952 to 1956, the proportion of extreme droughts was higher than in recent years when considering the 3-month SPEI. This mid-20th century period of increased drought conditions is also apparent across other time scales, but the proportion of extreme droughts in recent years surpasses that of the 1950s.
+
+```{r extremeDroughts3, echo=FALSE, fig.cap="The proportion of extreme droughts in Bavaria by SPEI12 for different periods of the SPEI (1, 5, 10, 15, and 20 years)."}
+
+extreme_droughts_periods_plot
+```
+
+When using different periods for the calculation of the proportion of extreme droughts, the data reveals that the proportion of extreme droughts has a higher variability for shorter periods (see Figure \@ref(fig:extremeDroughts3)). For longer periods, the proportion of extreme droughts is more stable and shows a clear trend towards more extreme drought conditions in the recent years as well as during the 1950s.
+
+## Discussion
+
+The results demonstrate that the SPEI is a valuable and practical tool for monitoring drought conditions over different time periods. By considering both precipitation and potential evapotranspiration, the SPEI provides a comprehensive measure of water availability and accounts for climatic factors that affect the water balance beyond what precipitation-based indices, such as the SPI can offer. This sensitivity to climate change allows the SPEI to effectively identify the impacts of global warming on drought conditions.
+
+The SPEI's minimal data requirements, ease of calculation, and multiscalar nature contribute to its wide applicability. Additionally, it is robust across different climatic regions due to the log-logistic distribution used in its calculation.
+
+However, a limitation of the SPEI is its dependence on the accuracy of potential evapotranspiration estimates, which can vary depending on the calculation method. For instance, the Thornthwaite method used in this report assumes that evapotranspiration does not occur when the temperature is below 0°C. This assumption might not be accurate in regions where evapotranspiration can still occur at low temperatures due to factors like wind speed and solar radiation. While other methods can provide more accurate PET estimates, they require additional data that may not be available in all regions.
+
+The Global Precipitation Climatology Centre Drought Index (GPCC-DI) combines the SPEI with an adapted version of the SPI, to account for the limitations of both indices. The SPEI works in the warm, dry regions where the SPI is not applicable, while the SPI works well in cold regions where estimating potential evapotranspiration is difficult. This combination allows for almost global coverage (@ziese2014).
+
+An important consideration in using the SPEI is the choice of the reference period, as it influences the assessment of drought characteristics, particularly the severity and spatial extent, while its impact on frequency is relatively small. It is recommended that the reference period be clearly specified in drought assessments to improve understanding of regional drought characteristics and their temporal changes (@um2017).
+
+The observed trends in Bavaria indicate an increase in the frequency of extreme drought conditions, particularly in the last decade. These trends are especially pronounced at longer time scales.
+
+One application of the SPEI is predicting future drought conditions. Accurate predictions can enable better preparedness and mitigation strategies, thereby reducing the negative impacts of droughts. @mathivha2020 investigated the use of generalized additive models to predict the SPEI, incorporating variables such as rain, minimum, maximum and average monthly temperature as predictors in addition to lag SPEI values. 
+Using observations such as temperature and precipitation, that can only be measured retrospectively to predict drought conditions of already passed months is not useful as they are not future predictions anymore. However, the use of lag SPEI values can be a valuable tool for drought prediction. 
+It might be interesting to investigate the use of other models, to predict future drought conditions based on lag SPEI values.
