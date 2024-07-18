@@ -10,7 +10,7 @@ lot: false
 lof: false
 site: bookdown::bookdown_site
 description: A Seminar about statistical methods in climate research in SS24.
-graphics: true
+graphics: yes
 documentclass: krantz
 ---
 <!--- cover-image: images/cover.png -->
