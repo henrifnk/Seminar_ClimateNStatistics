@@ -1,22 +1,28 @@
 ---
-title: "Epidemiologic Studies on the Heat Effects"
-author: "Oussama Mesbah"
-date: "26.06.2024"
-output: 
-  bookdown::gitbook:
-    keep_md: true
-  bookdown::pdf_book:
-    keep_tex: true
-bibliography: book.bib
-header-includes:
-  - \usepackage{hyperref}
-  - \renewcommand{\href}[2]{\hyperref[#1]{#2}}
+output:
+  latex_engine: pdflatex
+  keep_tex: true
+  pdf_document: default
+  word_document: default
+  html_document: default
 ---
 
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+```
 
-# Introduction
+# Epidemiologic studies on the heat effects {#he2}
 
-This presentation covers epidemiologic studies on the effects of heat on health. The aim is to discuss the excess mortality attributed to heat and cold based on recent studies by Masselot et al. (2023) [@masselot2023] and the joint effects of air pollution and heat on mortality as examined by Stafoggia et al. (2023) [@stafoggia2023].
+*Author: Oussama Mesbah*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Degree: Bachelor*
+
+## Introduction
+
+This chapter covers epidemiologic studies on the effects of heat on health. The aim is to discuss the excess mortality attributed to heat and cold based on recent studies by Masselot et al. (2023) [@masselot2023] and the joint effects of air pollution and heat on mortality as examined by Stafoggia et al. (2023) [@stafoggia2023].
 
 ## Excess Mortality Attributed to Heat and Cold
 
