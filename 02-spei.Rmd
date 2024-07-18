@@ -42,7 +42,7 @@ Bavaria is a federal state in the southeast of Germany with a latitude range of 
 
 ### Implementation of the SPEI
 
-To implement the SPEI, we utilized the freely accessible SPEI package (@spei2024). This process requires the water balance, for the calculation of which the potential evapotranspiration must first be determined.
+To implement the SPEI, we utilized the freely accessible SPEI package (@begueria2023). This process requires the water balance, for the calculation of which the potential evapotranspiration must first be determined.
 
 Potential evapotranspiration $PET$ represents the amount of water that would evaporate from the soil and transpire from plants if water supply were not limited. Although various methods exist for calculating $PET$, it has been shown that their differences have minimal impact on the results of the SPEI (@vicente). For simplicity, we use the Thornthwaite method to calculate $PET$. This method relies on the monthly average temperature $T_i$, the latitude of the study area, and the month of the year. Latitude and time of year are used to estimate solar radiation. Other methods to calculate the potential evapotranspiration also include wind speed, relative humidity, and solar radiation, but these data are often not available.
 
