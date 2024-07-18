@@ -8,7 +8,11 @@ output:
   bookdown::pdf_book:
     keep_tex: true
 bibliography: book.bib
+header-includes:
+  - \usepackage{hyperref}
+  - \renewcommand{\href}[2]{\hyperref[#1]{#2}}
 ---
+
 
 # Introduction
 
