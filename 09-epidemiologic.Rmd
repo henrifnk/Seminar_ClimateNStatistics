@@ -36,7 +36,7 @@ This study offers several key advancements:
 
 First, it has unprecedented city coverage, examining 854 urban areas across Europe. This extensive coverage offers a more comprehensive assessment compared to prior studies that focused on specific countries or regions. Furthermore, the study balances its focus on both heat and cold impacts, providing a complete picture of temperature-related health risks. It explicitly models age-specific risks and provides age-standardized mortality rates, which allow for fair comparisons across different locations with varying demographic compositions. This is particularly important as it highlights the heightened vulnerability of the elderly population.
 
-Compared to Zhao et al. (2021), Masselot et al. (2023) focuses on a more detailed regional scope by examining 854 cities in Europe, while Zhao's study covered 750 locations globally. Both studies cover the same period from 2000 to 2019, allowing for direct comparison. Masselot's study utilizes higher resolution ERA5-Land reanalysis data, which may provide a more accurate exposure assessment, especially for smaller cities. Additionally, the inclusion of age-specific mortality data in Masselot's study allows for a more nuanced analysis of age-related vulnerability to temperature extremes. Here is a table summarizing the key differences between the two studies:
+Compared to Zhao et al. (2021) [@zhao2021global] , Masselot et al. (2023) focuses on a more detailed regional scope by examining 854 cities in Europe, while Zhao's study covered 750 locations globally. Both studies cover the same period from 2000 to 2019, allowing for direct comparison. Masselot's study utilizes higher resolution ERA5-Land reanalysis data, which may provide a more accurate exposure assessment, especially for smaller cities. Additionally, the inclusion of age-specific mortality data in Masselot's study allows for a more nuanced analysis of age-related vulnerability to temperature extremes. Here is a table summarizing the key differences between the two studies:
 
 
 | Feature                       | Zhao et al. (2021)            | Masselot et al. (2023)               | Added Benefit of Masselot et al. (2023)                       |
@@ -217,7 +217,7 @@ By selecting the optimal number of components through AIC, the study ensured tha
 
 ### Model
 
-The model used to estimate the main effect of air temperature on mortality employs a quasi-Poisson regression framework. This framework is suitable for count data, such as daily death counts, and can handle overdispersion commonly observed in such data.
+The model used to estimate the main effect of air temperature on mortality employs a quasi-Poisson regression framework. This framework is suitable for count data, such as daily death counts, and can handle overdispersion commonly observed in such data.[@engelhardt2013]
 
 #### Quasi-Poisson Regression Model
 
@@ -299,7 +299,7 @@ where \(\mu_i\) is the expected daily death count, \(\alpha\) is the intercept, 
 
 #### Distributed Lag Non-Linear Model (DLNM)
 
-To capture the delayed and non-linear effects of temperature on mortality, a Distributed Lag Non-Linear Model (DLNM) is used. The DLNM incorporates the lagged effects of temperature, recognizing that exposure to extreme temperatures can affect mortality over several days. The model can be expressed as:
+To capture the delayed and non-linear effects of temperature on mortality, a Distributed Lag Non-Linear Model (DLNM) is used [@gasparrini2010distributed]. The DLNM incorporates the lagged effects of temperature, recognizing that exposure to extreme temperatures can affect mortality over several days. The model can be expressed as:
 \[ \text{log}(\mu_i) = \alpha + f(\text{temperature}_{i-l}) + \sum_{k} \beta_k z_{ik} \]
 where \(f(\text{temperature}_{i-l})\) represents a smooth function of temperature over lag \(l\) days, and the other terms are as previously defined.
 
@@ -366,7 +366,7 @@ The interaction term (\(\beta_3\)) captures the joint effect of temperature and 
 
 #### Distributed Lag Non-Linear Model (DLNM)
 
-The DLNM was used to account for the delayed effects of temperature and air pollution. The model is formulated as:
+The DLNM was used to account for the delayed effects of temperature and air pollution.  The model is formulated as:
 
 \[ \text{log}(\mu_{i}) = \alpha + f(\text{Temp}_{i-l}, \text{PM}_{i-l}) + \sum_{k=1}^{p} \gamma_k z_{ik} \]
 
@@ -400,14 +400,14 @@ where \(w_j = \frac{1}{\text{Var}(\hat{\theta}_j) + \tau^2}\) are the weights.
 
 Both studies highlight the significant impact of temperature on mortality, but they approach the analysis from different angles and include different additional variables.
 
-#### Masselot et al. (2023)
+#### Masselot et al. (2023) [@masselot2023]
 
 - **Focus**: Assessed the impact of non-optimal temperatures (both heat and cold) on mortality across Europe.
 - **Model**: Used a quasi-Poisson regression with DLNM for temperature effects, and meta-regression for pooling city-specific estimates.
 - **Key Findings**: Higher mortality rates associated with cold temperatures compared to heat. Significant regional variations with Eastern Europe showing higher vulnerability. Age-specific analysis revealed increased vulnerability in older age groups.
 - **Data**: Included 854 cities across Europe.
 
-#### Stafoggia et al. (2023)
+#### Stafoggia et al. (2023) [@stafoggia2023]
 
 - **Focus**: Examined the joint effect of high temperatures and air pollution on mortality.
 - **Model**: Used a quasi-Poisson regression with an interaction term for temperature and air pollution, combined with DLNM for lagged effects. Pooled city-specific estimates using multilevel random-effects meta-analysis.
@@ -431,4 +431,4 @@ Both studies highlight the significant impact of temperature on mortality, but t
 
 ### Conclusion
 
-Both studies contribute valuable insights into the public health impacts of temperature extremes. Masselot et al. (2023) highlighted the broader spectrum of temperature effects across Europe, while Stafoggia et al. (2023) provided a nuanced understanding of the combined effects of heat and air pollution. Together, these studies underscore the importance of considering both direct and interactive effects of environmental stressors in epidemiological research and public health planning.
+Both studies contribute valuable insights into the public health impacts of temperature extremes. Masselot et al. (2023) [@masselot2023] highlighted the broader spectrum of temperature effects across Europe, while Stafoggia et al. (2023) [@stafoggia2023] provided a nuanced understanding of the combined effects of heat and air pollution. Together, these studies underscore the importance of considering both direct and interactive effects of environmental stressors in epidemiological research and public health planning.
