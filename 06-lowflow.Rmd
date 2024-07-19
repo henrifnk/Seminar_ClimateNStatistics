@@ -565,7 +565,7 @@ These findings emphasize the importance of integrating nonstationary models and 
 
 ### Time-Varying Copula Model
 
-Based on the definition of the copula (@Nelsen2006, @Salvadori2007) the time-varying copula can be expressed as:
+Based on the definition of the copula (@nelsen2006, @Salvadori2007) the time-varying copula can be expressed as:
 
 $$
 \begin{aligned}[b]
