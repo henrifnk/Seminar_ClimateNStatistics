@@ -151,7 +151,7 @@
 
 \title{Climate And Statistics}
 \author{Helmut Küchenhoff, Henri Funk}
-\date{2024-07-18}
+\date{2024-07-19}
 
 \begin{document}
 \maketitle
@@ -402,16 +402,245 @@ Despite the progress made in modelling, there are still challenges. The complexi
 
 \chapter{Standard Precipitation Evapotranspiration Index}\label{spei}
 
-\emph{Author: Author}
+\emph{Author: Sophie Hopp}
 
 \emph{Supervisor: Henri Funk}
 
 \emph{Suggested degree: Bachelor}
 
-\section{Definition}\label{definition}
+\section{Introduction}\label{introduction-1}
 
-The SPEI is a statistical indicator that shows dry and wet periods on the basis of the climatic water balance (total precipitation minus total potential evaporation). It captures water deficits or surpluses on the land surface better than the Standardised Precipitation Index (SPI), which focuses solely on precipitation. The potential evaporation can be based on the so-called FAO grass evaporation, which takes into account radiation, air temperature, relative humidity and wind speed over a standard grass area. The time series is broken down into 12 monthly frequency sums, to each of which a cumulative log-logistic distribution is fitted. This is transformed into a corresponding cumulative standard normal distribution, the abscissa value of which - referred to as SPEI - allows simple assignment to probability classes.
-\citet{vicente}
+Droughts are a common phenomenon that occurs worldwide and are characterized by prolonged periods of water shortage. These shortages can arise due to various factors such as a lack of precipitation or high temperatures leading to increased evaporation rates. These conditions can arise from natural climate variability and can be worsened by climate change. Droughts can have serious impacts, including agricultural effects such as crop failures and food shortages, disruptions to water supplies, and socio-economic consequences due to restrictions on shipping caused by low water levels (\citet{wilhite1985}). Therefore, it is important to monitor and assess droughts effectively.
+
+Drought indices are used to quantify the severity, duration, and spatial extent of droughts.
+There are different types of droughts, such as meteorological, hydrologic, agricultural, and socio-economic droughts (\citet{wilhite1985}). The subjectivity in defining droughts has made it challenging to establish a universal drought index, leading to the development of various indices (\citet{vicente}).
+
+The Standardized Precipitation Index (SPI) is a commonly used index that is based on the probability of precipitation.
+It can be calculated for different time scales, which enables to distinguish between short and long-term droughts and is important to functionally separate different drought types. For example, agricultural droughts usually have a much shorter time scale than hydrological droughts (\citet{mckee1993}).
+However, the SPI does not take into account the temperature, which can be a critical factor in drought development. It assumes that the variability of precipitation is much higher than that of other variables like temperature and potential evapotranspiration and considers these variables stationary, meaning they have no temporal trend (\citet{vicente}). These assumptions are problematic, especially given the increases in temperature due to climate change, which can have an impact on drought conditions.
+
+The Palmer Drought Severity Index (PDSI), an index primarily used for meteorological droughts, includes temperature by using a soil water balance equation that incorporates prior precipitation, moisture supply, runoff, and surface-level evaporation demand. However, it cannot be calculated for different time scales, has a strong influence of the calibration period, and faces issues with spatial comparability. The self-calibrated Palmer Drought Severity Index (scPDSI) was developed to address some of these issues, but it is still not multiscalar. Since droughts are multiscalar phenomena, they need to be assessed at different time scales (\citet{vicente}, \citet{mckee1993}).
+
+To combine the advantages of both SPI and PDSI, the Standardized Precipitation Evapotranspiration Index (SPEI) was developed. The SPEI is based on the climatic water balance, which is the difference between precipitation and potential evapotranspiration. Like the SPI, the SPEI is based on a probabilistic approach, making the calculation easy and fast. It also shares the multitemporal nature of the SPI, allowing calculation for different time scales (\citet{vicente}).
+The inclusion of evapotranspiration in the SPEI allows for a better capture of water deficits or surpluses on the land surface, making it a more effective tool for monitoring and assessing droughts, especially under changing climatic conditions.
+
+This report begins with an introduction to the data, followed by a description of the methods used to calculate the SPEI. The results of the SPEI calculation for Bavaria are then presented, including a comparison of different distributions for the water balance and the proportion of extreme droughts over time.
+
+\section{Data and Methods}\label{data-and-methods}
+
+\subsection{Data}\label{data}
+
+Meteorological data from January 1881 to March 2024 were provided by the Open Data Portal of the Climate Data Center of the German Weather Service (\citet{dwd2024}). The dataset includes regional average monthly observations of the average air temperatures and precipitation in Bavaria. These data were aggregated from grid fields to represent the average conditions for the region.
+Bavaria is a federal state in the southeast of Germany with a latitude range of approximately 47° to 50° N and a longitude range of approximately 9° to 13° E.
+
+\subsection{Implementation of the SPEI}\label{implementation-of-the-spei}
+
+To implement the SPEI, we utilized the freely accessible SPEI package (\citet{begueria2023}). This process requires the water balance, for which the potential evapotranspiration must first be determined.
+
+Potential evapotranspiration (\(PET\)) represents the amount of water that would evaporate from the soil and transpire from plants if water supply were not limited. Although various methods exist for calculating \(PET\), it has been shown that their differences have minimal impact on the results of the SPEI (\citet{vicente}). For simplicity, we use the Thornthwaite method to calculate \(PET\). This method relies on the monthly average temperature \(T_i\), the latitude of the study area, and the month of the year. Latitude and time of year are used to estimate solar radiation.
+
+The water balance \(D_i\) is the difference between precipitation \(P_i\) and potential evapotranspiration \(PET_i\) for month \(i\). It is calculated for each month of the year as:
+
+\begin{equation}
+D_i = P_i - PET_i, \quad D_i \in \mathbb{R}, i \in \mathbb{Z}.
+\end{equation}
+
+Negative values of the water balance indicate a water deficit, while positive values indicate a water surplus.
+
+To calculate the SPEI for different time scales, the water balance is summed over the desired time scale.
+The aggregated water balance for a time scale of \(k\) months (\(D^{(k)}_i\)) is calculated as:
+
+\begin{equation}
+D^{(k)}_i = D_{i-k+1} + D_{i-k+2} + \ldots + D_i.
+\end{equation}
+
+\(D_i^{(k)}\) is later used to compute the SPEI for the respective time scale of \(k\) months, denoted as \(SPEI_i^{(k)}\).
+
+To model the distribution of the aggregated water balance values \(D^{(k)}_i\), a distribution function \(F_D(D_i^{(k)})\) capable of handling negative values and skewed distributions is used.
+
+For the SPI, the gamma distribution is typically employed to model precipitation since precipitation values are strictly non-negative.
+However, the gamma distribution is unsuitable for the SPEI because the water balance \(D_i\) can be negative. Instead, the three-parameter log-logistic distribution is used for the SPEI due to its flexibility in modeling skewed distributions, its ability to handle negative values and its relatively high kurtosis, which permits more gradual decrease in the curve for low values.
+This results in more coherent and realistic probabilities for very low water balance values, unlike other distributions which suggest that these low values are extremely rare, especially at shorter time scales (\citet{vicente}).
+
+The probability density function of the three-parameter log-logistic distribution is given by:
+
+\begin{equation}
+f(x) = \frac{\beta}{\alpha} \left( \frac{x - \gamma}{\alpha} \right)^{\beta - 1} \left( 1 + \left( \frac{x - \gamma}{\alpha} \right)^{\beta} \right)^{-2}, \quad \alpha > 0, \beta > 0, x > \gamma,
+\end{equation}
+
+and its cumulative distribution function is defined as:
+
+\begin{equation}
+F(x) = \left( 1 + \left( \frac{\alpha}{x - \gamma} \right)^{\beta} \right)^{-1}, \quad \alpha > 0, \beta > 0, x > \gamma,
+\end{equation}
+
+where \(\alpha\) is the scale parameter, \(\beta\) is the shape parameter, and \(\gamma\) is the origin parameter that can shift the distribution to model negative values.
+
+These parameters are estimated using the method of L-moments. L-moments are analogous to conventional moments but are less sensitive to outliers, making them a robust and easy approach for parameter estimation (\citet{vicente}).
+
+The distribution for the SPEI is fitted to a reference period, which is typically 30 years. During this period, the climate is assumed to be stationary. The calibration using reference climate data allows for the intercomparison of the index among different stations or periods. Such reference periods are particularly important in climate change studies, as they offer a consistent baseline for assessing temporal changes in drought characteristics (\citet{um2017}).
+In this report, the reference period used is from 1981 to 2010. This period serves as a baseline to better understand the extent and severity of droughts in the context of climate variability.
+
+The SPEI values are obtained as the standardized values of \(F_D(D_i^{(k)})\), meaning that the values are centered around zero and have a standard deviation of one. This transformation allows for easy comparison of the SPEI values across different time scales and regions (\citet{vicente}).
+One approximation for the SPEI values is given by:
+
+\begin{equation}
+SPEI = W - \frac{C_0 + C_1W + C_2W^2 + C_3W^3}{1 + d_1W + d_2W^2 + d_3W^3}
+\end{equation}
+
+with
+
+\begin{equation}
+W = \begin{cases}
+\sqrt{-2\ln(P)} & \text{for } P \le 0.5, \\
+-\sqrt{-2\ln(1-P)} & \text{for } P > 0.5
+\end{cases}
+\end{equation}
+
+and P is the probability that, for a given water balance value \(D^{(k)}_i\), a random value from the fitted log-logistic distribution is greater than the observed value. This probability is calculated as:
+
+\begin{equation}
+P = 1 - F_D(D^{(k)}_i).
+\end{equation}
+
+The constants are:
+\(C_0 = 2.515517, \quad C_1 = 0.802853, \quad C_2 = 0.010328, \quad C_3 = -0.000220,\) \(d_1 = 1.432788, \quad d_2 = 0.189269, \quad d_3 = 0.001308\). \citet{vicente}
+
+\section{Results}\label{results}
+
+\subsection{Comparison of Water Balance Distributions}\label{comparison-of-water-balance-distributions}
+
+To compare the water balance distributions in Bavaria for different time scales, histograms of the water balance values for the commonly used time scales of 1, 3, 6, 12, 18, and 24 months were created for the reference period from 1981 to 2010 (see Figure \ref{fig:modelfittingSPEI}). Both a normal and a log-logistic distribution were fitted to the empirical data. The additional normal distribution is fitted to provide a comparison to the log-logistic distribution. Moreover Figure \ref{fig:modelfittingSPEI} suggests that the normal distribution might be a good fit due to the bell-shaped, symmetric histograms.
+
+For the normal distribution, parameters were estimated using Maximum Likelihood Estimation, which involves using the sample mean and standard deviation to determine \(\mu\) and \(\sigma\).
+
+\begin{figure}
+\centering
+\includegraphics{book_files/figure-latex/modelfittingSPEI-1.pdf}
+\caption{\label{fig:modelfittingSPEI}Histograms of the water balance for different time scales (1, 3, 6, 12, 18, and 24 months) with fitted log-logistic and normal distributions for the reference period 1981 - 2010.}
+\end{figure}
+
+To compare the goodness of fit of the normal and log-logistic distributions to the empirical water balance data, the Wasserstein distance was calculated.
+
+The Wasserstein distance is a measure of the distance between two probability distributions. The Wasserstein distance is calculated by:
+
+\begin{equation}
+\mathcal{W} = \int_{-\infty}^{\infty} |F_{\text{empirical}}(x) - F_{\text{theoretical}}(x)| dx,
+\end{equation}
+
+with \(F_{\text{empirical}}(x)\) being the empirical cumulative distribution function and \(F_{\text{theoretical}}(x)\) being the fitted theoretical cumulative distribution function. The smaller the Wasserstein distance, the better the fit of the theoretical distribution to the empirical distribution.
+
+The results of the Wasserstein distance calculation between the empirical distribution and both the fitted log-logistic distribution and the fitted normal distribution for all time scales are shown in Table \ref{tab:wassersteinDistance}.
+
+\begin{table}
+
+\caption{\label{tab:wassersteinDistance}Wasserstein distances between the empirical distribution of the water balance in the reference period from 1981 to 2010 and the fitted normal and log-logistic distributions for different time scales.}
+\centering
+\begin{tabular}[t]{rrr}
+\toprule
+Time Scale & Normal & Log-Logistic\\
+\midrule
+1 & 1.553 & 3.080\\
+3 & 7.957 & 12.295\\
+6 & 7.511 & 13.667\\
+12 & 9.075 & 6.096\\
+18 & 6.437 & 11.085\\
+\addlinespace
+24 & 13.020 & 16.572\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The Wasserstein distance between the empirical distribution and the fitted normal distribution is smaller than that between the empirical distribution and the fitted log-logistic distribution for all time scales except the 12-month time scale.
+This suggests that the normal distribution fits the empirical distribution better than the log-logistic distribution for most of the given time scales in the reference period and the region of Bavaria.
+However, the log-logistic distribution with its three parameters offers more flexibility and can model skewness not captured by the normal distribution.
+Due to the reasons stated in the methods section, the log-logistic distribution is used for the calculation of the SPEI.
+
+\subsection{SPEI in Bavaria}\label{spei-in-bavaria}
+
+\begin{figure}
+\centering
+\includegraphics{book_files/figure-latex/spei-1.pdf}
+\caption{\label{fig:spei}The 1-, 3-, 6-, 12-, 18-, and 24-month SPEI for Bavaria (1921 - 2024).}
+\end{figure}
+
+The SPEI for Bavaria for different time scales is shown in Figure \ref{fig:spei}.
+Values below 0 indicate that there is less water available than usual, while values above 0 indicate that water availability is higher than on average.
+All subplots show fluctuations around the zero line, indicating periods of both wet and dry conditions. Longer aggregation periods show smoother patterns compared to shorter periods.
+The 1-month SPEI shows the highest variability due to its sensitivity to short-term fluctuations in precipitation and temperature.
+There is a trend toward more negative SPEI values in the last years, indicating a decrease in water availability and increasing drought conditions. This trend is mostly visible in the longer time scales.
+Historically, Bavaria has experienced extended periods with both negative and positive SPEI values, but in recent years, there have been no prolonged periods with positive SPEI values visible in the 12-, 18-, and 24-month SPEI.
+
+\begin{table}
+
+\caption{\label{tab:speiClassification}Classification of Droughts Based on the SPEI (@mckee1993).}
+\centering
+\begin{tabular}[t]{ll}
+\toprule
+SPEI & Classification\\
+\midrule
+0 to -0.99 & Mild Drought\\
+-1 to -1.49 & Moderate Drought\\
+-1.5 to -1.99 & Severe Drought\\
+\$\textbackslash{}leq -2\$ & Extreme Drought\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table \ref{tab:speiClassification} shows the classification of droughts based on the SPEI. These drought categories were originally defined for the SPI but are commonly used for the SPEI due to the standardized nature of the indices.
+An index below -2 indicates extreme drought (\citet{mckee1993}).
+
+To visualize the frequency of extreme droughts in Bavaria over time, the proportion of months experiencing extreme drought within a given period is calculated using the following formula:
+
+\begin{equation}
+prop_{i,m}^{(k)} = \frac{\sum_{j=i-m+1}^{i} \text{I}(SPEI_{j}^{(k)} \leq -2)}{m}
+\end{equation}
+
+where \(prop_{i,m}^{(k)}\) represents the proportion of months experiencing extreme drought for a specific SPEI scale \(k\) within the period ending at month \(i\) and covering the last \(m\) months. \(\text{I}\) is an indicator function that equals 1 if the SPEI value is less than or equal -2 and 0 otherwise.
+
+\begin{figure}
+\centering
+\includegraphics{book_files/figure-latex/extremeDroughts-1.pdf}
+\caption{\label{fig:extremeDroughts}Proportion of 12-month SPEI values below -2 for periods of 10 years in Bavaria (1921 - 2024).}
+\end{figure}
+
+Figure \ref{fig:extremeDroughts} displays the proportion of 12-month SPEI values below -2 over consecutive 10-year periods. Historically, Bavaria has experienced periods of extreme drought, however the proportion of months classified under extreme drought conditions has continuously increased over the past decade. Currently, this proportion is at its highest level in the past century, with 32.5\% of the months in the last 10 years recording an \(SPEI^{(12)}\) value below -2.
+
+\begin{figure}
+\centering
+\includegraphics{book_files/figure-latex/extremeDroughts2-1.pdf}
+\caption{\label{fig:extremeDroughts2}The proportion of extreme droughts in Bavaria in the last 10 years for different time scales of the SPEI (1, 3, 6, 12, 18, and 24 months).}
+\end{figure}
+
+When comparing the proportion of extreme droughts using different time scales for the SPEI, it is evident that the proportion of extreme droughts has increased across all time scales in recent years (see Figure \ref{fig:extremeDroughts2}). The data shows that the longer the time scale, the higher the proportion of extreme droughts.
+For the 24-month SPEI, the proportion of extreme droughts is at the moment above 50\%.
+However, for the 3-month SPEI, the proportion of extreme droughts is not at its highest level in the last 100 years. Notably, from approximately 1952 to 1956, the proportion of extreme droughts was higher than in recent years when considering the 3-month SPEI. This mid-20th century period of increased drought conditions is also apparent across other time scales, but the proportion of extreme droughts in recent years surpasses that of the 1950s.
+
+\begin{figure}
+\centering
+\includegraphics{book_files/figure-latex/extremeDroughts3-1.pdf}
+\caption{\label{fig:extremeDroughts3}The proportion of extreme droughts in Bavaria by SPEI12 for different periods of the SPEI (1, 5, 10, 15, and 20 years).}
+\end{figure}
+
+When using different periods for the calculation of the proportion of extreme droughts, the data reveals that the proportion of extreme droughts has a higher variability for shorter periods (see Figure \ref{fig:extremeDroughts3}).
+
+\section{Discussion}\label{discussion}
+
+The results demonstrate that the SPEI is a valuable and practical tool for monitoring drought conditions over different time periods. By considering both precipitation and potential evapotranspiration, the SPEI provides a comprehensive measure of water availability and accounts for climatic factors that affect the water balance beyond what precipitation-based indices, such as the SPI can offer. This sensitivity to climate change allows the SPEI to effectively identify the impacts of global warming on drought conditions.
+
+The SPEI's minimal data requirements, ease of calculation, and multiscalar nature contribute to its wide applicability. Additionally, it is robust across different climatic regions due to the log-logistic distribution used in its calculation.
+
+However, a limitation of the SPEI is its dependence on the accuracy of potential evapotranspiration estimates, which can vary depending on the calculation method. For instance, the Thornthwaite method used in this report assumes that evapotranspiration does not occur when the temperature is below 0°C. This assumption might not be accurate in regions where evapotranspiration can still occur at low temperatures due to factors like wind speed and solar radiation. While other methods can provide more accurate PET estimates, they require additional data that may not be available in all regions.
+
+The Global Precipitation Climatology Centre Drought Index (GPCC-DI) combines the SPEI with an adapted version of the SPI to account for the limitations of both indices. The SPEI works well in warm, dry regions where the SPI is not applicable, while the SPI is effective in cold regions where estimating potential evapotranspiration is challenging. This combination allows for almost global coverage (\citet{ziese2014}).
+
+An important consideration in using the SPEI is the choice of the reference period, as it influences the assessment of drought characteristics, particularly the severity and spatial extent, while its impact on frequency is relatively small. It is recommended that the reference period be clearly specified in drought assessments to improve understanding of regional drought characteristics and their temporal changes (\citet{um2017}).
+
+The observed trends in Bavaria indicate an increase in the frequency of extreme drought conditions, particularly in the last decade. These trends are especially pronounced at longer time scales.
+
+One application of the SPEI is predicting future drought conditions. Accurate predictions can enable better preparedness and mitigation strategies, thereby reducing the negative impacts of droughts. \citet{mathivha2020} investigated the use of generalized additive models to predict the SPEI, incorporating variables such as rain, minimum, maximum and average monthly temperature as predictors in addition to lagged SPEI values.
+Using observations such as temperature and precipitation, that can only be measured retrospectively to predict drought conditions of already passed months is not useful as they are not future predictions anymore. However, the use of lagged SPEI values can be a valuable tool for drought prediction.
+It would be beneficial to investigate the use of other models to predict future drought conditions based on lagged SPEI values.
 
 \chapter{Compound events}\label{ce}
 
@@ -456,7 +685,7 @@ In the study of environmental and hydrological systems, recognizing and accurate
 The concept of teleconnections in climate science refers to climate anomalies or patterns that are related across large distances, often thousands of kilometers apart. Teleconnections represent atmospheric interactions that link weather and climate conditions in one region of the globe with those in another, often through the movement and behavior of large-scale atmospheric wave patterns (\citet{feldstein2017}). These connections are crucial for understanding regional climate variations, predicting weather patterns, and assessing climate change impacts. One prominent example of a teleconnection pattern in the Northern Hemisphere is the North Atlantic Oscillation (NAO). This oscillation plays a significant role in influencing the climate over the North Atlantic region. Its impacts are observed in various climate elements, including temperature, wind speed and direction, storm and precipitation, as well as ocean and sea ice dynamics. \(\\\)
 This chapter explores various methods for defining and analyzing the North Atlantic Oscillation (NAO), following the framework established by \citet{hurrell2010}. These methods include one-point correlation map, Empirical Orthogonal Function (EOF) analysis, and cluster analysis. Additionally, we present the long-term trends of the NAO using the NAO Index. Through a detailed examination of these approaches, we aim to provide a better understanding of the spatial and temporal characteristics of the NAO. Such understanding is important for improving climate models, enhancing weather prediction accuracy, and developing robust climate change adaptation and mitigation strategies. Furthermore, by assessing the NAO's influence on temperature, wind patterns, storm activities, and oceanographic conditions, this chapter contributes to a deeper comprehension of how large-scale atmospheric phenomena shape our climate system.
 
-\section{Introduction}\label{introduction-1}
+\section{Introduction}\label{introduction-2}
 
 The North Atlantic Oscillation (NAO), one of the most prominent and recurrent teleconnections over the Northern Hemisphere, is characterized by a redistribution of atmospheric mass at sea level between the Icelandic Low and the Azores High (\citet{hurrell2010}). It dictates climate variability from the eastern seaboard of the United States to Siberia and from the Arctic to the subtropical Atlantic, especially during boreal winter. Fluctuations from one phase of the NAO to another result in significant variations in the average wind speed and direction over the Atlantic, as well as in the transport of heat and moisture between the Atlantic and neighboring continents. This also affects the intensity and number of storms, their paths, and associated weather conditions (\citet{hurrell2003}). Especially during the months of December to March, the NAO is responsible for much variability of weather over the North Atlantic region. Thus, the NAO influences weather and climate conditions across the North Atlantic region and beyond, affecting winter temperatures and storm tracks. \(\\\)
 In this chapter, our primary focus will be on exploring the spatial and temporal characteristics of the NAO. We will begin by discussing common methods used to define it, such as the one-point correlation map, which helps to identify the NAO by regions of positive and negative correlations. Additionally, we will employ the EOF analysis to discern the dominant patterns of variability associated with the NAO, and utilize the cluster analysis to identify distinct atmospheric patterns with similar pressure characteristics. Furthermore, we will analyze the NAO Index to observe its variations over long periods. Finally, we will investigate the impacts of the NAO on various climate factors including temperature, wind speed and direction, precipitation patterns, storm activities, oceanic conditions, and sea ice dynamics.
@@ -465,7 +694,7 @@ In this chapter, our primary focus will be on exploring the spatial and temporal
 
 Understanding NAO requires a comprehensive understanding of its spatial and temporal characteristics. To analyze these aspects, we will review established methods commonly employed for defining or identifying NAO patterns. These methods include the one-point correlation map, the EOF analysis for its spatial structure, as well as cluster analysis. For its temporal structure, we will focus on the NAO index. These methods are used in the paper of (\citet{hurrell2010}) and the data used in his paper go up to 2006. The idea is to reproduce these on new data up to 2024 and see if the NAO patterns remain similar.
 
-\subsection{Data}\label{data}
+\subsection{Data}\label{data-1}
 
 Monthly geopotential height at 500 hPa (Z500) and mean sea level pressure (MSLP) data are used in this chapter. The monthly geopotential height at 500 hPa were obtained from the ERA5 reanalysis dataset for global climate and weather (\citet{geopotential2023}).
 Mean sea level pressure data used here were also sourced from the ERA5 reanalysis (\citet{mean_sea_level2023}) dataset. For both monthly geopotential height and mean sea level pressure, only data from the Northern Hemisphere specifically within the coordinates 20°-70°N and 90°W-40°W, were extracted. Considering that the NAO is responsible for much variability of weather in boral winter over the Northern Hemisphere, the period from December to March (DJFM) was selected for this analysis. The time series used consist of 84 DJFM seasons from 1940-2024. The data used to examine the NAO Index were collected from the National Center for Atmospheric Research (NCAR). This dataset includes station-based NAO index data of 159 DJFM seasons spanning from 1864 to 2023 (\citet{nao_index_2003}). To examine the pattern of variability we need to compute the anomalies which are calculated by subtracting time means, computed for each calender month from the data for individual year-months. These anomalies form the basis for all methods described in this chapter.
@@ -643,7 +872,7 @@ The ``extremeness'' of hydrological events, including low flow conditions, is of
 
 This study evaluates and compares the performance of Long Short-Term Memory (LSTM) networks and Temporal Fusion Transformers (TFT) in forecasting streamflows for up to seven day ahead forecasts, using historical streamflow data alongside precipitation and temperature as covariates. Freely available data published by the bavarian hydrological authority from the Regen river in Bavaria, Germany, was used in conjunction with meteorological data from the ERA5 reanalysis dataset. River basins are defined via the HydroRIVERS and HydroBASINS dataset to obtain the area over which precipitation is aggregated. Results indicate that while both models face challenges in predicting extreme values, TFT maintains more consistent accuracy over longer forecast horizons while pure LSTM model's predictions decline sharply in performance with increasing lead times.
 
-\section{Introduction}\label{introduction-2}
+\section{Introduction}\label{introduction-3}
 
 Streamflow forecasting plays a crucial role in water resource management, particularly in flood prediction. As climate change intensifies extreme weather events and alters precipitation patterns, accurate streamflow forecasts have become increasingly important for mitigating flood risks by providing information about the timing and magnitude of potential flood events.This knowledge enables authorities to implement timely flood control measures, operate reservoirs effectively, and issue early warnings to vulnerable communities. As flooding remains one of the most common and destructive natural disasters, especially in developing countries, improved forecasting capabilities can significantly reduce the human and economic toll of these events. (\citet{Nearing2024})
 
@@ -655,7 +884,7 @@ In recent years, machine learning techniques have emerged as powerful tools for 
 
 This study aims to evaluate and compare the performance of LSTM and TFT models in forecasting streamflows up to seven days ahead. By incorporating precipitation and temperature as future known covariates alongside historical streamflow data, this work seeks to determine the effectiveness of these models in predicting streamflows.
 
-\section{Data}\label{data-1}
+\section{Data}\label{data-2}
 
 \subsection{Preperation}\label{preperation}
 
@@ -873,7 +1102,7 @@ The KGE is calculated using the following formula:
   \(\beta\) is the standard deviation ratio, defined as the ratio of the standard deviation of the simulated values to the standard deviation of the observed values.
 \end{itemize}
 
-\section{Results}\label{results}
+\section{Results}\label{results-1}
 
 \subsection{Training Setup}\label{training-setup}
 
@@ -920,7 +1149,7 @@ Time Varying Unknown Features & streamflow 15207507 & streamflow 15207507\\
 \end{tabular}
 \end{table}
 
-\subsection{Results}\label{results-1}
+\subsection{Results}\label{results-2}
 
 The models evaluated on the holdout test set show good performance for lead times of 1 and 2 days especially considering since the training and validation loss that is used is the MAE and not the KGE. The performance declines sharply for the LSTM model across the lead times while the decline for the TFT is more gradual as can be seen in Table \ref{tab:tab-results}.
 
@@ -1037,7 +1266,7 @@ Another next step could be to test the models ability to generalize by training 
 
 \emph{Suggested degree: Bachelor}
 
-\section{Introduction}\label{introduction-3}
+\section{Introduction}\label{introduction-4}
 
 The 2023 report of the Lancet Countdown on health and climate change (\citet{romanello20232023}) aims to monitor the evolving impact of climate change on health and the emerging health opportunities of climate action. It is in its eighth iteration and was created by 114 scientists and health practitioners from 52 research institutions and UN agencies from all continents (but Antarctica). While this chapter is based on the 2023 report, there are also regional reports available, such as the 2024 report for Europe (\citet{Van_Daalen2024-ut}).
 
@@ -1189,7 +1418,7 @@ Figures \ref{fig:food2ssp1strobl} and \ref{fig:food2ssp3strobl} show projections
 
 It is unclear why for many countries there is missing data.
 
-\section{Discussion}\label{discussion}
+\section{Discussion}\label{discussion-1}
 
 The 2023 report of the Lancet Countdown on health and climate change provides a comprehensive overview of the current state of the impact of climate change on health and opportunities of climate action. 47 indicators are used to keep track of where humanity is at right now.
 
@@ -1241,7 +1470,7 @@ Results and statistical methods should be presented
 
 As climate change progresses, heat-related mortality and adverse health outcomes are also increasing. In the chapters before it was mainly talked about temperature related outcomes. This chapter focuses on heat events and how humidity plays a crucial role in high ambient temperatures and the effect on health outcomes. Physiological research indicates that both heat and humidity significantly impact the body's response to heat. Thus, influencing mortality and adverse health outcomes. Several epidemiological studies aimed to show this relationship, found however only minimal or even no effect of humidity on negative health outcomes. This discrepancy between physiological knowledge and epidemiological findings creates a, as (\citet{bald}) describes it, controversial issue. This will be further explored in this chapter.
 
-\section{Introduction}\label{introduction-4}
+\section{Introduction}\label{introduction-5}
 
 \subsection{Background}\label{background-1}
 
@@ -1449,7 +1678,7 @@ In this model:
 
 In a separate review, Budd examined the history and limitations of the wet-bulb globe temperature (WBGT) index, widely used since its development for the United States Army and Marine Corps in 1950. The index incorporates air temperature, mean radiant temperature, absolute humidity, and air movement as basic elements of the thermal environment. Budd identifies several limitations of the index, including its underestimation of stress in environments with restricted evaporation, challenges in interpreting its results, and limitations in the accuracy of sweat measurement due to calibration methods and instrumentation. (\citet{budd})
 
-\section{Discussion}\label{discussion-1}
+\section{Discussion}\label{discussion-2}
 
 The discrepancies observed in epidemiological studies regarding the impact of humidity on health outcomes may stem from various factors. It is important to understand how to appropriately use humidity in study designs and recognize the different humidity definitions. Prioritizing mass water-vapor based variables such as specific or absolute humidity over relative humidity is a crucial step.
 As discussed earlier, humidity can be considered as a confounder, effect modifier, in an interaction term with heat or component of a composite index. Each of these considerations of humidity comes with its own set of limitations.
@@ -1479,7 +1708,7 @@ In a tutorial paper (\citet{vicedo}) , statistical methods for modelling future 
 
 \emph{Degree: Master}
 
-\section{1. Introduction}\label{introduction-5}
+\section{1. Introduction}\label{introduction-6}
 
 It is widely recognized that climate change (CC) is impacting both economy and society. However, it is also increasingly acknowledged as critical factor influencing various aspects of human health. In 2009, the World Health Organisation (WHO) declared CC as one of the largest threads to human health of the twenty-first century and recognised the need for a research agenda to understand complex linkages between climate change and health \citep{worldhealthorganizationProtectingHealthClimate2009}. In following years, initiatives such as the Lancet Countdown, a global monitoring system designed to track research and support policy decisions on Health and CC, drew resources and attention to this pressing problem \citep{wattsLancetCountdownHealth2018}. Despite these efforts, some health conditions are still little researched and the impact of climate change on them is poorly understood. Among them are mental health (MH) and human well-being \citep{romanello2023ReportLancet2023a}.
 According to the OECD, 20-30\% of the working population are affected by a MH condition. Mental disorders are the worldwide leading cause of years lived with disability \citep[\citet{hewlette.MakingMentalHealth2014}]{whitefordGlobalBurdenDisease2013} and a considerable burden not only for individuals but also society and economy. In 2010, the direct and indirect costs were estimated to amount to 2493 billion US dollars worldwide \citep{hewlette.MakingMentalHealth2014} and the lost economic value amounts to 4-8\% of GDP in different regions \citep{ariasQuantifyingGlobalBurden2022}. However, health care systems spend a disproportional amount on treatment. In England, MH conditions make out about 26\% of the burden of disease, but only 13\% of health expenditure are attributed to treatment \citep{hewlette.MakingMentalHealth2014}. Globally, 80\% of people do not get sufficient treatment at all \citep{worldhealthorganizationComprehensiveMentalHealth2021}.
