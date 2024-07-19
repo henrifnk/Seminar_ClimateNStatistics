@@ -1,7 +1,7 @@
 ---
 title: "Climate And Statistics"
 author: "Helmut Küchenhoff, Henri Funk"
-date: "2024-07-19"
+date: "`r Sys.Date()`"
 documentclass: krantz
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -15,14 +15,21 @@ graphics: yes
 ---
 <!--- cover-image: images/cover.png -->
 
-
+```{r setup, include=FALSE}
+options(
+  htmltools.dir.version = FALSE, formatR.indent = 2, width = 55, digits = 4
+)
+output <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+is.html = !is.null(output) && output == "html"
+```
 
 # Preface {-}
 
 *Author: Henri Funk*
 
-
-\begin{center}\includegraphics[width=500]{cover} \end{center}
+```{r cover, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+knitr::include_graphics('cover.jpg')
+```
 
 As the world faces the reality of climate change, natural hazards and extreme weather events have become a major concern, with devastating consequences for nature and humans. The quantification and definition of climate change, extreme events and its implications for life and health on our planet is one of the major concerns in climate science. 
 
@@ -296,7 +303,10 @@ output:
 
 *Degree: Master*  
 
-
+```{r chunk1Mona, message=FALSE, warning=FALSE, include=FALSE}
+library(bookdown)
+library(svglite)
+```
 
 ## Abstract 
 
@@ -310,8 +320,9 @@ Climate change is a broad and pressing topic as the number of heat-related death
 
 In contrast, a wide range of epidemiological studies have found either no or only a weak correlation between humidity and human heat stress or adverse health outcomes. Those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. These two contradictions lead, according to (@baldwin2023), to a controversial issue as physiologically it is known that there is an effect of humidity on health outcomes, whereas in epidemiological studies they did not find evidence for such an effect. Figure 1 describes this contradiction between physiological knowledge and epidemiological studies. Heat in this chapter is used as synonym for high ambient temperature. 
 
-
-\begin{center}\includegraphics[width=500]{Controversial Issue} \end{center}
+```{r controversialMona, eval=TRUE, echo=FALSE, fig.align="center", cache=FALSE, out.width="500"}
+knitr::include_graphics('Controversial Issue.png')
+```
 
 **Figure 1:** <font size="2">Flowchart illustrating the controversial issue between epidemiological studies and physiological knowledge. \
 *A: illustrates how heat and humidity changes with climate change. B: illustrates that epidemiological studies only take heat as driver into account, the physiological view heat and humidity. C: shows the predictions from an epidemiological and physiological view.* </font> 
@@ -376,8 +387,9 @@ Composite indicators are frequently used in studies. There are over 120 heat str
 A confounder is a variable that affects both the exposure of interest and the outcome. Figure 2 illustrates how humidity acts as a confounder in the relationship between heat and health outcomes. 
 
 
-
-\begin{center}\includegraphics[width=500]{Confounder} \end{center}
+```{r confounderMona, eval=TRUE, echo=FALSE, fig.align="center", cache=FALSE, out.width="500"}
+knitr::include_graphics('Confounder.png')
+```
 
 
 **Figure 2:** Humidity as confounding effect.
@@ -439,8 +451,9 @@ Another limitation is that typically only relative humidity (RH) is measured at 
 
 In summary, the lack of weather data can result in an underestimation of the impact of humidity on health outcomes. Researchers should consider these data limitations, especially when generalizing results to different countries and weather conditions. (@baldwin2023)
 
-
-\begin{center}\includegraphics[width=500]{hadisdimage1} \end{center}
+```{r HadISDMona, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+knitr::include_graphics('hadisdimage1.png')
+```
 
 **Figure 3:** Station coverage and length of record in HadISD (@raymond2024)
 
@@ -554,9 +567,14 @@ The authors of this work take full responsibilities for its content.
 
 <!--chapter:end:98-acknowledgments.Rmd-->
 
+`r if (knitr:::is_html_output()) '# References {-}'`
 
-
-
+```{r include=FALSE}
+# generate a BibTeX database automatically for some R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
 
 
 <!--chapter:end:99-references.Rmd-->
