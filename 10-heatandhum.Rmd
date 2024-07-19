@@ -12,24 +12,24 @@ output:
 
 *Degree: Master*  
 
-```{r message=FALSE, warning=FALSE, include=FALSE}
+```{r chunk1Mona, message=FALSE, warning=FALSE, include=FALSE}
 library(bookdown)
 library(svglite)
 ```
 
 ## Abstract 
 
-As climate change progresses, heat-related mortality and adverse health outcomes are also increasing. In the chapters before it was mainly talked about temperature related outcomes. This chapter focuses on heat events and how humidity plays a crucial role in high ambient temperatures and the effect on health outcomes. Physiological research indicates that both heat and humidity significantly impact the body’s response to heat. Thus, influencing mortality and adverse health outcomes. Several epidemiological studies aimed to show this relationship, found however only minimal or even no effect of humidity on negative health outcomes. This discrepancy between physiological knowledge and epidemiological findings creates a, as (@bald) describes it, controversial issue. This will be further explored in this chapter.
+As climate change progresses, heat-related mortality and adverse health outcomes are also increasing. In the chapters before it was mainly talked about temperature related outcomes. This chapter focuses on heat events and how humidity plays a crucial role in high ambient temperatures and the effect on health outcomes. Physiological research indicates that both heat and humidity significantly impact the body’s response to heat. Thus, influencing mortality and adverse health outcomes. Several epidemiological studies aimed to show this relationship, found however only minimal or even no effect of humidity on negative health outcomes. This discrepancy between physiological knowledge and epidemiological findings creates a, as (@baldwin2023) describes it, controversial issue. This will be further explored in this chapter.
 
 ## Introduction 
 
 ### Background 
 
-Climate change is a broad and pressing topic as the number of heat-related deaths and the air-temperature break records. Extreme heat waves have become a consistent feature of summer seasons, leading to an increase in heat-related fatalities (@ebi). Rising greenhouse gas concentrations further contribute to rising temperatures and humidity at the same time. Physiological knowledge indicates that heat and humidity both contribute to human heat stress, adversely affecting the human body (@bald). Heat stress occurs when environmental conditions overwhelm the body‘s cooling mechanism (@buzan). When the body is not able to sufficiently lower its core temperature, the human body suffers health problems, potentially leading to death. From a physiological perspective, the body’s cooling mechanisms are clearly influenced both by heat and humidity. 
+Climate change is a broad and pressing topic as the number of heat-related deaths and the air-temperature break records. Extreme heat waves have become a consistent feature of summer seasons, leading to an increase in heat-related fatalities (@ebi2021). Rising greenhouse gas concentrations further contribute to rising temperatures and humidity at the same time. Physiological knowledge indicates that heat and humidity both contribute to human heat stress, adversely affecting the human body (@baldwin2023). Heat stress occurs when environmental conditions overwhelm the body‘s cooling mechanism (@buzan2020). When the body is not able to sufficiently lower its core temperature, the human body suffers health problems, potentially leading to death. From a physiological perspective, the body’s cooling mechanisms are clearly influenced both by heat and humidity. 
 
-In contrast, a wide range of epidemiological studies have found either no or only a weak correlation between humidity and human heat stress or adverse health outcomes. Those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. These two contradictions lead, according to (@bald), to a controversial issue as physiologically it is known that there is an effect of humidity on health outcomes, whereas in epidemiological studies they did not find evidence for such an effect. Figure 1 describes this contradiction between physiological knowledge and epidemiological studies. Heat in this chapter is used as synonym for high ambient temperature. 
+In contrast, a wide range of epidemiological studies have found either no or only a weak correlation between humidity and human heat stress or adverse health outcomes. Those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. These two contradictions lead, according to (@baldwin2023), to a controversial issue as physiologically it is known that there is an effect of humidity on health outcomes, whereas in epidemiological studies they did not find evidence for such an effect. Figure 1 describes this contradiction between physiological knowledge and epidemiological studies. Heat in this chapter is used as synonym for high ambient temperature. 
 
-```{r controversial, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+```{r controversialMona, eval=, echo=FALSE, fig.align="center", cache=FALSE, out.width="500"}
 knitr::include_graphics('Controversial Issue.png')
 ```
 
@@ -46,17 +46,17 @@ Baldwin et al. reviewed several epidemiological studies and conducted further re
 4) Necessary extreme values of heat and humidity to show a significant impact on heat strain are rare \
 5) The relationship between heat and humidity is often not adequately considered. This may lead to inappropriate model results \
 6) Sub-daily meteorological phenomena, such as rain, which occur during high heat and humidity, may bias studies based on daily data \
-(@bald).
+(@baldwin2023).
 
 ### Physiological knowledge 
-Physiological evidence indicates that heat and humidity increase health risks, leading to higher rates of morbidity, mortality, reduced physical work capacity, and other adverse health outcomes as the climate crisis worsens. (@buzan)
+Physiological evidence indicates that heat and humidity increase health risks, leading to higher rates of morbidity, mortality, reduced physical work capacity, and other adverse health outcomes as the climate crisis worsens. (@buzan2020)
 
 The human body has two primary cooling mechanism to control the body temperature. One mechanism redistributes the blood flow to the skin (vasodilation), and therefore allows metabolically generated heat from inside of the body to reach the skin’s surface and subsequently the environment. This process requires an increased blood flow and elevates cardiac demand. This may trigger cardiovascular events such as myocardial infarction in subjects with heart conditions.
-The second mechanism involves secreting sweat onto the skin. Subsequently, the sweat evaporates to the environment and heat from the body is removed. These two mentioned cooling mechanisms are crucial for the human body to maintain a sustainable core temperature. (@ebi)
+The second mechanism involves secreting sweat onto the skin. Subsequently, the sweat evaporates to the environment and heat from the body is removed. These two mentioned cooling mechanisms are crucial for the human body to maintain a sustainable core temperature. (@ebi2021)
 
-The effectiveness of these cooling mechanisms decline with the increase of heat and humidity. A higher ambient humidity reduces the proportion of sweat that evaporates from the skin into the air. Hence, the effectiveness of sweating decreases and sweating does not lead to heat loss anymore, causing a rise in body temperature. The human body responds to such ineffective sweating by an even higher rate of sweating. This can lead to heat stroke, dehydration, or the body's physical limits may simply be exceeded. (@bald)
+The effectiveness of these cooling mechanisms decline with the increase of heat and humidity. A higher ambient humidity reduces the proportion of sweat that evaporates from the skin into the air. Hence, the effectiveness of sweating decreases and sweating does not lead to heat loss anymore, causing a rise in body temperature. The human body responds to such ineffective sweating by an even higher rate of sweating. This can lead to heat stroke, dehydration, or the body's physical limits may simply be exceeded. (@baldwin2023)
 
-Certain populations are at higher risk due to less efficient cooling mechanisms. For instance, people older than 65 years may have a reduced sweating ability same as individuals with cardiovascular diseases who cannot effectively increase blood flow to the skin. These factors, among others, exacerbate the difficulty in cooling the body. (@ebi) \
+Certain populations are at higher risk due to less efficient cooling mechanisms. For instance, people older than 65 years may have a reduced sweating ability same as individuals with cardiovascular diseases who cannot effectively increase blood flow to the skin. These factors, among others, exacerbate the difficulty in cooling the body. (@ebi2021) \
 When the body can no longer cool itself, heat stress occurs. However, these physiological insights are not consistently reflected in epidemiological studies. Several methodological and physiological factors might explain this discrepancy.
 
 Firstly, heat-vulnerable individuals often have impaired sweating capacities, especially with aging this capacity decreases. Thermoregulatory sweating can decrease by up to 25% in individuals older than 60. Consequently, they will be less sensitive to high humidity. Since most studies only include individuals over 65 years, this might explain the lack of association between humidity and heat stress.
@@ -65,11 +65,11 @@ Secondly, it is possible that the threshold at which differences in humidity imp
 
 Thirdly, heat-related outcomes may result from other causes unrelated to humidity. For example, cardiovascular diseases are a leading cause of death, and high temperatures can exacerbate these conditions independently of humidity.
 
-Lastly, dehydration, a major cause of heat-related deaths, reduces the amount of sweat, thereby minimizing the impact of high humidity on evaporation and cooling. (@bald)
+Lastly, dehydration, a major cause of heat-related deaths, reduces the amount of sweat, thereby minimizing the impact of high humidity on evaporation and cooling. (@baldwin2023)
 
 ## Heat and Humidity in Studies 
 ### Humidity definitions 
-Humidity has multiple definitions. This makes it crucial to select an appropriate measure to answer specific research questions. (@bald) categorize humidity variables into the four following groups: 
+Humidity has multiple definitions. This makes it crucial to select an appropriate measure to answer specific research questions. (@baldwin2023) categorize humidity variables into the four following groups: 
 
 1. Simple relative variables including Relative Humidity (RH), Dew-point depression (DPD) and Saturation deficit. \
 2. Mass-based variables including specific humidity, absolute humidity, dew point temperature, vapor pressure and mixing ratio. \
@@ -85,18 +85,18 @@ The Heat Index (HI) describes a "feels like" temperature, while the Humidex is a
 The physiological-based humidity indicator maximum evaporation ($E_{max}$) represents the maximal evaporation rate in a given environment and clothing conditions. The required evaporation ($E_{req}$) measures the evaporation needed to achieve thermal balance, and the total evaporation (E) is the total amount of heat lost via evaporation of sweat from the body.  
 
 Davis et al. reviewed the use of humidity variables in epidemiological studies. They found that 62% of the studies used RH, while absolute and specific humidity were used in only 5.3% and 1.5% of the studies, respectively. They discussed the appropriate use of different humidity variables, especially the use of RH due to its strong inverse correlation with temperature and its diurnal and seasonal variability was mentioned. It is recommended to use RH sparingly. Instead, they recommend using mass-based variables such as absolute or specific humidity, as they provide a more accurate measure of exposure to humidity levels. \
-The selection of humidity variables must be done carefully, they can be highly correlated with other variables, for example with heat. Davis et al. concluded that using RH as humidity variable is often inappropriate and should be done with caution if necessary. (@davis)
+The selection of humidity variables must be done carefully, they can be highly correlated with other variables, for example with heat. Davis et al. concluded that using RH as humidity variable is often inappropriate and should be done with caution if necessary. (@davis2016)
 
 The widespread use of RH in epidemiological studies is largely caused by the available data and the measurements which are performed. Mostly, if humidity is measured, then RH is measured. Deriving mass water-vapor based variables such as absolute and specific humidity can introduce uncertainty and bias in estimates.  
 
 ### Composite Indicators 
-Composite indicators are frequently used in studies. There are over 120 heat stress metrics available (@buzan), most of which were originally designed for heat warning systems. Composite indicators consider heat, humidity, and additional variables simultaneously, making them practical for certain applications. Often they are just a weighted sum of different variables. Using such composite indices is very practical, but it comes at the cost of interpretability. Changes in the composite index can result from variations in heat, humidity, or other included variables. Therefore, information about individual effects is lost and the effects can not be separated. Furthermore, the use of such indices may lead to biased or misleading estimates. Hence, the effects of heat or humidity may be underestimated. Baldwin et al. recommend the use of alternative methods such as confounding or effect modification, to separately assess the effects of heat and humidity (@bald).  
+Composite indicators are frequently used in studies. There are over 120 heat stress metrics available (@buzan2020), most of which were originally designed for heat warning systems. Composite indicators consider heat, humidity, and additional variables simultaneously, making them practical for certain applications. Often they are just a weighted sum of different variables. Using such composite indices is very practical, but it comes at the cost of interpretability. Changes in the composite index can result from variations in heat, humidity, or other included variables. Therefore, information about individual effects is lost and the effects can not be separated. Furthermore, the use of such indices may lead to biased or misleading estimates. Hence, the effects of heat or humidity may be underestimated. Baldwin et al. recommend the use of alternative methods such as confounding or effect modification, to separately assess the effects of heat and humidity (@baldwin2023).  
 
 ### Confounder
 A confounder is a variable that affects both the exposure of interest and the outcome. Figure 2 illustrates how humidity acts as a confounder in the relationship between heat and health outcomes. 
 
 
-```{r confounder, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+```{r confounderMona, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('Confounder.png')
 ```
 
@@ -112,17 +112,17 @@ $$
 
 Y represents the health outcome of interest, t is heat, and h humidity. In this model, $β_1$ represents the conditional total effect of heat on the health outcome at any given level of humidity. $β_2$ represents the direct effect of humidity on the outcome. That is the causal effect of humidity on the outcome when heat is held fixed and thus blocking the humidity effect on heat. 
 
-Interpretation of estimates can however get very complex and sometimes even misleading.Consequently, the causal relation between the variables needs to be considered carefully (@bald, @westreich) 
+Interpretation of estimates can however get very complex and sometimes even misleading.Consequently, the causal relation between the variables needs to be considered carefully (@baldwin2023, @westreich2013) 
 
 One significant problem of adjusting for confounding is to potentially run into multicollinearity issues. 
 If heat (the exposure of interest) and humidity (the confounder) are highly correlated and both variables are included in the same regression model multicollinearity is present. Consequently, the estimates capture similar information and therefore making it difficult to interpret individual variable effects. Additionally, the precision of the estimated coefficients may be reduced. Including further variables such as calendar variables to adjust for long-term or seasonal trends can exacerbate multicollinearity if the correlation between heat and humidity varies significantly over time. Furthermore, including other variables which are highly correlated with heat and humidity will lead to further multicollinearity issues. 
 
-Baldwin et al. suggest using alternative approaches to significance testing that do not rely solely on p-values. Furthermore, it is crucial to carefully consider the relationship between heat and humidity and their individual effects on health outcomes to avoid misleading results. (@bald)
+Baldwin et al. suggest using alternative approaches to significance testing that do not rely solely on p-values. Furthermore, it is crucial to carefully consider the relationship between heat and humidity and their individual effects on health outcomes to avoid misleading results. (@baldwin2023)
 
 ### Effect Modification and Interaction 
-Including humidity as an effect modifier or interaction with heat is another method to test an effect of humidity in the framework of negative health outcomes and was used in some epidemiological studies (@bald). Unlike confounding, which distorts relationships and should therefore be eliminated, effect modification and interaction are desirable biases. They provide valuable insights into how variables interact and influence outcomes, revealing inherent aspects of causal relationships that need clarification. 
+Including humidity as an effect modifier or interaction with heat is another method to test an effect of humidity in the framework of negative health outcomes and was used in some epidemiological studies (@baldwin2023). Unlike confounding, which distorts relationships and should therefore be eliminated, effect modification and interaction are desirable biases. They provide valuable insights into how variables interact and influence outcomes, revealing inherent aspects of causal relationships that need clarification. 
 
-Often, the two terms *Effect Modification* and *Interaction* are used interchangeably. However, from a causal view these two concepts differ in a counterfactual perspective and slightly differ in their definition. The counterfactual perspective involves hypothetical scenarios, asking “What if?” questions such as, “What if heat remained the same but humidity was lower? Would the health outcome change?”. (@bours) Counterfactual outcomes are typically written with a superscript such as $Y^t$ and answers the question: "What would the outcome Y be if the exposure was t?". Or as another example $Y^{th}$ answers the question: "What would the outcome Y be if both exposures t and h occurred together?". As in real-world data typically not all combinations of exposures are observed in each individual we are talking about hypothetical scenarios.  
+Often, the two terms *Effect Modification* and *Interaction* are used interchangeably. However, from a causal view these two concepts differ in a counterfactual perspective and slightly differ in their definition. The counterfactual perspective involves hypothetical scenarios, asking “What if?” questions such as, “What if heat remained the same but humidity was lower? Would the health outcome change?”. (@bours2021) Counterfactual outcomes are typically written with a superscript such as $Y^t$ and answers the question: "What would the outcome Y be if the exposure was t?". Or as another example $Y^{th}$ answers the question: "What would the outcome Y be if both exposures t and h occurred together?". As in real-world data typically not all combinations of exposures are observed in each individual we are talking about hypothetical scenarios.  
 Both concepts are scale dependent and their presence depends on the scale used. Here, we use the risk difference scale for formal definitions. 
 
 *Interaction* refers to the combined causal effect of two exposures, such as heat and humidity. *Effect modification* pertains to how the causal effect of one exposure changes across different levels of a second exposure. For example, “How does the effect of heat change across different levels of humidity?”. 
@@ -141,9 +141,9 @@ $$
 Ε[Y^{t_1, h_1}] - E[Y^{t_0, h_1}] ≠ E[Y^{t_1, h_0}]- E[Y^{t_0, h_0}]
 $$
 
-Interaction requires that the joint effect of heat and humidity is different from the sum of their individual effects. If interaction is present, studying each exposure separately may not fully capture the complexity of their joint influence on the outcome. (@vanderweele) 
+Interaction requires that the joint effect of heat and humidity is different from the sum of their individual effects. If interaction is present, studying each exposure separately may not fully capture the complexity of their joint influence on the outcome. (@vanderweele2009) 
 
-According to Baldwin and colleagues, analytical approaches to estimate interaction of effect modification are similar. They suggest that by including interaction terms or effect modifiers the main question of interest needs to be considered same as the scale of interest and the potential policy implications. (@bald)
+According to Baldwin and colleagues, analytical approaches to estimate interaction of effect modification are similar. They suggest that by including interaction terms or effect modifiers the main question of interest needs to be considered same as the scale of interest and the potential policy implications. (@baldwin2023)
 
 Unfortunately, the interpretation of interaction terms and effect modifiers often leads to misinterpretation and often the scale (multiplicative or additive) also is not considered correctly. Therefore, it is crucial to understand the concepts of interaction and effect modification and how to interpret them correctly. 
 
@@ -158,22 +158,22 @@ Furthermore, typically weather stations are situated outside urban areas, often 
 
 Another limitation is that typically only relative humidity (RH) is measured at weather stations. This may not provide the most accurate representation of humidity. Deriving mass-based variables like specific or absolute humidity from RH may introduce uncertainties and bias in the estimates as menioned earlier. 
 
-In summary, the lack of weather data can result in an underestimation of the impact of humidity on health outcomes. Researchers should consider these data limitations, especially when generalizing results to different countries and weather conditions. (@bald)
+In summary, the lack of weather data can result in an underestimation of the impact of humidity on health outcomes. Researchers should consider these data limitations, especially when generalizing results to different countries and weather conditions. (@baldwin2023)
 
-```{r HadISD, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
+```{r HadISDMona, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
 knitr::include_graphics('hadisdimage1.png')
 ```
 
-**Figure 3:** Station coverage and length of record in HadISD (@raymond)
+**Figure 3:** Station coverage and length of record in HadISD (@raymond2024)
 
 ## Examples 
-Armstrong et al. conducted a study to assess the impact of heat and humidity on daily mortality during summer months. They used a time series regression model with a distributed lag nonlinear model (DNLM) for heat, using data from 445 cities across 24 countries. Numerous different models were fitted, including different humidity levels and terms and further one model with an interaction term between heat and humidity was modeled. Model comparison using the Akaike information criterion (AIC) revealed that the best fit was achieved when humidity was included as a linear term, i.e., as confounder. One very surprisingly result was that a 23% increase in relative humidity at the 99th percentile was associated with a 1.1% decrease in mortality. This was a non-significant finding contrary to the expectation that humidity leads to an increase in mortality. Sensitivity analyses involving specific humidity and dewpoint yielded similar results. Considering humidity as a potential effect modifier, by including an interaction term, was not favored based on AIC criteria (@armstrong).
+Armstrong et al. conducted a study to assess the impact of heat and humidity on daily mortality during summer months. They used a time series regression model with a distributed lag nonlinear model (DNLM) for heat, using data from 445 cities across 24 countries. Numerous different models were fitted, including different humidity levels and terms and further one model with an interaction term between heat and humidity was modeled. Model comparison using the Akaike information criterion (AIC) revealed that the best fit was achieved when humidity was included as a linear term, i.e., as confounder. One very surprisingly result was that a 23% increase in relative humidity at the 99th percentile was associated with a 1.1% decrease in mortality. This was a non-significant finding contrary to the expectation that humidity leads to an increase in mortality. Sensitivity analyses involving specific humidity and dewpoint yielded similar results. Considering humidity as a potential effect modifier, by including an interaction term, was not favored based on AIC criteria (@armstrong2019).
 
 Baldwin et al. criticize solely rely on AIC to determine whether an interaction term should be included in the model. Consequently, as no interaction term was used in the final model, the influence remains uncertain and raises questions about the value of its exclusion. The final model used by Armstrong et al. included relative humidity as a linear term, thereby treating humidity as a confounder. As highlighted earlier, employing humidity as a confounder can introduce several challenges. 
 
-Armstrong et al.recognized some limitations of their study. They discussed the data gaps from tropical and less developed countries, the exclusive consideration of mortality as an endpoint, and the possibility of missing the association between humidity and mortality under specific conditions (@armstrong).
+Armstrong et al.recognized some limitations of their study. They discussed the data gaps from tropical and less developed countries, the exclusive consideration of mortality as an endpoint, and the possibility of missing the association between humidity and mortality under specific conditions (@armstrong2019).
 
-In another epidemiological study from Schwartz et al. the effect of heat and humidity on hospital admissions for heart disease and myocardial infarction among individuals over 64 years from 12 US cities was investigated. They fitted a Poisson model for each city, incorporating regression splines to control for season and barometric pressure, and adjusting for the day of the week. Despite their broad approach, they found no evidence of an effect of humidity on hospital admissions. Possible explanations for this results are the use of relative humidity and the resulting bias. Further, considering humidity as a confounder may also explain that no effect of humidity was found. Additionally, focusing solely on individuals older than 64, who are more vulnerable to heat and sweating impairments, may have biased the study's findings. (@schwartz)
+In another epidemiological study from Schwartz et al. the effect of heat and humidity on hospital admissions for heart disease and myocardial infarction among individuals over 64 years from 12 US cities was investigated. They fitted a Poisson model for each city, incorporating regression splines to control for season and barometric pressure, and adjusting for the day of the week. Despite their broad approach, they found no evidence of an effect of humidity on hospital admissions. Possible explanations for this results are the use of relative humidity and the resulting bias. Further, considering humidity as a confounder may also explain that no effect of humidity was found. Additionally, focusing solely on individuals older than 64, who are more vulnerable to heat and sweating impairments, may have biased the study's findings. (@schwartz2004)
 
 Barreca conducted a study that found an effect of heat and humidity on mortality rates in the US. He used data from the Global Summary of the Day (GSOD) files, which provide detailed weather station data. The study analyzed data from 1973 to 2002, calculating specific humidity using a standard meteorological formula based on mean dew point and mean station pressure.
 
@@ -197,9 +197,9 @@ Barreca clustered the standard errors by the state of residence to account for t
 $\epsilon$ is correlated within states, both across counties and over time. Additionally, the equation was weighted by the county population in 2000.
 He fitted different models: one model included only temperature, and another included only humidity. Both the temperature-mortality and humidity-mortality relationships followed a similar pattern. In a subsequent model, he included both TEMP and HUMID covariates. An interesting finding from this model was that both cold temperatures and low humidity levels remained significant determinants of mortality.
 Finally, he fitted a model with an interaction term between heat and humidity. The estimates from this model suggest that increasing humidity levels are more dangerous at high temperatures. 
-Therefore, controlling for humidity is according to Barreca particularily important in the context of predicting distributional effects of climate change. (@barr)
+Therefore, controlling for humidity is according to Barreca particularily important in the context of predicting distributional effects of climate change. (@barreca2012)
 
-In a separate review, Budd examined the history and limitations of the wet-bulb globe temperature (WBGT) index, widely used since its development for the United States Army and Marine Corps in 1950. The index incorporates air temperature, mean radiant temperature, absolute humidity, and air movement as basic elements of the thermal environment. Budd identifies several limitations of the index, including its underestimation of stress in environments with restricted evaporation, challenges in interpreting its results, and limitations in the accuracy of sweat measurement due to calibration methods and instrumentation. (@budd)
+In a separate review, Budd examined the history and limitations of the wet-bulb globe temperature (WBGT) index, widely used since its development for the United States Army and Marine Corps in 1950. The index incorporates air temperature, mean radiant temperature, absolute humidity, and air movement as basic elements of the thermal environment. Budd identifies several limitations of the index, including its underestimation of stress in environments with restricted evaporation, challenges in interpreting its results, and limitations in the accuracy of sweat measurement due to calibration methods and instrumentation. (@budd2008)
 
 ## Discussion 
 The discrepancies observed in epidemiological studies regarding the impact of humidity on health outcomes may stem from various factors. It is important to understand how to appropriately use humidity in study designs and recognize the different humidity definitions. Prioritizing mass water-vapor based variables such as specific or absolute humidity over relative humidity is a crucial step. 
