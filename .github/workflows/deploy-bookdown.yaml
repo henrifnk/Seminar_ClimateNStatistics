@@ -19,7 +19,7 @@ jobs:
           sudo apt-get install -y libxml2-dev libcairo2-dev
       - uses: r-lib/actions/setup-pandoc@v2
       - name: Install rmarkdown and deps
-        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "svglite", "tinytex", "kableExtra", "ggpubr")); tinytex::install_tinytex(force = TRUE);tinytex::tlmgr_install(c("bibtex", "apalike"))'
+        run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "svglite", "tinytex", "kableExtra", "ggpubr", "tidyverse", "zoo", "latex2exp")); tinytex::install_tinytex(force = TRUE);tinytex::tlmgr_install(c("bibtex", "graphics"))'
       - name: Render Book
         run: make
       - uses: actions/upload-artifact@v4
