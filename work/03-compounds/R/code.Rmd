@@ -26,8 +26,8 @@ library(VC2copula)
 
 ## R Markdown
 
-```{r echo=FALSE}
-source("processing.R")
+```{r}
+source("work/03-compounds/R/processing.R")
 ```
 
 ```{r echo=FALSE}
