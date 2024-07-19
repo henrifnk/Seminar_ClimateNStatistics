@@ -1,4 +1,287 @@
 ---
+title: "Climate And Statistics"
+author: "Helmut Küchenhoff, Henri Funk"
+date: "2024-07-19"
+documentclass: krantz
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+colorlinks: yes
+lot: False
+lof: False
+site: bookdown::bookdown_site
+description: "A Seminar about statistical methods in climate research in SS24."
+graphics: yes
+---
+<!--- cover-image: images/cover.png -->
+
+
+
+# Preface {-}
+
+*Author: Henri Funk*
+
+<img src="cover.jpg" width="500" style="display: block; margin: auto;" />
+
+As the world faces the reality of climate change, natural hazards and extreme weather events have become a major concern, with devastating consequences for nature and humans. The quantification and definition of climate change, extreme events and its implications for life and health on our planet is one of the major concerns in climate science. 
+
+This book explains current statistical methods in climate science and their application.
+The methods include compound events, low flow events and return periods, natural variability, teleconnections and causal discovery.
+All of those methods are used to quantify and anticipate the changing climate.
+
+This book is the outcome of the seminar "Climate and Statistics" which took place in summer 2024 at the Department of Statistics, LMU Munich.
+
+![Creative Commons License](by-nc-sa.png)
+
+This book is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+
+\mainmatter
+
+# Foreword {-}
+
+*Author: Christoph Molnar*
+
+<!-- An experiment -->
+This book is the result of an experiment in university teaching.
+Each semester, students of the Statistics Master can choose from a selection of seminar topics.
+Usually, every student in the seminar chooses a scientific paper, gives a talk about the paper and summarizes it in the form of a seminar paper.
+The supervisors help the students, they listen to the talks, read the seminar papers, grade the work and then ... hide the seminar papers away in (digital) drawers.
+This seemed wasteful to us, given the huge amount of effort the students usually invest in seminars.
+An idea was born:
+Why not create a book with a website as the outcome of the seminar?
+Something that will last at least a few years after the end of the semester.
+In the summer term 2019, some Statistics Master students signed up for our seminar entitled "Limitations of Interpretable Machine Learning".
+When they came to the kick-off meeting, they had no idea that they would write a book by the end of the semester.
+
+We were bound by the examination rules for conducting the seminar, but otherwise we could deviate from the traditional format.
+We deviated in several ways:
+
+1. Each student project is part of a book, and not an isolated seminar paper.
+1. We gave challenges to the students, instead of papers. The challenge was to investigate a specific limitation of interpretable machine learning methods.
+1. We designed the work to live beyond the seminar.
+1. We emphasized collaboration. Students wrote some chapters in teams and reviewed each others texts.
+
+<!-- Our experience -->
+<!---
+Looking back, the seminar was a lot of fun and -- from our perspective -- successful.
+Especially considering that it was an experiment.
+Everyone was highly motivated and we got great feedback from the students that they liked the format.
+For the students it was a more work than a traditional seminar.
+But in the end, our hope is that their effort will pay off for them as well, not only because of their increased visibility.
+It was also more work for us supervisors.
+But the extra effort was worth it, since limitations of interpretability are relevant for our research.
+For me the seminar was an inspiration.
+The students had new ideas and new perspectives to approach the limitations of interpretable machine learning.
+-->
+
+<!-- Technical setup -->
+## Technical Setup {-}
+
+The book chapters are written in the Markdown language.
+The simulations, data examples and visualizations were created with R [@rlang].
+To combine R-code and Markdown, we used rmarkdown.
+The book was compiled with the bookdown package.
+We collaborated using git and github.
+For details, head over to the [book's repository](link/to/repo).
+
+
+
+<!--chapter:end:index.Rmd-->
+
+# Introduction
+
+*Author: *
+
+*Supervisor: *
+
+## Intro About the Seminar Topic
+
+
+## Outline of the Booklet
+
+
+<!--chapter:end:00-introduction.Rmd-->
+
+# Natural Variability by internal variability {#iv}
+
+*Author: Author*
+
+*Supervisor: Henri Funk*
+
+*Suggested degree: Bachelor*
+
+Natural variability refers to the inherent fluctuations in the climate system that occur without external forcings, such as changes in solar radiation, volcanic eruptions, or human-induced alterations of the Earth's atmosphere and surface. This variability can be due to a variety of factors, including atmospheric processes, ocean currents, the El Niño-Southern Oscillation (ENSO), and other dynamic components of the Earth system. Natural variability occurs across all time scales, from short-term (daily, seasonal) to long-term (decadal, centennial) fluctuations.
+
+## Climate Model Ensemble
+
+Climate models are sophisticated tools that simulate the interactions within the Earth's climate system. To understand and quantify natural variability, scientists use ensembles of climate model simulations. An ensemble consists of multiple runs of the same model, or different models, where each run has slightly different initial conditions or model parameters. This approach helps to capture the range of possible climate outcomes due to the inherent uncertainty and variability in the system.
+
+## Internal Variability
+Within the context of climate model ensembles, internal variability refers to the variations in climate that arise from the system's internal processes, independent of external forcings. This variability is a fundamental part of the climate system's dynamics and can lead to different outcomes even if the external conditions are the same.
+
+@deser
+
+
+<!--chapter:end:01-variability.Rmd-->
+
+# Standard Precipitation Evapotranspiration Index {#spei}
+
+*Author: Author*
+
+*Supervisor: Henri Funk*
+
+*Suggested degree: Bachelor*
+
+## Definition
+
+The SPEI is a statistical indicator that shows dry and wet periods on the basis of the climatic water balance (total precipitation minus total potential evaporation). It captures water deficits or surpluses on the land surface better than the Standardised Precipitation Index (SPI), which focuses solely on precipitation. The potential evaporation can be based on the so-called FAO grass evaporation, which takes into account radiation, air temperature, relative humidity and wind speed over a standard grass area. The time series is broken down into 12 monthly frequency sums, to each of which a cumulative log-logistic distribution is fitted. This is transformed into a corresponding cumulative standard normal distribution, the abscissa value of which - referred to as SPEI - allows simple assignment to probability classes.
+@vicente
+
+<!--chapter:end:02-spei.Rmd-->
+
+# Compound events {#ce}
+
+*Author: Author*
+
+*Supervisor: Henri Funk*
+
+*Suggested degree: Master*
+
+In climate research, a compound event refers to the combination of multiple extreme weather or climate events occurring simultaneously or successively, leading to significant impacts on the environment, society, or economy. These events can be related either through meteorological factors (e.g., heatwaves and drought occurring together due to a prolonged high-pressure system) or through their impacts (e.g., heavy rainfall and storm surge combining to cause more severe flooding). The complexity of compound events lies in their interconnectedness and the way they can exacerbate each other's effects, often in a nonlinear manner, making them more challenging to predict and manage than individual extreme events.
+
+## Example: Hot and Dry Events
+
+Consider a scenario where a region experiences both extreme heat and an extended period of low precipitation simultaneously. In this example, the compound nature of the hot and dry events creates a cascade of impacts that are more severe than what would be expected if these events occurred independently. The interplay between the heat and drought amplifies the consequences, underscoring the importance of understanding and managing compound events in the context of climate change and variability.
+@zscheischler
+
+
+<!--chapter:end:03-compounds.Rmd-->
+
+# Assymetric bivariate Copulas for compounds {#ac}
+
+*Author: Author*
+
+*Supervisor: Henri Funk*
+
+*Suggested degree: Master*
+
+In compounds, particularly in environmental and hydrological contexts, bivariate relationships can be used to study how two different environmental factors, such as temperature and precipitation, interact with each other. These relationships are critical for modeling the joint behavior of these variables, which can be essential for predicting weather events, designing structures, or managing natural resources.
+
+In the study of environmental and hydrological systems, recognizing and accurately modeling the asymmetry in bivariate relationships is crucial for making reliable predictions and informed decisions. Techniques such as copulas, are often used in this context to model and analyze these complex and dependencies effectively. To model the asymmetry in dependencies, Archimax could be used.
+
+@charpentier
+@bacigal
+
+<!--chapter:end:04-archimax.Rmd-->
+
+# Teleconnections North Atlantic Oscillation {#nao}
+
+*Author: Author*
+
+*Supervisor: Henri Funk*
+
+*Suggested degree: Bachelor/Master*
+
+The concept of teleconnections in climate science refers to climate anomalies or patterns that are related across large distances, often thousands of kilometers apart. Teleconnections represent atmospheric interactions that link weather and climate conditions in one region of the globe with those in another, often through the movement and behavior of large-scale atmospheric wave patterns. These connections are crucial for understanding regional climate variations, predicting weather patterns, and assessing climate change impacts.
+
+## North Atlantic Oscillation (NAO) and Its Implications
+
+The North Atlantic Oscillation (NAO) is a prime example of a teleconnection pattern, characterized by variations in the difference of atmospheric pressure at sea level between the Icelandic Low and the Azores High. The NAO influences weather and climate conditions across the North Atlantic region and beyond, affecting winter temperatures and storm tracks.
+
+## Implications for Our Climate
+
+Understanding the NAO and other teleconnection patterns is essential for accurate weather forecasting, climate prediction, and the development of strategies to mitigate the impacts of climate variability and change. Researchers use observations, climate models, and paleoclimate reconstructions to study these patterns, aiming to improve our ability to predict their future behavior under different climate change scenarios.
+@hurrell
+
+<!--chapter:end:05-nao.Rmd-->
+
+# Low Flow Events {#lfe}
+
+*Author: Author*
+
+*Supervisor: Henri Funk*
+
+*Suggested degree: Bachelor*
+
+Low flow events in hydrology refer to periods when water flow in rivers, streams, or creeks falls below a critical threshold, often leading to various ecological, economic, and social impacts. These events can result from prolonged periods of below-average precipitation, increased water usage, or changes in land use that affect the hydrological cycle. Low flow conditions can compromise water quality, reduce water availability for agricultural, industrial, and domestic uses, and disrupt aquatic ecosystems.
+
+## Concept of Extremeness by Return Periods
+
+The "extremeness" of hydrological events, including low flow conditions, is often characterized by return periods. A return period, also known as a recurrence interval, is a statistical measure used to estimate the frequency at which a certain intensity of an event (e.g., flow rate, rainfall amount) is likely to be equaled or exceeded. It is typically expressed in years.
+
+- **Definition**: The return period is calculated based on historical data and is intended to provide an estimate of the likelihood of experiencing an event of a certain magnitude or greater within any given year. For example, a 100-year return period for a low flow event means that, on average, the flow rate is expected to fall to that level or lower once every 100 years. This does not imply the events will occur exactly 100 years apart but rather conveys a 1% chance of occurrence in any given year.
+@du
+
+<!--chapter:end:06-lowflow.Rmd-->
+
+# Statistical streamflow modelling {#sm}
+
+*Author: Author*
+
+*Supervisor: Henri Funk*
+
+*Suggested degree: Master*
+
+Hydrological models are tools used to understand, simulate, and predict the movement, distribution, and quality of water within natural and engineered water systems. These models help in water resource management, flood forecasting, environmental protection, and understanding the impact of climate change on water resources.
+
+There are mainly two types of hydrological models: physical and statistical.
+
+## Physical Hydrological Models
+
+Physical hydrological models are based on the physical processes that occur within the hydrological cycle. They use mathematical representations of these processes to simulate the behavior of water in the environment. Physical models consider processes such as precipitation, evaporation, infiltration, surface runoff, and groundwater flow. These models are often more complex and require detailed data about the terrain, soil properties, vegetation, and meteorological conditions.
+
+## Statistical Hydrological Models
+
+Statistical hydrological models use historical data to identify patterns and relationships between different hydrological variables. These models apply statistical methods to predict future water conditions based on past observations. They do not necessarily simulate the physical processes but rather rely on the statistical properties of the data, such as trends, cycles, and variability. Statistical models are often used when the physical processes are too complex to model directly or when there is insufficient data to build a detailed physical model.
+
+@sabzipour
+
+<!--chapter:end:07-hydroLSTM.Rmd-->
+
+# The Lancet Report 2023    {#he1}
+
+*Author: Author*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Suggested degree: Bachelor* 
+
+In yearly reports one of the leading scientific journals in health research 
+gives an overview on the state of the art knowledge on the effect of climate 
+change on health (@romanello).  The following aspects should be treated: 
+
+#. Main results and message 
+#.  Communication of results 
+#. Arguments based on statistical methods 
+
+
+<!--chapter:end:08-lancet.Rmd-->
+
+#  Epidemiologic studies on the heat effects     {#he2}
+
+*Author: Author*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Degree: Bachelor*   
+
+There are many epidemiological studies for assessing the effect of heat on health.
+One strategy is to use daily mortality data and weather data in certain areas to 
+estimate heat related mortality by regression models. Two recent papers by groups of 
+researchers give an overview: 
+
+#. General effects 
+@masselot
+
+#. Joint effects of air pollution and heat 
+@stafoggia
+  
+Results and statistical methods should be presented
+
+<!--chapter:end:09-epidemiologic.Rmd-->
+
+---
 output:
   pdf_document: default
   word_document: default
@@ -12,10 +295,7 @@ output:
 
 *Degree: Master*  
 
-```{r chunk1Mona, message=FALSE, warning=FALSE, include=FALSE}
-library(bookdown)
-library(svglite)
-```
+
 
 ## Abstract 
 
@@ -29,9 +309,7 @@ Climate change is a broad and pressing topic as the number of heat-related death
 
 In contrast, a wide range of epidemiological studies have found either no or only a weak correlation between humidity and human heat stress or adverse health outcomes. Those studies all infer that a rise in air-temperature (heat) is associated with negative health outcomes. These two contradictions lead, according to (@baldwin2023), to a controversial issue as physiologically it is known that there is an effect of humidity on health outcomes, whereas in epidemiological studies they did not find evidence for such an effect. Figure 1 describes this contradiction between physiological knowledge and epidemiological studies. Heat in this chapter is used as synonym for high ambient temperature. 
 
-```{r controversialMona, eval=TRUE, echo=FALSE, fig.align="center", cache=FALSE, out.width="500"}
-knitr::include_graphics('Controversial Issue.png')
-```
+<img src="Controversial Issue.png" width="500" style="display: block; margin: auto;" />
 
 **Figure 1:** <font size="2">Flowchart illustrating the controversial issue between epidemiological studies and physiological knowledge. \
 *A: illustrates how heat and humidity changes with climate change. B: illustrates that epidemiological studies only take heat as driver into account, the physiological view heat and humidity. C: shows the predictions from an epidemiological and physiological view.* </font> 
@@ -96,9 +374,7 @@ Composite indicators are frequently used in studies. There are over 120 heat str
 A confounder is a variable that affects both the exposure of interest and the outcome. Figure 2 illustrates how humidity acts as a confounder in the relationship between heat and health outcomes. 
 
 
-```{r confounderMona, eval=TRUE, echo=FALSE, fig.align="center", cache=FALSE, out.width="500"}
-knitr::include_graphics('Confounder.png')
-```
+<img src="Confounder.png" width="500" style="display: block; margin: auto;" />
 
 
 **Figure 2:** Humidity as confounding effect.
@@ -160,9 +436,7 @@ Another limitation is that typically only relative humidity (RH) is measured at 
 
 In summary, the lack of weather data can result in an underestimation of the impact of humidity on health outcomes. Researchers should consider these data limitations, especially when generalizing results to different countries and weather conditions. (@baldwin2023)
 
-```{r HadISDMona, cache=FALSE, out.width="500", fig.align="center", echo=FALSE, eval = TRUE}
-knitr::include_graphics('hadisdimage1.png')
-```
+<img src="hadisdimage1.png" width="500" style="display: block; margin: auto;" />
 
 **Figure 3:** Station coverage and length of record in HadISD (@raymond2024)
 
@@ -210,3 +484,76 @@ It is essential to provide a clear research question or hypothesis when evaluati
 Efforts to improve data collection are required, especially to include regions with tropical climates and low-income countries that are often underrepresented in studies. Additionally, relying solely on vulnerable populations may introduce bias, underscoring the importance of striving for a representative sample.
 
 Humidity represents an intriguing factor worth studying further, along with heat, especially in studies investigating health effects. Planning and executing appropriate studies to examine the effects of heat and humidity requires a nuanced understanding of humidity. It is appropriate incorporation into models, and knowledge aware of potential limitations and errors.
+
+<!--chapter:end:10-heatandhum.Rmd-->
+
+# Risk Projections   {#he4}
+
+*Author: Author*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Degree: Bachelor*   
+
+In many studies, the effects of climate change in the future is discussed. 
+In a tutorial paper (@vicedo) , statistical methods for modelling future risks due to climate devlopement are presented. In a two other papers paper the future effects of ozone and heat  related are presented (@domingo,@chen).   
+
+
+
+<!--chapter:end:11-projections.Rmd-->
+
+# Open issue: Future health risks of climate change {#he5}
+
+*Author: Author*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Degree: Bachelor Master  *   
+
+Further literature should be checked. 
+Possible starting point : 
+Report of the IPCC- panel (@IPCC 3000 pages) 
+
+
+
+<!--chapter:end:12-future.Rmd-->
+
+# Open issue
+
+*Author: Author*
+
+*Supervisor: Helmut Kuechenhoff*
+
+*Degree: Bachelor Master  *   
+
+Further aspects of climate change 
+
+Economic, political aspects, communication 
+
+@campbell @sun 
+
+<!--chapter:end:13-open.Rmd-->
+
+# Acknowledgements
+
+The most important contributions are from the students themselves.
+The success of such projects highly depends on the students.
+And this book is a success, so thanks a lot to all the authors!
+The other important role is the supervisor.
+Thanks to all the supervisors who participated!
+Special thanks to [SUPERVISING PROFESSOR](https://www.stablab.stat.uni-muenchen.de/personen/leitung/kuechenhoff1/index.html) who enabled us to conduct the seminar in such an experimental way, supported us and gave valuable feedback for the seminar structure.
+Thanks a lot as well to the entire [Department of Statistics](https://www.statistik.uni-muenchen.de/) and the [LMU Munich](http://www.en.uni-muenchen.de/index.html) for the infrastructure.
+
+The authors of this work take full responsibilities for its content.
+
+
+
+<!--chapter:end:98-acknowledgments.Rmd-->
+
+# References {-}
+
+
+
+
+<!--chapter:end:99-references.Rmd-->
+
