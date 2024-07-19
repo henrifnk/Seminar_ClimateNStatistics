@@ -148,12 +148,13 @@ knitr::include_graphics('work/03-compounds/figures/GMT/GMT.png')
 ### Copula Models using Original data
 ```{r tab1, echo=FALSE}
 data <- data.frame(
-  NO1 = c("Anomalies", "", "", "Anomalies","", "", ""),
-  NO2 = c("T", "-P", "Copula", "T", "-P", "Copula", "UTD"),
-  EMP = c("-","-", "Survival Clayton(θ = 0.61)", "-", "-", "Joe(θ = 1.53)", 0.43),
-  FIT=c("N(0, 0.5)", "N(0, 83)","Survival Clayton(θ = 0.56)","N(0, 0.55)","N(0, 84)","Survival Clayton(θ = 0.58)",0.30))
-colnames(data) <- c("", "","EMP","FIT")
-knitr::kable(data, caption = "Marginal distributions and copulas for Anomalies (March-November averages)")
+  V1 = c("Until 2019", "", "", "Until 2023", "", "", ""),
+  V2 = c("T", "- P", "Copula", "T", "- P", "Copula", "Utd"),
+  EMP = c("-", "-", "Joe(theta = 1.25)", "-", "-", "Joe(theta = 1.31)", "0.3"),
+  FIT = c("N(11, 0.7)", "N(-600, 84)", "Survival Clayton(theta = 0.26)", "N(11, 0.76)", "N(-599, 84)", "Joe(theta = 1.21)", "0.22")
+)
+colnames(data) <- c("", "", "EMP", "FIT")
+knitr::kable(data, caption = "Marginal distributions and copulas for observational data (March-November averages)")
 ```
 
 Table \@ref(tab:tab1) shows the marginal distributions and copulas for observational data in March to November. The data in the first row is from paper and is only updated to 2019, the data in the second row is updated to 2023, it is easy to see that the addition of 4 new years of data doesn't change the distribution of the data too much, which makes sense since there are over 100 years as a base. As mentioned in 4.2, here we used “BiCopSelect()” in the R package VineCopula (@schepsmeier2018) for the model selection, it is possible to set different selection criteria in this function, and here we used the default criterion Akaike information criterion (AIC). Different Copula models were chosen in 2019 and 2023, but at least they are all Copula's that are suitable for capturing UTD as mentioned in 4.3.3, I extracted their UTD values for the 2023 model and we can see that the UTD for the 2023 Copula model based on the empirical marginal distribution is 0.3, and the UTD of the Copula model based on the fitted normal marginal distribution is 0.22, which is not particularly strong, but already suggests a Upper Tail Dependence between hot and dry.
@@ -260,8 +261,8 @@ With the new data, we can find that the selected models still all good at captur
 data <- data.frame(
   NO1 = c("Anomalies", "", "", "Anomalies","", "", ""),
   NO2 = c("T", "-P", "Copula", "T", "-P", "Copula", "UTD"),
-  EMP = c("-","-", "Survival Clayton(θ = 0.61)", "-", "-", "Joe(θ = 1.53)", 0.43),
-  FIT=c("N(0, 0.5)", "N(0, 83)","Survival Clayton(θ = 0.56)","N(0, 0.55)","N(0, 84)","Survival Clayton(θ = 0.58)",0.30))
+  EMP = c("-","-", "Survival Clayton(theta = 0.61)", "-", "-", "Joe(theta = 1.53)", 0.43),
+  FIT=c("N(0, 0.5)", "N(0, 83)","Survival Clayton(theta = 0.56)","N(0, 0.55)","N(0, 84)","Survival Clayton(theta = 0.58)",0.30))
 colnames(data) <- c("", "","EMP","FIT")
 knitr::kable(data, caption = "Marginal distributions and copulas for Anomalies (March-November averages)")
 ```
