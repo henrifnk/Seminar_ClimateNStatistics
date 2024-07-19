@@ -28,6 +28,7 @@ library(VC2copula)
 
 ```{r}
 source("work/03-compounds/R/processing.R")
+## There is too much raw data to upload successfully, here is the data source: https://opendata.dwd.de/climate_environment/CDC/
 ```
 
 ```{r echo=FALSE}
