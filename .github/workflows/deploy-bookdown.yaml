@@ -16,7 +16,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libxml2-dev libcairo2-dev
+          sudo apt-get install -y libxml2-dev libcairo2-dev libcurl4-openssl-dev libssl-dev libxml2-dev
       - uses: r-lib/actions/setup-pandoc@v2
       - name: Install rmarkdown and deps
         run: Rscript -e 'install.packages(c("rmarkdown", "bookdown", "svglite", "tinytex", "kableExtra", "ggpubr", "tidyverse", "zoo", "latex2exp")); tinytex::install_tinytex(force = TRUE);tinytex::tlmgr_install(c("bibtex", "graphics"))'
