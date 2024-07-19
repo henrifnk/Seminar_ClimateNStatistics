@@ -34,7 +34,7 @@ There are three main data sets that will be used in this study, which are temper
 ### Copula
 Copulas are multivariate distribution functions whose one-dimensional margins are uniform on the interval $[0,1]$ (@nelsen2006) and used to describe the dependence between random variables. @salvadori2016 introduced Copulas using the following notation. In fact Copula can be multivariate, but since this article studies hot and dry, we focus on the bivariate Copula. Let $C$ denote a bivariate Copula and $F$ a bivariate cumulative distribution function, by Sklar's Theorem, we have:
 
-$$F(x) = P(X_1 \leq x_1, X_2 \leq x_2) = C(F^{-1}(x_1), F^{-1}(x_2)) \tag{1} $$
+$$F(x) = P(X_1 \leq x_1, X_2 \leq x_2) = C(F_{1}(x_1), F_{2}(x_2)) \tag{1} $$
 for all $x \in R^2$, where $F_1$ and $F_2$ are the univariate margins of $F$ (@sklar1959).
 
 The formula of probability distribution function $f$ is:
@@ -43,7 +43,7 @@ and $c$ here represents the copula density.
 
 The (joint) survival function can be denoted as:
 $$\bar{F}(x) = P(X_1 > x_1, X_2 > x_2) = \hat{C}( \bar{F}_1(x_1), \bar{F}_2(x_2)) \tag{3} $$
-where $\hat{C}$ represents the survival copula of the $X_i$'s and $\bar{F}_i$ represents the survival functionof $X_i$, $i = 1, 2$.
+where $\hat{C}$ represents the survival copula of the $X_i$'s and $\bar{F}_i$ represents the survival function of $X_i$, $i = 1, 2$.
 
 The Kendall’s function $K$ associated with the copula $C$ of $X$ can be written as:
 $$K(t) = P\left(F(X_1, X_2) \leq t\right) = P\left(C\left(F_1(x_1), F_2(x_2)\right) \leq t\right) \tag{4} $$
@@ -53,11 +53,11 @@ These formulas are not only important for the copula, but also very useful when 
 
 Kendall's Tau is a correlation coefficient, for copula we can calculate it to describe the direction and strength of the relationship between two variables. Kendall's Tau can be computed as follows (@barbe1996):
 $$\tau = 4E(C(U, V)) - 1= 4 \int_{0}^{1} t \, dK(t) - 1 \tag{6} $$
-Kendall's Ta takes values between -1 and 1, with 1 representing Perfect positive dependence, -1 representing Perfect negative dependence and 0 representing independence.
+Kendall's Tau takes values between -1 and 1, with 1 representing Perfect positive dependence, -1 representing Perfect negative dependence and 0 representing independence.
 
-Upper Tailed Dependence (UTD) refers to the dependence which is shown when both variables reach their upper values, it is a better representation of the dependence between extreme values. We can calculate UTD using the following formula (@fischer2006):
+Upper Tail Dependence (UTD) refers to the dependence which is shown when both variables reach their upper values, it is a better representation of the dependence between extreme values. We can calculate UTD using the following formula (@fischer2006):
 $$\lambda_U \equiv \lim_{{u \to 1^-}} P(Y > F_Y^{-1}(u) \mid X > F_X^{-1}(u))= \lim_{u \to 1^{-}} \frac{1 - 2u + C(u, u)}{1 - u} \tag{7} $$
-Utd ranges from 0 to 1, with 1 representing Perfekt Upper Tail Dependence, i.e. when one variable reaches its maximum value, the other variable also reaches its maximum value. Whereas 0 represents no Upper Tail Dependence.
+UTD ranges from 0 to 1, with 1 representing Perfekt Upper Tail Dependence, i.e. when one variable reaches its maximum value, the other variable also reaches its maximum value. Whereas 0 represents no Upper Tail Dependence.
 
 ### Empirical Copula
 Empirical Copula does not need to assume marginal distributions, but still captures the dependency structure between variables in the dataset. The specific function can be written as (@bucher2013):
@@ -80,7 +80,7 @@ Joe Copula belongs to Archimedean copulas and has a good ability to capture the 
 $$\phi(t) = -\log\left(1 - (1 - t)^\theta\right), \ \ \theta \geq 1 \tag{11}$$
 $$\phi^{-1}(t) = 1 - ((1 - e^{-t}))^{1/\theta}, \ \ \theta \geq 1 \tag{12}$$
 $$C(u_1, u_2; \theta) = 1 - \left[ (1 - u_1)^\theta+(1 - u_2)^\theta - (1 - u_1)^\theta(1 - u_2)^\theta)\right]^{1/\theta} \tag{13}$$
-Clayton Copula also belongs to the Archimedean copulas, but it is better at capturing Lower Tailed Dependencies. Clayton Copula and its generator function are represented as follows (@chesneau2023):
+Clayton Copula also belongs to the Archimedean copulas, but it is better at capturing Lower Tail Dependencies. Clayton Copula and its generator function are represented as follows (@chesneau2023):
 $$\phi(t) = \frac{1}{\theta} (t^{-\theta} - 1), \ \ \theta \in [-1, \infty) \backslash \{0\} \tag{14}$$
 $$\phi^{-1}(t) = (1 + \theta t)^{-\frac{1}{\theta}}, \ \ \theta \in [-1, \infty) \backslash \{0\} \tag{15}$$
 $$C(u_1, u_2; \theta) = \left[\max\{u_1^{-\theta} + u_2^{-\theta} -1;0\}\right]^{-\frac{1}{\theta}} \tag{16}$$
@@ -131,7 +131,7 @@ Now we understand the changes of these two variables over time, but based on the
 knitr::include_graphics('work/03-compounds/figures/Temperature/Average/TemperatureCPD.png')
 ```
 
-In Figure \@ref(fig:PrecipitationCPD), instead of using precipitation directly, we used negative precipitation, so the hottest and driest values mean that both our variables negative precipitation and temperature are at their maximum values, which is the reason why we introduce the Upper Tailed Dependence in 4.3.1.
+In Figure \@ref(fig:PrecipitationCPD), instead of using precipitation directly, we used negative precipitation, so the hottest and driest values mean that both our variables negative precipitation and temperature are at their maximum values, which is the reason why we introduce the Upper Tail Dependence in 4.3.1.
 
 ```{r PrecipitationCPD, cache=FALSE, fig.cap = 'Cumulative Probability of -Precipitation', out.width='65%', fig.align='center', echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/03-compounds/figures/Precipitation/Average/PrecipitationCPD.png')
@@ -149,14 +149,14 @@ knitr::include_graphics('work/03-compounds/figures/GMT/GMT.png')
 ```{r tab1, echo=FALSE}
 data <- data.frame(
   NO1 = c("Anomalies", "", "", "Anomalies","", "", ""),
-  NO2 = c("T", "-P", "Copula", "T", "-P", "Copula", "Utd"),
+  NO2 = c("T", "-P", "Copula", "T", "-P", "Copula", "UTD"),
   EMP = c("-","-", "Survival Clayton(θ = 0.61)", "-", "-", "Joe(θ = 1.53)", 0.43),
   FIT=c("N(0, 0.5)", "N(0, 83)","Survival Clayton(θ = 0.56)","N(0, 0.55)","N(0, 84)","Survival Clayton(θ = 0.58)",0.30))
 colnames(data) <- c("", "","EMP","FIT")
 knitr::kable(data, caption = "Marginal distributions and copulas for Anomalies (March-November averages)")
 ```
 
-Table \@ref(tab:tab1) shows the marginal distributions and copulas for observational data in March to November. The data in the first row is from paper and is only updated to 2019, the data in the second row is updated to 2023, it is easy to see that the addition of 4 new years of data doesn't change the distribution of the data too much, which makes sense since there are over 100 years as a base. As mentioned in 4.2, here we used “BiCopSelect()” in the R package VineCopula (@schepsmeier2018) for the model selection, it is possible to set different selection criteria in this function, and here we used the default criterion Akaike information criterion (AIC). Different Copula models were chosen in 2019 and 2023, but at least they are all Copula's that are suitable for capturing Utd as mentioned in 4.3.3, I extracted their Utd values for the 2023 model and we can see that the Utd for the 2023 Copula model based on the empirical marginal distribution is 0.3, and the Utd of the Copula model based on the fitted normal marginal distribution is 0.22, which is not particularly strong, but already suggests a Upper Tailed Dependence between hot and dry.
+Table \@ref(tab:tab1) shows the marginal distributions and copulas for observational data in March to November. The data in the first row is from paper and is only updated to 2019, the data in the second row is updated to 2023, it is easy to see that the addition of 4 new years of data doesn't change the distribution of the data too much, which makes sense since there are over 100 years as a base. As mentioned in 4.2, here we used “BiCopSelect()” in the R package VineCopula (@schepsmeier2018) for the model selection, it is possible to set different selection criteria in this function, and here we used the default criterion Akaike information criterion (AIC). Different Copula models were chosen in 2019 and 2023, but at least they are all Copula's that are suitable for capturing UTD as mentioned in 4.3.3, I extracted their UTD values for the 2023 model and we can see that the UTD for the 2023 Copula model based on the empirical marginal distribution is 0.3, and the UTD of the Copula model based on the fitted normal marginal distribution is 0.22, which is not particularly strong, but already suggests a Upper Tail Dependence between hot and dry.
 
 ```{r tab2, echo=FALSE}
 copula_data <- data.frame(
@@ -174,7 +174,7 @@ copula_data <- data.frame(
               7.653586e-01, 3.576122e-02, 1.158248e-01, 2.974293e-01, 6.660326e-02, 
               2.074672e-02, 3.995117e-02, 2.459736e-05, 1.004252e-02, 4.435574e-01, 
               3.861971e-02),
-  Utd = c(0.23, 0.30, 0.27, 0.29, 0.22, 0.21, 0.27, 0.26, 0.23, 0.26, 
+  UTD = c(0.23, 0.30, 0.27, 0.29, 0.22, 0.21, 0.27, 0.26, 0.23, 0.26, 
           0.13, 0.10, 0.31, 0.33, 0.00, 0.29)
 )
 p_value_to_significance <- function(p) {
@@ -191,14 +191,14 @@ p_value_to_significance <- function(p) {
   }
 }
 copula_data$tau <- paste(copula_data$tau, sapply(copula_data$p_value, p_value_to_significance))
-copula_data <- copula_data[, c("shapeName", "model", "tau", "Utd")]
+copula_data <- copula_data[, c("shapeName", "model", "tau", "UTD")]
 knitr::kable(copula_data, 
-             col.names = c("shapeName", "model", "tau", "Utd"),
+             col.names = c("shapeName", "model", "tau", "UTD"),
              caption = "Best Copula Model (EMP) for different Bundesland (March to November)")
 ```
 $$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
 
-At the level of Germany as a whole, the Copula model is performing well, so next we'll look at the Bundesland. The data obtained from the empirical marginal distributions are shown in Table \@ref(tab:tab2), where we can see that Joe and Survival Clayton Copula are still chosen for most of the regions, and based on the tau it shows that there is a positive correlation between temperature and negative precipitation in almost all of the regions, i.e. a negative correlation between temperature and precipitation.  There is also a clear Upper Tailed Dependence in almost all of the Bundesländer. Only in Schleswig-Holstein precipitation and temperature are considered uncorrelated.
+At the level of Germany as a whole, the Copula model is performing well, so next we'll look at the Bundesland. The data obtained from the empirical marginal distributions are shown in Table \@ref(tab:tab2), where we can see that Joe and Survival Clayton Copula are still chosen for most of the regions, and based on the tau it shows that there is a positive correlation between temperature and negative precipitation in almost all of the regions, i.e. a negative correlation between temperature and precipitation.  There is also a clear Upper Tail Dependence in almost all of the Bundesländer. Only in Schleswig-Holstein precipitation and temperature are considered uncorrelated.
 
 ```{r tab3, echo=FALSE}
 copula_data <- data.frame(
@@ -216,7 +216,7 @@ copula_data <- data.frame(
               7.653586e-01, 3.576122e-02, 1.158248e-01, 2.974293e-01, 6.660326e-02, 
               2.074672e-02, 3.995117e-02, 2.459736e-05, 1.004252e-02, 4.435574e-01, 
               3.861971e-02),
-  Utd = c(0.17, 0.09, 0.09, 0.11, 0.19, 0.19, 0.06, 0.24, 0.18, 0.07, 0.06, 
+  UTD = c(0.17, 0.09, 0.09, 0.11, 0.19, 0.19, 0.06, 0.24, 0.18, 0.07, 0.06, 
           0.03, 0.28, 0.29, 0.00, 0.23)
 )
 p_value_to_significance <- function(p) {
@@ -233,40 +233,40 @@ p_value_to_significance <- function(p) {
   }
 }
 copula_data$tau <- paste(copula_data$tau, sapply(copula_data$p_value, p_value_to_significance))
-copula_data <- copula_data[, c("shapeName", "model", "tau", "Utd")]
+copula_data <- copula_data[, c("shapeName", "model", "tau", "UTD")]
 knitr::kable(copula_data, 
-             col.names = c("shapeName", "model", "tau", "Utd"),
+             col.names = c("shapeName", "model", "tau", "UTD"),
              caption = "Best Copula Model (FIT) for different Bundesland for (March to November)")
 ```
 
 $$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
 
-In Table \@ref(tab:tab3), which shows the data obtained according to the fitted marginal distributions and compares the two tables, it can be seen that the tau values do not change much, that means the overall correlation between the variables does not change particularly much, regardless of which distribution is used. However, Utd seems to be very much affected, and the results of the comparison can be more visualized through Figure \@ref(fig:utdmap1).
+In Table \@ref(tab:tab3), which shows the data obtained according to the fitted marginal distributions and compares the two tables, it can be seen that the tau values do not change much, that means the overall correlation between the variables does not change particularly much, regardless of which distribution is used. However, UTD seems to be very much affected, and the results of the comparison can be more visualized through Figure \@ref(fig:utdmap1).
 
 ```{r utdmap1, cache=FALSE, fig.cap = 'Upper Tail Dependence in different Bundesland from March to November (Original))', out.width='80%', fig.align='center', echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/03-compounds/figures/UTDMAP/original.png')
 ```
 
-Only Sachsen-Anhalt, Sachsen and Mecklenburg-Vorpommern remain relatively high in UTD, with Bayern, Hessen, and the surrounding area all having low UTD. This result is very unpromising, as we have to use data obtained according to the fitted marginal distribution for subsequent studies. The reason for this result may be due to that the difference between the extreme values in the data and their closest values is also very large, and thus the probability that the parameter fit assigns an extreme value becomes smaller thus affecting the Utd. So we need to find ways to standardize the raw data even more.
+Only Sachsen-Anhalt, Sachsen and Mecklenburg-Vorpommern remain relatively high in UTD, with Bayern, Hessen, and the surrounding area all having low UTD. This result is very unpromising, as we have to use data obtained according to the fitted marginal distribution for subsequent studies. The reason for this result may be due to that the difference between the extreme values in the data and their closest values is also very large, and thus the probability that the parameter fit assigns an extreme value becomes smaller thus affecting the UTD. So we need to find ways to standardize the raw data even more.
 
 ### Copula Models using Anomalies
 Now, we introduce the GMT, which estimated by annual global mean temperature anomalies, to process the raw data in order to remove the effect of global temperature change on regional temperature and precipitation. First we model GMT and temperature and precipitation with the simplest linear model to get the following two models, then we use the real data to subtract the estimates of temperature and precipitation from these two models to get the data we will use later, which we call Anomalies.
 $$\text{Temperature} = 11 + 1.41 * \text{GMT} \tag{21}$$
 $$\text{Precipitation} = 597.71 + 13.04 * \text{GMT} \tag{22}$$
 
-With the new data, we can find that the selected models still all good at capturing Utd. And comparing the Utd values of the two sets of models in \@ref(tab:tab1) and \@ref(tab:tab4), it is easy to see that the Copula model using Anomalies has improved.
+With the new data, we can find that the selected models still all good at capturing UTD. And comparing the UTD values of the two sets of models in Table \@ref(tab:tab1) and Table \@ref(tab:tab4), it is easy to see that the Copula model using Anomalies has improved.
 
 ```{r tab4, echo=FALSE}
 data <- data.frame(
   NO1 = c("Anomalies", "", "", "Anomalies","", "", ""),
-  NO2 = c("T", "-P", "Copula", "T", "-P", "Copula", "Utd"),
+  NO2 = c("T", "-P", "Copula", "T", "-P", "Copula", "UTD"),
   EMP = c("-","-", "Survival Clayton(θ = 0.61)", "-", "-", "Joe(θ = 1.53)", 0.43),
   FIT=c("N(0, 0.5)", "N(0, 83)","Survival Clayton(θ = 0.56)","N(0, 0.55)","N(0, 84)","Survival Clayton(θ = 0.58)",0.30))
 colnames(data) <- c("", "","EMP","FIT")
 knitr::kable(data, caption = "Marginal distributions and copulas for Anomalies (March-November averages)")
 ```
 
-Then looking again to Bundesland, in \@ref(tab:tab5) both tau and Utd have improved with respect to the previous data in \@ref(tab:tab2), and even in Schleswig-Holstein now shows a correlation between the two variables.
+Then looking again to Bundesland, in Table \@ref(tab:tab5) both tau and UTD have improved with respect to the previous data in Table \@ref(tab:tab2), and even in Schleswig-Holstein now shows a correlation between the two variables.
 
 ```{r tab5, echo=FALSE}
 copula_data <- data.frame(
@@ -284,7 +284,7 @@ copula_data <- data.frame(
               3.139799e-02, 4.275240e-03, 3.638034e-02, 1.379104e-02, 2.792055e-03, 
               5.244042e-04, 1.838429e-04, 1.974426e-06, 3.008366e-04, 1.311173e-01, 
               1.691094e-04),
-  Utd = c(0.34, 0.48, 0.26, 0.26, 0.16, 0.33, 0.38, 0.16, 0.22, 0.29, 
+  UTD = c(0.34, 0.48, 0.26, 0.26, 0.16, 0.33, 0.38, 0.16, 0.22, 0.29, 
           0.30, 0.30, 0.40, 0.42, 0.10, 0.44)
 )
 p_value_to_significance <- function(p) {
@@ -301,14 +301,14 @@ p_value_to_significance <- function(p) {
   }
 }
 copula_data$tau <- paste(copula_data$tau, sapply(copula_data$p_value, p_value_to_significance))
-copula_data <- copula_data[, c("shapeName", "model", "tau", "Utd")]
+copula_data <- copula_data[, c("shapeName", "model", "tau", "UTD")]
 knitr::kable(copula_data, 
-             col.names = c("shapeName", "model", "tau", "Utd"),
+             col.names = c("shapeName", "model", "tau", "UTD"),
              caption = "Best Copula Model (EMP) for different Bundesland (March to November Anomalies)")
 ```
 $$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
 
-In \@ref(tab:tab6), the overall lowering of UTD has also become smaller, but Rheinland-Pfalz and Saarland, while still maintaining kendalls tau, have lost Utd, but this is much more acceptable compared to the previous overall sharp fall.
+In Table \@ref(tab:tab6), the overall lowering of UTD has also become smaller, but Rheinland-Pfalz and Saarland, while still maintaining kendalls tau, have lost UTD, but this is much more acceptable compared to the previous overall sharp fall.
 
 ```{r tab6, echo=FALSE}
 copula_data <- data.frame(
@@ -326,7 +326,7 @@ copula_data <- data.frame(
               3.139799e-02, 4.275240e-03, 3.638034e-02, 1.379104e-02, 2.792055e-03, 
               5.244042e-04, 1.838429e-04, 1.974426e-06, 3.008366e-04, 1.311173e-01, 
               1.691094e-04),
-  Utd = c(0.31, 0.47, 0.25, 0.24, 0.07, 0.18, 0.24, 0.15, 0.18, 0.24, 
+  UTD = c(0.31, 0.47, 0.25, 0.24, 0.07, 0.18, 0.24, 0.15, 0.18, 0.24, 
           0.00, 0.00, 0.38, 0.41, 0.07, 0.41)
 )
 p_value_to_significance <- function(p) {
@@ -343,9 +343,9 @@ p_value_to_significance <- function(p) {
   }
 }
 copula_data$tau <- paste(copula_data$tau, sapply(copula_data$p_value, p_value_to_significance))
-copula_data <- copula_data[, c("shapeName", "model", "tau", "Utd")]
+copula_data <- copula_data[, c("shapeName", "model", "tau", "UTD")]
 knitr::kable(copula_data, 
-             col.names = c("shapeName", "model", "tau", "Utd"),
+             col.names = c("shapeName", "model", "tau", "UTD"),
              caption = "Best Copula Model (FIT) for different Bundesland (March to November Anomalies)")
 ```
 $$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
@@ -381,14 +381,14 @@ knitr::include_graphics('work/03-compounds/figures/RESULTS/resultMtoNA.png')
 
 When looking at the Anomalies data in Figure \@ref(fig:result3), there is a large amount of data that appears in the shadow of hazard scenarios, and even in parts of the country there are years that are drier as well as hotter than 2018, and this can be seen especially in Saarland, but in none of region has a situation in recent years that was hotter and drier than 2018.
 
-Saarland has a Utd of 0 in the Anomalies data. Looking at the figure in more detail, we can see that there is a lot of data for either dry-only or hot-only conditions. This makes the distribution of data in the bottom-right corner to be less concentrated and may lead to the driest and hottest conditions here being not significant. Sachsen - Anhalt is the Bundesland with a very strong Utd in the table, it is also clear in the graph that the values here close to 2018, although not as many as Saarland, are more concentrated and better able to fulfil both hot and dry.
+Saarland has a UTD of 0 in the Anomalies data. Looking at the figure in more detail, we can see that there is a lot of data for either dry-only or hot-only conditions. This makes the distribution of data in the bottom-right corner to be less concentrated and may lead to the driest and hottest conditions here being not significant. Sachsen - Anhalt is the Bundesland with a very strong UTD in the table, it is also clear in the graph that the values here close to 2018, although not as many as Saarland, are more concentrated and better able to fulfil both hot and dry.
 
 ### From June to August
 ```{r result4, cache=FALSE, fig.cap = 'Rarity of 2018 for whole Germany from June to August', out.width='80%', fig.align='center', echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/03-compounds/figures/RESULTS/resultallJJA.png')
 ```
 
-Next let's look at the summer in Figure \@ref(fig:result4),  we are surprised to find that the model for original data seems to capture a stronger LTD compared to Utd, but this makes sense, especially for hotter summers where high precipitation can have a significant cooling effect. The good thing is that the model for Anomalies data is still good at capturing Utd.
+Next let's look at the summer in Figure \@ref(fig:result4),  we are surprised to find that the model for original data seems to capture a stronger LTD compared to UTD, but this makes sense, especially for hotter summers where high precipitation can have a significant cooling effect. The good thing is that the model for Anomalies data is still good at capturing UTD.
 
 ```{r result5, cache=FALSE, fig.cap = 'Rarity of 2018 for Bundesland from June to August', out.width='80%', fig.align='center', echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/03-compounds/figures/RESULTS/resultJJA.png')
@@ -398,7 +398,7 @@ knitr::include_graphics('work/03-compounds/figures/RESULTS/resultJJA.png')
 knitr::include_graphics('work/03-compounds/figures/RESULTS/resultJJAA.png')
 ```
 
-Turning to Bundesland in Figure \@ref(fig:result5) and Figure \@ref(fig:result6), it seems that many models of the Bundesland cannot capture Utd well over the summer. However, when we use Anomalies the situation immediately improves, with significantly stronger Utd in all areas except Saarland. So let's take a closer look at Saarland, there are more extremes in Saarland in the summer compared to March to November, but it may be that the number of extremes is just too high, leading instead to the fact that in the hottest and driest regions, there is still a very unfocussed distribution of data. In contrast, Sachensen Anhalt, although the extremes are still less, are tightly distributed in the lower right corner, favouring the finding of stronger Utd.
+Turning to Bundesland in Figure \@ref(fig:result5) and Figure \@ref(fig:result6), it seems that many models of the Bundesland cannot capture UTD well over the summer. However, when we use Anomalies the situation immediately improves, with significantly stronger UTD in all areas except Saarland. So let's take a closer look at Saarland, there are more extremes in Saarland in the summer compared to March to November, but it may be that the number of extremes is just too high, leading instead to the fact that in the hottest and driest regions, there is still a very unfocussed distribution of data. In contrast, Sachensen Anhalt, although the extremes are still less, are tightly distributed in the lower right corner, favouring the finding of stronger UTD.
 
 ## Prediction
 We also make a prediction to see if a hot and dry climate like 2018 will continue to happen in the future, here we first fit Copula with Anomalies data and then predict the final temperature and precipitation data through the model in 4.5.2. For each of these sets we generate 10,000 sets of data. Due to global Warming is the trend of climate change nowadays, so we use use 5 sets of GMT increasing from 0, which are 0, 1, 1.5, 2, and 3. And the red dots in the graph still represent the data of 2018.
@@ -422,7 +422,7 @@ And in Figure \@ref(fig:prediction2) and Figure \@ref(fig:prediction3) for the b
 ## Conclusion
 There are many types of Copula models, each capturing different features of the data. The selection of a model needs to capture as many features of the data as possible while preventing overfitting. In this study, we use the “BiCopSelect()” function and its default criteria AIC to do model selection.
 
-A positive Upper Tail Dependence between temperature and negative precipitation was found both in March to November and June to August in whole Germany.  However, when we look at Bundesland, there are many different situations that occur; some Bundesland consistently show high values of Utd, such as Sachsen-Anhalt and Sachsen, and some Bundesland's values of Utd are greatly reduced by the use of fitted marginal distributions, such as Bayern and Hessen. Introducing GMT and removing the effect of global temperature changes on temperature and humidity changes in Germany can reduce the lowering of Utd values by fitting marginal distributions, which is valid for the German data as a whole and many Bundesland, but there are exceptions. 
+A positive Upper Tail Dependence between temperature and negative precipitation was found both in March to November and June to August in whole Germany.  However, when we look at Bundesland, there are many different situations that occur; some Bundesland consistently show high values of UTD, such as Sachsen-Anhalt and Sachsen, and some Bundesland's values of UTD are greatly reduced by the use of fitted marginal distributions, such as Bayern and Hessen. Introducing GMT and removing the effect of global temperature changes on temperature and humidity changes in Germany can reduce the lowering of UTD values by fitting marginal distributions, which is valid for the German data as a whole and many Bundesland, but there are exceptions. 
 
 If we consider only the actual temperatures and precipitation, 2018 was the hottest and driest year in Germany since 1881, and in almost all Bundesland states as well. The situation changes if the influences of global temperature changes are excluded. This is not only true for 2018, but also for all the hot years in recent years, which suggests that all regions of Germany have been affected by the global heat in recent years in no small way.
 
