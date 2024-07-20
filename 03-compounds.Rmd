@@ -33,7 +33,7 @@ In this study, Germany is used as examples, temperature and precipitation data f
 
 During the study we start by finding the most suitable Copula model for each data i.e. for different regions, this process can be achieved by using the function "BiCopSelect()" in the R package VineCopula (@schepsmeier2018). After that we plot contour lines for the data based on the model and also plot a scatter plot to help observe the distribution of data points. In addition, in order to observe the occurrence of extreme heat and dryness composite events, we follow the approach from @zscheischler2020, that is to introduce four intuitive hazard scenarios, define the criteria for extreme hot and dry by using the 2018 data as the threshold and similarly presented them in the graphs. At the end we also perform simulations based on the model so that we can predict the probability of extreme hot and dry weather to occur in the future in Germany and its Bundesland.
 
-There are three main data sets that will be used in this study, which are temperature and precipitation average over Germany as provided by the @dwd2024 and observation-based estimates of annual global mean temperature anomalies from the @giss2024, they are all from 1881 to 2023. It is worth noting that for temperature and precipitation data we only focus on the growing season, March to November, and the summer season, June to August, which prevents possible extreme cold winter weather from weakening possible hot weather when calculating temperature averages. In addition the analysis of the growing season has shown great meaning for agriculture.
+There are three main data sets that will be used in this study, which are temperature and precipitation average over Germany as provided by the @dwd2024b and observation-based estimates of annual global mean temperature anomalies from the @giss2024, they are all from 1881 to 2023. It is worth noting that for temperature and precipitation data we only focus on the growing season, March to November, and the summer season, June to August, which prevents possible extreme cold winter weather from weakening possible hot weather when calculating temperature averages. In addition the analysis of the growing season has shown great meaning for agriculture.
 
 ## Theoretical Background
 ### Copula
@@ -43,36 +43,53 @@ $$F(x) = P(X_1 \leq x_1, X_2 \leq x_2) = C(F_{1}(x_1), F_{2}(x_2)) \tag{1} $$
 for all $x \in R^2$, where $F_1$ and $F_2$ are the univariate margins of $F$ (@sklar1959).
 
 The formula of probability distribution function $f$ is:
+
 $$f(x) = f_1(x_1) f_2(x_2) c(u_1, u_2) \tag{2} $$
+
 and $c$ here represents the copula density.
 
 The (joint) survival function can be denoted as:
+
 $$\bar{F}(x) = P(X_1 > x_1, X_2 > x_2) = \hat{C}( \bar{F}_1(x_1), \bar{F}_2(x_2)) \tag{3} $$
+
 where $\hat{C}$ represents the survival copula of the $X_i$'s and $\bar{F}_i$ represents the survival function of $X_i$, $i = 1, 2$.
 
 The Kendall’s function $K$ associated with the copula $C$ of $X$ can be written as:
+
 $$K(t) = P\left(F(X_1, X_2) \leq t\right) = P\left(C\left(F_1(x_1), F_2(x_2)\right) \leq t\right) \tag{4} $$
+
 with $t \in [0,1]$ and the upper-orthant Kendall distribution function $\hat{K}$ can be stated as:
+
 $$\hat{K}(t) = P\left(\bar{F}(X_1, X_2) \leq t\right) = P\left(\hat{C}\left(\bar{F}_1(x_1), \bar{F}_2(x_2)\right) \leq t\right) \tag{5} $$
+
 These formulas are not only important for the copula, but also very useful when defining four intuitive hazard scenarios afterwards.
 
-Kendall's Tau is a correlation coefficient, for copula we can calculate it to describe the direction and strength of the relationship between two variables. Kendall's Tau can be computed as follows (@barbe1996):
+Kendall's Tau is a correlation coefficient, for copula we can calculate it to describe the direction and strength of the relationship between two variables. Kendall's Tau can be computed as follows (@barbe1996b):
+
 $$\tau = 4E(C(U, V)) - 1= 4 \int_{0}^{1} t \, dK(t) - 1 \tag{6} $$
+
 Kendall's Tau takes values between -1 and 1, with 1 representing Perfect positive dependence, -1 representing Perfect negative dependence and 0 representing independence.
 
 Upper Tail Dependence (UTD) refers to the dependence which is shown when both variables reach their upper values, it is a better representation of the dependence between extreme values. We can calculate UTD using the following formula (@fischer2006):
+
 $$\lambda_U \equiv \lim_{{u \to 1^-}} P(Y > F_Y^{-1}(u) \mid X > F_X^{-1}(u))= \lim_{u \to 1^{-}} \frac{1 - 2u + C(u, u)}{1 - u} \tag{7} $$
+
 UTD ranges from 0 to 1, with 1 representing Perfekt Upper Tail Dependence, i.e. when one variable reaches its maximum value, the other variable also reaches its maximum value. Whereas 0 represents no Upper Tail Dependence.
 
 ### Empirical Copula
 Empirical Copula does not need to assume marginal distributions, but still captures the dependency structure between variables in the dataset. The specific function can be written as (@bucher2013):
+
 $$C^n(u_1, u_2) = \frac{1}{n} \sum_{i=1}^n \mathbb{I}\left(U_{i1} \leq u_1, U_{i2} \leq u_2\right) \tag{8} $$
+
 where $U$ stand for constructing pseudo-copula observations using the empirical distribution function.
 
 ### Archimedean Copulas
 Archimedean Copulas defines a family of copulas that often have an explicit formula and satisfy the following conditions (@mcneil2009):
+
 $$C(u_{1}, u_{2}; \theta) = \psi^{-1}\left( \psi(u_{1}; \theta) + \psi(u_{2}; \theta); \theta \right) \tag{9}$$
+
 where $\psi : [0,1] \times \Theta \rightarrow [0,\infty)$ is called generator function. And $\psi^{-1}$ is defined as its pseudo-inverse:
+
 $$\psi^{-1}(t; \theta) =
 \begin{cases}
     \psi^{-1}(t; \theta) & \text{if } 0 \le t \le \psi(0; \theta) \\
@@ -82,24 +99,36 @@ $$\psi^{-1}(t; \theta) =
 Note that there are many other families of Copulas, but the two Copula models that were used the most in this study are from this family.
 
 Joe Copula belongs to Archimedean copulas and has a good ability to capture the Upper Tail Dependency, Joe Copula and its generator function can be represented like the following (@triantafyllou2024):
+
 $$\phi(t) = -\log\left(1 - (1 - t)^\theta\right), \ \ \theta \geq 1 \tag{11}$$
 $$\phi^{-1}(t) = 1 - ((1 - e^{-t}))^{1/\theta}, \ \ \theta \geq 1 \tag{12}$$
 $$C(u_1, u_2; \theta) = 1 - \left[ (1 - u_1)^\theta+(1 - u_2)^\theta - (1 - u_1)^\theta(1 - u_2)^\theta)\right]^{1/\theta} \tag{13}$$
+
 Clayton Copula also belongs to the Archimedean copulas, but it is better at capturing Lower Tail Dependencies. Clayton Copula and its generator function are represented as follows (@chesneau2023):
+
 $$\phi(t) = \frac{1}{\theta} (t^{-\theta} - 1), \ \ \theta \in [-1, \infty) \backslash \{0\} \tag{14}$$
 $$\phi^{-1}(t) = (1 + \theta t)^{-\frac{1}{\theta}}, \ \ \theta \in [-1, \infty) \backslash \{0\} \tag{15}$$
 $$C(u_1, u_2; \theta) = \left[\max\{u_1^{-\theta} + u_2^{-\theta} -1;0\}\right]^{-\frac{1}{\theta}} \tag{16}$$
+
 Since in this study we focus on the Upper Tail Dependence, we do not use the Clayton Copula directly, but we can obtain the Survival Clayton Copula, also known as the rotated Clayton Copula, by rotating the Clayton Copula.
 
 ### Intuitive Hazard Scenarios
 AND Scenario:
+
 $$ \text{P}_\text{AND} = P(U > u \cap V > v) = 1 - u - v - C(u, v) \tag{17}$$
+
 OR Scenario:
+
 $$ \text{P}_\text{OR} = P(U > u  \cup V > v) = 1 - C(u, v) \tag{18}$$
+
 Kendall Scenario:
+
 $$ \text{P}_\text{K} = P(C(U, V) > t) = 1 - K(t) \tag{19}$$
+
 Survival Kendall Scenario:
+
 $$ \text{P}_\text{SK} = P( \hat{C}(1 - U, 1 - V) < t) = \hat{K}(t) \tag{20}$$
+
 Of the four Intuitive Hazard Scenarios cited, $\text{P}_\text{AND}$ and $\text{P}_\text{OR}$ are very easy to understand, Pand considers both variables to be large, while Por considers that only one of the variables needs to be large. The $\text{P}_\text{K}$ and $\text{P}_\text{SK}$ can be characterized by the "critical layers" $L_t$ and $\bar{L}_t$, respectively, which separates the bivariate space into a critical region and a non-critical region (@zscheischler2020).
 
 ## Descriptive Analysis
@@ -252,7 +281,6 @@ knitr::kable(copula_data,
              col.names = c("shapeName", "model", "tau", "UTD"),
              caption = "Best Copula Model (FIT) for different Bundesland for (March to November)")
 ```
-
 $$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
 
 In Table \@ref(tab:tab3-shiyu), which shows the data obtained according to the fitted marginal distributions and compares the two tables, it can be seen that the tau values do not change much, that means the overall correlation between the variables does not change particularly much, regardless of which distribution is used. However, UTD seems to be very much affected, and the results of the comparison can be more visualized through Figure \@ref(fig:utdmap1-shiyu).
@@ -265,6 +293,7 @@ Only Sachsen-Anhalt, Sachsen and Mecklenburg-Vorpommern remain relatively high i
 
 ### Copula Models using Anomalies
 Now, we introduce the GMT, which estimated by annual global mean temperature anomalies, to process the raw data in order to remove the effect of global temperature change on regional temperature and precipitation. First we model GMT and temperature and precipitation with the simplest linear model to get the following two models, then we use the real data to subtract the estimates of temperature and precipitation from these two models to get the data we will use later, which we call Anomalies.
+
 $$\text{Temperature} = 11 + 1.41 * \text{GMT} \tag{21}$$
 $$\text{Precipitation} = 597.71 + 13.04 * \text{GMT} \tag{22}$$
 
@@ -363,6 +392,7 @@ knitr::kable(copula_data,
              caption = "Best Copula Model (FIT) for different Bundesland (March to November Anomalies)")
 ```
 $$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
+
 As can also be seen in Figure \@ref(fig:utdmap2-shiyu), the differences in EMP and FIT-related data between Sachsen and Sachens Anhalt are still relatively small, while the differences in regions such as Bayern and Thuringen are not as clearly visible as they were in Figure \@ref(fig:utdmap1-shiyu).
 
 ```{r utdmap2-shiyu, cache=FALSE, fig.cap = 'Upper Tail Dependence in different Bundesland from March to November (Anomalies))', out.width='80%', fig.align='center', echo=FALSE, eval = TRUE}
