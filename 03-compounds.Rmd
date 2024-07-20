@@ -16,7 +16,7 @@ library(bookdown)
 library(svglite)
 ```
 
-```{r setup, include=FALSE}
+```{r setup-shiyu, include=FALSE}
 output <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 is_html <- !is.null(output) && output == "html"
 ```
