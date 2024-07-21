@@ -1,0 +1,1222 @@
+---
+title: "Compound Events Code"
+author: "Shiyu Lu"
+date: "2024-05-12"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(rgeoboundaries)
+library(sf)
+library(rnaturalearth)
+library(tidyverse)
+library(ggplot2)
+library(magick)
+library(gganimate)
+library(VineCopula)
+library(copula)
+library(gridExtra)
+library(MASS)
+library(VC2copula)
+```
+
+
+## R Markdown
+
+```{r}
+source("work/03-compounds/R/processing.R")
+## There is too much raw data to upload successfully, here is the data source: https://opendata.dwd.de/climate_environment/CDC/
+```
+
+```{r echo=FALSE}
+# climate map March to November
+year <- 1881:2023
+# Temperature
+for (i in 5:ncol(data_te)) {
+  mapsubset <- data_te[, c(3, 4, i)]
+  colnames(mapsubset)[3] <- "Value"
+  mapsubset <- na.omit(mapsubset)
+  mapsubset <- mutate(mapsubset, level = NA)
+  mapsubset$level <-
+    cut(
+      mapsubset$Value,
+      breaks = c(-5, 0, 5, 8, 10, 12, 15, 20),
+      labels = c("<= 0", "0-5", "5-8", "8-10", "10-12", "12-15",">=15"),
+      order = TRUE,
+      include.lowest = TRUE,
+      right = TRUE
+    )
+  # levels_all <- c("<= 0", "0-5", "5-8", "8-10", "10-12", "12-15",">=15")
+  # mapsubset <- rbind(mapsubset, data.frame(Longitude = NA, Latitude = NA, Value = NA,level = levels_all))
+  # let the legend always the same, but warnings() because of NA
+  p <- ggplot() +
+    coord_fixed(ratio = 1.3) +
+    labs(title = "Temperature in Germany", subtitle = year[i - 4], caption = "Data source: DWD Climate Data Center (CDC)") + 
+    geom_point(data = mapsubset, aes(x = Longitude, y = Latitude, color = level), size = 0.1) +
+    scale_color_manual(
+      breaks = c("<= 0", "0-5", "5-8", "8-10", "10-12", "12-15",">=15"),
+      values = c("blue3", "lightblue","#FFFFCC","#FED976","#FEB24C","#FD8D3C","#E31A1C"),
+      limits = c("<= 0", "0-5", "5-8", "8-10", "10-12", "12-15",">=15"))+
+    theme_minimal()+
+    guides(color = guide_legend(override.aes = list(size = 5), title = "Temperature in °C", reverse = TRUE))
+  
+  ggsave(
+    plot = p,
+    filename = paste0("work/03-compounds/figures/Temperature/", year[i - 4], ".png"),
+    width = 20,
+    height = 20,
+    units = "cm",
+    bg = "white"
+  )
+}
+animate_p2 <-
+  image_animate(image = image_read(path = paste0("work/03-compounds/figures/Temperature/",
+                                                 year, ".png")), delay = 60)
+anim_save(filename = "work/03-compounds/figures/Temperature/Temperature.gif", animation = animate_p2)
+
+# Precipitation
+for (i in 5:ncol(data_pr)) {
+  mapsubset <- data_pr[, c(3, 4, i)]
+  colnames(mapsubset)[3] <- "Value"
+  mapsubset <- na.omit(mapsubset)
+  mapsubset <- mutate(mapsubset, level = NA)
+  mapsubset$level <-
+    cut(
+      mapsubset$Value,
+      breaks = c(0, 150, 300, 400, 500, 600, 1000, 2000, 5000),
+      labels = c("0-150", "150-300", "300-400", "400-500", "500-600", "600-1000", "1000-2000", ">=2000"),
+      order = TRUE,
+      include.lowest = TRUE,
+      right = TRUE
+    )
+  # levels_all <- c("0-150", "150-300", "300-400", "400-500", "500-600", "600-1000", "1000-2000", ">=2000")
+  # mapsubset <- rbind(mapsubset, data.frame(Longitude = NA, Latitude = NA, Value = NA,level = levels_all))
+  p <- ggplot() +
+    coord_fixed(ratio = 1.3) +
+    labs(title = "Precipitation in Germany", subtitle = year[i - 4], caption = "Data source: DWD Climate Data Center (CDC)") + 
+    geom_point(data = mapsubset, aes(x = Longitude, y = Latitude, color = level), size = 0.1) +
+    scale_color_manual(
+      breaks =c("0-150", "150-300", "300-400", "400-500", "500-600", "600-1000", "1000-2000", ">=2000"),
+      values = c("lightcyan","paleturquoise", "lightblue", "skyblue", "steelblue", "royalblue3","mediumblue", "darkblue"),
+      limits = c("0-150", "150-300", "300-400", "400-500", "500-600", "600-1000", "1000-2000", ">=2000"))+
+    theme_minimal() +
+    guides(color = guide_legend(
+      override.aes = list(size = 5),
+      title = "Precipitation in mm",
+      reverse = TRUE
+    ))
+  
+  ggsave(
+    plot = p,
+    filename = paste0("work/03-compounds/figures/Precipitation/", year[i - 4], ".png"),
+    width = 20,
+    height = 20,
+    units = "cm",
+    bg = "white"
+  )
+}
+animate_p2 <-
+  image_animate(image = image_read(path = paste0("work/03-compounds/figures/Precipitation/",
+                                                 year, ".png")), delay = 60)
+anim_save(filename = "work/03-compounds/figures/Precipitation/Precipitation.gif", animation = animate_p2)
+```
+
+```{r echo=FALSE}
+# climate map June to August
+year <- 1881:2023
+# Temperature
+for (i in 5:ncol(data_te_JJA)) {
+  mapsubset <- data_te_JJA[, c(3, 4, i)]
+  colnames(mapsubset)[3] <- "Value"
+  mapsubset <- na.omit(mapsubset)
+  mapsubset <- mutate(mapsubset, level = NA)
+  mapsubset$level <-
+    cut(
+      mapsubset$Value,
+      breaks = c(0, 4, 8, 12, 16, 20, 24, 25),
+      labels = c("0-4", "4-8", "8-12", "12-16", "16-20", "20-24",">=24"),
+      order = TRUE,
+      include.lowest = TRUE,
+      right = TRUE
+    )
+  # levels_all <- c("0-4", "4-8", "8-12", "12-16", "16-20", "20-24",">=24")
+  # mapsubset_complete <- rbind(mapsubset, data.frame(Longitude = NA, Latitude = NA, Value = NA,level = levels_all))
+  p <- ggplot() +
+    coord_fixed(ratio = 1.3) +
+    labs(title = "Temperature in Germany", subtitle = year[i - 4], caption = "Data source: DWD Climate Data Center (CDC)") + 
+    geom_point(data = mapsubset, aes(x = Longitude, y = Latitude, color = level), size = 0.1) +
+    scale_color_manual(
+      breaks =c("0-4", "4-8", "8-12", "12-16", "16-20", "20-24",">=24"),
+      values = c("#FFFFCC","#FED976","#FEB24C","#FD8D3C","#E31A1C","#BD0026","#800026"),
+      limits = c("0-4", "4-8", "8-12", "12-16", "16-20", "20-24",">=24"))+
+    theme_minimal()+
+    guides(color = guide_legend(override.aes = list(size = 5), title = "Temperature in °C", reverse = 1))
+  
+  ggsave(
+    plot = p,
+    filename = paste0("work/03-compounds/figures/Temperature/JJA/", year[i - 4], ".png"),
+    width = 20,
+    height = 20,
+    units = "cm",
+    bg = "white"
+  )
+}
+animate_p2 <-
+  image_animate(image = image_read(path = paste0("work/03-compounds/figures/Temperature/JJA/",
+                                                 year, ".png")), delay = 60)
+anim_save(filename = "work/03-compounds/figures/Temperature/JJA/Temperature_JJA.gif", animation = animate_p2)
+
+# Precipitation
+for (i in 5:ncol(data_pr_JJA)) {
+  mapsubset <- data_pr_JJA[, c(3, 4, i)]
+  colnames(mapsubset)[3] <- "Value"
+  mapsubset <- na.omit(mapsubset)
+  mapsubset <- mutate(mapsubset, level = NA)
+  mapsubset$level <-
+    cut(
+      mapsubset$Value,
+      breaks = c(0, 50, 100, 200, 400, 700, 1000, 1500, 1700),
+      labels = c("0-50", "50-100", "100-200", "200-400", "400-700", "700-1000", "1000-1500", ">=1500"),
+      order = TRUE,
+      include.lowest = TRUE,
+      right = TRUE
+    )
+  # levels_all <- c("0-50", "50-100", "100-200", "200-400", "400-700", "700-1000", "1000-1500", ">=1500")
+  # mapsubset_complete <- rbind(mapsubset, data.frame(Longitude = NA, Latitude = NA, Value = NA,level = levels_all))
+  p <- ggplot() +
+    coord_fixed(ratio = 1.3) +
+    labs(title = "Precipitation in Germany", subtitle = year[i - 4], caption = "Data source: DWD Climate Data Center (CDC)") + 
+    geom_point(data = mapsubset, aes(x = Longitude, y = Latitude, color = level), size = 0.1) +
+    scale_color_manual(
+      breaks =c("0-50", "50-100", "100-200", "200-400", "400-700", "700-1000", "1000-1500",">=1500"),
+      values = c("lightcyan","paleturquoise", "lightblue", "skyblue", "steelblue", "royalblue3","mediumblue","darkblue"),
+      limits = c("0-50", "50-100", "100-200", "200-400", "400-700", "700-1000", "1000-1500",">=1500"))+
+    theme_minimal()+
+    guides(color = guide_legend(override.aes = list(size = 5), title = "Precipitation in mm", reverse = 1))
+
+  ggsave(
+    plot = p,
+    filename = paste0("work/03-compounds/figures/Precipitation/JJA/", year[i - 4], ".png"),
+    width = 20,
+    height = 20,
+    units = "cm",
+    bg = "white"
+  )
+}
+animate_p2 <-
+  image_animate(image = image_read(path = paste0("work/03-compounds/figures/Precipitation/JJA/",
+                                                 year, ".png")), delay = 60)
+anim_save(filename = "work/03-compounds/figures/Precipitation/JJA/Precipitation_JJA.gif", animation = animate_p2)
+```
+
+```{r echo=FALSE}
+# climate map March to November
+year <- 1881:2023
+# Temperature
+for (i in 5:ncol(data_te)) {
+  mapsubset <- data_te[, c(3, 4, i)]
+  colnames(mapsubset)[3] <- "Value"
+  mapsubset <- na.omit(mapsubset)
+  mapsubset <- mutate(mapsubset, level = NA)
+  mapsubset$level <-
+    cut(
+      mapsubset$Value,
+      breaks = c(-5, 0, 5, 8, 10, 12, 15, 20),
+      labels = c("<= 0", "0-5", "5-8", "8-10", "10-12", "12-15",">=15"),
+      order = TRUE,
+      include.lowest = TRUE,
+      right = TRUE
+    )
+  # levels_all <- c("<= 0", "0-5", "5-8", "8-10", "10-12", "12-15",">=15")
+  # mapsubset <- rbind(mapsubset, data.frame(Longitude = NA, Latitude = NA, Value = NA,level = levels_all))
+  # let the legend always the same, but warnings() because of NA
+  p <- ggplot() +
+    coord_fixed(ratio = 1.3) +
+    labs(title = "Temperature in Germany", subtitle = year[i - 4], caption = "Data source: DWD Climate Data Center (CDC)") + 
+    geom_point(data = mapsubset, aes(x = Longitude, y = Latitude, color = level), size = 0.1) +
+    scale_color_manual(
+      breaks = c("<= 0", "0-5", "5-8", "8-10", "10-12", "12-15",">=15"),
+      values = c("blue3", "lightblue","#FFFFCC","#FED976","#FEB24C","#FD8D3C","#E31A1C"),
+      limits = c("<= 0", "0-5", "5-8", "8-10", "10-12", "12-15",">=15"))+
+    theme_minimal()+
+    guides(color = guide_legend(override.aes = list(size = 5), title = "Temperature in °C", reverse = TRUE))
+  
+  ggsave(
+    plot = p,
+    filename = paste0("work/03-compounds/figures/Temperature/", year[i - 4], ".png"),
+    width = 20,
+    height = 20,
+    units = "cm",
+    bg = "white"
+  )
+}
+animate_p2 <-
+  image_animate(image = image_read(path = paste0("work/03-compounds/figures/Temperature/",
+                                                 year, ".png")), delay = 60)
+anim_save(filename = "work/03-compounds/figures/Temperature/Temperature.gif", animation = animate_p2)
+
+# Precipitation
+for (i in 5:ncol(data_pr)) {
+  mapsubset <- data_pr[, c(3, 4, i)]
+  colnames(mapsubset)[3] <- "Value"
+  mapsubset <- na.omit(mapsubset)
+  mapsubset <- mutate(mapsubset, level = NA)
+  mapsubset$level <-
+    cut(
+      mapsubset$Value,
+      breaks = c(0, 150, 300, 400, 500, 600, 1000, 2000, 5000),
+      labels = c("0-150", "150-300", "300-400", "400-500", "500-600", "600-1000", "1000-2000", ">=2000"),
+      order = TRUE,
+      include.lowest = TRUE,
+      right = TRUE
+    )
+  # levels_all <- c("0-150", "150-300", "300-400", "400-500", "500-600", "600-1000", "1000-2000", ">=2000")
+  # mapsubset <- rbind(mapsubset, data.frame(Longitude = NA, Latitude = NA, Value = NA,level = levels_all))
+  p <- ggplot() +
+    coord_fixed(ratio = 1.3) +
+    labs(title = "Precipitation in Germany", subtitle = year[i - 4], caption = "Data source: DWD Climate Data Center (CDC)") + 
+    geom_point(data = mapsubset, aes(x = Longitude, y = Latitude, color = level), size = 0.1) +
+    scale_color_manual(
+      breaks =c("0-150", "150-300", "300-400", "400-500", "500-600", "600-1000", "1000-2000", ">=2000"),
+      values = c("lightcyan","paleturquoise", "lightblue", "skyblue", "steelblue", "royalblue3","mediumblue", "darkblue"),
+      limits = c("0-150", "150-300", "300-400", "400-500", "500-600", "600-1000", "1000-2000", ">=2000"))+
+    theme_minimal() +
+    guides(color = guide_legend(
+      override.aes = list(size = 5),
+      title = "Precipitation in mm",
+      reverse = TRUE
+    ))
+  
+  ggsave(
+    plot = p,
+    filename = paste0("work/03-compounds/figures/Precipitation/", year[i - 4], ".png"),
+    width = 20,
+    height = 20,
+    units = "cm",
+    bg = "white"
+  )
+}
+animate_p2 <-
+  image_animate(image = image_read(path = paste0("work/03-compounds/figures/Precipitation/",
+                                                 year, ".png")), delay = 60)
+anim_save(filename = "work/03-compounds/figures/Precipitation/Precipitation.gif", animation = animate_p2)
+```
+
+```{r echo=FALSE}
+# development of data from 1881 to 2023
+# Temperature
+JJA_te_means <- apply(data_te_JJA[, -(1:4)], 2, mean, na.rm = TRUE)
+te_means <- apply(data_te[, -(1:4)], 2, mean, na.rm = TRUE)
+Temperature_means1 <- data.frame(Year = 1881:2023, Temperature = JJA_te_means,
+                                 Period = "June to August")
+Temperature_means2 <- data.frame(Year = 1881:2023, Temperature = te_means,
+                                 Period = "March to November")
+Temperature_means <- rbind(Temperature_means1, Temperature_means2)
+ggplot(Temperature_means, aes(x = Year, y = Temperature, color = Period)) +
+  geom_line(linewidth = 1) +
+  scale_color_manual(values = c('March to November' = '#1f77b4', 'June to August' = '#FF8C69')) +
+  labs(
+    x = "Year",
+    y = "Temperature in [°C]",
+    color = "Period"
+  ) +
+  theme_minimal()
+
+# Precipitation
+JJA_pr_means <- apply(data_pr_JJA[, -(1:4)], 2, mean, na.rm = TRUE)
+pr_means <- apply(data_pr[, -(1:4)], 2, mean, na.rm = TRUE)
+
+Precipitation_means1 <- data.frame(Year = 1881:2023, Precipitation = JJA_pr_means,
+                                 Period = "June to August")
+Precipitation_means2 <- data.frame(Year = 1881:2023, Precipitation = pr_means,
+                                 Period = "March to November")
+Precipitation_means <- rbind(Precipitation_means1, Precipitation_means2)
+ggplot(Precipitation_means, aes(x = Year, y = Precipitation, color = Period)) +
+  geom_line(linewidth = 1) +
+  scale_color_manual(values = c('March to November' = '#1f77b4', 'June to August' = '#FF8C69')) +
+  labs(
+    x = "Year",
+    y = "Precipitation in [mm]",
+    color = "Period"
+  ) +
+  theme_minimal()
+```
+
+```{r echo=FALSE}
+# Cumulative Probability
+# Temperature
+Temperature_means <- Temperature_means %>%
+  group_by(Period) %>%
+  mutate(
+    mean_temp = mean(Temperature),
+    sd_temp = sd(Temperature),
+    CDF = pnorm(Temperature, mean = mean_temp, sd = sd_temp),
+    ECDF = EmpCDF(Temperature)(Temperature)
+  ) %>%
+  ungroup()
+
+p1 <- ggplot(Temperature_means, aes(x = Temperature, y = CDF, color = Period)) +
+  geom_line(linewidth = 1) +
+  labs(
+    x = "Temperature in [°C]",
+    y = "Fitted Normal Cumulative Probability",
+    color = "Period"
+  ) +
+  scale_color_manual(values = c('March to November' = '#1f77b4', 'June to August' = '#FF8C69')) +
+  scale_y_continuous(limits = c(0, 1)) + 
+  theme_minimal()
+
+p2 <- ggplot(Temperature_means, aes(x = Temperature, y = ECDF, color = Period)) +
+  geom_line(linewidth = 1) +
+  labs(
+    y = "Empirical Cumulative Probability",
+    color = "Period"
+  ) +
+  scale_color_manual(values = c('March to November' = '#1f77b4', 'June to August' = '#FF8C69')) +
+  scale_y_continuous(limits = c(0, 1)) + # 确保 y 轴从 0 到 1
+  theme_minimal()
+grid.arrange(p2, p1)
+
+# Precipitation
+Precipitation_means <- Precipitation_means %>%
+  group_by(Period) %>%
+  mutate(
+    mean_pre = mean(Precipitation),
+    sd_pre = sd(Precipitation),
+    CDF = pnorm(-Precipitation, mean = -mean_pre, sd = sd_pre),
+    ECDF = EmpCDF(-Precipitation)(-Precipitation)
+  ) %>%
+  ungroup()
+
+p3 <- ggplot(Precipitation_means, aes(x = -Precipitation, y = CDF, color = Period)) +
+  geom_line(size = 1) +
+  labs(
+    x = "-Precipitation in [mm]",
+    y = "Fitted Normal Cumulative Probability",
+    color = "Period"
+  ) +
+  scale_color_manual(values = c('March to November' = '#1f77b4', 'June to August' = '#FF8C69')) +
+  scale_y_continuous(limits = c(0, 1)) + # 确保 y 轴从 0 到 1
+  theme_minimal()
+
+p4 <- ggplot(Precipitation_means, aes(x = -Precipitation, y = ECDF, color = Period)) +
+  geom_line(size = 1) +
+  labs(
+    y = "Empirical Cumulative Probability",
+    color = "Period"
+  ) +
+  scale_color_manual(values = c('March to November' = '#1f77b4', 'June to August' = '#FF8C69')) +
+  scale_y_continuous(limits = c(0, 1)) + # 确保 y 轴从 0 到 1
+  theme_minimal()
+grid.arrange(p4, p3)
+```
+
+```{r echo=FALSE}
+# GMT
+dsst <- read.csv("work/03-compounds/data/GMT/dsst.csv")
+dsst <- data.frame(lapply(dsst, as.numeric))
+
+GMT_OR <- dsst[, c(1, 17:19)]
+GMT_OR <- mutate(GMT_OR, GMT = (92*GMT_OR$MAM + 92*GMT_OR$JJA + 91*GMT_OR$SON)/275) # average
+GMT_OR$GMT <- round(GMT_OR$GMT, 2)
+GMT_OR <- GMT_OR[, c(1, 5)]
+GMT_OR2 <- GMT_OR[, c(1:2)] %>%
+  mutate(Period = "March to November")
+
+GMT_OR_JJA <- dsst[, c(1, 18)]
+colnames(GMT_OR_JJA)[2] <- "GMT"
+GMT_OR_JJA2 <- GMT_OR_JJA %>%
+  mutate(Period = "June to August")
+GMTALL <-rbind(GMT_OR2, GMT_OR_JJA2)
+
+ggplot(GMTALL, aes(x = Year, y = GMT, color = Period)) +
+  geom_line(linewidth = 1) +
+  labs(
+    x = "Year",
+    y = "Temperatur in [°C]",
+    color = "Period"
+  ) +
+  scale_color_manual(values = c('March to November' = '#1f77b4', 'June to August' = '#FF8C69')) +
+  theme_minimal()
+```
+
+```{r echo=FALSE}
+# Copula March to November whole Germany
+all(data_te[, 1:4] == data_pr[, 1:4])
+data_te_co <- unite(data_te[, -(1:2)], "Coordinates", Latitude, Longitude, sep = ",")
+data_te_long <- gather(na.omit(data_te_co), "Year", "Temperature", -Coordinates)
+data_pr_co <- unite(data_pr[, -(1:2)], "Coordinates", Latitude, Longitude, sep = ",")
+data_pr_long <- gather(na.omit(data_pr_co), "Year", "Precipitation", -Coordinates)
+all(data_te_long[, 1] == data_pr_long[, 1])
+data <- left_join(data_te_long, data_pr_long, by = c("Coordinates", "Year"))
+data$Year <- as.numeric(gsub("X", "", data$Year))
+
+data_total <- data %>%
+  group_by(Year) %>%
+  summarize(
+    Temperature = mean(Temperature, na.rm = TRUE),
+    Precipitation = mean(Precipitation, na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+#emp_pre <- density(data_total$Precipitation, n = length(data_total$Precipitation))
+#emp_tem <- density(data_total$Temperature, n = length(data_total$Temperature))
+emp_pre_f <-EmpCDF(-data_total$Precipitation) 
+emp_pre <- emp_pre_f(-data_total$Precipitation)
+emp_tem_f <-EmpCDF(data_total$Temperature) 
+emp_tem <- emp_tem_f(data_total$Temperature)
+fit_pre <- fitdistr(-data_total$Precipitation, "normal")
+fit_tem <- fitdistr(data_total$Temperature, "normal")
+
+
+data_total <- data_total %>%
+  mutate(
+    fit_temp = pnorm(Temperature, mean = fit_tem$estimate[[1]], sd = fit_tem$estimate[[2]]),
+    fit_precip = pnorm(-Precipitation, mean = fit_pre$estimate[[1]], sd = fit_pre$estimate[[2]]),
+    emp_temp = emp_tem, emp_precip = emp_pre)
+
+#EMP
+copula_emp <- BiCopSelect(data_total$emp_temp, data_total$emp_precip)  # familyset = 0 lets the 
+param_emp <- BiCopEst(data_total$emp_temp, data_total$emp_precip, family = copula_emp$family)
+summary(param_emp)
+
+#FIT
+copula_fit <- BiCopSelect(data_total$fit_temp, data_total$fit_precip)  # familyset = 0 lets the function choose
+param_fit_germany <- BiCopEst(data_total$fit_temp, data_total$fit_precip,
+                              family = copula_fit$family)
+summary(param_fit_germany)
+```
+
+```{r echo=FALSE}
+# Copula March to November Bundesland
+germany <- geoboundaries("Germany", "ADM1")
+
+co <- unique(na.omit(data_te)[, c(3:4)])
+co_sf <- st_as_sf(co, coords = c("Longitude", "Latitude"), crs = st_crs(germany))
+co_sf <- st_join(co_sf, germany, join = st_intersects)
+co2 <- na.omit(cbind(co, co_sf))
+
+joined_sf_data_te <- left_join(na.omit(data_te[, -c(1:2)]), co2, by = c("Latitude", "Longitude"))
+data_te_long_ll <- gather(na.omit(joined_sf_data_te), "Year", "Temperature", 3:145)
+data_te_long_ll <- data_te_long_ll[, c(1, 2, 5, 10, 11)]
+data_te_long_ll$Year <- as.numeric(gsub("X", "", data_te_long_ll$Year))
+joined_sf_data_pr <- left_join(na.omit(data_pr[, -c(1:2)]), co2, by = c("Latitude", "Longitude"))
+data_pr_long_ll <- gather(na.omit(joined_sf_data_pr), "Year", "Precipitation", 3:145)
+data_pr_long_ll <- data_pr_long_ll[, c(1, 2, 5, 10, 11)]
+data_pr_long_ll$Year <- as.numeric(gsub("X", "", data_pr_long_ll$Year))
+data_ll <- left_join(data_te_long_ll, data_pr_long_ll, by = c("Latitude", "Longitude",
+                                                              "shapeName", "Year"))
+
+data_ll_mean <- data_ll %>%
+  group_by(shapeName, Year) %>%
+  summarize(
+    Precipitation = mean(Precipitation, na.rm = TRUE),
+    Temperature = mean(Temperature, na.rm = TRUE),
+    .groups = 'drop'
+  )
+
+data_ll_mean <- left_join(data_ll_mean, germany[, c(3, 7)], by = c("shapeName"))
+bundesland <- unique(data_ll_mean$shapeName)
+
+n <- length(bundesland)
+result <- data.frame(
+  shapeName = character(n),
+  no.model = numeric(n),
+  model = character(n),
+  tau = numeric(n),
+  p_value = numeric(n),
+  Utd = numeric(n),
+  stringsAsFactors = FALSE
+)
+
+for (i in seq_along(bundesland)) {
+  data_bl <- subset(data_ll_mean, shapeName == bundesland[i])
+  fit_ll_pre <- fitdistr(-data_bl$Precipitation, "normal")
+  fit_ll_tem <- fitdistr(data_bl$Temperature, "normal")
+  
+  data_bl <- data_bl %>%
+    mutate(
+      fit_temp = pnorm(Temperature, mean = fit_ll_tem$estimate[[1]], sd = fit_ll_tem$estimate[[2]]),
+      fit_precip = pnorm(-Precipitation, mean = fit_ll_pre$estimate[[1]], sd = fit_ll_pre$estimate[[2]]))
+  copula_fit <- BiCopSelect(data_bl$fit_temp, data_bl$fit_precip)  # familyset = 0 lets the function choose
+  param_fit <- BiCopEst(data_bl$fit_temp, data_bl$fit_precip, family = copula_fit$family)
+  
+  result$shapeName[i] <- bundesland[i]
+  result$no.model[i] <- param_fit$family
+  result$model[i] <- param_fit$familyname
+  result$tau[i] <- param_fit$tau
+  result$p_value[i] <- param_fit$p.value.indeptest
+  result$Utd[i] <- param_fit$taildep$upper
+}
+
+
+result <- left_join(result, germany, by = "shapeName")
+
+result2 <- data.frame(
+  shapeName = character(n),
+  no.model = numeric(n),
+  model = character(n),
+  tau = numeric(n),
+  p_value = numeric(n),
+  Utd = numeric(n),
+  stringsAsFactors = FALSE
+)
+
+for (i in seq_along(bundesland)) {
+  data_bl <- subset(data_ll_mean, shapeName == bundesland[i])
+  emp_ll_pre_f <-EmpCDF(-data_bl$Precipitation) 
+  emp_ll_pre <- emp_ll_pre_f(-data_bl$Precipitation)
+  emp_ll_tem_f <-EmpCDF(data_bl$Temperature) 
+  emp_ll_tem <- emp_ll_tem_f(data_bl$Temperature)
+  
+  data_bl <- data_bl %>%
+    mutate(emp_temp = emp_ll_tem, emp_precip = emp_ll_pre)
+  
+  # Step 4: Select a copula family, let's use a Clayton copula
+  copula_emp <- BiCopSelect(data_bl$emp_temp, data_bl$emp_precip)  # familyset = 0 lets the function choose
+  
+  # Step 5: Fit the copula
+  param_emp <- BiCopEst(data_bl$emp_temp, data_bl$emp_precip, family = copula_emp$family)
+  
+  result2$shapeName[i] <- bundesland[i]
+  result2$no.model[i] <- param_emp$family
+  result2$model[i] <- param_emp$familyname
+  result2$tau[i] <- param_emp$tau
+  result2$p_value[i] <- param_emp$p.value.indeptest
+  result2$Utd[i] <- param_emp$taildep$upper
+}
+
+result2 <- left_join(result2, germany, by = "shapeName")
+
+result <- mutate(result, type = "FIT")
+result2 <- mutate(result2, type = "EMP")
+
+all(colnames(result) == colnames(result2))
+
+result_com <- rbind(result, result2)
+
+ggplot(result_com) +
+  geom_sf(aes(fill = Utd, geometry = geometry)) +
+  coord_sf() +
+  facet_wrap(~ type) + 
+  scale_fill_continuous(name = "Upper Tail\nDependence") +
+  theme(
+    legend.title = element_text(color = "black", size = 10),
+    legend.text = element_text(color = "black"),
+    legend.key = element_rect(fill = NA),
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    panel.background = element_blank()
+  )
+```
+
+```{r echo=FALSE}
+# Copula March to November whole Germany Anomalies
+GMT <- left_join(GMT_OR, data_total[, 1:3], by = "Year")
+
+# Fit the linear model
+m1 <- lm(Temperature ~ GMT, GMT)
+m2 <- lm(Precipitation ~ GMT, GMT)
+
+temp <- predict(m1, GMT)
+prec <- predict(m2, GMT)
+
+GMT <- GMT %>%
+  mutate(Temperature_Anomalies = Temperature - temp,
+         Precipitation_Anomalies = Precipitation - prec)
+
+emp_pre_ano_f <-EmpCDF(-GMT$Precipitation_Anomalies) 
+emp_pre_ano <- emp_pre_ano_f(-GMT$Precipitation_Anomalies)
+emp_tem_ano_f <-EmpCDF(GMT$Temperature_Anomalies) 
+emp_tem_ano <- emp_tem_ano_f(GMT$Temperature_Anomalies)
+fit_pre_ano <- fitdistr(-GMT$Precipitation_Anomalies, "normal")
+fit_tem_ano <- fitdistr(GMT$Temperature_Anomalies, "normal")
+
+GMT <- GMT %>%
+  mutate(
+    fit_temp_ano = pnorm(Temperature_Anomalies,
+                         mean = fit_tem_ano$estimate[[1]], sd = fit_tem_ano$estimate[[2]]),
+    fit_precip_ano = pnorm(-Precipitation_Anomalies,
+                           mean = fit_pre_ano$estimate[[1]], sd = fit_pre_ano$estimate[[2]]),
+    emp_temp_ano = emp_tem_ano, emp_precip_ano = emp_pre_ano)
+
+# EMP
+copula_emp_ano <- BiCopSelect(GMT$emp_temp_ano, GMT$emp_precip_ano)  # familyset = 0 lets the function choose
+param_emp_ano <- BiCopEst(GMT$emp_temp_ano, GMT$emp_precip_ano, family = copula_emp_ano$family)
+summary(param_emp_ano)
+
+# FIT
+copula_fit_ano <- BiCopSelect(GMT$fit_temp_ano, GMT$fit_precip_ano)  # familyset = 0 lets the function choose
+param_fit_ano_germany <- BiCopEst(GMT$fit_temp_ano, GMT$fit_precip_ano,
+                                  family = copula_fit_ano$family)
+summary(param_fit_ano_germany)
+```
+
+```{r echo=FALSE}
+# Copula March to November Bundesland Anomalies
+data_anomalies_mean <- left_join(data_ll_mean, GMT_OR, by = "Year")
+
+bundesland <- unique(data_ll_mean$shapeName)
+
+n <- length(bundesland)
+
+result_Anomalies <- data.frame(
+  shapeName = character(n),
+  no.model = numeric(n),
+  model = character(n),
+  tau = numeric(n),
+  p_value = numeric(n),
+  Utd = numeric(n),
+  stringsAsFactors = FALSE
+)
+
+for (i in seq_along(bundesland)) {
+  data_bl <- subset(data_anomalies_mean, shapeName == bundesland[i])
+  
+  m_tem <- lm(Temperature ~ GMT, data_bl)
+  m_pre <- lm(Precipitation ~ GMT, data_bl)
+  
+  temp <- predict(m_tem, data_bl)
+  prec <- predict(m_pre, data_bl)
+  
+  
+  data_bl <- data_bl %>%
+    mutate(Temperature_Anomalies = Temperature - temp,
+           Precipitation_Anomalies = Precipitation - prec)
+  
+  fit_ll_pre <- fitdistr(-data_bl$Precipitation_Anomalies, "normal")
+  fit_ll_tem <- fitdistr(data_bl$Temperature_Anomalies, "normal")
+  
+  data_bl <- data_bl %>%
+    mutate(
+      fit_temp = pnorm(Temperature_Anomalies, mean = fit_ll_tem$estimate[[1]], sd = fit_ll_tem$estimate[[2]]),
+      fit_precip = pnorm(-Precipitation_Anomalies, mean = fit_ll_pre$estimate[[1]], sd = fit_ll_pre$estimate[[2]]))
+  
+  copula_fit <- BiCopSelect(data_bl$fit_temp, data_bl$fit_precip)  # familyset = 0 lets the function choose
+  param_fit <- BiCopEst(data_bl$fit_temp, data_bl$fit_precip, family = copula_fit$family)
+  
+  result_Anomalies$shapeName[i] <- bundesland[i]
+  result_Anomalies$no.model[i] <- param_fit$family
+  result_Anomalies$model[i] <- param_fit$familyname
+  result_Anomalies$tau[i] <- param_fit$tau
+  result_Anomalies$p_value[i] <- param_fit$p.value.indeptest
+  result_Anomalies$Utd[i] <- param_fit$taildep$upper
+}
+result_Anomalies <- left_join(result_Anomalies, germany, by = "shapeName")
+
+result_Anomalies2 <- data.frame(
+  shapeName = character(n),
+  no.model = numeric(n),
+  model = character(n),
+  tau = numeric(n),
+  p_value = numeric(n),
+  Utd = numeric(n),
+  stringsAsFactors = FALSE
+)
+
+for (i in seq_along(bundesland)) {
+  data_bl <- subset(data_anomalies_mean, shapeName == bundesland[i])
+  
+  m_tem <- lm(Temperature ~ GMT, data_bl)
+  m_pre <- lm(Precipitation ~ GMT, data_bl)
+  
+  temp <- predict(m_tem, data_bl)
+  prec <- predict(m_pre, data_bl)
+  
+  
+  data_bl <- data_bl %>%
+    mutate(Temperature_Anomalies = Temperature - temp,
+           Precipitation_Anomalies = Precipitation - prec)
+  
+  emp_ll_pre_f <-EmpCDF(-data_bl$Precipitation_Anomalies) 
+  emp_ll_pre <- emp_ll_pre_f(-data_bl$Precipitation_Anomalies)
+  emp_ll_tem_f <-EmpCDF(data_bl$Temperature_Anomalies) 
+  emp_ll_tem <- emp_ll_tem_f(data_bl$Temperature_Anomalies)
+  
+  data_bl <- data_bl %>%
+    mutate(emp_temp = emp_ll_tem, emp_precip = emp_ll_pre)
+  
+  copula_emp <- BiCopSelect(data_bl$emp_temp, data_bl$emp_precip)  # familyset = 0 lets the function choose
+  param_emp <- BiCopEst(data_bl$emp_temp, data_bl$emp_precip, family = copula_emp$family)
+  
+  result_Anomalies2$shapeName[i] <- bundesland[i]
+  result_Anomalies2$no.model[i] <- param_emp$family
+  result_Anomalies2$model[i] <- param_emp$familyname
+  result_Anomalies2$tau[i] <- param_emp$tau
+  result_Anomalies2$p_value[i] <- param_emp$p.value.indeptest
+  result_Anomalies2$Utd[i] <- param_emp$taildep$upper
+}
+result_Anomalies2 <- left_join(result_Anomalies2, germany, by = "shapeName")
+
+result_Anomalies <- mutate(result_Anomalies, type = "FIT")
+result_Anomalies2 <- mutate(result_Anomalies2, type = "EMP")
+
+all(colnames(result_Anomalies) == colnames(result_Anomalies2))
+
+result_Anomalies_com <- rbind(result_Anomalies, result_Anomalies2)
+
+ggplot(result_Anomalies_com) +
+  geom_sf(aes(fill = Utd, geometry = geometry)) +
+  coord_sf() +
+  facet_wrap(~ type) + 
+  scale_fill_continuous(name = "Upper Tail\nDependence") +
+  theme(
+    legend.title = element_text(color = "black", size = 10),
+    legend.text = element_text(color = "black"),
+    legend.key = element_rect(fill = NA),
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    panel.background = element_blank()
+  )
+```
+
+```{r echo=FALSE}
+# Rarity of 2018 
+rarityplot <- function(bundesland, data_ll_mean) {
+  data_bl <- subset(data_ll_mean, shapeName == bundesland)
+  temp_seq <- seq(floor(min(data_bl$Temperature)), ceiling(max(data_bl$Temperature)), length.out = 500)
+  prec_seq <- seq(floor(min(data_bl$Precipitation)/100) * 100,
+                  ceiling(max(data_bl$Precipitation)/100) * 100, length.out = 500)
+  grid <- expand.grid(Temperature = temp_seq, Precipitation = prec_seq)
+  
+  fit_pre <- fitdistr(-data_bl$Precipitation, "normal")
+  fit_tem <- fitdistr(data_bl$Temperature, "normal")
+  
+  data_bl <- data_bl %>%
+    mutate(
+      fit_temp = pnorm(Temperature, mean = fit_tem$estimate[[1]], sd = fit_tem$estimate[[2]]),
+      fit_precip = pnorm(-Precipitation, mean = fit_pre$estimate[[1]], sd = fit_pre$estimate[[2]]))
+  
+  copula_fit <- BiCopSelect(data_bl$fit_temp, data_bl$fit_precip)  # familyset = 0 lets the function choose
+  param_fit <- BiCopEst(data_bl$fit_temp, data_bl$fit_precip, family = copula_fit$family)
+  grid$u <- pnorm(grid$Temperature, mean = fit_tem$estimate[[1]], sd = fit_tem$estimate[[2]])
+  grid$v <- pnorm(-grid$Precipitation, mean = fit_pre$estimate[[1]], sd = fit_pre$estimate[[2]])
+  
+  grid$C_uv <- BiCopCDF(grid$u, grid$v, param_fit)
+  grid$C_uv2 <- BiCopCDF(1 - grid$u, 1 - grid$v, param_fit)
+  
+  t1 <- BiCopCDF(data_bl[data_bl$Year == 2018, ]$fit_temp,
+                 data_bl[data_bl$Year == 2018, ]$fit_precip, param_fit)
+  t2 <- BiCopCDF(1 - data_bl[data_bl$Year == 2018, ]$fit_temp,
+                 1 - data_bl[data_bl$Year == 2018, ]$fit_precip, param_fit)
+  
+  shade_grid <- grid[grid$C_uv > t1, ]
+  shade_grid2 <- grid[grid$C_uv2 < t2, ]
+  
+  shade_grid3 <- grid[grid$u > data_bl[data_bl$Year == 2018, ]$fit_temp
+                      & grid$v > data_bl[data_bl$Year == 2018, ]$fit_precip, ]
+  
+  shade_grid4 <- grid[grid$u > data_bl[data_bl$Year == 2018, ]$fit_temp
+                      | grid$v > data_bl[data_bl$Year == 2018, ]$fit_precip, ]
+  
+  plot <- ggplot(data_bl, aes(x = Temperature, y = Precipitation)) +
+    geom_tile(data = shade_grid, aes(x = Temperature, y = Precipitation), fill = "grey", alpha = 0.5) +
+    geom_tile(data = shade_grid2, aes(x = Temperature, y = Precipitation), fill = "grey", alpha = 0.5) +
+    geom_tile(data = shade_grid3, aes(x = Temperature, y = Precipitation), fill = "grey", alpha = 0.5)  +
+    geom_tile(data = shade_grid4, aes(x = Temperature, y = Precipitation), fill = "grey", alpha = 0.5)  +
+    geom_contour(data = grid, aes(x = Temperature, y = Precipitation, z = C_uv), 
+                 breaks = t1, color = "black", linetype = "dotdash", linewidth = 1) + 
+    geom_contour(data = grid, aes(x = Temperature, y = Precipitation, z = C_uv2), 
+                 breaks = t2, color = "black", linetype = "longdash", linewidth = 1) + 
+    geom_contour(data = grid, aes(x = Temperature, y = Precipitation,
+                                  z = as.numeric(grid$u > data_bl[data_bl$Year == 2018, ]$fit_temp
+                                                 & grid$v > data_bl[data_bl$Year == 2018, ]$fit_precip)), 
+                 breaks = 0.5, color = "black", linetype = "dashed", linewidth = 1) + 
+    geom_contour(data = grid, aes(x = Temperature, y = Precipitation,
+                                  z = as.numeric(grid$u > data_bl[data_bl$Year == 2018, ]$fit_temp
+                                                 | grid$v > data_bl[data_bl$Year == 2018, ]$fit_precip)), 
+                 breaks = 0.5, color = "black", linetype = "dotted", linewidth = 1) +
+    geom_point(data = data_bl, aes(x = Temperature, y = Precipitation, color = as.factor(Year)), size = 4)+
+    scale_color_manual(values = c("2018" = "red", "2019" = "green", "2020" = "blue",
+                                  "2021" = "purple", "2022" = "orange", "2023" = "brown"), name = "Year", na.value = "black") +
+    theme_minimal()
+  
+  if (param_fit$family == 0) {
+    return(plot)
+  } else {
+    if(param_fit$family == 10) {
+      copula <- BB8Copula(c(param_fit$par, param_fit$par2))
+    } else {
+      if  (param_fit$family == 17) {
+        copula <- surBB1Copula(c(param_fit$par, param_fit$par2))
+      } else {
+        if (param_fit$family == 6) {
+          copula <- joeCopula(param_fit$par)
+        } else {
+          if (param_fit$family == 13) {
+            copula <- rotCopula(claytonCopula(param_fit$par)) 
+          } else {
+            if (param_fit$family == 1) {
+              copula <- normalCopula(param_fit$par)
+            } else {
+              if  (param_fit$family == 4) {
+                copula <- gumbelCopula(param_fit$par)
+              } else {
+                if(param_fit$family == 7) {
+                  copula <- BB1Copula(c(param_fit$par, param_fit$par2))
+                } else {
+                  if (param_fit$family == 19) {
+                    copula <- surBB7Copula(c(param_fit$par, param_fit$par2))
+                  } else {
+                    if (param_fit$family == 5) {
+                      copula <- frankCopula(param_fit$par)
+                    } else {
+                      if (param_fit$family == 2) {
+                        copula <- tCopula(param_fit$par, df = param_fit$par2, dim = 2)
+                      }
+                    }
+                  }
+                }
+              }
+            } 
+          }
+        }
+      }
+    }
+  }
+  mvNN <- mvdc(copula, c("norm", "norm"),
+               list(list(mean = fit_tem$estimate[[1]], sd = fit_tem$estimate[[2]]),
+                    list(mean = fit_pre$estimate[[1]], sd = fit_pre$estimate[[2]])))
+  
+  xl <- c(fit_tem$estimate[[1]] - 3 * fit_tem$estimate[[2]],
+          fit_tem$estimate[[1]] + 3 * fit_tem$estimate[[2]])  # 0.5 是第一个变量的标准差
+  yl <- c(fit_pre$estimate[[1]] - 3 * fit_pre$estimate[[2]],
+          fit_pre$estimate[[1]] + 3 * fit_pre$estimate[[2]])   # 83 是第二个变量的标准差
+  x <- seq(xl[1], xl[2], length.out = 100)
+  y <- seq(yl[1], yl[2], length.out = 100)
+  grid2 <- expand.grid(x = x, y = y)
+  
+  z <- matrix(apply(grid2, 1, function(row) dMvdc(as.numeric(row), mvNN)), nrow = 100)
+  
+  contour_data <- data.frame(x = rep(x, each = length(x)),
+                             y = rep(y, times = length(y)),
+                             z = as.vector(z))
+  plot +
+    geom_contour(data = contour_data, aes(x = x, y = -y, z = z),
+                 breaks = c(0.001, 0.0001), color = "black", linewidth = 1)+
+    labs(
+      x = "Temperatur in [°C]",
+      y = "Precipitation in [mm]"
+    )+
+    theme(
+      axis.text = element_text(size = 22),
+      axis.title.x = element_text(size = 30),
+      axis.title.y = element_text(size = 30),
+      legend.title = element_text(size = 24),
+      legend.text = element_text(size = 22) 
+    )
+}
+
+# Anomalies
+rarityplot_Anomalies <- function(bundesland, data_anomalies_mean) {
+  data_bl <- subset(data_anomalies_mean, shapeName == bundesland)
+  
+  m_tem <- lm(Temperature ~ GMT, data_bl)
+  m_pre <- lm(Precipitation ~ GMT, data_bl)
+  
+  temp <- predict(m_tem, data_bl)
+  prec <- predict(m_pre, data_bl)
+  
+  
+  data_bl <- data_bl %>%
+    mutate(Temperature_Anomalies = Temperature - temp,
+           Precipitation_Anomalies = Precipitation - prec)
+  
+  temp_seq <- seq(floor(min(data_bl$Temperature_Anomalies)),
+                  ceiling(max(data_bl$Temperature_Anomalies)), length.out = 500)
+  prec_seq <- seq(floor(min(data_bl$Precipitation_Anomalies)/100) * 100,
+                  ceiling(max(data_bl$Precipitation_Anomalies)/100) * 100, length.out = 500)
+  grid <- expand.grid(Temperature = temp_seq, Precipitation = prec_seq)
+  
+  fit_ll_pre <- fitdistr(-data_bl$Precipitation_Anomalies, "normal")
+  fit_ll_tem <- fitdistr(data_bl$Temperature_Anomalies, "normal")
+  
+  data_bl <- data_bl %>%
+    mutate(
+      fit_temp = pnorm(Temperature_Anomalies, mean = fit_ll_tem$estimate[[1]], sd = fit_ll_tem$estimate[[2]]),
+      fit_precip = pnorm(-Precipitation_Anomalies, mean = fit_ll_pre$estimate[[1]], sd = fit_ll_pre$estimate[[2]]))
+  
+  copula_fit <- BiCopSelect(data_bl$fit_temp, data_bl$fit_precip)  # familyset = 0 lets the function choose
+  param_fit <- BiCopEst(data_bl$fit_temp, data_bl$fit_precip, family = copula_fit$family)
+  
+  grid$u <- pnorm(grid$Temperature, mean = fit_ll_tem$estimate[[1]], sd = fit_ll_tem$estimate[[2]])
+  grid$v <- pnorm(-grid$Precipitation, mean = fit_ll_pre$estimate[[1]], sd = fit_ll_pre$estimate[[2]])
+  
+  grid$C_uv <- BiCopCDF(grid$u, grid$v, param_fit)
+  grid$C_uv2 <- BiCopCDF(1 - grid$u, 1 - grid$v, param_fit)
+  
+  t1 <- BiCopCDF(data_bl[data_bl$Year == 2018, ]$fit_temp,
+                 data_bl[data_bl$Year == 2018, ]$fit_precip, param_fit)
+  t2 <- BiCopCDF(1 - data_bl[data_bl$Year == 2018, ]$fit_temp,
+                 1 - data_bl[data_bl$Year == 2018, ]$fit_precip, param_fit)
+  
+  shade_grid <- grid[grid$C_uv > t1, ]
+  shade_grid2 <- grid[grid$C_uv2 < t2, ]
+  
+  shade_grid3 <- grid[grid$u > data_bl[data_bl$Year == 2018, ]$fit_temp
+                      & grid$v > data_bl[data_bl$Year == 2018, ]$fit_precip, ]
+  
+  shade_grid4 <- grid[grid$u > data_bl[data_bl$Year == 2018, ]$fit_temp
+                      | grid$v > data_bl[data_bl$Year == 2018, ]$fit_precip, ]
+  
+  plot <- ggplot(data_bl, aes(x = Temperature_Anomalies, y = Precipitation_Anomalies)) +
+    geom_tile(data = shade_grid, aes(x = Temperature, y = Precipitation), fill = "grey", alpha = 0.5) +
+    geom_tile(data = shade_grid2, aes(x = Temperature, y = Precipitation), fill = "grey", alpha = 0.5) +
+    geom_tile(data = shade_grid3, aes(x = Temperature, y = Precipitation), fill = "grey", alpha = 0.5)  +
+    geom_tile(data = shade_grid4, aes(x = Temperature, y = Precipitation), fill = "grey", alpha = 0.5)  +
+    geom_contour(data = grid, aes(x = Temperature, y = Precipitation, z = C_uv), 
+                 breaks = t1, color = "black", linetype = "dotdash", linewidth = 1) + 
+    geom_contour(data = grid, aes(x = Temperature, y = Precipitation, z = C_uv2), 
+                 breaks = t2, color = "black", linetype = "longdash", linewidth = 1) + 
+    geom_contour(data = grid, aes(x = Temperature, y = Precipitation,
+                                  z = as.numeric(grid$u > data_bl[data_bl$Year == 2018, ]$fit_temp
+                                                 & grid$v > data_bl[data_bl$Year == 2018, ]$fit_precip)), 
+                 breaks = 0.5, color = "black", linetype = "dashed", linewidth = 1) + 
+    geom_contour(data = grid, aes(x = Temperature, y = Precipitation,
+                                  z = as.numeric(grid$u > data_bl[data_bl$Year == 2018, ]$fit_temp
+                                                 | grid$v > data_bl[data_bl$Year == 2018, ]$fit_precip)), 
+                 breaks = 0.5, color = "black", linetype = "dotted", linewidth = 1) +
+    geom_point(data = data_bl, aes(x = Temperature_Anomalies, y = Precipitation_Anomalies, color = as.factor(Year)), size = 4)+
+    scale_color_manual(values = c("2018" = "red", "2019" = "green", "2020" = "blue",
+                                  "2021" = "purple", "2022" = "orange", "2023" = "brown"), name = "Year", na.value = "black") +
+    theme_minimal()
+  
+  if (param_fit$family == 0) {
+    return(plot)
+  } else {
+    if(param_fit$family == 10) {
+      copula <- BB8Copula(c(param_fit$par, param_fit$par2))
+    } else {
+      if  (param_fit$family == 104) {
+        copula <- tawnT1Copula(c(param_fit$par, param_fit$par2))
+      } else {
+        if (param_fit$family == 6) {
+          copula <- joeCopula(param_fit$par)
+        } else {
+          if (param_fit$family == 13) {
+            copula <- rotCopula(claytonCopula(param_fit$par))
+          } else {
+            if (param_fit$family == 1) {
+              copula <- normalCopula(param_fit$par)
+            } else {
+              if  (param_fit$family == 4) {
+                copula <- gumbelCopula(param_fit$par)
+              } else {
+                if(param_fit$family == 7) {
+                  copula <- BB1Copula(c(param_fit$par, param_fit$par2))
+                } else {
+                  if  (param_fit$family == 204) {
+                    copula <- tawnT2Copula(c(param_fit$par, param_fit$par2))
+                  } else {
+                    if  (param_fit$family == 9) {
+                      copula <- BB7Copula(c(param_fit$par, param_fit$par2))
+                    } else {
+                      if  (param_fit$family == 19) {
+                        copula <- surBB7Copula(c(param_fit$par, param_fit$par2))
+                      }
+                    }
+                  }  
+                } 
+              }
+            }
+          } 
+        }
+      }
+    }
+  }
+  mvNN <- mvdc(copula, c("norm", "norm"),
+               list(list(mean = fit_ll_tem$estimate[[1]], sd = fit_ll_tem$estimate[[2]]),
+                    list(mean = fit_ll_pre$estimate[[1]], sd = fit_ll_pre$estimate[[2]])))
+  
+  xl <- c(fit_ll_tem$estimate[[1]] - 3 * fit_ll_tem$estimate[[2]],
+          fit_ll_tem$estimate[[1]] + 3 * fit_ll_tem$estimate[[2]])  # 0.5 是第一个变量的标准差
+  yl <- c(fit_ll_pre$estimate[[1]] - 3 * fit_ll_pre$estimate[[2]],
+          fit_ll_pre$estimate[[1]] + 3 * fit_ll_pre$estimate[[2]])   # 83 是第二个变量的标准差
+  x <- seq(xl[1], xl[2], length.out = 100)
+  y <- seq(yl[1], yl[2], length.out = 100)
+  grid2 <- expand.grid(x = x, y = y)
+  
+  z <- matrix(apply(grid2, 1, function(row) dMvdc(as.numeric(row), mvNN)), nrow = 100)
+  
+  contour_data <- data.frame(x = rep(x, each = length(x)),
+                             y = rep(y, times = length(y)),
+                             z = as.vector(z))
+  plot +
+    geom_contour(data = contour_data, aes(x = x, y = -y, z = z),
+                 breaks = c(0.001, 0.0001), color = "black", linewidth = 1)+
+    labs(
+      x = "Temperatur in [°C]",
+      y = "Precipitation in [mm]"
+    )+
+    theme(
+      axis.text = element_text(size = 22),
+      axis.title.x = element_text(size = 30),
+      axis.title.y = element_text(size = 30),
+      legend.title = element_text(size = 24),
+      legend.text = element_text(size = 22) 
+    )
+}
+
+## for Bundesland
+# sachsen1 <- rarityplot("Sachsen", data_ll_mean)
+# sachsen2 <- rarityplot_Anomalies("Sachsen", data_anomalies_mean)
+# grid.arrange(sachsen1, sachsen2, ncol = 2)
+
+## also for whole Germany
+# data_total_g <- data_total %>%
+#                mutate(shapeName = "Germany")
+# GMT_g <- GMT %>%
+#          mutate(shapeName = "Germany")
+# germany1 <- rarityplot("Germany", data_total_g)
+# germany2 <- rarityplot_Anomalies("Germany", GMT_g)
+# grid.arrange(germany1, germany2, ncol = 2)
+
+## also for JJA when use the corresponding JJA data
+```
+
+```{r echo=FALSE}
+# Prediction
+generate_samples <- function(copula, gmti, n = 10000, a,b,c,d, beta1, beta2,ct, cp) {
+  mvdc_copula <- mvdc(copula = copula,
+                      margins = c("norm", "norm"),
+                      paramMargins = list(
+                        list(mean = a, sd = b),
+                        list(mean = c, sd = d)
+                      ))
+  temp_precip <- rMvdc(n, mvdc_copula)
+  data.frame(
+    Temperature = temp_precip[,1] + beta1 + ct * gmti,
+    Precipitation = -temp_precip[,2] + beta2 + cp * gmti
+  )
+}
+
+generate_densiy_data <- function(copula, gmti, n = 10000, i = 200, a,b,c,d, beta1, beta2,ct, cp) {
+  new_data <- generate_samples(copula, gmti, n = n, a,b,c,d, beta1, beta2,ct, cp)
+  density_data <- MASS::kde2d(new_data$Temperature, -new_data$Precipitation, n = i)
+  
+  data.frame(
+    Temperature = rep(density_data$x, each = i),
+    Precipitation = rep(-density_data$y, times = i),
+    Density = as.vector(density_data$z),
+    GMT = paste0("+ ", gmti, "°C")
+  )  
+}
+
+prediction <- function(bundesland, data_anomalies_mean) {
+  data_bl <- subset(data_anomalies_mean, shapeName == bundesland)
+  
+  m_tem <- lm(Temperature ~ GMT, data_bl)
+  m_pre <- lm(Precipitation ~ GMT, data_bl)
+  
+  beta1 <- m_tem$coefficients[[1]]
+  ct <- m_tem$coefficients[[2]]
+  beta2 <- m_pre$coefficients[[1]]
+  cp <- m_pre$coefficients[[2]]
+  
+  temp <- predict(m_tem, data_bl)
+  prec <- predict(m_pre, data_bl)
+  
+  
+  data_bl <- data_bl %>%
+    mutate(Temperature_Anomalies = Temperature - temp,
+           Precipitation_Anomalies = Precipitation - prec)
+  fit_ll_pre <- fitdistr(-data_bl$Precipitation_Anomalies, "normal")
+  fit_ll_tem <- fitdistr(data_bl$Temperature_Anomalies, "normal")
+  
+  a <- fit_ll_tem$estimate[[1]]
+  b <- fit_ll_tem$estimate[[2]]
+  c <- fit_ll_pre$estimate[[1]]
+  d <- fit_ll_pre$estimate[[2]]
+  
+  data_bl <- data_bl %>%
+    mutate(
+      fit_temp = pnorm(Temperature_Anomalies, mean = a, sd = b),
+      fit_precip = pnorm(-Precipitation_Anomalies, mean = c, sd = d))
+  
+  # Step 4: Select a copula family, let's use a Clayton copula
+  copula_fit <- BiCopSelect(data_bl$fit_temp, data_bl$fit_precip)  # familyset = 0 lets the function choose
+  
+  # Step 5: Fit the copula
+  param_fit <- BiCopEst(data_bl$fit_temp, data_bl$fit_precip, family = copula_fit$family)
+  if (param_fit$family == 0) {
+    return(plot)
+  } else {
+    if(param_fit$family == 10) {
+      copula <- BB8Copula(c(param_fit$par, param_fit$par2))
+    } else {
+      if  (param_fit$family == 104) {
+        copula <- tawnT1Copula(c(param_fit$par, param_fit$par2))
+      } else {
+        if (param_fit$family == 6) {
+          copula <- joeCopula(param_fit$par)
+        } else {
+          if (param_fit$family == 13) {
+            copula <- rotCopula(claytonCopula(param_fit$par))
+          } else {
+            if (param_fit$family == 1) {
+              copula <- normalCopula(param_fit$par)
+            } else {
+              if  (param_fit$family == 4) {
+                copula <- gumbelCopula(param_fit$par)
+              } else {
+                if(param_fit$family == 7) {
+                  copula <- BB1Copula(c(param_fit$par, param_fit$par2))
+                } else {
+                  if  (param_fit$family == 204) {
+                    copula <- tawnT2Copula(c(param_fit$par, param_fit$par2))
+                  } else {
+                    if  (param_fit$family == 9) {
+                      copula <- BB7Copula(c(param_fit$par, param_fit$par2))
+                    } else {
+                      if  (param_fit$family == 19) {
+                        copula <- surBB7Copula(c(param_fit$par, param_fit$par2))
+                      }
+                    }
+                  }  
+                } 
+              }
+            }
+          } 
+        }
+      }
+    }
+  }
+  set.seed(1432)
+  densitydata1 <- generate_densiy_data(copula, 0, a=a, b=b, c=c, d=d, beta1=beta1, beta2=beta2, ct=ct, cp=cp)
+  densitydata2 <- generate_densiy_data(copula, 1, a=a, b=b, c=c, d=d, beta1=beta1, beta2=beta2, ct=ct, cp=cp)
+  densitydata3 <- generate_densiy_data(copula, 1.5, a=a, b=b, c=c, d=d, beta1=beta1, beta2=beta2, ct=ct, cp=cp)
+  densitydata4 <- generate_densiy_data(copula, 2, a=a, b=b, c=c, d=d, beta1=beta1, beta2=beta2, ct=ct, cp=cp)
+  densitydata5 <- generate_densiy_data(copula, 3, a=a, b=b, c=c, d=d, beta1=beta1, beta2=beta2, ct=ct, cp=cp)
+  
+  densitydata <- rbind(densitydata1, densitydata2, densitydata3, densitydata4, densitydata5)
+  quantiles <- lapply(list(densitydata1, densitydata2, densitydata3, densitydata4, densitydata5),
+                      function(df) quantile(df$Density, c(0.98, 0.5)))
+  findlevel <- function(data, level) {
+    density_values <- data$Density
+    sorted_density <- sort(density_values, decreasing = TRUE)
+    cum_density <- cumsum(sorted_density) / sum(sorted_density)
+    sorted_density[max(which(cum_density <= level/100))]
+  }
+  densitydata <- densitydata%>%
+    group_by(GMT)
+  ggplot(data = densitydata, aes(x = Temperature, y = Precipitation,colour = GMT)) +
+    geom_contour(data = densitydata, aes(x = Temperature, y = Precipitation, z = Density),
+                 breaks = c(findlevel(densitydata, 98), findlevel(densitydata, 50)), linewidth = 1)  +
+    geom_point(data = subset(data_bl, Year == 2018), aes(x = Temperature, y = Precipitation),
+               color = "red", size = 2)+ 
+    scale_color_manual(breaks = c("+ 0°C", "+ 1°C", "+ 1.5°C", "+ 2°C", "+ 3°C"), 
+                       values = c("#FFD700", "#FFA500", "#FF4500", "#DC143C", "#8B0000"),
+                       guide = guide_legend(override.aes = list(size = 4))) +  
+    theme_minimal() +
+    theme(legend.position = "none",
+          axis.title.x = element_blank(),
+          axis.title.y = element_blank()) +
+    ggtitle(bundesland)
+}
+
+## the same as the rarity functions, suitable for Germany, Bundesland, March to November and also JJA data
+## the JJA data is processed in exactly the same way as the corresponding March to November data
+```
