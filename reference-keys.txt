@@ -85,7 +85,10 @@ fig:mortality2ssp3strobl
 fig:food1strobl
 fig:food2ssp1strobl
 fig:food2ssp3strobl
+fig:impactDrought
 tab:tabResults
+fig:DAGHurricane
+fig:DAGInfra
 introduction
 intro-about-the-seminar-topic
 outline-of-the-booklet
