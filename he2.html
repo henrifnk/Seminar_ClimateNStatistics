@@ -23,7 +23,7 @@
 <meta name="author" content="Helmut Küchenhoff, Henri Funk" />
 
 
-<meta name="date" content="2024-07-19" />
+<meta name="date" content="2024-07-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -353,7 +353,7 @@ div.csl-indent {
 <p><em>Degree: Bachelor</em></p>
 <div id="introduction-6" class="section level2 hasAnchor" number="10.1">
 <h2><span class="header-section-number">10.1</span> Introduction<a href="he2.html#introduction-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This chapter covers epidemiologic studies on the effects of heat on health. The aim is to discuss the excess mortality attributed to heat and cold based on recent studies by Masselot et al. (2023) <span class="citation">(<a href="#ref-masselot2023">Masselot et al. 2023</a>)</span> and the joint effects of air pollution and heat on mortality as examined by Stafoggia et al. (2023) <span class="citation">(<a href="#ref-stafoggia2023">Stafoggia et al. 2023</a>)</span>.</p>
+<p>This chapter covers epidemiologic studies on the effects of heat on health. The aim is to discuss the excess mortality attributed to heat and cold based on recent studies by Masselot et al. (2023) <span class="citation">(<a href="#ref-masselot2023"><strong>masselot2023?</strong></a>)</span> and the joint effects of air pollution and heat on mortality as examined by Stafoggia et al. (2023) <span class="citation">(<a href="#ref-stafoggia2023"><strong>stafoggia2023?</strong></a>)</span>.</p>
 </div>
 <div id="excess-mortality-attributed-to-heat-and-cold" class="section level2 hasAnchor" number="10.2">
 <h2><span class="header-section-number">10.2</span> Excess Mortality Attributed to Heat and Cold<a href="he2.html#excess-mortality-attributed-to-heat-and-cold" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -365,7 +365,7 @@ div.csl-indent {
 <h3><span class="header-section-number">10.2.2</span> Added Value<a href="he2.html#added-value" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This study offers several key advancements:</p>
 <p>First, it has unprecedented city coverage, examining 854 urban areas across Europe. This extensive coverage offers a more comprehensive assessment compared to prior studies that focused on specific countries or regions. Furthermore, the study balances its focus on both heat and cold impacts, providing a complete picture of temperature-related health risks. It explicitly models age-specific risks and provides age-standardized mortality rates, which allow for fair comparisons across different locations with varying demographic compositions. This is particularly important as it highlights the heightened vulnerability of the elderly population.</p>
-<p>Compared to Zhao et al. (2021) <span class="citation">(<a href="#ref-zhao2021">Zhao et al. 2021</a>)</span> , Masselot et al. (2023) focuses on a more detailed regional scope by examining 854 cities in Europe, while Zhao’s study covered 750 locations globally. Both studies cover the same period from 2000 to 2019, allowing for direct comparison. Masselot’s study utilizes higher resolution ERA5-Land reanalysis data, which may provide a more accurate exposure assessment, especially for smaller cities. Additionally, the inclusion of age-specific mortality data in Masselot’s study allows for a more nuanced analysis of age-related vulnerability to temperature extremes. Here is a table summarizing the key differences between the two studies:</p>
+<p>Compared to Zhao et al. (2021) <span class="citation">(<a href="#ref-zhao2021"><strong>zhao2021?</strong></a>)</span> , Masselot et al. (2023) focuses on a more detailed regional scope by examining 854 cities in Europe, while Zhao’s study covered 750 locations globally. Both studies cover the same period from 2000 to 2019, allowing for direct comparison. Masselot’s study utilizes higher resolution ERA5-Land reanalysis data, which may provide a more accurate exposure assessment, especially for smaller cities. Additionally, the inclusion of age-specific mortality data in Masselot’s study allows for a more nuanced analysis of age-related vulnerability to temperature extremes. Here is a table summarizing the key differences between the two studies:</p>
 <table>
 <colgroup>
 <col width="19%" />
@@ -601,7 +601,7 @@ where <span class="math inline">\(k\)</span> is the number of parameters in the 
 </div>
 <div id="model" class="section level3 hasAnchor" number="10.2.12">
 <h3><span class="header-section-number">10.2.12</span> Model<a href="he2.html#model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The model used to estimate the main effect of air temperature on mortality employs a quasi-Poisson regression framework. This framework is suitable for count data, such as daily death counts, and can handle overdispersion commonly observed in such data.<span class="citation">(<a href="#ref-engelhardt2013">Engelhardt and Cao 2013</a>)</span></p>
+<p>The model used to estimate the main effect of air temperature on mortality employs a quasi-Poisson regression framework. This framework is suitable for count data, such as daily death counts, and can handle overdispersion commonly observed in such data.<span class="citation">(<a href="#ref-engelhardt2013"><strong>engelhardt2013?</strong></a>)</span></p>
 <div id="quasi-poisson-regression-model" class="section level4 hasAnchor" number="10.2.12.1">
 <h4><span class="header-section-number">10.2.12.1</span> Quasi-Poisson Regression Model<a href="he2.html#quasi-poisson-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The primary model is formulated as follows:
@@ -677,7 +677,7 @@ where <span class="math inline">\(\mu_i\)</span> is the expected daily death cou
 </div>
 <div id="distributed-lag-non-linear-model-dlnm" class="section level4 hasAnchor" number="10.2.13.5">
 <h4><span class="header-section-number">10.2.13.5</span> Distributed Lag Non-Linear Model (DLNM)<a href="he2.html#distributed-lag-non-linear-model-dlnm" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>To capture the delayed and non-linear effects of temperature on mortality, a Distributed Lag Non-Linear Model (DLNM) is used <span class="citation">(<a href="#ref-gasparrini2010">Gasparrini, Armstrong, and Kenward 2010</a>)</span>. The DLNM incorporates the lagged effects of temperature, recognizing that exposure to extreme temperatures can affect mortality over several days. The model can be expressed as:
+<p>To capture the delayed and non-linear effects of temperature on mortality, a Distributed Lag Non-Linear Model (DLNM) is used <span class="citation">(<a href="#ref-gasparrini2010"><strong>gasparrini2010?</strong></a>)</span>. The DLNM incorporates the lagged effects of temperature, recognizing that exposure to extreme temperatures can affect mortality over several days. The model can be expressed as:
 <span class="math display">\[ \text{log}(\mu_i) = \alpha + f(\text{temperature}_{i-l}) + \sum_{k} \beta_k z_{ik} \]</span>
 where <span class="math inline">\(f(\text{temperature}_{i-l})\)</span> represents a smooth function of temperature over lag <span class="math inline">\(l\)</span> days, and the other terms are as previously defined.</p>
 <p>The smooth function <span class="math inline">\(f\)</span> is typically modeled using splines, allowing for flexible non-linear relationships:
@@ -763,7 +763,7 @@ where <span class="math inline">\(\mu_{i,a}\)</span> is the expected daily death
 <h3><span class="header-section-number">10.3.3</span> Comparison of Findings: Masselot et al. (2023) vs. Stafoggia et al. (2023)<a href="he2.html#comparison-of-findings-masselot-et-al.-2023-vs.-stafoggia-et-al.-2023" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Both studies highlight the significant impact of temperature on mortality, but they approach the analysis from different angles and include different additional variables.</p>
 <div id="masselot-et-al.-2023-masselot2023" class="section level4 hasAnchor" number="10.3.3.1">
-<h4><span class="header-section-number">10.3.3.1</span> Masselot et al. (2023) <span class="citation">(<a href="#ref-masselot2023">Masselot et al. 2023</a>)</span><a href="he2.html#masselot-et-al.-2023-masselot2023" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">10.3.3.1</span> Masselot et al. (2023) <span class="citation">(<a href="#ref-masselot2023"><strong>masselot2023?</strong></a>)</span><a href="he2.html#masselot-et-al.-2023-masselot2023" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><strong>Focus</strong>: Assessed the impact of non-optimal temperatures (both heat and cold) on mortality across Europe.</li>
 <li><strong>Model</strong>: Used a quasi-Poisson regression with DLNM for temperature effects, and meta-regression for pooling city-specific estimates.</li>
@@ -772,7 +772,7 @@ where <span class="math inline">\(\mu_{i,a}\)</span> is the expected daily death
 </ul>
 </div>
 <div id="stafoggia-et-al.-2023-stafoggia2023" class="section level4 hasAnchor" number="10.3.3.2">
-<h4><span class="header-section-number">10.3.3.2</span> Stafoggia et al. (2023) <span class="citation">(<a href="#ref-stafoggia2023">Stafoggia et al. 2023</a>)</span><a href="he2.html#stafoggia-et-al.-2023-stafoggia2023" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">10.3.3.2</span> Stafoggia et al. (2023) <span class="citation">(<a href="#ref-stafoggia2023"><strong>stafoggia2023?</strong></a>)</span><a href="he2.html#stafoggia-et-al.-2023-stafoggia2023" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li><strong>Focus</strong>: Examined the joint effect of high temperatures and air pollution on mortality.</li>
 <li><strong>Model</strong>: Used a quasi-Poisson regression with an interaction term for temperature and air pollution, combined with DLNM for lagged effects. Pooled city-specific estimates using multilevel random-effects meta-analysis.</li>
@@ -804,27 +804,9 @@ where <span class="math inline">\(\mu_{i,a}\)</span> is the expected daily death
 </div>
 <div id="conclusion-5" class="section level3 hasAnchor" number="10.3.4">
 <h3><span class="header-section-number">10.3.4</span> Conclusion<a href="he2.html#conclusion-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Both studies contribute valuable insights into the public health impacts of temperature extremes. Masselot et al. (2023) <span class="citation">(<a href="#ref-masselot2023">Masselot et al. 2023</a>)</span> highlighted the broader spectrum of temperature effects across Europe, while Stafoggia et al. (2023) <span class="citation">(<a href="#ref-stafoggia2023">Stafoggia et al. 2023</a>)</span> provided a nuanced understanding of the combined effects of heat and air pollution. Together, these studies underscore the importance of considering both direct and interactive effects of environmental stressors in epidemiological research and public health planning.</p>
+<p>Both studies contribute valuable insights into the public health impacts of temperature extremes. Masselot et al. (2023) <span class="citation">(<a href="#ref-masselot2023"><strong>masselot2023?</strong></a>)</span> highlighted the broader spectrum of temperature effects across Europe, while Stafoggia et al. (2023) <span class="citation">(<a href="#ref-stafoggia2023"><strong>stafoggia2023?</strong></a>)</span> provided a nuanced understanding of the combined effects of heat and air pollution. Together, these studies underscore the importance of considering both direct and interactive effects of environmental stressors in epidemiological research and public health planning.</p>
 
 </div>
-</div>
-</div>
-<h3>References<a href="references-1.html#references-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-engelhardt2013" class="csl-entry">
-Engelhardt, Barbara, and Yangxiaolu Cao. 2013. <span>“Generalized Linear Models.”</span> <em>Statistical Methods in Computational Biology</em>.
-</div>
-<div id="ref-gasparrini2010" class="csl-entry">
-Gasparrini, Antonio, Ben Armstrong, and Michael G Kenward. 2010. <span>“Distributed Lag Non-Linear Models.”</span> <em>Statistics in Medicine</em> 29 (21): 2224–34.
-</div>
-<div id="ref-masselot2023" class="csl-entry">
-Masselot, Philippe et al. 2023. <span>“Excess Mortality Attributed to Heat and Cold.”</span> <em>Environmental Health Perspectives</em> 131 (4): 045001.
-</div>
-<div id="ref-stafoggia2023" class="csl-entry">
-Stafoggia, Massimo et al. 2023. <span>“Joint Effect of Heat and Air Pollution on Mortality.”</span> <em>Environmental Research</em> 200: 111000.
-</div>
-<div id="ref-zhao2021" class="csl-entry">
-Zhao, Qi, Yuming Guo, Tingting Ye, Antonio Gasparrini, Shilu Tong, Anatolie Overcenco, Aleh Urban, et al. 2021. <span>“Global, Regional, and National Burden of Mortality Associated with Non-Optimal Ambient Temperatures from 2000 to 2019: A Three-Stage Modelling Study.”</span> <em>Lancet Planetary Health</em> 5 (7): e415–25.
 </div>
 </div>
             </section>

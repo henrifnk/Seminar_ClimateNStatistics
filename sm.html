@@ -23,7 +23,7 @@
 <meta name="author" content="Helmut Küchenhoff, Henri Funk" />
 
 
-<meta name="date" content="2024-07-19" />
+<meta name="date" content="2024-07-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -357,8 +357,8 @@ div.csl-indent {
 </div>
 <div id="introduction-4" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Introduction<a href="sm.html#introduction-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Streamflow forecasting plays a crucial role in water resource management, particularly in flood prediction. As climate change intensifies extreme weather events and alters precipitation patterns, accurate streamflow forecasts have become increasingly important for mitigating flood risks by providing information about the timing and magnitude of potential flood events.This knowledge enables authorities to implement timely flood control measures, operate reservoirs effectively, and issue early warnings to vulnerable communities. As flooding remains one of the most common and destructive natural disasters, especially in developing countries, improved forecasting capabilities can significantly reduce the human and economic toll of these events. (<span class="citation">Nearing et al. (<a href="#ref-nearing2024">2024</a>)</span>)</p>
-<p>Hydropower is the dominant source of renewable energy, accounting for 16% of the world’s electricity output and 62% of renewable electricity generation (<span class="citation">Lee et al. (<a href="#ref-lee2022">2022</a>)</span>). Precise streamflow predictions can be beneficial in optimizing reservoir operations. <span class="citation">Lee et al. (<a href="#ref-lee2022">2022</a>)</span> show that this is the case for 94% of all analyzed dams dependent on forecasting ability and reservoir characteristics.</p>
+<p>Streamflow forecasting plays a crucial role in water resource management, particularly in flood prediction. As climate change intensifies extreme weather events and alters precipitation patterns, accurate streamflow forecasts have become increasingly important for mitigating flood risks by providing information about the timing and magnitude of potential flood events.This knowledge enables authorities to implement timely flood control measures, operate reservoirs effectively, and issue early warnings to vulnerable communities. As flooding remains one of the most common and destructive natural disasters, especially in developing countries, improved forecasting capabilities can significantly reduce the human and economic toll of these events. (<span class="citation">(<a href="#ref-nearing2024"><strong>nearing2024?</strong></a>)</span>)</p>
+<p>Hydropower is the dominant source of renewable energy, accounting for 16% of the world’s electricity output and 62% of renewable electricity generation (<span class="citation">(<a href="#ref-lee2022"><strong>lee2022?</strong></a>)</span>). Precise streamflow predictions can be beneficial in optimizing reservoir operations. <span class="citation">(<a href="#ref-lee2022"><strong>lee2022?</strong></a>)</span> show that this is the case for 94% of all analyzed dams dependent on forecasting ability and reservoir characteristics.</p>
 <p>A streamflow refers to the flow of water in rivers, streams or other water bodies, originating from precipitation, melting snow, and groundwater discharge. It is typically measured in cubic meters per second (m³/s).</p>
 <p>In recent years, machine learning techniques have emerged as powerful tools for forecasting in various domains, including hydrology. Traditional hydrological models often rely on extensive datasets and intricate physical parameters, which can be challenging to obtain and process. In contrast, machine learning models such as Long Short-Term Memory (LSTM) networks offer an alternative approach by learning patterns directly from historical data.</p>
 <p>This study aims to evaluate and compare the performance of LSTM and TFT models in forecasting streamflows up to seven days ahead. By incorporating precipitation and temperature as future known covariates alongside historical streamflow data, this work seeks to determine the effectiveness of these models in predicting streamflows.</p>
@@ -367,25 +367,25 @@ div.csl-indent {
 <h2><span class="header-section-number">8.3</span> Data<a href="sm.html#data-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="preperation" class="section level3 hasAnchor" number="8.3.1">
 <h3><span class="header-section-number">8.3.1</span> Preperation<a href="sm.html#preperation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The streamflow data is gathered from the bavarian hydrology authority (GKD). They provide freely accessible data on most water bodies in Bavaria <span class="citation">Bayerisches Landesamt für Umwelt, Gewässerkundlicher Dienst Bayern (<a href="#ref-gkd2024">2024</a>)</span>. Focusing on rivers of medium size where the entire length of the river is located inside of the state of Bavaria, the river Regen positioned north/east of the city of Regensburg was chosen as a bases for this study. The GKD has data on 21 streamflow gauging stations located at the Regen or any of its tributary rivers. For the Regen river, data between 2014 and 2024 is available with daily measurements on the streamflows including the coordinates of the the gauging station. This study focused on the 15207507 Marienthal gauging station that was located closest to the final outflow towards the Danube river within the city of Regensburg. Utilizing the HydroRIVERS dataset, which contains the shapes of rivers all over the world, it was possible the acquire the shape of the Regen along with its geolocation as shown in figure <a href="sm.html#fig:regen-shape">8.1</a> <span class="citation">Lehner, Verdin, and Jarvis (<a href="#ref-lehner2008">2008</a>)</span>.</p>
+<p>The streamflow data is gathered from the bavarian hydrology authority (GKD). They provide freely accessible data on most water bodies in Bavaria <span class="citation">(<a href="#ref-gkd2024"><strong>gkd2024?</strong></a>)</span>. Focusing on rivers of medium size where the entire length of the river is located inside of the state of Bavaria, the river Regen positioned north/east of the city of Regensburg was chosen as a bases for this study. The GKD has data on 21 streamflow gauging stations located at the Regen or any of its tributary rivers. For the Regen river, data between 2014 and 2024 is available with daily measurements on the streamflows including the coordinates of the the gauging station. This study focused on the 15207507 Marienthal gauging station that was located closest to the final outflow towards the Danube river within the city of Regensburg. Utilizing the HydroRIVERS dataset, which contains the shapes of rivers all over the world, it was possible the acquire the shape of the Regen along with its geolocation as shown in figure <a href="sm.html#fig:regen-shape">8.1</a> <span class="citation">(<a href="#ref-lehner2008"><strong>lehner2008?</strong></a>)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:regen-shape"></span>
 <img src="work/07-hydroLSTM/images/regen_stations.png" alt="Streamflow gauging stations that provide there measurements at the GKD along the Regen river (adapted from @OpenStreetMap2017)" width="70%" />
 <p class="caption">
-FIGURE 8.1: Streamflow gauging stations that provide there measurements at the GKD along the Regen river (adapted from <span class="citation">OpenStreetMap contributors (<a href="#ref-OpenStreetMap2017">2017</a>)</span>)
+FIGURE 8.1: Streamflow gauging stations that provide there measurements at the GKD along the Regen river (adapted from <span class="citation">(<a href="#ref-OpenStreetMap2017"><strong>OpenStreetMap2017?</strong></a>)</span>)
 </p>
 </div>
-<p>A catchment also known as a drainage basin or watershed, is an area of land where all precipitation collects and drains off into a common outlet, such as a river, bay, or other body of water. The boundaries of a catchment are defined by the highest points of land around the drainage area, often referred to as the drainage divide. These catchment areas will later be used to determine the variables for precipitation that are used to forecast the streamflows of the river. Taking advantage of the HydroBASINS dataset, that contains the shapes of basins all over the world in different resolutions <span class="citation">Lehner, Verdin, and Jarvis (<a href="#ref-lehner2008">2008</a>)</span>. With the software QGIS a geoinformation system (GIS) all basins were chosen that completely contain the river Regen shape, which led to the 19 defined catchments that can be seen figure <a href="sm.html#fig:regen-catch">8.2</a>.</p>
+<p>A catchment also known as a drainage basin or watershed, is an area of land where all precipitation collects and drains off into a common outlet, such as a river, bay, or other body of water. The boundaries of a catchment are defined by the highest points of land around the drainage area, often referred to as the drainage divide. These catchment areas will later be used to determine the variables for precipitation that are used to forecast the streamflows of the river. Taking advantage of the HydroBASINS dataset, that contains the shapes of basins all over the world in different resolutions <span class="citation">(<a href="#ref-lehner2008"><strong>lehner2008?</strong></a>)</span>. With the software QGIS a geoinformation system (GIS) all basins were chosen that completely contain the river Regen shape, which led to the 19 defined catchments that can be seen figure <a href="sm.html#fig:regen-catch">8.2</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:regen-catch"></span>
 <img src="work/07-hydroLSTM/images/river_catch.png" alt="Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from @OpenStreetMap2017)" width="70%" />
 <p class="caption">
-FIGURE 8.2: Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from <span class="citation">OpenStreetMap contributors (<a href="#ref-OpenStreetMap2017">2017</a>)</span>)
+FIGURE 8.2: Catchments defined for the Regen river based on the HydroBASINS shapefile dataset (adapted from <span class="citation">(<a href="#ref-OpenStreetMap2017"><strong>OpenStreetMap2017?</strong></a>)</span>)
 </p>
 </div>
-<p>The ERA5 reanalysis dataset, contains a plethora of meteorological data in a rasterized form. Each data cell contains information of when it occured, where it occured in the form of longitude and latitude coordinates as well as the information on a meteorological variables <span class="citation">H. Hersbach et al. (<a href="#ref-hersbach2023">2023a</a>)</span>. As proposed in <span class="citation">Sabzipour et al. (<a href="#ref-sabzipour2023">2023</a>)</span>, for this study the variables 2 meter temperature and total precipitation were selected around the area of the Regen and for the past 10 years.</p>
+<p>The ERA5 reanalysis dataset, contains a plethora of meteorological data in a rasterized form. Each data cell contains information of when it occured, where it occured in the form of longitude and latitude coordinates as well as the information on a meteorological variables <span class="citation">(<a href="#ref-hersbach2023"><strong>hersbach2023?</strong></a>)</span>. As proposed in <span class="citation">(<a href="#ref-sabzipour2023"><strong>sabzipour2023?</strong></a>)</span>, for this study the variables 2 meter temperature and total precipitation were selected around the area of the Regen and for the past 10 years.</p>
 </div>
 <div id="preprocessing" class="section level3 hasAnchor" number="8.3.2">
 <h3><span class="header-section-number">8.3.2</span> Preprocessing<a href="sm.html#preprocessing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The measuring station 15207507 contained 1 missing value which was imputed by linear interpolation. As suggested in <span class="citation">Sabzipour et al. (<a href="#ref-sabzipour2023">2023</a>)</span> non centered moving average smoothing with a window size of 3 was applied to the streamflow data as can be seen in figure <a href="sm.html#fig:marien-stream">8.3</a>.</p>
+<p>The measuring station 15207507 contained 1 missing value which was imputed by linear interpolation. As suggested in <span class="citation">(<a href="#ref-sabzipour2023"><strong>sabzipour2023?</strong></a>)</span> non centered moving average smoothing with a window size of 3 was applied to the streamflow data as can be seen in figure <a href="sm.html#fig:marien-stream">8.3</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:marien-stream"></span>
 <img src="work/07-hydroLSTM/images/Moving_Average.png" alt="streamflows of the 15207507 Marienthal gauging stations before (blue) and after (orange) applying moving average smoothing" width="80%" />
 <p class="caption">
@@ -419,11 +419,11 @@ FIGURE 8.5: correlation table for total precipitation over all catchments
 <h2><span class="header-section-number">8.4</span> Models<a href="sm.html#models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="lstm" class="section level3 hasAnchor" number="8.4.1">
 <h3><span class="header-section-number">8.4.1</span> LSTM<a href="sm.html#lstm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Long Short-Term Memory (LSTM) cell (figure <a href="sm.html#fig:lstm">8.6</a>) is a type of recurrent neural network (RNN) architecture designed to model temporal sequences and their long-range dependencies more accurately than traditional RNNs. LSTMs were introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997 to address the issue of vanishing and exploding gradients encountered in traditional RNNs <span class="citation">Hochreiter and Schmidhuber (<a href="#ref-hochreiter1997">1997</a>)</span>.</p>
+<p>The Long Short-Term Memory (LSTM) cell (figure <a href="sm.html#fig:lstm">8.6</a>) is a type of recurrent neural network (RNN) architecture designed to model temporal sequences and their long-range dependencies more accurately than traditional RNNs. LSTMs were introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997 to address the issue of vanishing and exploding gradients encountered in traditional RNNs <span class="citation">(<a href="#ref-hochreiter1997"><strong>hochreiter1997?</strong></a>)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lstm"></span>
 <img src="work/07-hydroLSTM/images/LSTM.png" alt="visualization of a LSTM cell at time step t (image adapted from @chevalier2023)" width="70%" />
 <p class="caption">
-FIGURE 8.6: visualization of a LSTM cell at time step t (image adapted from <span class="citation">Chevalier (<a href="#ref-chevalier2023">2023</a>)</span>)
+FIGURE 8.6: visualization of a LSTM cell at time step t (image adapted from <span class="citation">(<a href="#ref-chevalier2023"><strong>chevalier2023?</strong></a>)</span>)
 </p>
 </div>
 <ol style="list-style-type: decimal">
@@ -452,11 +452,11 @@ FIGURE 8.6: visualization of a LSTM cell at time step t (image adapted from <spa
 </div>
 <div id="temporal-fusion-transformer" class="section level3 hasAnchor" number="8.4.2">
 <h3><span class="header-section-number">8.4.2</span> Temporal Fusion Transformer<a href="sm.html#temporal-fusion-transformer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The Temporal Fusion Transformer (TFT) (figure <a href="sm.html#fig:tft">8.7</a>) is a neural network architecture specifically designed for multi-horizon time series forecasting. It combines the strengths of both recurrent and attention-based models, offering an advanced approach to handling complex time series data. The TFT was introduced by Bryan Lim et al. in 2019, aiming to provide interpretability and accuracy for forecasting tasks <span class="citation">Lim et al. (<a href="#ref-lim2021">2021</a>)</span>.</p>
+<p>The Temporal Fusion Transformer (TFT) (figure <a href="sm.html#fig:tft">8.7</a>) is a neural network architecture specifically designed for multi-horizon time series forecasting. It combines the strengths of both recurrent and attention-based models, offering an advanced approach to handling complex time series data. The TFT was introduced by Bryan Lim et al. in 2019, aiming to provide interpretability and accuracy for forecasting tasks <span class="citation">(<a href="#ref-lim2021"><strong>lim2021?</strong></a>)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tft"></span>
 <img src="work/07-hydroLSTM/images/TFT.png" alt="model architecture for the Temporal Fusion Transformer (image from @lim2021" width="80%" />
 <p class="caption">
-FIGURE 8.7: model architecture for the Temporal Fusion Transformer (image from <span class="citation">Lim et al. (<a href="#ref-lim2021">2021</a>)</span>
+FIGURE 8.7: model architecture for the Temporal Fusion Transformer (image from <span class="citation">(<a href="#ref-lim2021"><strong>lim2021?</strong></a>)</span>
 </p>
 </div>
 <p>A TFT consists of several key components:</p>
@@ -686,7 +686,7 @@ FIGURE 8.13: Feature dependence plot for mean two meter temperature for a lead t
 <div id="conclusion-3" class="section level2 hasAnchor" number="8.6">
 <h2><span class="header-section-number">8.6</span> Conclusion<a href="sm.html#conclusion-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This study compares the performance of LSTM (Long Short-Term Memory) and Temporal Fusion Transformer (TFT) models in forecasting streamflows of the bavarian Regen river for up to seven days ahead, using precipitation and temperature as future known covariates alongside historical streamflow data. The data used was obtained from freely available data provided by the Bavarian hydrology authority and Copernicus Climate Project.</p>
-<p>The findings indicate that both models exhibit limitations in predicting extreme values such as floods, with KGE (Kling-Gupta Efficiency) scores significantly lower than those reported in similar studies like <span class="citation">Sabzipour et al. (<a href="#ref-sabzipour2023">2023</a>)</span>, likely due to limited data amounts and the challenges inherent in modeling a river system instead of a reservoir. The results also demonstrate a clear difference in performance trends between the two models across different lead times.</p>
+<p>The findings indicate that both models exhibit limitations in predicting extreme values such as floods, with KGE (Kling-Gupta Efficiency) scores significantly lower than those reported in similar studies like <span class="citation">(<a href="#ref-sabzipour2023"><strong>sabzipour2023?</strong></a>)</span>, likely due to limited data amounts and the challenges inherent in modeling a river system instead of a reservoir. The results also demonstrate a clear difference in performance trends between the two models across different lead times.</p>
 <p>Although the KGE was not used as the loss function in training the models. The LSTM’s observed KGE scores are high starting at 0.9696 for a one-day lead time, before dropping sharply to 0.3185 for a seven-day lead time. Conversely, the TFT model shows a more gradual decline, from 0.8352 at one day to 0.5717 at seven days, suggesting it maintains more consistent accuracy over longer forecast horizons.</p>
 <p>Despite the sharper decline in performance for longer lead times, the LSTM model is notably less resource-dependent, making it a viable option for scenarios where computational resources are limited. However, attempts to forecast streamflows without future known meteorological variables were unsuccessful, underscoring the importance of these covariates in achieving accurate predictions.</p>
 <p>While the moving average was applied here, it is not advised to use this tool for streamflow forecasting. By reducing the peaks in the target variable it artificially boosts the predictive abitlity of the model and forces the model to miss the peaks by an even larger margin. In a flood scenario even with a high KGE, the model would miss the exact streamflow value as it was trained on lower peaks and would underestimate the posed danger in the situation.</p>
@@ -698,39 +698,6 @@ FIGURE 8.13: Feature dependence plot for mean two meter temperature for a lead t
 <p>The ERA5 dataset used for obtaining meterological data in this study only provides a very coarse representation of the underlying variables. The use of down scaling techniques to obtain a finer grid than the one used in this study might be able to boost the accuracy of the model.</p>
 <p>Another next step could be to test the models ability to generalize by training on multiple datasets from different rivers. Including static variables such as river basin properties and land use information can help in creating a more comprehensive model that can adapt to various river systems.</p>
 
-</div>
-</div>
-<h3>References<a href="references-1.html#references-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-gkd2024" class="csl-entry">
-Bayerisches Landesamt für Umwelt, Gewässerkundlicher Dienst Bayern. 2024. <span>“Runoff Data for Regen River.”</span>
-</div>
-<div id="ref-chevalier2023" class="csl-entry">
-Chevalier, Guillaume. 2023. <span>“LSTM Cell.”</span> <a href="https://creativecommons.org/licenses/by-sa/4.0" class="uri">https://creativecommons.org/licenses/by-sa/4.0</a>.
-</div>
-<div id="ref-hersbach2023" class="csl-entry">
-Hersbach, H., B. Bell, P. Berrisford, G. Biavati, A. Horányi, J. Muñoz Sabater, J. Nicolas, et al. 2023a. <span>“ERA5 Hourly Data on Pressure Levels from 1940 to Present.”</span> Copernicus Climate Change Service (C3S) Climate Data Store (CDS). <a href="https://doi.org/10.24381/cds.bd0915c6">https://doi.org/10.24381/cds.bd0915c6</a>.
-</div>
-<div id="ref-hochreiter1997" class="csl-entry">
-Hochreiter, Sepp, and Jürgen Schmidhuber. 1997. <span>“Long Short-Term Memory.”</span> <em>Neural Computation</em> 9 (December): 1735–80. <a href="https://doi.org/10.1162/neco.1997.9.8.1735">https://doi.org/10.1162/neco.1997.9.8.1735</a>.
-</div>
-<div id="ref-lee2022" class="csl-entry">
-Lee, D., J. Y. Ng, S. Galelli, and P. Block. 2022. <span>“Unfolding the Relationship Between Seasonal Forecast Skill and Value in Hydropower Production: A Global Analysis.”</span> <em>Hydrology and Earth System Sciences</em> 26 (9): 2431–48. <a href="https://doi.org/10.5194/hess-26-2431-2022">https://doi.org/10.5194/hess-26-2431-2022</a>.
-</div>
-<div id="ref-lehner2008" class="csl-entry">
-Lehner, Bernhard, Kristine Verdin, and Andy Jarvis. 2008. <span>“New Global Hydrography Derived from Spaceborne Elevation Data.”</span> <em>Eos, Transactions</em> 89 (10): 93–94.
-</div>
-<div id="ref-lim2021" class="csl-entry">
-Lim, Bryan, Sercan Ö. Arık, Nicolas Loeff, and Tomas Pfister. 2021. <span>“Temporal Fusion Transformers for Interpretable Multi-Horizon Time Series Forecasting.”</span> <em>International Journal of Forecasting</em> 37 (4): 1748–64. https://doi.org/<a href="https://doi.org/10.1016/j.ijforecast.2021.03.012">https://doi.org/10.1016/j.ijforecast.2021.03.012</a>.
-</div>
-<div id="ref-nearing2024" class="csl-entry">
-Nearing, Grey S., Frederik Kratzert, Andrew K. Sampson, Craig S. Pelissier, Daniel Klotz, Jonathan M. Frame, Cristina Prieto, and Ashish Sharma. 2024. <span>“Global Prediction of Extreme Floods in Ungauged Watersheds.”</span> <em>Nature</em>. <a href="https://www.nature.com/articles/s41586-024-07145-1">https://www.nature.com/articles/s41586-024-07145-1</a>.
-</div>
-<div id="ref-OpenStreetMap2017" class="csl-entry">
-OpenStreetMap contributors. 2017. <span>“<span class="nocase">Planet dump retrieved from https://planet.osm.org </span>.”</span><a href=" https://www.openstreetmap.org " class="uri"> https://www.openstreetmap.org</a>.
-</div>
-<div id="ref-sabzipour2023" class="csl-entry">
-Sabzipour, Behmard, Richard Arsenault, Magali Troin, Jean-Luc Martel, François Brissette, Frédéric Brunet, and Juliane Mai. 2023. <span>“Comparing a Long Short-Term Memory (LSTM) Neural Network with a Physically-Based Hydrological Model for Streamflow Forecasting over a Canadian Catchment.”</span> <em>Journal of Hydrology</em> 627: 130380.
 </div>
 </div>
             </section>
