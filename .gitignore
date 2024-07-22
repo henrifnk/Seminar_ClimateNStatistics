@@ -12,3 +12,8 @@ _main.Rmd
 book.tex
 *.html
 packages.bib
+*/07-hydroLSTM/*.DS_Store
+*/07-hydroLSTM/*/lightning_logs/*
+*/07-hydroLSTM/images/.DS_Store
+.DS_Store
+work/.DS_Store
