@@ -99,7 +99,9 @@ Conversely, the NAO is in a negative phase when both the Icelandic low and Azore
 
 
 
+
 ```{r phasePamela, fig.cap = "Positive and negative phase of the North Atlantic Oscillation. Image from @NAOPhase2013", echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, out.width="70%", fig.align="center"}
+
 knitr::include_graphics('work/05_nao/figures/NAOPhase.png')
 ```
 
