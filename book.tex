@@ -652,11 +652,11 @@ It would be beneficial to investigate the use of other models to predict future 
 
 \emph{Suggested degree: Master}
 
-\section{Abstract}\label{abstract-1}
+\section{Abstract}\label{abstract-shiyu}
 
 As global temperatures continue to warm, extreme weather is occurring more frequently. In climate research, a combination of multiple extreme weather or climate events occurring simultaneously or sequentially is known as a compound event. This can cause more severe impacts than one extreme weather alone. Hot and dry is often considered as one such compound event. In this paper, we take Germany and the Bundesland as an example, and analyze temperature and precipitation data from 1881 to 2023 by fitting a Copula model to study the occurrence of a composite event: hot and dry.
 
-\section{Introduction}\label{introduction-2}
+\section{Introduction}\label{intro-shiyu}
 
 With global warming, extreme weather is becoming more frequent, in 2023, the \citet{wmo2023a} had released a news that stated extreme weather will become the ``new norm''. And in the year 2024 immediately afterward, \citet{wmo2024} released news again and mentioned more extreme heat. In other words, the occurrence of extreme weather is still tending to become more and more common today. The effects of extreme heat have been widely discussed and researched, but there are more different types of extreme weather and the terrible thing is that they don't always happen alone.
 
@@ -668,9 +668,9 @@ During the study we start by finding the most suitable Copula model for each dat
 
 There are three main data sets that will be used in this study, which are temperature and precipitation average over Germany as provided by the \citet{dwd2024b} and observation-based estimates of annual global mean temperature anomalies from the \citet{giss2024}, they are all from 1881 to 2023. It is worth noting that for temperature and precipitation data we only focus on the growing season, March to November, and the summer season, June to August, which prevents possible extreme cold winter weather from weakening possible hot weather when calculating temperature averages. In addition the analysis of the growing season has shown great meaning for agriculture.
 
-\section{Theoretical Background}\label{theoretical-background}
+\section{Theoretical Background}\label{background-shiyu}
 
-\subsection{Copula}\label{copula}
+\subsection{Copula}\label{copula-shiyu}
 
 Copulas are multivariate distribution functions whose one-dimensional margins are uniform on the interval \([0,1]\) (\citet{nelsen2006}) and used to describe the dependence between random variables. \citet{salvadori2016} introduced Copulas using the following notation. In fact Copula can be multivariate, but since this article studies hot and dry, we focus on the bivariate Copula. Let \(C\) denote a bivariate Copula and \(F\) a bivariate cumulative distribution function, by Sklar's Theorem, we have:
 
@@ -711,7 +711,7 @@ Upper Tail Dependence (UTD) refers to the dependence which is shown when both va
 
 UTD ranges from 0 to 1, with 1 representing Perfekt Upper Tail Dependence, i.e.~when one variable reaches its maximum value, the other variable also reaches its maximum value. Whereas 0 represents no Upper Tail Dependence.
 
-\subsection{Empirical Copula}\label{empirical-copula}
+\subsection{Empirical Copula}\label{empirical-shiyu}
 
 Empirical Copula does not need to assume marginal distributions, but still captures the dependency structure between variables in the dataset. The specific function can be written as (\citet{bucher2013}):
 
@@ -719,7 +719,7 @@ Empirical Copula does not need to assume marginal distributions, but still captu
 
 where \(U\) stand for constructing pseudo-copula observations using the empirical distribution function.
 
-\subsection{Archimedean Copulas}\label{archimedean-copulas}
+\subsection{Archimedean Copulas}\label{archimedean-shiyu}
 
 Archimedean Copulas defines a family of copulas that often have an explicit formula and satisfy the following conditions (\citet{mcneil2009}):
 
@@ -749,7 +749,7 @@ Clayton Copula also belongs to the Archimedean copulas, but it is better at capt
 
 Since in this study we focus on the Upper Tail Dependence, we do not use the Clayton Copula directly, but we can obtain the Survival Clayton Copula, also known as the rotated Clayton Copula, by rotating the Clayton Copula.
 
-\subsection{Intuitive Hazard Scenarios}\label{intuitive-hazard-scenarios}
+\subsection{Intuitive Hazard Scenarios}\label{hazardscenarios-shiyu}
 
 AND Scenario:
 
@@ -769,9 +769,9 @@ Survival Kendall Scenario:
 
 Of the four Intuitive Hazard Scenarios cited, \(\text{P}_\text{AND}\) and \(\text{P}_\text{OR}\) are very easy to understand, Pand considers both variables to be large, while Por considers that only one of the variables needs to be large. The \(\text{P}_\text{K}\) and \(\text{P}_\text{SK}\) can be characterized by the ``critical layers'' \(L_t\) and \(\bar{L}_t\), respectively, which separates the bivariate space into a critical region and a non-critical region (\citet{zscheischler2020}).
 
-\section{Descriptive Analysis}\label{descriptive-analysis}
+\section{Descriptive Analysis}\label{descriptive-shiyu}
 
-\subsection{Climate Map of Germany}\label{climate-map-of-germany}
+\subsection{Climate Map of Germany}\label{map-shiyu}
 
 \begin{figure}
 
@@ -795,7 +795,7 @@ In climate maps we can see two climate maps of Germany from 1881 to 2023, showin
 
 The situation for June to August is very similar.
 
-\subsection{Development of Average Data in Germany as a whole}\label{development-of-average-data-in-germany-as-a-whole}
+\subsection{Development of Average Data in Germany as a whole}\label{development-shiyu}
 
 Dynamic maps allow us to view trends in data from all corners of Germany, and after comparing differences by region, we can look at temperature and precipitation changes over the 143 years as a whole. We can more visually feel in Figure \ref{fig:AverageTemperature-shiyu} that there is a very clear upward trend in temperatures, both from March to November and from June to August, and that the average summer temperatures will be significantly higher than those from March to November, and we can also focus on the fact that 2018, which is the location, does have super high temperatures, it has the highest temperatures in the March to November comparison, and it comes second in June to August, but the difference with the hottest year is not too great either.
 
@@ -830,7 +830,7 @@ Now we understand the changes of these two variables over time, but based on the
 \caption{Cumulative Probability of Temperature}\label{fig:TemperatureCPD-shiyu}
 \end{figure}
 
-In Figure \ref{fig:PrecipitationCPD-shiyu}, instead of using precipitation directly, we used negative precipitation, so the hottest and driest values mean that both our variables negative precipitation and temperature are at their maximum values, which is the reason why we introduce the Upper Tail Dependence in 4.3.1.
+In Figure \ref{fig:PrecipitationCPD-shiyu}, instead of using precipitation directly, we used negative precipitation, so the hottest and driest values mean that both our variables negative precipitation and temperature are at their maximum values, which is the reason why we introduce the Upper Tail Dependence in \ref{copula-shiyu}.
 
 \begin{figure}
 
@@ -841,7 +841,7 @@ In Figure \ref{fig:PrecipitationCPD-shiyu}, instead of using precipitation direc
 \caption{Cumulative Probability of -Precipitation}\label{fig:PrecipitationCPD-shiyu}
 \end{figure}
 
-\subsection{Annual Global Mean Temperature Anomalies}\label{annual-global-mean-temperature-anomalies}
+\subsection{Annual Global Mean Temperature Anomalies}\label{anomalies-shiyu}
 
 In addition, we introduce annual global mean temperature anomalies to estimate global mean temperature (GMT), which captures the global climate trend over the last 143 years. As can be seen from the increasing and steeper shape of the lines in Figure \ref{fig:gmt-shiyu}, global temperatures are really rising and at an increasing rate. However, the trends from June to August and March to November are very similar, suggesting that summers are not getting hotter faster compared to the entire growing season.
 
@@ -854,9 +854,9 @@ In addition, we introduce annual global mean temperature anomalies to estimate g
 \caption{Annual Global Mean Temperature Anomalies from March to November and from June to August}\label{fig:gmt-shiyu}
 \end{figure}
 
-\section{Model}\label{model}
+\section{Model}\label{model-shiyu}
 
-\subsection{Copula Models using Original data}\label{copula-models-using-original-data}
+\subsection{Copula Models using Original data}\label{originalmodel-shiyu}
 
 \begin{table}
 
@@ -883,7 +883,7 @@ Until 2023 & T & - & N(11, 0.76)\\
 \end{tabular}
 \end{table}
 
-Table \ref{tab:tab1-shiyu} shows the marginal distributions and copulas for observational data in March to November. The data in the first row is from paper and is only updated to 2019, the data in the second row is updated to 2023, it is easy to see that the addition of 4 new years of data doesn't change the distribution of the data too much, which makes sense since there are over 100 years as a base. As mentioned in 4.2, here we used ``BiCopSelect()'' in the R package VineCopula (\citet{schepsmeier2018}) for the model selection, it is possible to set different selection criteria in this function, and here we used the default criterion Akaike information criterion (AIC). Different Copula models were chosen in 2019 and 2023, but at least they are all Copula's that are suitable for capturing UTD as mentioned in 4.3.3, I extracted their UTD values for the 2023 model and we can see that the UTD for the 2023 Copula model based on the empirical marginal distribution is 0.3, and the UTD of the Copula model based on the fitted normal marginal distribution is 0.22, which is not particularly strong, but already suggests a Upper Tail Dependence between hot and dry.
+Table \ref{tab:tab1-shiyu} shows the marginal distributions and copulas for observational data in March to November. The data in the first row is from paper and is only updated to 2019, the data in the second row is updated to 2023, it is easy to see that the addition of 4 new years of data doesn't change the distribution of the data too much, which makes sense since there are over 100 years as a base. As mentioned in \ref{intro-shiyu}, here we used ``BiCopSelect()'' in the R package VineCopula (\citet{schepsmeier2018}) for the model selection, it is possible to set different selection criteria in this function, and here we used the default criterion Akaike information criterion (AIC). Different Copula models were chosen in 2019 and 2023, but at least they are all Copula's that are suitable for capturing UTD as mentioned in \ref{archimedean-shiyu}, I extracted their UTD values for the 2023 model and we can see that the UTD for the 2023 Copula model based on the empirical marginal distribution is 0.3, and the UTD of the Copula model based on the fitted normal marginal distribution is 0.22, which is not particularly strong, but already suggests a Upper Tail Dependence between hot and dry.
 
 \begin{table}
 
@@ -901,9 +901,9 @@ Berlin & Joe & 0.13 * & 0.27\\
 \hline
 Brandenburg & Joe & 0.14 * & 0.29\\
 \hline
-Bremen & Joe & 0.1 & 0.22\\
+Bremen & Joe & 0.10 & 0.22\\
 \hline
-Hamburg & Joe & 0.1 & 0.21\\
+Hamburg & Joe & 0.10 & 0.21\\
 \hline
 Hessen & Joe & 0.13 * & 0.27\\
 \hline
@@ -921,14 +921,14 @@ Sachsen & Survival Clayton & 0.23 *** & 0.31\\
 \hline
 Sachsen-Anhalt & Joe & 0.17 * & 0.33\\
 \hline
-Schleswig-Holstein & Independence & 0 & 0.00\\
+Schleswig-Holstein & Independence & 0.00 & 0.00\\
 \hline
 Thüringen & Joe & 0.14 * & 0.29\\
 \hline
+\multicolumn{4}{l}{\textsuperscript{} Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1}\\
+\multicolumn{4}{l}{' ' 1}\\
 \end{tabular}
 \end{table}
-
-\[\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}\]
 
 At the level of Germany as a whole, the Copula model is performing well, so next we'll look at the Bundesland. The data obtained from the empirical marginal distributions are shown in Table \ref{tab:tab2-shiyu}, where we can see that Joe and Survival Clayton Copula are still chosen for most of the regions, and based on the tau it shows that there is a positive correlation between temperature and negative precipitation in almost all of the regions, i.e.~a negative correlation between temperature and precipitation. There is also a clear Upper Tail Dependence in almost all of the Bundesländer. Only in Schleswig-Holstein precipitation and temperature are considered uncorrelated.
 
@@ -968,14 +968,14 @@ Sachsen & Gumbel & 0.21 *** & 0.28\\
 \hline
 Sachsen-Anhalt & Joe & 0.14 * & 0.29\\
 \hline
-Schleswig-Holstein & Independence & 0 & 0.00\\
+Schleswig-Holstein & Independence & 0.00 & 0.00\\
 \hline
 Thüringen & Joe & 0.11 * & 0.23\\
 \hline
+\multicolumn{4}{l}{\textsuperscript{} Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' '}\\
+\multicolumn{4}{l}{1}\\
 \end{tabular}
 \end{table}
-
-\[\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}\]
 
 In Table \ref{tab:tab3-shiyu}, which shows the data obtained according to the fitted marginal distributions and compares the two tables, it can be seen that the tau values do not change much, that means the overall correlation between the variables does not change particularly much, regardless of which distribution is used. However, UTD seems to be very much affected, and the results of the comparison can be more visualized through Figure \ref{fig:utdmap1-shiyu}.
 
@@ -990,7 +990,7 @@ In Table \ref{tab:tab3-shiyu}, which shows the data obtained according to the fi
 
 Only Sachsen-Anhalt, Sachsen and Mecklenburg-Vorpommern remain relatively high in UTD, with Bayern, Hessen, and the surrounding area all having low UTD. This result is very unpromising, as we have to use data obtained according to the fitted marginal distribution for subsequent studies. The reason for this result may be due to that the difference between the extreme values in the data and their closest values is also very large, and thus the probability that the parameter fit assigns an extreme value becomes smaller thus affecting the UTD. So we need to find ways to standardize the raw data even more.
 
-\subsection{Copula Models using Anomalies}\label{copula-models-using-anomalies}
+\subsection{Copula Models using Anomalies}\label{anomaliesmodel-shiyu}
 
 Now, we introduce the GMT, which estimated by annual global mean temperature anomalies, to process the raw data in order to remove the effect of global temperature change on regional temperature and precipitation. First we model GMT and temperature and precipitation with the simplest linear model to get the following two models, then we use the real data to subtract the estimates of temperature and precipitation from these two models to get the data we will use later, which we call Anomalies.
 
@@ -1038,15 +1038,15 @@ Baden-Württemberg & Survival Clayton & 0.24 *** & 0.34\\
 \hline
 Bayern & Joe & 0.27 *** & 0.48\\
 \hline
-Berlin & Survival Clayton & 0.2 *** & 0.26\\
+Berlin & Survival Clayton & 0.20 *** & 0.26\\
 \hline
-Brandenburg & Survival Clayton & 0.2 ** & 0.26\\
+Brandenburg & Survival Clayton & 0.20 ** & 0.26\\
 \hline
 Bremen & Survival Clayton & 0.16 . & 0.16\\
 \hline
 Hamburg & Joe & 0.17 * & 0.33\\
 \hline
-Hessen & Joe & 0.2 ** & 0.38\\
+Hessen & Joe & 0.20 ** & 0.38\\
 \hline
 Mecklenburg-Vorpommern & Survival Clayton & 0.16 * & 0.16\\
 \hline
@@ -1066,10 +1066,9 @@ Schleswig-Holstein & Survival Clayton & 0.13 & 0.10\\
 \hline
 Thüringen & Joe & 0.24 *** & 0.44\\
 \hline
+\multicolumn{4}{l}{\textsuperscript{} Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1}\\
 \end{tabular}
 \end{table}
-
-\[\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}\]
 
 In Table \ref{tab:tab6-shiyu}, the overall lowering of UTD has also become smaller, but Rheinland-Pfalz and Saarland, while still maintaining kendalls tau, have lost UTD, but this is much more acceptable compared to the previous overall sharp fall.
 
@@ -1085,7 +1084,7 @@ Baden-Württemberg & Survival Clayton & 0.23 *** & 0.31\\
 \hline
 Bayern & Joe & 0.26 *** & 0.47\\
 \hline
-Berlin & Survival Clayton & 0.2 *** & 0.25\\
+Berlin & Survival Clayton & 0.20 *** & 0.25\\
 \hline
 Brandenburg & Survival Clayton & 0.19 ** & 0.24\\
 \hline
@@ -1099,7 +1098,7 @@ Mecklenburg-Vorpommern & Survival Clayton & 0.16 * & 0.15\\
 \hline
 Niedersachsen & Survival Clayton & 0.17 * & 0.18\\
 \hline
-Nordrhein-Westfalen & Survival Clayton & 0.2 ** & 0.24\\
+Nordrhein-Westfalen & Survival Clayton & 0.20 ** & 0.24\\
 \hline
 Rheinland-Pfalz & BB8 & 0.23 *** & 0.00\\
 \hline
@@ -1113,10 +1112,9 @@ Schleswig-Holstein & Survival Clayton & 0.12 & 0.07\\
 \hline
 Thüringen & Joe & 0.22 *** & 0.41\\
 \hline
+\multicolumn{4}{l}{\textsuperscript{} Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1}\\
 \end{tabular}
 \end{table}
-
-\[\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}\]
 
 As can also be seen in Figure \ref{fig:utdmap2-shiyu}, the differences in EMP and FIT-related data between Sachsen and Sachens Anhalt are still relatively small, while the differences in regions such as Bayern and Thuringen are not as clearly visible as they were in Figure \ref{fig:utdmap1-shiyu}.
 
@@ -1131,11 +1129,11 @@ As can also be seen in Figure \ref{fig:utdmap2-shiyu}, the differences in EMP an
 
 When we look at the data from June to August only, we can see that the situation is very similar to that of March to November, and Anomalies can be also very helpful.
 
-\section{Rarity of 2018}\label{rarity-of-2018}
+\section{Rarity of 2018}\label{rarity-shiyu}
 
-\subsection{From March to November}\label{from-march-to-november}
+\subsection{From March to November}\label{MN-shiyu}
 
-Next we use the model as a basis to study hot and dry, and here we need to review the four hazard scenarios mentioned in 4.3.4 and follow the criteria from \citet{zscheischler2020}, i.e by using the 2018 data as threshold to calculate the \(\text{P}_\text{AND}\), \(\text{P}_\text{OR}\), \(\text{P}_\text{K}\) and \(\text{P}_\text{SK}\).
+Next we use the model as a basis to study hot and dry, and here we need to review the four hazard scenarios mentioned in \ref{hazardscenarios-shiyu} and follow the criteria from \citet{zscheischler2020}, i.e by using the 2018 data as threshold to calculate the \(\text{P}_\text{AND}\), \(\text{P}_\text{OR}\), \(\text{P}_\text{K}\) and \(\text{P}_\text{SK}\).
 
 \begin{figure}
 
@@ -1159,7 +1157,7 @@ Looking at the points for the most recent years of original data, we see that te
 \caption{Rarity of 2018 for Bundesland from March to November}\label{fig:result2-shiyu}
 \end{figure}
 
-Moving on to the situation in all Bundesland, we can see in Figure \ref{fig:result2-shiyu} that 2018 can be an special year for all Bundesland from the original data point of view, there may be some regions that will have other years that exceed 2018 on one single variable, but in general, 2018 was still a very hot and dry year. 2022 was very hot for many regions, and for Baden the last two years have both been very hot. Also we can notice that the three states of Berlin, Brandenburg and Sachsen Anhalt, as we learned from the map in 4.4.1, are the three hottest and driest states.
+Moving on to the situation in all Bundesland, we can see in Figure \ref{fig:result2-shiyu} that 2018 can be an special year for all Bundesland from the original data point of view, there may be some regions that will have other years that exceed 2018 on one single variable, but in general, 2018 was still a very hot and dry year. 2022 was very hot for many regions, and for Baden the last two years have both been very hot. Also we can notice that the three states of Berlin, Brandenburg and Sachsen Anhalt, as we learned from the map in \ref{map-shiyu}, are the three hottest and driest states.
 When looking at the Anomalies data, there is a large amount of data that appears in the shadow of hazard scenarios, and even in parts of the country there are years that are drier as well as hotter than 2018, and this can be seen especially in Saarland, but in none of region has a situation in recent years that was hotter and drier than 2018.
 
 \begin{figure}
@@ -1175,7 +1173,7 @@ When looking at the Anomalies data in Figure \ref{fig:result3-shiyu}, there is a
 
 Saarland has a UTD of 0 in the Anomalies data. Looking at the figure in more detail, we can see that there is a lot of data for either dry-only or hot-only conditions. This makes the distribution of data in the bottom-right corner to be less concentrated and may lead to the driest and hottest conditions here being not significant. Sachsen - Anhalt is the Bundesland with a very strong UTD in the table, it is also clear in the graph that the values here close to 2018, although not as many as Saarland, are more concentrated and better able to fulfil both hot and dry.
 
-\subsection{From June to August}\label{from-june-to-august}
+\subsection{From June to August}\label{JJA-shiyu}
 
 \begin{figure}
 
@@ -1208,9 +1206,9 @@ Next let's look at the summer in Figure \ref{fig:result4-shiyu}, we are surprise
 
 Turning to Bundesland in Figure \ref{fig:result5-shiyu} and Figure \ref{fig:result6-shiyu}, it seems that many models of the Bundesland cannot capture UTD well over the summer. However, when we use Anomalies the situation immediately improves, with significantly stronger UTD in all areas except Saarland. So let's take a closer look at Saarland, there are more extremes in Saarland in the summer compared to March to November, but it may be that the number of extremes is just too high, leading instead to the fact that in the hottest and driest regions, there is still a very unfocussed distribution of data. In contrast, Sachensen Anhalt, although the extremes are still less, are tightly distributed in the lower right corner, favouring the finding of stronger UTD.
 
-\section{Prediction}\label{prediction}
+\section{Prediction}\label{predicition-shiyu}
 
-We also make a prediction to see if a hot and dry climate like 2018 will continue to happen in the future, here we first fit Copula with Anomalies data and then predict the final temperature and precipitation data through the model in 4.5.2. For each of these sets we generate 10,000 sets of data. Due to global Warming is the trend of climate change nowadays, so we use use 5 sets of GMT increasing from 0, which are 0, 1, 1.5, 2, and 3. And the red dots in the graph still represent the data of 2018.
+We also make a prediction to see if a hot and dry climate like 2018 will continue to happen in the future, here we first fit Copula with Anomalies data and then predict the final temperature and precipitation data through the model in \ref{anomaliesmodel-shiyu}. For each of these sets we generate 10,000 sets of data. Due to global Warming is the trend of climate change nowadays, so we use use 5 sets of GMT increasing from 0, which are 0, 1, 1.5, 2, and 3. And the red dots in the graph still represent the data of 2018.
 
 \begin{figure}
 
@@ -1243,7 +1241,7 @@ We can see in Figure \ref{fig:prediction1-shiyu} that for the months of March to
 
 And in Figure \ref{fig:prediction2-shiyu} and Figure \ref{fig:prediction3-shiyu} for the bundesland the general trend is the same, in the simulation from March to November only the two Bundesland of Baden and Sachensen show a trend that precipitation also decreases when the temperature increases, the others tend to have more precipitation. For the months of June to August too, most of the Bundesland shows the same trend as the whole of Germany, only Schleswig shows the opposite trend, i.e.~more precipitation. But there are some Bundesland where the precipitation doesn't seem to have changed significantly such as Bremen, Harmburg and so on.
 
-\section{Conclusion}\label{conclusion-1}
+\section{Conclusion}\label{conclusion-shiyu}
 
 There are many types of Copula models, each capturing different features of the data. The selection of a model needs to capture as many features of the data as possible while preventing overfitting. In this study, we use the ``BiCopSelect()'' function and its default criteria AIC to do model selection.
 
@@ -1642,12 +1640,12 @@ Due to its scope, the focus of this chapter was on Archimax copulas. However, th
 
 \emph{Suggested degree: Bachelor}
 
-\section{Abstract}\label{abstract-2}
+\section{Abstract}\label{abstract-1}
 
 The concept of teleconnections in climate science refers to climate anomalies or patterns that are related across large distances, often thousands of kilometers apart. Teleconnections represent atmospheric interactions that link weather and climate conditions in one region of the globe with those in another, often through the movement and behavior of large-scale atmospheric wave patterns (\citet{feldstein2017}). These connections are crucial for understanding regional climate variations, predicting weather patterns, and assessing climate change impacts. One prominent example of a teleconnection pattern in the Northern Hemisphere is the North Atlantic Oscillation (NAO). This oscillation plays a significant role in influencing the climate over the North Atlantic region. Its impacts are observed in various climate elements, including temperature, wind speed and direction, storm and precipitation, as well as ocean and sea ice dynamics. \(\\\)
 This chapter explores various methods for defining and analyzing the North Atlantic Oscillation (NAO), following the framework established by \citet{hurrell2010}. These methods include one-point correlation map, Empirical Orthogonal Function (EOF) analysis, and cluster analysis. Additionally, we present the long-term trends of the NAO using the NAO Index. Through a detailed examination of these approaches, we aim to provide a better understanding of the spatial and temporal characteristics of the NAO. Such understanding is important for improving climate models, enhancing weather prediction accuracy, and developing robust climate change adaptation and mitigation strategies. Furthermore, by assessing the NAO's influence on temperature, wind patterns, storm activities, and oceanographic conditions, this chapter contributes to a deeper comprehension of how large-scale atmospheric phenomena shape our climate system.
 
-\section{Introduction}\label{introduction-3}
+\section{Introduction}\label{introduction-2}
 
 The North Atlantic Oscillation (NAO), one of the most prominent and recurrent teleconnections over the Northern Hemisphere, is characterized by a redistribution of atmospheric mass at sea level between the Icelandic Low and the Azores High (\citet{hurrell2010}). It dictates climate variability from the eastern seaboard of the United States to Siberia and from the Arctic to the subtropical Atlantic, especially during boreal winter. Fluctuations from one phase of the NAO to another result in significant variations in the average wind speed and direction over the Atlantic, as well as in the transport of heat and moisture between the Atlantic and neighboring continents. This also affects the intensity and number of storms, their paths, and associated weather conditions (\citet{hurrell2003}). Especially during the months of December to March, the NAO is responsible for much variability of weather over the North Atlantic region. Thus, the NAO influences weather and climate conditions across the North Atlantic region and beyond, affecting winter temperatures and storm tracks. \(\\\)
 In this chapter, our primary focus will be on exploring the spatial and temporal characteristics of the NAO. We will begin by discussing common methods used to define it, such as the one-point correlation map, which helps to identify the NAO by regions of positive and negative correlations. Additionally, we will employ the EOF analysis to discern the dominant patterns of variability associated with the NAO, and utilize the cluster analysis to identify distinct atmospheric patterns with similar pressure characteristics. Furthermore, we will analyze the NAO Index to observe its variations over long periods. Finally, we will investigate the impacts of the NAO on various climate factors including temperature, wind speed and direction, precipitation patterns, storm activities, oceanic conditions, and sea ice dynamics.
@@ -1792,7 +1790,7 @@ Changes in the mean flow and storminess associated with oscillations in the NAO 
 Another implication of the NAO mentioned by \citet{hurrell2010} is its impact on ocean and sea ice. SST and NAO strength fluctuate together, with the main pattern of SST variability in boreal winter forming a tri-polar structure: a cold anomaly in the subpolar North Atlantic, a warm anomaly in mid-latitudes, and a cold anomaly in subtropical regions (\citet{hurrell2010}). These SST anomalies are driven by changes in surface wind and air-sea heat exchanges related to NAO variations. Persistent SST anomalies over longer periods also relate to consistent anomalous SLP patterns, including the NAO, reflecting the ocean's response to long term atmospheric variability.
 The reduction of the Arctic Sea ice is one of the most prominent indicators of climate change. less compact ice in high NAO winters plays an important role in the reduction of summer sea ice extent in high NAO years. In winter, the stronger wind in high NAO years drives more ice away from the Eurasian coastal region, suppressing sea ice buildup there (\citet{hurrell2003}).
 
-\section{Conclusion}\label{conclusion-2}
+\section{Conclusion}\label{conclusion-1}
 
 In this chapter we have presented the NAO as the dominant mode of regional climate variability over the Northern Hemisphere, focusing particularly on common methods used to identify its spatial and temporal structure. These methods, although they are different, each have their strengths and limitations.
 One point correlation map is easy to implement and interpret providing clear insight into how the chosen center of action is related to the variability at other locations. However, the result heavily depends on the choice of the center of action. Selecting a different center may not well capture the full spatial pattern of the NAO. EOF analysis captures the dominant patterns of variability in a dataset and provides a quantitative measure of how much variance a pattern explains. But it assumes linear relationships and might not capture non-linear features of the NAO. Cluster Analysis is effective at identifying distinct patterns and regimes including non-linear and non-stationary features, but it is computationally intensive and requires careful selection of clustering parameters. Additionally, interpreting the results can be challenging if the patters are not well separated.
@@ -1809,11 +1807,11 @@ By improving climate models, and implementing robust adaptation plans, we can be
 
 \emph{Degree: Master}
 
-\section{Abstract}\label{abstract-3}
+\section{Abstract}\label{abstract-2}
 
 This chapter introduces some of the most used advanced statistical methods for predicting and analyzing low-flow events, characterized by reduced streamflow and water availability. Initially, key univariate concepts such as nonstationary models with time-varying parameters and meteorological covariates are presented, along with the concept of return periods to capture the dynamic nature of these events accurately. Following this, bivariate concepts, including the use of copulas to model dependencies between hydrological variables and the integration of reservoir indices to account for human impacts on flow regimes, are discussed. The concept of return periods is also introduced in a bivariate context. After these theoretical introductions, the chapter demonstrates practical applications, including the Statistical Downscaling Model (SDSM), which connects large-scale climate projections with localized hydrological impacts. These methodologies enhance the prediction and management of low-flow events, offering more robust strategies for water resource management in a changing climate.
 
-\section{Introduction}\label{introduction-4}
+\section{Introduction}\label{introduction-3}
 
 Low-flow events or periods are hydrological conditions marked by significantly reduced streamflow and water availability in rivers and streams. These events often result from prolonged dry weather conditions, reduced precipitation, high evaporation rates, or significant water withdrawals (\citet{Smakhtin2001}). Their extremeness distinguishes them from normal variations in water flow, as they can profoundly and lastingly impact water availability and quality.
 
@@ -2721,7 +2719,7 @@ Du et al.~(2015) employed the Statistical Down Scaling Model developed by Wilby 
   It should be noted that there are uncertainties in the downscaled future scenarios of meteorological variables used in this study. These uncertainties could be partially mitigated by exploring additional downscaling methods and different General Circulation Models (GCMs).
 \end{itemize}
 
-\section{Conclusion}\label{conclusion-3}
+\section{Conclusion}\label{conclusion-2}
 
 In this chapter, we delved into the complex nature of low-flow events, emphasizing their prediction and analysis through advanced hydrological frequency models. Low-flow events, characterized by significantly reduced streamflow and water availability, pose serious challenges to water resource management, especially under changing climatic conditions. Our exploration highlighted the critical role of return periods and risk assessments in understanding and mitigating the impacts of these events.
 
@@ -2747,11 +2745,11 @@ Looking forward, the ongoing development and refinement of nonstationary models 
 
 \emph{Degree: Master}
 
-\section{Abstract}\label{abstract-4}
+\section{Abstract}\label{abstract-3}
 
 This study evaluates and compares the performance of Long Short-Term Memory (LSTM) networks and Temporal Fusion Transformers (TFT) in forecasting streamflows for up to seven day ahead forecasts, using historical streamflow data alongside precipitation and temperature as covariates. Freely available data published by the bavarian hydrological authority from the Regen river in Bavaria, Germany, was used in conjunction with meteorological data from the ERA5 reanalysis dataset. River basins are defined via the HydroRIVERS and HydroBASINS dataset to obtain the area over which precipitation is aggregated. Results indicate that while both models face challenges in predicting extreme values, TFT maintains more consistent accuracy over longer forecast horizons while pure LSTM model's predictions decline sharply in performance with increasing lead times.
 
-\section{Introduction}\label{introduction-5}
+\section{Introduction}\label{introduction-4}
 
 Streamflow forecasting plays a crucial role in water resource management, particularly in flood prediction. As climate change intensifies extreme weather events and alters precipitation patterns, accurate streamflow forecasts have become increasingly important for mitigating flood risks by providing information about the timing and magnitude of potential flood events.This knowledge enables authorities to implement timely flood control measures, operate reservoirs effectively, and issue early warnings to vulnerable communities. As flooding remains one of the most common and destructive natural disasters, especially in developing countries, improved forecasting capabilities can significantly reduce the human and economic toll of these events. (\citet{nearing2024})
 
@@ -3115,7 +3113,7 @@ In analyzing the relationship between t2m and streamflow, both graphs demonstrat
 \caption{Feature dependence plot for mean two meter temperature for a lead time 5 trained TFT}\label{fig:t2m-tft-imp}
 \end{figure}
 
-\section{Conclusion}\label{conclusion-4}
+\section{Conclusion}\label{conclusion-3}
 
 This study compares the performance of LSTM (Long Short-Term Memory) and Temporal Fusion Transformer (TFT) models in forecasting streamflows of the bavarian Regen river for up to seven days ahead, using precipitation and temperature as future known covariates alongside historical streamflow data. The data used was obtained from freely available data provided by the Bavarian hydrology authority and Copernicus Climate Project.
 
@@ -3145,7 +3143,7 @@ Another next step could be to test the models ability to generalize by training 
 
 \emph{Degree: Bachelor}
 
-\section{Introduction}\label{introduction-6}
+\section{Introduction}\label{introduction-5}
 
 The 2023 report of the Lancet Countdown on health and climate change (\citet{romanello2023}) aims to monitor the evolving impact of climate change on health and the emerging health opportunities of climate action. It is in its eighth iteration and was created by 114 scientists and health practitioners from 52 research institutions and UN agencies from all continents (but Antarctica). While this chapter is based on the 2023 report, there are also regional reports available, such as the 2024 report for Europe (\citet{vandaalen2024}).
 
@@ -3381,7 +3379,7 @@ We provided detailed descriptions of three main indicators and the modelling tec
 
 \emph{Degree: Bachelor}
 
-\section{Introduction}\label{introduction-7}
+\section{Introduction}\label{introduction-6}
 
 This chapter covers epidemiologic studies on the effects of heat on health. The aim is to discuss the excess mortality attributed to heat and cold based on recent studies by Masselot et al.~(2023) \citep{masselot2023} and the joint effects of air pollution and heat on mortality as examined by Stafoggia et al.~(2023) \citep{stafoggia2023}.
 
@@ -3511,7 +3509,7 @@ Cold-Related Standardized Excess Death Rate & Heat-Related Standardized Excess D
 
 These visualizations provide a comprehensive overview of the temperature-mortality relationship across Europe, highlighting regions and populations that are most vulnerable to extreme temperatures.
 
-\subsection{Conclusion}\label{conclusion-5}
+\subsection{Conclusion}\label{conclusion-4}
 
 The detailed findings from this study underscore the importance of tailored public health strategies that consider regional and age-specific vulnerabilities. By understanding the nuanced impacts of heat and cold across different European cities and demographic groups, policymakers can better prepare for and mitigate the adverse health effects of extreme temperatures.
 
@@ -3633,7 +3631,7 @@ The PLS regression allowed the study to incorporate a large number of variables,
 
 By selecting the optimal number of components through AIC, the study ensured that the models were both parsimonious and explanatory, leading to reliable predictions of excess mortality due to temperature extremes.
 
-\subsection{Model}\label{model-1}
+\subsection{Model}\label{model}
 
 The model used to estimate the main effect of air temperature on mortality employs a quasi-Poisson regression framework. This framework is suitable for count data, such as daily death counts, and can handle overdispersion commonly observed in such data.\citep{engelhardt2013}
 
@@ -3767,7 +3765,7 @@ By employing these advanced statistical techniques, the study provides comprehen
 
 The study by Stafoggia et al.~(2023) examined the combined effects of high temperatures and air pollution on mortality. The analysis involved data from 620 cities in 36 countries, providing a comprehensive overview of the joint impact of these environmental stressors. The findings indicated that both high temperatures and air pollution independently increase mortality rates. However, their combined effect is significantly more pronounced. Specifically, a temperature increase from the 75th to the 99th percentile was associated with an 8.9\% rise in mortality.
 
-\subsection{Model}\label{model-2}
+\subsection{Model}\label{model-1}
 
 To estimate the joint effect of air temperature and air pollution on mortality, a two-stage modeling approach was employed.
 
@@ -3891,7 +3889,7 @@ Both studies highlight the significant impact of temperature on mortality, but t
   \end{itemize}
 \end{itemize}
 
-\subsection{Conclusion}\label{conclusion-6}
+\subsection{Conclusion}\label{conclusion-5}
 
 Both studies contribute valuable insights into the public health impacts of temperature extremes. Masselot et al.~(2023) \citep{masselot2023} highlighted the broader spectrum of temperature effects across Europe, while Stafoggia et al.~(2023) \citep{stafoggia2023} provided a nuanced understanding of the combined effects of heat and air pollution. Together, these studies underscore the importance of considering both direct and interactive effects of environmental stressors in epidemiological research and public health planning.
 
@@ -3903,11 +3901,11 @@ Both studies contribute valuable insights into the public health impacts of temp
 
 \emph{Degree: Master}
 
-\section{Abstract}\label{abstract-5}
+\section{Abstract}\label{abstract-4}
 
 As climate change progresses, heat-related mortality and adverse health outcomes are also increasing. In the chapters before it was mainly talked about temperature related outcomes. This chapter focuses on heat events and how humidity plays a crucial role in high ambient temperatures and the effect on health outcomes. Physiological research indicates that both heat and humidity significantly impact the body's response to heat. Thus, influencing mortality and adverse health outcomes. Several epidemiological studies aimed to show this relationship, found however only minimal or even no effect of humidity on negative health outcomes. This discrepancy between physiological knowledge and epidemiological findings creates a, as (\citet{baldwin2023}) describes it, controversial issue. This will be further explored in this chapter.
 
-\section{Introduction}\label{introduction-8}
+\section{Introduction}\label{introduction-7}
 
 \subsection{Background}\label{background-1}
 
@@ -4145,7 +4143,7 @@ In a tutorial paper (\citet{vicedo}) , statistical methods for modelling future 
 
 \emph{Degree: Master}
 
-\section{Introduction}\label{introduction-9}
+\section{Introduction}\label{introduction-8}
 
 It is widely recognized that climate change (CC) is impacting both economy and society. However, it is also increasingly acknowledged as critical factor influencing various aspects of human health. In 2009, the World Health Organisation (WHO) declared CC as one of the largest threads to human health of the twenty-first century and recognised the need for a research agenda to understand complex linkages between climate change and health (\citet{worldhealthorganization2009}). In following years, initiatives such as the Lancet Countdown, a global monitoring system designed to track research and support policy decisions on Health and CC, drew resources and attention to this pressing problem (\citet{watts2018}). Despite these efforts, some health conditions are still little researched and the impact of climate change on them is poorly understood. Among them are mental health (MH) and human well-being (\citet{romanello2023}).
 According to the OECD, 20-30\% of the working population are affected by a MH condition. Mental disorders are the worldwide leading cause of years lived with disability (\citet{whiteford2013}, \citet{hewlette2014}) and a considerable burden not only for individuals but also society and economy. In 2010, the direct and indirect costs were estimated to amount to 2493 billion US dollars worldwide (\citet{hewlette2014}) and the lost economic value amounts to 4-8\% of GDP in different regions (\citet{arias2022}). However, health care systems spend a disproportional amount on treatment. In England, MH conditions make out about 26\% of the burden of disease, but only 13\% of health expenditure are attributed to treatment (\citet{hewlette2014}). Globally, 80\% of people do not get sufficient treatment at all (\citet{worldhealthorganization2021}).
@@ -4253,7 +4251,7 @@ An example for system thinking would be the protection of infrastructure to bene
 The proposal by \citet{berry2018} is a broad framework that may be useful to approach most of the problems discussed in this chapter. However, the individual components are yet to be tested in future research and policy designs.
 On the more practical side, \citet{hayes2018} and \citet{newnham2020} proposed several practical measures that could protect MH from direct and indirect CC impact. For acute response to disaster, first-aid responders and nurses need to be trained in basic psychological first aid. It has also proven beneficial for subsequent MH outcomes to prepare people living in vulnerable areas (e.g.~near rivers that will flood more frequently in the future) for the possibility that the event might occur (\citet{munro2017}). Intermediate adaption could include capacity building for therapy and counselling, education and programmes to reduce stigma as well as community-building and preparation training for extreme weather-related events (\citet{newnham2020}). Long-term prevention and mitigation require governments to include MH in their strategic health planning and the development of tools to predict risks, costs and needed resources. Ultimately, a swift transition towards a carbon-neutral economy would be the most cost-effective and efficient way of protecting MH from the impacts of CC.
 
-\section{Conclusion}\label{conclusion-7}
+\section{Conclusion}\label{conclusion-6}
 
 Climate change will have considerable effects on public health, including MH and wellbeing. As the latter has received little attention in research and politics, scientifically sound methods to quantify the impact of CC on MH are still being developed and research has yet not advanced from assessing the risks to estimating the costs or designing adaption strategies. Considering the importance of MH and wellbeing for individual life as well as society and economic production, more research and policy action is needed to understand this complex topic and prevent or at least attenuate the adverse impact of a changing climate on mental health.
 
