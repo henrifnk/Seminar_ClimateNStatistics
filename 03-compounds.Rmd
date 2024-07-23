@@ -21,10 +21,10 @@ output <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 is_html <- !is.null(output) && output == "html"
 ```
 
-## Abstract
+## Abstract {#abstract-shiyu}
 As global temperatures continue to warm, extreme weather is occurring more frequently. In climate research, a combination of multiple extreme weather or climate events occurring simultaneously or sequentially is known as a compound event. This can cause more severe impacts than one extreme weather alone. Hot and dry is often considered as one such compound event. In this paper, we take Germany and the Bundesland as an example, and analyze temperature and precipitation data from 1881 to 2023 by fitting a Copula model to study the occurrence of a composite event: hot and dry.
 
-## Introduction
+## Introduction {#intro-shiyu}
 With global warming, extreme weather is becoming more frequent, in 2023, the @wmo2023a had released a news that stated extreme weather will become the “new norm”. And in the year 2024 immediately afterward, @wmo2024 released news again and mentioned more extreme heat. In other words, the occurrence of extreme weather is still tending to become more and more common today. The effects of extreme heat have been widely discussed and researched, but there are more different types of extreme weather and the terrible thing is that they don't always happen alone.
 
 In climate research, a compound event is a combination of multiple extreme weather or climate events that occur simultaneously or sequentially. And the previously mentioned hot is often considered with the dry together to be as such compound events. This means that the interactions between hot and dry amplify the consequences, which are more severe than the impacts that would be expected if these events occurred separately. Extremely dry and hot weather poses a great risk to many fields, such as agriculture (@lesk2016), ecology (@jentsch2008) and human health (@libonati2022) etc. Therefore, it is important to study the frequency of compound events of hot and dry and to predict the probability of extreme hot and extreme dry climates in the future.
@@ -35,8 +35,8 @@ During the study we start by finding the most suitable Copula model for each dat
 
 There are three main data sets that will be used in this study, which are temperature and precipitation average over Germany as provided by the @dwd2024b and observation-based estimates of annual global mean temperature anomalies from the @giss2024, they are all from 1881 to 2023. It is worth noting that for temperature and precipitation data we only focus on the growing season, March to November, and the summer season, June to August, which prevents possible extreme cold winter weather from weakening possible hot weather when calculating temperature averages. In addition the analysis of the growing season has shown great meaning for agriculture.
 
-## Theoretical Background
-### Copula
+## Theoretical Background {#background-shiyu}
+### Copula {#copula-shiyu}
 Copulas are multivariate distribution functions whose one-dimensional margins are uniform on the interval $[0,1]$ (@nelsen2006) and used to describe the dependence between random variables. @salvadori2016 introduced Copulas using the following notation. In fact Copula can be multivariate, but since this article studies hot and dry, we focus on the bivariate Copula. Let $C$ denote a bivariate Copula and $F$ a bivariate cumulative distribution function, by Sklar's Theorem, we have:
 
 $$F(x) = P(X_1 \leq x_1, X_2 \leq x_2) = C(F_{1}(x_1), F_{2}(x_2)) \tag{1} $$
@@ -76,14 +76,14 @@ $$\lambda_U \equiv \lim_{{u \to 1^-}} P(Y > F_Y^{-1}(u) \mid X > F_X^{-1}(u))= \
 
 UTD ranges from 0 to 1, with 1 representing Perfekt Upper Tail Dependence, i.e. when one variable reaches its maximum value, the other variable also reaches its maximum value. Whereas 0 represents no Upper Tail Dependence.
 
-### Empirical Copula
+### Empirical Copula {#empirical-shiyu}
 Empirical Copula does not need to assume marginal distributions, but still captures the dependency structure between variables in the dataset. The specific function can be written as (@bucher2013):
 
 $$C^n(u_1, u_2) = \frac{1}{n} \sum_{i=1}^n \mathbb{I}\left(U_{i1} \leq u_1, U_{i2} \leq u_2\right) \tag{8} $$
 
 where $U$ stand for constructing pseudo-copula observations using the empirical distribution function.
 
-### Archimedean Copulas
+### Archimedean Copulas {#archimedean-shiyu}
 Archimedean Copulas defines a family of copulas that often have an explicit formula and satisfy the following conditions (@mcneil2009):
 
 $$C(u_{1}, u_{2}; \theta) = \psi^{-1}\left( \psi(u_{1}; \theta) + \psi(u_{2}; \theta); \theta \right) \tag{9}$$
@@ -112,7 +112,7 @@ $$C(u_1, u_2; \theta) = \left[\max\{u_1^{-\theta} + u_2^{-\theta} -1;0\}\right]^
 
 Since in this study we focus on the Upper Tail Dependence, we do not use the Clayton Copula directly, but we can obtain the Survival Clayton Copula, also known as the rotated Clayton Copula, by rotating the Clayton Copula.
 
-### Intuitive Hazard Scenarios
+### Intuitive Hazard Scenarios {#hazardscenarios-shiyu}
 AND Scenario:
 
 $$ \text{P}_\text{AND} = P(U > u \cap V > v) = 1 - u - v - C(u, v) \tag{17}$$
@@ -131,8 +131,8 @@ $$ \text{P}_\text{SK} = P( \hat{C}(1 - U, 1 - V) < t) = \hat{K}(t) \tag{20}$$
 
 Of the four Intuitive Hazard Scenarios cited, $\text{P}_\text{AND}$ and $\text{P}_\text{OR}$ are very easy to understand, Pand considers both variables to be large, while Por considers that only one of the variables needs to be large. The $\text{P}_\text{K}$ and $\text{P}_\text{SK}$ can be characterized by the "critical layers" $L_t$ and $\bar{L}_t$, respectively, which separates the bivariate space into a critical region and a non-critical region (@zscheischler2020).
 
-## Descriptive Analysis
-### Climate Map of Germany
+## Descriptive Analysis {#descriptive-shiyu}
+### Climate Map of Germany {#map-shiyu}
 
 ```{r climatemap1-shiyu, cache=FALSE, fig.cap = 'Temperature and Precipitation maps in Germany from March to November', out.width='100%', fig.align='center', echo=FALSE, eval = is_html}
 knitr::include_graphics('work/03-compounds/figures/climatemapMtoN.gif')
@@ -154,7 +154,7 @@ knitr::include_graphics('work/03-compounds/figures/climatemapJJA.gif')
 
 The situation for June to August is very similar.
 
-### Development of Average Data in Germany as a whole
+### Development of Average Data in Germany as a whole {#development-shiyu}
 Dynamic maps allow us to view trends in data from all corners of Germany, and after comparing differences by region, we can look at temperature and precipitation changes over the 143 years as a whole. We can more visually feel in Figure \@ref(fig:AverageTemperature-shiyu) that there is a very clear upward trend in temperatures, both from March to November and from June to August, and that the average summer temperatures will be significantly higher than those from March to November, and we can also focus on the fact that 2018, which is the location, does have super high temperatures, it has the highest temperatures in the March to November comparison, and it comes second in June to August, but the difference with the hottest year is not too great either.
 
 ```{r AverageTemperature-shiyu, cache=FALSE, fig.cap = 'Average Temperature in Germany from March to November and from June to August', out.width='70%', fig.align='center', echo=FALSE, eval = TRUE}
@@ -173,12 +173,12 @@ Now we understand the changes of these two variables over time, but based on the
 knitr::include_graphics('work/03-compounds/figures/Temperature/Average/TemperatureCPD.png')
 ```
 
-In Figure \@ref(fig:PrecipitationCPD-shiyu), instead of using precipitation directly, we used negative precipitation, so the hottest and driest values mean that both our variables negative precipitation and temperature are at their maximum values, which is the reason why we introduce the Upper Tail Dependence in 4.3.1.
+In Figure \@ref(fig:PrecipitationCPD-shiyu), instead of using precipitation directly, we used negative precipitation, so the hottest and driest values mean that both our variables negative precipitation and temperature are at their maximum values, which is the reason why we introduce the Upper Tail Dependence in \@ref(copula-shiyu).
 
 ```{r PrecipitationCPD-shiyu, cache=FALSE, fig.cap = 'Cumulative Probability of -Precipitation', out.width='65%', fig.align='center', echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/03-compounds/figures/Precipitation/Average/PrecipitationCPD.png')
 ```
-### Annual Global Mean Temperature Anomalies
+### Annual Global Mean Temperature Anomalies {#anomalies-shiyu}
 
 In addition, we introduce annual global mean temperature anomalies to estimate global mean temperature (GMT), which captures the global climate trend over the last 143 years. As can be seen from the increasing and steeper shape of the lines in Figure \@ref(fig:gmt-shiyu), global temperatures are really rising and at an increasing rate. However, the trends from June to August and March to November are very similar, suggesting that summers are not getting hotter faster compared to the entire growing season.
 
@@ -186,8 +186,8 @@ In addition, we introduce annual global mean temperature anomalies to estimate g
 knitr::include_graphics('work/03-compounds/figures/GMT/GMT.png')
 ```
 
-## Model
-### Copula Models using Original data
+## Model {#model-shiyu}
+### Copula Models using Original data {#originalmodel-shiyu}
 ```{r tab1-shiyu, echo=FALSE}
 data <- data.frame(
   V1 = c("Until 2019", "", "", "Until 2023", "", "", ""),
@@ -199,7 +199,7 @@ colnames(data) <- c("", "", "EMP", "FIT")
 knitr::kable(data, caption = "Marginal distributions and copulas for observational data (March-November averages)")
 ```
 
-Table \@ref(tab:tab1-shiyu) shows the marginal distributions and copulas for observational data in March to November. The data in the first row is from paper and is only updated to 2019, the data in the second row is updated to 2023, it is easy to see that the addition of 4 new years of data doesn't change the distribution of the data too much, which makes sense since there are over 100 years as a base. As mentioned in 4.2, here we used “BiCopSelect()” in the R package VineCopula (@schepsmeier2018) for the model selection, it is possible to set different selection criteria in this function, and here we used the default criterion Akaike information criterion (AIC). Different Copula models were chosen in 2019 and 2023, but at least they are all Copula's that are suitable for capturing UTD as mentioned in 4.3.3, I extracted their UTD values for the 2023 model and we can see that the UTD for the 2023 Copula model based on the empirical marginal distribution is 0.3, and the UTD of the Copula model based on the fitted normal marginal distribution is 0.22, which is not particularly strong, but already suggests a Upper Tail Dependence between hot and dry.
+Table \@ref(tab:tab1-shiyu) shows the marginal distributions and copulas for observational data in March to November. The data in the first row is from paper and is only updated to 2019, the data in the second row is updated to 2023, it is easy to see that the addition of 4 new years of data doesn't change the distribution of the data too much, which makes sense since there are over 100 years as a base. As mentioned in \@ref(intro-shiyu), here we used “BiCopSelect()” in the R package VineCopula (@schepsmeier2018) for the model selection, it is possible to set different selection criteria in this function, and here we used the default criterion Akaike information criterion (AIC). Different Copula models were chosen in 2019 and 2023, but at least they are all Copula's that are suitable for capturing UTD as mentioned in \@ref(archimedean-shiyu), I extracted their UTD values for the 2023 model and we can see that the UTD for the 2023 Copula model based on the empirical marginal distribution is 0.3, and the UTD of the Copula model based on the fitted normal marginal distribution is 0.22, which is not particularly strong, but already suggests a Upper Tail Dependence between hot and dry.
 
 ```{r tab2-shiyu, echo=FALSE}
 copula_data <- data.frame(
@@ -233,13 +233,20 @@ p_value_to_significance <- function(p) {
     " "
   }
 }
-copula_data$tau <- paste(copula_data$tau, sapply(copula_data$p_value, p_value_to_significance))
+if (is_html) {
+  label <- "Signif. codes: 0 '\\*\\*\\*' 0.001 '\\*\\*' 0.01 '\\*' 0.05 '.' 0.1 ' ' 1"
+}else{
+  label <- "Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+}
+copula_data$tau <- paste(sprintf("%.2f", copula_data$tau),
+                         sapply(copula_data$p_value, p_value_to_significance))
 copula_data <- copula_data[, c("shapeName", "model", "tau", "UTD")]
-knitr::kable(copula_data, 
-             col.names = c("shapeName", "model", "tau", "UTD"),
-             caption = "Best Copula Model (EMP) for different Bundesland (March to November)")
+kableExtra::add_footnote(
+  knitr::kable(copula_data,
+               col.names = c("shapeName", "model", "tau", "UTD"),
+               caption = "Best Copula Model (EMP) for different Bundesland (March to November)"),
+  label, notation = "none" )
 ```
-$$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
 
 At the level of Germany as a whole, the Copula model is performing well, so next we'll look at the Bundesland. The data obtained from the empirical marginal distributions are shown in Table \@ref(tab:tab2-shiyu), where we can see that Joe and Survival Clayton Copula are still chosen for most of the regions, and based on the tau it shows that there is a positive correlation between temperature and negative precipitation in almost all of the regions, i.e. a negative correlation between temperature and precipitation.  There is also a clear Upper Tail Dependence in almost all of the Bundesländer. Only in Schleswig-Holstein precipitation and temperature are considered uncorrelated.
 
@@ -275,13 +282,20 @@ p_value_to_significance <- function(p) {
     " "
   }
 }
-copula_data$tau <- paste(copula_data$tau, sapply(copula_data$p_value, p_value_to_significance))
+if (is_html) {
+  label <- "Signif. codes: 0 '\\*\\*\\*' 0.001 '\\*\\*' 0.01 '\\*' 0.05 '.' 0.1 ' ' 1"
+}else{
+  label <- "Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+}
+copula_data$tau <- paste(sprintf("%.2f", copula_data$tau),
+                         sapply(copula_data$p_value, p_value_to_significance))
 copula_data <- copula_data[, c("shapeName", "model", "tau", "UTD")]
-knitr::kable(copula_data, 
-             col.names = c("shapeName", "model", "tau", "UTD"),
-             caption = "Best Copula Model (FIT) for different Bundesland for (March to November)")
+kableExtra::add_footnote(
+  knitr::kable(copula_data, 
+               col.names = c("shapeName", "model", "tau", "UTD"),
+               caption = "Best Copula Model (FIT) for different Bundesland for (March to November)"),
+  label, notation = "none" )
 ```
-$$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
 
 In Table \@ref(tab:tab3-shiyu), which shows the data obtained according to the fitted marginal distributions and compares the two tables, it can be seen that the tau values do not change much, that means the overall correlation between the variables does not change particularly much, regardless of which distribution is used. However, UTD seems to be very much affected, and the results of the comparison can be more visualized through Figure \@ref(fig:utdmap1-shiyu).
 
@@ -291,7 +305,7 @@ knitr::include_graphics('work/03-compounds/figures/UTDMAP/original.png')
 
 Only Sachsen-Anhalt, Sachsen and Mecklenburg-Vorpommern remain relatively high in UTD, with Bayern, Hessen, and the surrounding area all having low UTD. This result is very unpromising, as we have to use data obtained according to the fitted marginal distribution for subsequent studies. The reason for this result may be due to that the difference between the extreme values in the data and their closest values is also very large, and thus the probability that the parameter fit assigns an extreme value becomes smaller thus affecting the UTD. So we need to find ways to standardize the raw data even more.
 
-### Copula Models using Anomalies
+### Copula Models using Anomalies {#anomaliesmodel-shiyu}
 Now, we introduce the GMT, which estimated by annual global mean temperature anomalies, to process the raw data in order to remove the effect of global temperature change on regional temperature and precipitation. First we model GMT and temperature and precipitation with the simplest linear model to get the following two models, then we use the real data to subtract the estimates of temperature and precipitation from these two models to get the data we will use later, which we call Anomalies.
 
 $$\text{Temperature} = 11 + 1.41 * \text{GMT} \tag{21}$$
@@ -343,13 +357,20 @@ p_value_to_significance <- function(p) {
     " "
   }
 }
-copula_data$tau <- paste(copula_data$tau, sapply(copula_data$p_value, p_value_to_significance))
+if (is_html) {
+  label <- "Signif. codes: 0 '\\*\\*\\*' 0.001 '\\*\\*' 0.01 '\\*' 0.05 '.' 0.1 ' ' 1"
+}else{
+  label <- "Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+}
+copula_data$tau <- paste(sprintf("%.2f", copula_data$tau),
+                         sapply(copula_data$p_value, p_value_to_significance))
 copula_data <- copula_data[, c("shapeName", "model", "tau", "UTD")]
-knitr::kable(copula_data, 
-             col.names = c("shapeName", "model", "tau", "UTD"),
-             caption = "Best Copula Model (EMP) for different Bundesland (March to November Anomalies)")
+kableExtra::add_footnote(
+  knitr::kable(copula_data, 
+               col.names = c("shapeName", "model", "tau", "UTD"),
+               caption = "Best Copula Model (EMP) for different Bundesland (March to November Anomalies)"),
+  label, notation = "none" )
 ```
-$$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
 
 In Table \@ref(tab:tab6-shiyu), the overall lowering of UTD has also become smaller, but Rheinland-Pfalz and Saarland, while still maintaining kendalls tau, have lost UTD, but this is much more acceptable compared to the previous overall sharp fall.
 
@@ -385,13 +406,20 @@ p_value_to_significance <- function(p) {
     " "
   }
 }
-copula_data$tau <- paste(copula_data$tau, sapply(copula_data$p_value, p_value_to_significance))
+if (is_html) {
+  label <- "Signif. codes: 0 '\\*\\*\\*' 0.001 '\\*\\*' 0.01 '\\*' 0.05 '.' 0.1 ' ' 1"
+}else{
+  label <- "Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1"
+}
+copula_data$tau <- paste(sprintf("%.2f", copula_data$tau),
+                         sapply(copula_data$p_value, p_value_to_significance))
 copula_data <- copula_data[, c("shapeName", "model", "tau", "UTD")]
-knitr::kable(copula_data, 
-             col.names = c("shapeName", "model", "tau", "UTD"),
-             caption = "Best Copula Model (FIT) for different Bundesland (March to November Anomalies)")
+kableExtra::add_footnote(
+  knitr::kable(copula_data,
+               col.names = c("shapeName", "model", "tau", "UTD"),
+               caption = "Best Copula Model (FIT) for different Bundesland (March to November Anomalies)"),
+  label, notation = "none" )
 ```
-$$\text{Signif. codes: 0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1}$$
 
 As can also be seen in Figure \@ref(fig:utdmap2-shiyu), the differences in EMP and FIT-related data between Sachsen and Sachens Anhalt are still relatively small, while the differences in regions such as Bayern and Thuringen are not as clearly visible as they were in Figure \@ref(fig:utdmap1-shiyu).
 
@@ -401,9 +429,9 @@ knitr::include_graphics('work/03-compounds/figures/UTDMAP/anomalies.png')
 
 When we look at the data from June to August only, we can see that the situation is very similar to that of March to November, and Anomalies can be also very helpful.
 
-## Rarity of 2018
-### From March to November
-Next we use the model as a basis to study hot and dry, and here we need to review the four hazard scenarios mentioned in 4.3.4 and follow the criteria from @zscheischler2020, i.e by using the 2018 data as threshold to calculate the $\text{P}_\text{AND}$, $\text{P}_\text{OR}$, $\text{P}_\text{K}$ and $\text{P}_\text{SK}$.
+## Rarity of 2018 {#rarity-shiyu}
+### From March to November {#MN-shiyu}
+Next we use the model as a basis to study hot and dry, and here we need to review the four hazard scenarios mentioned in \@ref(hazardscenarios-shiyu) and follow the criteria from @zscheischler2020, i.e by using the 2018 data as threshold to calculate the $\text{P}_\text{AND}$, $\text{P}_\text{OR}$, $\text{P}_\text{K}$ and $\text{P}_\text{SK}$.
 
 ```{r result1-shiyu, cache=FALSE, fig.cap = 'Rarity of 2018 for whole Germany from March to November', out.width='80%', fig.align='center', echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/03-compounds/figures/RESULTS/resultallMtoN.png')
@@ -416,7 +444,7 @@ Looking at the points for the most recent years of original data, we see that te
 knitr::include_graphics('work/03-compounds/figures/RESULTS/resultMtoN.png')
 ```
 
-Moving on to the situation in all Bundesland, we can see in Figure \@ref(fig:result2-shiyu) that 2018 can be an special year for all Bundesland from the original data point of view, there may be some regions that will have other years that exceed 2018 on one single variable, but in general, 2018 was still a very hot and dry year. 2022 was very hot for many regions, and for Baden the last two years have both been very hot. Also we can notice that the three states of Berlin, Brandenburg and Sachsen Anhalt, as we learned from the map in 4.4.1, are the three hottest and driest states.
+Moving on to the situation in all Bundesland, we can see in Figure \@ref(fig:result2-shiyu) that 2018 can be an special year for all Bundesland from the original data point of view, there may be some regions that will have other years that exceed 2018 on one single variable, but in general, 2018 was still a very hot and dry year. 2022 was very hot for many regions, and for Baden the last two years have both been very hot. Also we can notice that the three states of Berlin, Brandenburg and Sachsen Anhalt, as we learned from the map in \@ref(map-shiyu), are the three hottest and driest states.
 When looking at the Anomalies data, there is a large amount of data that appears in the shadow of hazard scenarios, and even in parts of the country there are years that are drier as well as hotter than 2018, and this can be seen especially in Saarland, but in none of region has a situation in recent years that was hotter and drier than 2018.
 
 ```{r result3-shiyu, cache=FALSE, fig.cap = 'Rarity of 2018 for Bundesland from March to November (Anomalies)', out.width='80%', fig.align='center', echo=FALSE, eval = TRUE}
@@ -427,7 +455,7 @@ When looking at the Anomalies data in Figure \@ref(fig:result3-shiyu), there is 
 
 Saarland has a UTD of 0 in the Anomalies data. Looking at the figure in more detail, we can see that there is a lot of data for either dry-only or hot-only conditions. This makes the distribution of data in the bottom-right corner to be less concentrated and may lead to the driest and hottest conditions here being not significant. Sachsen - Anhalt is the Bundesland with a very strong UTD in the table, it is also clear in the graph that the values here close to 2018, although not as many as Saarland, are more concentrated and better able to fulfil both hot and dry.
 
-### From June to August
+### From June to August {#JJA-shiyu}
 ```{r result4-shiyu, cache=FALSE, fig.cap = 'Rarity of 2018 for whole Germany from June to August', out.width='80%', fig.align='center', echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/03-compounds/figures/RESULTS/resultallJJA.png')
 ```
@@ -444,8 +472,8 @@ knitr::include_graphics('work/03-compounds/figures/RESULTS/resultJJAA.png')
 
 Turning to Bundesland in Figure \@ref(fig:result5-shiyu) and Figure \@ref(fig:result6-shiyu), it seems that many models of the Bundesland cannot capture UTD well over the summer. However, when we use Anomalies the situation immediately improves, with significantly stronger UTD in all areas except Saarland. So let's take a closer look at Saarland, there are more extremes in Saarland in the summer compared to March to November, but it may be that the number of extremes is just too high, leading instead to the fact that in the hottest and driest regions, there is still a very unfocussed distribution of data. In contrast, Sachensen Anhalt, although the extremes are still less, are tightly distributed in the lower right corner, favouring the finding of stronger UTD.
 
-## Prediction
-We also make a prediction to see if a hot and dry climate like 2018 will continue to happen in the future, here we first fit Copula with Anomalies data and then predict the final temperature and precipitation data through the model in 4.5.2. For each of these sets we generate 10,000 sets of data. Due to global Warming is the trend of climate change nowadays, so we use use 5 sets of GMT increasing from 0, which are 0, 1, 1.5, 2, and 3. And the red dots in the graph still represent the data of 2018.
+## Prediction {#predicition-shiyu}
+We also make a prediction to see if a hot and dry climate like 2018 will continue to happen in the future, here we first fit Copula with Anomalies data and then predict the final temperature and precipitation data through the model in \@ref(anomaliesmodel-shiyu). For each of these sets we generate 10,000 sets of data. Due to global Warming is the trend of climate change nowadays, so we use use 5 sets of GMT increasing from 0, which are 0, 1, 1.5, 2, and 3. And the red dots in the graph still represent the data of 2018.
 
 ```{r prediction1-shiyu, cache=FALSE, fig.cap = 'Prediction for whole Germany', out.width='80%', fig.align='center', echo=FALSE, eval = TRUE}
 knitr::include_graphics('work/03-compounds/figures/GMT/predictionall.png')
@@ -463,7 +491,7 @@ knitr::include_graphics('work/03-compounds/figures/GMT/predictbundeslandJJA.png'
 
 And in Figure \@ref(fig:prediction2-shiyu) and Figure \@ref(fig:prediction3-shiyu) for the bundesland the general trend is the same, in the simulation from March to November only the two Bundesland of Baden and Sachensen show a trend that precipitation also decreases when the temperature increases, the others tend to have more precipitation. For the months of June to August too, most of the Bundesland shows the same trend as the whole of Germany, only Schleswig shows the opposite trend, i.e. more precipitation. But there are some Bundesland where the precipitation doesn't seem to have changed significantly such as Bremen, Harmburg and so on.
 
-## Conclusion
+## Conclusion {#conclusion-shiyu}
 There are many types of Copula models, each capturing different features of the data. The selection of a model needs to capture as many features of the data as possible while preventing overfitting. In this study, we use the “BiCopSelect()” function and its default criteria AIC to do model selection.
 
 A positive Upper Tail Dependence between temperature and negative precipitation was found both in March to November and June to August in whole Germany.  However, when we look at Bundesland, there are many different situations that occur; some Bundesland consistently show high values of UTD, such as Sachsen-Anhalt and Sachsen, and some Bundesland's values of UTD are greatly reduced by the use of fitted marginal distributions, such as Bayern and Hessen. Introducing GMT and removing the effect of global temperature changes on temperature and humidity changes in Germany can reduce the lowering of UTD values by fitting marginal distributions, which is valid for the German data as a whole and many Bundesland, but there are exceptions. 
