@@ -108,7 +108,7 @@ P = 1 - F_D(D^{(k)}_i).
 \end{equation}
 
 The constants are:
-$C_0 = 2.515517, \quad C_1 = 0.802853, \quad C_2 = 0.010328, \quad C_3 = -0.000220,$ $d_1 = 1.432788, \quad d_2 = 0.189269, \quad d_3 = 0.001308$. @vicente
+$C_0 = 2.515517, \quad C_1 = 0.802853, \quad C_2 = 0.010328, \quad C_3 = -0.000220,$ $d_1 = 1.432788, \quad d_2 = 0.189269, \quad d_3 = 0.001308$. (@vicente)
 
 ## Results
 
@@ -121,7 +121,6 @@ For the normal distribution, parameters were estimated using Maximum Likelihood 
 ```{r modelfittingSPEI, echo=FALSE, warning=FALSE, fig.cap="Histograms of the water balance for different time scales (1, 3, 6, 12, 18, and 24 months) with fitted log-logistic and normal distributions for the reference period 1981 - 2010."}
 
 modelfitting_plot
-
 ```
 
 To compare the goodness of fit of the normal and log-logistic distributions to the empirical water balance data, the Wasserstein distance was calculated. 
@@ -160,9 +159,11 @@ The 1-month SPEI shows the highest variability due to its sensitivity to short-t
 There is a trend toward more negative SPEI values in the last years, indicating a decrease in water availability and increasing drought conditions. This trend is mostly visible in the longer time scales. 
 Historically, Bavaria has experienced extended periods with both negative and positive SPEI values, but in recent years, there have been no prolonged periods with positive SPEI values visible in the 12-, 18-, and 24-month SPEI. 
 
-```{r speiClassification, echo=FALSE, tab.cap="Classification of Droughts Based on the SPEI (@mckee1993)."}
+(ref:mckee1993) @mckee1993
+
+```{r speiClassification, echo=FALSE, tab.cap="Classification of Droughts Based on the SPEI ((ref:mckee1993))."}
 spei_classification <- data.frame(
-  SPEI = c("0 to -0.99", "-1 to -1.49", "-1.5 to -1.99", "$\\leq -2$"),
+  SPEI = c("0 to -0.99", "-1 to -1.49", "-1.5 to -1.99", "less than or equal to -2"),
   Classification = c("Mild Drought", "Moderate Drought", "Severe Drought", "Extreme Drought"))
 
 knitr::kable(spei_classification, booktabs = TRUE)
