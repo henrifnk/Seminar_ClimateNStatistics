@@ -31,7 +31,7 @@ The internal difficulties of quantification evolve around the complex nature of 
 
 (ref:capvins)  @vins2015 
 
-```{r, label="impactDrought", out.width = "80%", fig.align = "center", fig.cap= "Causal process diagram of the impact of drought on the mental health outcomes depression, anxiety and suicide. Numbers in brackets are number of papers meeting the search criteria for each factor. Figure adapted from (ref:capvins)."}
+```{r impactDrought, out.width = "80%", fig.align = "center", fig.cap= "Causal process diagram of the impact of drought on the mental health outcomes depression, anxiety and suicide. Numbers in brackets are number of papers meeting the search criteria for each factor. Figure adapted from (ref:capvins)."}
 knitr::include_graphics("work/12-mentalhealth/figures/drought_impact.png")
 ```
 
@@ -64,7 +64,7 @@ The authors hypothesised that the significant increase in prevalence might be ex
 
 (ref:capkessler)  @kessler2008 
 
-```{r, label = tabResults, warning=FALSE, message=FALSE, tab.cap="Effects of hurricane-related stress on PTSD outcome as shown in (ref:capkessler)."}
+```{r tabResults, warning=FALSE, message=FALSE, tab.cap="Effects of hurricane-related stress on PTSD outcome as shown in (ref:capkessler)."}
 library(knitr)
 library(kableExtra)
 
@@ -82,7 +82,7 @@ knitr::kable(data)
 The study has four mayor limitations: First, in addition to the mentioned selection bias after the first screening, the dropout rate between measurement points was 21.9%. Although a weight was used to account for the selection bias, it is possible that other, non-collected variables might influence participation or dropout. Second, only screening scales instead of diagnostic interviews were used for diagnosis. Hurricane-related stress was measured using self-assessment questionnaires, which is both subjective and retrospective and possibly biased by current emotional functioning. Third, although interpreted causally, hurricane-related stress and PTSD might be influenced by unmeasured common causes, influencing the observed association. Lastly, there is no true pre-hurricane baseline for the sample, and preexisting mental illness was not recorded in the survey.
 The results of the presented study are partially contradicting similar studies which found a decline in PTSD over time (@chen2015). The authors hypothesise that the increase in prevalence in the non-metro subsample may be caused by greater media attention and resources being allocated to the New Orleans metropolitan region, leading to a sense of neglect and slower reconstruction of infrastructure in other areas. It is also remarked that other stressors only indirectly linked to the hurricane, such as economic stress or displacement, might influence MH outcomes. This is an interesting point of discussion, as it shows that the IPCC categorization of climate change exposures impacting MH is not as simple as outlined before. Events that fall into the category of direct exposure, such as hurricanes, might have prolonged effects on mental health outcomes, e. g. via economic hardship. This in turn makes it very difficult to attribute MH outcomes to specific CC events, as effects can be observed directly after the event, but can also have a prolonged onset. The potential causal pathways of short-term and long-term stressors on PTSD are depicted in Figure \@ref(fig:DAGHurricane).
 
-```{r, label="DAGHurricane", out.width = "75%", fig.align = "center", fig.cap="Potential direct and indirect causal pathways through which hurricanes might influence the development of posttraumatic stress disorder (PTSD)."}
+```{r DAGHurricane, out.width = "75%", fig.align = "center", fig.cap="Potential direct and indirect causal pathways through which hurricanes might influence the development of posttraumatic stress disorder (PTSD)."}
 knitr::include_graphics("work/12-mentalhealth/figures/DAG_hurricane.png")
 ```
 
@@ -95,7 +95,7 @@ An example for system thinking would be the protection of infrastructure to bene
 
 (ref:capberry)  @berry2018
 
-```{r, label="DAGInfra", out.width = "75%", fig.align = "center", fig.cap= "Top-level process diagramm depicting linkages between climate change, infratructure and mental health, as shown in (ref:capberry)."}
+```{r DAGInfra, out.width = "75%", fig.align = "center", fig.cap= "Top-level process diagramm depicting linkages between climate change, infratructure and mental health, as shown in (ref:capberry)."}
 knitr::include_graphics("work/12-mentalhealth/figures/DAG_infra_2.png")
 ```
 
