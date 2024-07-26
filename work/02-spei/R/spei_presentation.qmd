@@ -1,0 +1,526 @@
+---
+title: "Standardized Precipitation-Evapotranspiration Index"
+author: "Sophie Hopp"
+abstract: "summer term 2024"
+subtitle: "Seminar: Climate Crisis and Statistics"
+institute: "summer term 2024"
+title-slide-attributes:
+  data-background-image: spei_presentation_files/Titelbild.png
+format:
+  revealjs:
+    slide-number: true
+    incremental: true
+---
+
+## Droughts
+
+```{r setup}
+library(tidyverse)
+library(fitdistrplus)
+library(ggpubr)
+library(zoo)
+climate_data <-  readRDS("../data/climate_data.rds")
+
+time_scales <- c(1, 3, 6, 12, 18, 24)
+
+theme_set(theme_bw())
+```
+
+```{r functions}
+# Function to estimate the parameters of the 3-parameter log-logistic distribution using L-Moments
+L_moments <- function(data, col) {
+  data <- data[!is.na(data[[col]]),]
+  
+  N <- nrow(data)
+  i <- 1:N
+  freq_est <- (i-0.35)/N
+  w_0 <- 1/N * sum((1-freq_est)^0*sort(data[[col]]))
+  w_1 <- 1/N * sum((1-freq_est)^1*sort(data[[col]]))
+  w_2 <- 1/N * sum((1-freq_est)^2*sort(data[[col]]))
+  w_3 <- 1/N * sum((1-freq_est)^3*sort(data[[col]]))
+  beta_est <- (2*w_1 - w_0)/(6*w_1 - w_0 - 6*w_2)
+  alpha_est <- ((w_0 - 2*w_1)*beta_est)/(gamma(1+1/beta_est)*gamma(1-1/beta_est))
+  gamma_est <- w_0 - alpha_est*gamma(1+1/beta_est) * gamma(1-1/beta_est)
+  return(list(alpha = alpha_est, beta = beta_est, gamma = gamma_est))
+}
+
+# density function of the 3-parameter log-logistic distribution
+f <- function(x, alpha = alpha_est, beta = beta_est, gamma = gamma_est) {
+  beta/alpha * ((x - gamma)/alpha)^(beta-1) * (1 + ((x - gamma)/alpha)^beta)^(-2)
+}
+
+# distribution function of the 3-parameter log-logistic distribution
+F_loglogistic <- function(x, alpha = alpha_est, beta = beta_est, gamma = gamma_est) {
+  if(alpha>gamma) {
+    ifelse(x <= gamma, 0, 1/(1 + (alpha/(x - gamma))^beta))
+  } else {
+    ifelse(x >= gamma, 1, 1/(1 + (alpha/(x - gamma))^beta))
+  }
+}
+```
+
+. . .
+
+![](spei_presentation_files/Dürre2022.png)
+
+## Droughts
+
+![](spei_presentation_files/Dürre2018.png)
+
+::: {style="font-size: 50%;"}
+*https://energytransition.org/2018/12/the-great-drought/*
+:::
+
+## Droughts
+
+::: nonincremental
+-   dry periods with water shortages
+
+-   different types of droughts (meteorological, hydrological, agricultural, socioeconomic)
+
+-   drought definitions are subjective
+
+-   challenges in defining a universal drought index to monitor and assess droughts
+:::
+
+## Standardized Precipitation Index (SPI)
+
+-   based on the probability of precipitation
+
+-   easy calculation
+
+-   multiscalar
+
+-   two assumptions:
+
+    -   the variability of precipitation is higher than for any other variable
+
+    -   all other variables are stationary
+
+## Palmer Drought Severity Index (PDSI)
+
+::: nonincremental
+::: {.fragment fragment-index="1"}
+-   based on the water balance model
+
+-   includes precipitation, runoff, evaporation demand, and moisture supply
+
+-   strong influence of the calibration period
+
+-   issues with spatial comparability
+:::
+
+::: {.fragment fragment-index="2"}
+**self-calibrating PDSI (scPDSI)**
+
+-   spatially comparable
+
+-   not multiscalar
+:::
+:::
+
+## Standardized Precipitation-Evapotranspiration Index (SPEI)
+
+combines
+
+-   sensitivity of the PDSI to changes in evaporation demand
+
+-   the simplicity of calculation of the SPI
+
+-   multitemporal nature of the SPI
+
+## Data Overview
+
+-   Region: Bavaria, Germany
+
+-   Data Source:
+
+    -   German Weather Service (DWD)
+    -   Open Data Portal of the Climate Data Center
+
+-   Data Collected:
+
+    -   Monthly Precipitation
+    -   Monthly Mean Temperature
+
+-   Time Period: January 1881 - March 2024
+
+## Terminology
+
+-   $P$: precipitation (mm)
+
+-   $PET$: potential evapotranspiration (mm)
+
+    -   consists of evaporation and transpiration
+
+    -   maximum amount of water that can be evaporated
+
+    -   thornthwaite method
+
+    -   gets calculated by the temperature, location of study area and time of year to estimate the solar radiation
+
+## Terminology
+
+::: columns
+::: {.column width="50%"}
+::: nonincremental
+-   $P$: precipitation (mm)
+
+-   $PET$: potential evapotranspiration (mm)
+:::
+
+::: {.fragment fragment-index="2"}
+-   $D$: water balance (mm)
+
+    -   $D = P - PET$
+
+    -   can get accumulated over different time scales
+:::
+:::
+
+::: {.column width="50%"}
+::: {.fragment fragment-index="1"}
+![](spei_presentation_files/evapotranspiration.jpg)
+:::
+:::
+:::
+
+## Calculation of the Water Balance
+
+```{r table}
+# climate_data %>%
+#   dplyr::transmute(year = Jahr, month = Monat, P = precipitation, PET = round(PET, 2), D = round(D, 2), D_3 = round(D_accum_3, 2)) %>%
+#   head(10)
+```
+
+![](spei_presentation_files/D_accum.png)
+
+## Calculation of the Water Balance
+
+![](spei_presentation_files/D_accum2.png)
+
+## Water Balance
+
+```{r histograms}
+long_data <- climate_data %>%
+  dplyr::select(Jahr, Monat, D_accum_1 = D, D_accum_3, D_accum_6, D_accum_12, D_accum_18, D_accum_24) %>%
+  pivot_longer(cols = starts_with("D_accum"), names_to = "time_scale", values_to = "D") %>%
+  mutate(time_scale = factor(time_scale, levels = c("D_accum_1", "D_accum_3", "D_accum_6", "D_accum_12", "D_accum_18", "D_accum_24"), 
+labels = c("1 Month", "3 Months", "6 Months", "12 Months", "18 Months", "24 Months"))) %>%
+  filter(!is.na(D))
+
+ggplot(long_data, aes(x = D)) +
+  geom_histogram(fill = "grey80", color = "black", bins = 30) +
+  facet_wrap(~time_scale, scales = "free_x") +
+  theme_bw()
+```
+
+## Water Balance
+
+-   we want to model the distribution of the water balance $D$
+
+-   $D \sim LL(\alpha, \beta, \gamma)$
+
+-   $F(x) = (1 + (\frac{\alpha}{x - \gamma})^\beta)^{-1}$ with $\alpha > 0$, $\beta > 0$, $x < \gamma$
+
+## L-Moments
+
+-   robust and easy method to estimate the parameters of a distribution
+-   analogous to the moments of a distribution, but able to handle outliers
+-   linear combinations of order statistics
+
+## Modelling the Water Balance
+
+```{r model_fitting}
+i <- 0
+plots <- list()
+
+for (time_scale in time_scales) {
+  i <- i + 1
+  
+  L_moments_values <- L_moments(climate_data, paste0("D_accum_", time_scale))
+  
+  p <- climate_data %>%
+    ggplot(aes(x = !!sym(paste0("D_accum_", time_scale)))) +
+    geom_histogram(aes(y = after_stat(density)), bins = 30, fill = "grey80", color = "black", alpha = 0.7) +
+    stat_function(fun = f, aes(color = "Log-Logistic"), size = 1, args = L_moments_values) +
+    stat_function(fun = dnorm, aes(color = "Normal"), size = 1, args = list(mean = mean(climate_data[[paste0("D_accum_", time_scale)]], na.rm = TRUE), sd = sd(climate_data[[paste0("D_accum_", time_scale)]], na.rm = TRUE))) +
+    labs(x = "D", y = "Density") +
+    ggtitle(ifelse(time_scale == 1, "1 Month", paste(time_scale, "Months"))) +
+    scale_color_manual(values = c("Normal" = "royalblue", "Log-Logistic" = "orange")) +
+    theme(legend.title = element_blank())
+  
+  plots[[i]] <- p
+}
+ggarrange(plotlist = plots, ncol = 3, nrow = 2, common.legend = TRUE, legend = "bottom")
+```
+
+## Cumulative Distribution Function
+
+```{r cdf}
+i <- 0
+plots <- list()
+
+for (time_scale in time_scales) {
+  i <- i + 1
+  
+  L_moments_values <- L_moments(climate_data, paste0("D_accum_", time_scale))
+
+  p <- climate_data %>%
+    ggplot(aes(x = !!sym(paste0("D_accum_", time_scale)))) +
+    stat_ecdf(aes(color = "Data"), geom = "step") +
+    stat_function(fun = F_loglogistic, aes(color = "Log-Logistic"), size = 0.5, args = L_moments_values) +
+    stat_function(fun = pnorm, aes(color = "Normal"), size = 0.5, args = list(mean = mean(climate_data[[paste0("D_accum_", time_scale)]], na.rm = TRUE), sd = sd(climate_data[[paste0("D_accum_", time_scale)]], na.rm = TRUE))) +
+    labs(x = "D", y = "Density") +
+    ggtitle(ifelse(time_scale == 1, "1 Month", paste(time_scale, "Months"))) +
+    scale_color_manual(values = c("Normal" = "royalblue", "Log-Logistic" = "orange", "Data" = "black")) +
+    theme(legend.title = element_blank())
+    
+  plots[[i]] <- p
+}
+
+ggarrange(plotlist = plots, ncol = 3, nrow = 2, common.legend = TRUE, legend = "bottom")
+
+```
+
+## Wasserstein Distance
+
+-   measure of the distance between two probability distributions
+
+-   $F_{\text{empirical}}(x)$: empirical cumulative distribution function
+
+-   $F_{\text{theoretical}}(x)$: theoretical cumulative distribution function
+
+-   $\mathcal{W} = \int_{-\infty}^{\infty} |F_{\text{empirical}}(x) - F_{\text{theoretical}}(x)| dx$
+
+## Wasserstein Distance
+
+```{r wasserstein_distance}
+wasserstein_distances <- matrix(NA, nrow = length(time_scales), ncol = 3)
+colnames(wasserstein_distances) <- c("Time Scale", "Normal", "Log-Logistic")
+
+i <- 0
+for (time_scale in time_scales) {
+  i <- i + 1
+  
+  L_moments_values <- L_moments(climate_data, paste0("D_accum_", time_scale))
+  
+  
+  empirical_cdf <- ecdf(climate_data[[paste0("D_accum_", time_scale)]])
+  theoretical_cdf_normal <- function(x) pnorm(x, mean = mean(climate_data[[paste0("D_accum_", time_scale)]], na.rm = TRUE), sd = sd(climate_data[[paste0("D_accum_", time_scale)]], na.rm = TRUE))
+  theoretical_cdf_loglogistic <- function(x) F_loglogistic(x, L_moments_values$alpha, L_moments_values$beta, L_moments_values$gamma)
+  
+  abs_diff_cdf_normal <- function(x) abs(empirical_cdf(x) - theoretical_cdf_normal(x))
+  abs_diff_cdf_loglogistic <- function(x) abs(empirical_cdf(x) - theoretical_cdf_loglogistic(x))
+  
+  wasserstein_distance_normal <- integrate(abs_diff_cdf_normal, lower = -Inf, upper = Inf, subdivisions = 10000)$value
+  wasserstein_distance_loglogistic <- integrate(abs_diff_cdf_loglogistic, lower = -Inf, upper = Inf, subdivisions = 10000)$value
+  
+  wasserstein_distances[i, ] <- c(time_scale, round(wasserstein_distance_normal, 4), round(wasserstein_distance_loglogistic, 4))
+}
+
+wasserstein_distances %>%
+  as.data.frame() %>%
+  kableExtra::kable("html") %>%
+  kableExtra::kable_styling()
+
+```
+
+## Calculation of the SPEI
+
+$P = 1 - F_D(x)$
+
+. . .
+
+$W = \begin{cases} \sqrt{-2\ln(P)} & \text{, for } P \le 0.5 \\ -\sqrt{-2\ln(1-P)} & \text{, for } P > 0.5 \end{cases}$
+
+. . .
+
+$SPEI = W - \frac{C_0 + C_1W + C_2W^2 + C_3W^3}{1 + d_1W + d_2W^2 + d_3W^3}$
+
+. . .
+
+with $C_0 = 2.515517, C_1 = 0.802853, C_2 = 0.010328, C_3 = -0.000220$ $d_1 = 1.432788, d_2 = 0.189269, d_3 = 0.001308$
+
+## SPEI for Bavaria
+
+```{r spei}
+long_data <- climate_data %>%
+  dplyr::select(Jahr, Monat, Datum, spei1, spei3, spei6, spei12, spei18, spei24) %>%
+  pivot_longer(cols = starts_with("spei"), names_to = "time_scale", values_to = "spei") %>%
+  mutate(time_scale = factor(time_scale, levels = c("spei1", "spei3", "spei6", "spei12", "spei18", "spei24"), labels = c(
+    "SPEI1", "SPEI3", "SPEI6", "SPEI12", "SPEI18", "SPEI24"))) %>%
+  filter(!is.na(spei))
+  
+
+long_data %>%
+  filter(Jahr > 1920) %>%
+  ggplot(aes(x = Datum, y = spei)) +
+  geom_area() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Year", y = "SPEI") +
+  facet_wrap(~ time_scale, ncol = 1, scales = "free_y", strip.position = "left") +
+  theme(strip.background = element_blank(),
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0),
+        panel.spacing = unit(0.1, "lines"),
+        axis.title.y = element_blank())
+```
+
+## Extreme Drought Conditions
+
+SPEI below -2 indicates extreme drought conditions
+
+. . .
+
+```{r extreme_drought1}
+climate_data %>%
+  filter(Jahr > 1920) %>%
+  ggplot(aes(x = Datum, y = spei12)) +
+  geom_area() +
+  geom_hline(yintercept = -2, linetype = "dashed", color = "red") +
+  labs(x = "Year", y = "SPEI12")
+```
+
+## Extreme Drought Conditions
+
+```{r extreme_drought2}
+climate_data %>%
+  filter(Jahr > 1920) %>%
+  mutate(extreme = ifelse(spei12 < -2, 1, 0)) %>%
+  # for 10 years sum the number of extreme droughts
+  mutate(extreme_sum = rollapply(extreme, 120, sum, fill = NA, align = "right")/120) %>%
+  filter(!is.na(extreme_sum)) %>%
+  ggplot(aes(x = Datum, y = extreme_sum)) +
+  geom_line() +
+  labs(x = "Year", y = "Proportion of SPEI12 less then -2 \n in the Last 10 Years")
+```
+
+## Average SPEI is decreasing
+
+```{r average_spei}
+climate_data %>%
+  filter(Jahr > 1920) %>%
+  mutate(spei_avg = rollapply(spei12, 120, mean, fill = NA, align = "right")) %>%
+  filter(!is.na(spei_avg)) %>%
+  ggplot(aes(x = Datum, y = spei_avg)) +
+  geom_line() +
+  labs(x = "Year", y = "Moving Average of SPEI12 over 10 Year Period")
+```
+
+## 
+
+## Moving Average
+
+```{r backup1}
+# moving average plot but facetted by time scale
+climate_data %>%
+  filter(is.finite(spei1), is.finite(spei3), is.finite(spei6), is.finite(spei12), is.finite(spei18), is.finite(spei24),
+Jahr > 1920) %>%
+  mutate(spei_avg1 = rollapply(spei1, 120, mean, fill = NA, align = "right"),
+         spei_avg3 = rollapply(spei3, 120, mean, fill = NA, align = "right"),
+         spei_avg6 = rollapply(spei6, 120, mean, fill = NA, align = "right"),
+         spei_avg12 = rollapply(spei12, 120, mean, fill = NA, align = "right"),
+         spei_avg18 = rollapply(spei18, 120, mean, fill = NA, align = "right"),
+         spei_avg24 = rollapply(spei24, 120, mean, fill = NA, align = "right")) %>%
+  pivot_longer(cols = starts_with("spei_avg"), names_to = "time_scale", values_to = "spei_avg") %>%
+  mutate(time_scale = factor(time_scale, levels = c("spei_avg1", "spei_avg3", "spei_avg6", "spei_avg12", "spei_avg18", "spei_avg24"), labels = c("SPEI1", "SPEI3", "SPEI6", "SPEI12", "SPEI18", "SPEI24"))) %>%
+  filter(!is.na(spei_avg)) %>%
+  ggplot(aes(x = Datum, y = spei_avg)) +
+  geom_line() +
+  labs(x = "Year", y = "Moving average of spei over 10 year period") +
+  ggtitle("Moving Average of SPEI for Different Time Scales over a 10 Years Period") +
+  facet_wrap(~ time_scale, ncol = 1, strip.position = "left") +
+  theme(strip.background = element_blank(),
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0),
+        panel.spacing = unit(0.1, "lines"),
+        axis.title.y = element_blank())
+```
+
+## Moving Average
+
+```{r backup2}
+# moving average plot but for different periods (5 years, 10 years, 20 years)
+
+climate_data %>%
+  filter(Jahr > 1920) %>%
+  mutate(spei_avg1 = rollapply(spei12, 12, mean, fill = NA, align = "right"),
+         spei_avg5 = rollapply(spei12, 60, mean, fill = NA, align = "right"),
+         spei_avg10 = rollapply(spei12, 120, mean, fill = NA, align = "right"),
+         spei_avg15 = rollapply(spei12, 180, mean, fill = NA, align = "right"),
+         spei_avg20 = rollapply(spei12, 240, mean, fill = NA, align = "right")) %>%
+  pivot_longer(cols = starts_with("spei_avg"), names_to = "period", values_to = "spei_avg") %>%
+  mutate(period = factor(period, levels = c("spei_avg1", "spei_avg5", "spei_avg10", "spei_avg15", "spei_avg20"), labels = c(
+   "1 Year", "5 Years", "10 Years", "15 Years", "20 Years"))) %>%
+  ggplot(aes(x = Datum, y = spei_avg)) +
+  geom_line() +
+  labs(x = "Year", title = "Moving Average of SPEI12 over Different Time Periods") +
+  facet_wrap(~ period, ncol = 1, strip.position = "left") +
+  theme(strip.background = element_blank(),
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0),
+        panel.spacing = unit(0.1, "lines"),
+        axis.title.y = element_blank())
+
+```
+
+## Extreme Drought Conditions
+
+```{r backup3}
+# plot of the number of extreme droughts in the last 10 years for different time scales
+climate_data %>%
+  filter(Jahr > 1920) %>%
+  mutate(extreme1 = ifelse(spei1 < -2, 1, 0),
+         extreme3 = ifelse(spei3 < -2, 1, 0),
+         extreme6 = ifelse(spei6 < -2, 1, 0),
+         extreme12 = ifelse(spei12 < -2, 1, 0),
+         extreme18 = ifelse(spei18 < -2, 1, 0),
+         extreme24 = ifelse(spei24 < -2, 1, 0)) %>%
+  mutate(extreme_sum1 = rollapply(extreme1, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum3 = rollapply(extreme3, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum6 = rollapply(extreme6, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum12 = rollapply(extreme12, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum18 = rollapply(extreme18, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum24 = rollapply(extreme24, 120, sum, fill = NA, align = "right")/120) %>%
+  pivot_longer(cols = starts_with("extreme_sum"), names_to = "time_scale", values_to = "extreme_sum") %>%
+  mutate(time_scale = factor(time_scale, levels = c("extreme_sum1", "extreme_sum3", "extreme_sum6", "extreme_sum12", "extreme_sum18", "extreme_sum24"), labels = c("SPEI1", "SPEI3", "SPEI6", "SPEI12", "SPEI18", "SPEI24"))) %>%
+  filter(!is.na(extreme_sum)) %>%
+  ggplot(aes(x = Datum, y = extreme_sum)) +
+  geom_line() +
+  labs(x = "Year") +
+  ggtitle("Proportion of Extreme Drought Conditions in the Last 10 Years for Different Time Scales") +
+  facet_wrap(~ time_scale, ncol = 1, strip.position = "left") +
+  theme(strip.background = element_blank(),
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0),
+        panel.spacing = unit(0.1, "lines"),
+        axis.title.y = element_blank())
+```
+
+## Extreme Drought Conditions
+
+```{r backup4}
+# plot of the number of extreme droughts in spei12 in the last 10 years for different periods
+climate_data %>%
+  filter(Jahr > 1920) %>%
+  mutate(extreme = ifelse(spei12 < -2, 1, 0)) %>%
+  mutate(extreme_sum1 = rollapply(extreme, 12, sum, fill = NA, align = "right")/12,
+         extreme_sum5 = rollapply(extreme, 60, sum, fill = NA, align = "right")/60,
+         extreme_sum10 = rollapply(extreme, 120, sum, fill = NA, align = "right")/120,
+         extreme_sum15 = rollapply(extreme, 180, sum, fill = NA, align = "right")/180,
+         extreme_sum20 = rollapply(extreme, 240, sum, fill = NA, align = "right")/240) %>%
+  pivot_longer(cols = starts_with("extreme_sum"), names_to = "period", values_to = "extreme_sum") %>%
+  mutate(period = factor(period, levels = c("extreme_sum1", "extreme_sum5", "extreme_sum10", "extreme_sum15", "extreme_sum20"), labels = c(
+"1 Year", "5 Years", "10 Years", "15 Years", "20 Years"))) %>%
+  ggplot(aes(x = Datum, y = extreme_sum)) +
+  geom_line() +
+  labs(x = "Year", y = "Number of spei12 less then -2 \n") +
+  ggtitle("Proportion of Extreme Drought Conditions in SPEI12 for Different Periods") +
+  facet_wrap(~ period, ncol = 1, strip.position = "left") +
+  theme(strip.background = element_blank(),
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0),
+        panel.spacing = unit(0.1, "lines"),
+        axis.title.y = element_blank())
+```
