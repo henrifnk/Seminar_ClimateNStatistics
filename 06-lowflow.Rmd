@@ -62,10 +62,14 @@ Another dataset for hydrological frequency analysis comes from climate modeling 
 
 Reservoir indices are critical datasets in hydrological studies, especially for understanding and managing low-flow events. These indices provide information on reservoir levels, inflows, outflows, storage capacities, and water releases. Reservoir operations significantly influence streamflow regimes, particularly during periods of low flow, by regulating the amount of water released downstream. The management of reservoir water levels can mitigate the impacts of droughts and ensure a stable water supply for various uses, including agriculture, drinking water, and hydroelectric power generation.
 
-López and Francés (2013) proposed the reservoir index (RI) as an indicator of the impact of reservoirs on flow regimes. It is defined as follows:
+@Lopez2013 proposed the reservoir index (RI) as an indicator of the impact of reservoirs on flow regimes. It is defined as follows:
 
-$$ RI = \sum_{i=1}^{N}\left(\frac{A_{i}}{A_{T}}\right) \cdot \left(\frac{V_{i}}{C_{T}}\right) \tag{1}$$
-
+```{=tex}
+\begin{equation}
+RI = \sum_{i=1}^{N}\left(\frac{A_{i}}{A_{T}}\right) \cdot \left(\frac{V_{i}}{C_{T}}\right)
+(\#eq:RI)
+\end{equation}
+```
 where $N$ is the number of reservoirs upstream of the gauge station, $A_{i}$ is the catchment area of each reservoir, $A_{T}$ is the catchment area of the gauge station, $V_{i}$ is the total capacity of each reservoir, and $C_{T}$ is the mean annual streamflow of the gauge station.
 
 This definition may be modified in specific studies to better suit their research needs. The table below provides detailed information about the datasets used in these studies, including any modifications to the reservoir index.
@@ -77,36 +81,36 @@ Throughout this chapter, information and results from the following studies will
 
 **Table: Detailed Information of Data Used in Studies**
 
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-| Study                   | Data Type                    | Details                                                 | Period    | Source                                                                           |
-+:========================+:=============================+:========================================================+:==========+:=================================================================================+
-| **Du et al. (2015)**    | Observed Hydrological Data   | Mean daily streamflow data                              | 1954-2009 | Huaxian and Xianyang gauging stations                                            |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-|                         | Observed Meteorological Data | Daily average temperature and daily total precipitation | 1954-2009 | 22 meteorological stations in the Wei River Basin                                |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-|                         | Reanalysis Data              | NCEP reanalysis data                                    | 1954-2009 | NOAA (National Oceanic and Atmospheric Administration)                           |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-|                         | GCM Outputs                  | Downscaled GCM outputs                                  | 2010-2099 | CMIP5 (Coupled Model Intercomparison Project Phase 5) under the RCP 8.5 scenario |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-| **Wang et al. (2022)**  | Observed Hydrological Data   | Mean daily streamflow data                              | 1955-2016 | Multiple gauging stations in the Yellow River Basin                              |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-|                         | Observed Meteorological Data | Daily temperature and precipitation data                | 1955-2016 | Meteorological stations in the Yellow River Basin                                |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-|                         | Reservoir Data               | Reservoir inflow, outflow, and storage capacity data    | 1955-2016 | Reservoirs in the Yellow River Basin                                             |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-| **Jiang et al. (2015)** | Observed Hydrological Data   | Mean daily streamflow data                              | 1961-2010 | Ankang (Qa) and Huangzhuang (Qh) gauges                                          |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-|                         | Observed Meteorological Data | Daily temperature and precipitation data                | 1961-2010 | Meteorological stations in the Weihe River Basin                                 |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
-|                         | Reservoir Data               | Reservoir inflow, outflow, and storage capacity data    | 1961-2010 | Reservoirs in the Weihe River Basin                                              |
-+-------------------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+| Study      | Data Type                    | Details                                                 | Period    | Source                                                                           |
++:===========+:=============================+:========================================================+:==========+:=================================================================================+
+| @Du2015    | Observed Hydrological Data   | Mean daily streamflow data                              | 1954-2009 | Huaxian and Xianyang gauging stations                                            |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+|            | Observed Meteorological Data | Daily average temperature and daily total precipitation | 1954-2009 | 22 meteorological stations in the Wei River Basin                                |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+|            | Reanalysis Data              | NCEP reanalysis data                                    | 1954-2009 | NOAA (National Oceanic and Atmospheric Administration)                           |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+|            | GCM Outputs                  | Downscaled GCM outputs                                  | 2010-2099 | CMIP5 (Coupled Model Intercomparison Project Phase 5) under the RCP 8.5 scenario |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+| @Wang2022  | Observed Hydrological Data   | Mean daily streamflow data                              | 1955-2016 | Multiple gauging stations in the Yellow River Basin                              |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+|            | Observed Meteorological Data | Daily temperature and precipitation data                | 1955-2016 | Meteorological stations in the Yellow River Basin                                |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+|            | Reservoir Data               | Reservoir inflow, outflow, and storage capacity data    | 1955-2016 | Reservoirs in the Yellow River Basin                                             |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+| @Jiang2015 | Observed Hydrological Data   | Mean daily streamflow data                              | 1961-2010 | Ankang (Qa) and Huangzhuang (Qh) gauges                                          |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+|            | Observed Meteorological Data | Daily temperature and precipitation data                | 1961-2010 | Meteorological stations in the Weihe River Basin                                 |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
+|            | Reservoir Data               | Reservoir inflow, outflow, and storage capacity data    | 1961-2010 | Reservoirs in the Weihe River Basin                                              |
++------------+------------------------------+---------------------------------------------------------+-----------+----------------------------------------------------------------------------------+
 :::
 
 ## Stationarity vs. Nonstationarity in Low-flow Analysis
 
 In hydrological frequency analysis, understanding the concept of stationarity is crucial for predicting and managing low-flow events. Traditionally, hydrological analyses have assumed stationarity, meaning that the statistical properties of hydrological processes are constant over time. Under this assumption, the historical data on low-flow events can be used to predict future occurrences with the expectation that the governing processes and factors remain unchanged. This approach simplifies the analysis and provides a straightforward basis for calculating return periods and risks (@Gilroy2012; @Katz2013).
 
-Stationary analysis operates under the premise that factors such as climate and land use, which influence hydrological events, do not change significantly over time. This allows for the use of historical data to estimate future low-flow events with a reasonable degree of confidence. The traditional frequency analysis methods, such as fitting probability distributions to historical low-flow data, rely on this assumption. These methods are useful for long-term planning and water resource management as they provide stable and predictable estimates of low-flow probabilities and return periods (@Chow1988). However, the assumption of stationarity is increasingly being questioned due to evident and ongoing changes in climate and land use patterns. Studies have shown that these changes can significantly alter hydrological processes, rendering stationary models less reliable(@Milly2008).
+Stationary analysis operates under the premise that factors such as climate and land use, which influence hydrological events, do not change significantly over time. This allows for the use of historical data to estimate future low-flow events with a reasonable degree of confidence. The traditional frequency analysis methods, such as fitting probability distributions to historical low-flow data, rely on this assumption. These methods are useful for long-term planning and water resource management as they provide stable and predictable estimates of low-flow probabilities and return periods (@Chow1988). However, the assumption of stationarity is increasingly being questioned due to evident and ongoing changes in climate and land use patterns. Studies have shown that these changes can significantly alter hydrological processes, rendering stationary models less reliable (@Milly2008).
 
 Nonstationary analysis acknowledges that the statistical properties of hydrological processes can change over time due to factors like climate change, urbanization, and land-use changes. In a nonstationary framework, the parameters of probability distributions used to model hydrological events are allowed to vary over time or with respect to external covariates, such as meteorological variables. This approach provides a more realistic representation of the evolving nature of hydrological processes under the influence of changing climatic and environmental conditions (@Katz2002; @Milly2008).
 
@@ -122,16 +126,18 @@ This chapter aims to explore these two approaches through a detailed comparison,
 
 ## Detecting Nonstationarity
 
-To identify nonstationarity in hydroclimatological extremes, it is crucial to thoroughly examine the data before applying statistical tests. These tests aim to detect two primary types of nonstationarity: step changes (change points) and monotonic changes (trends). Such variations may be considered indicative of nonstationarity if they significantly deviate from normality in long-term records. Nonstationarity can be detected either in individual time series (point-based analysis) or across larger groups of stations (spatially coherent trends; (@Hall2014; @Slater2021)).
+To identify nonstationarity in hydroclimatological extremes, it is crucial to thoroughly examine the data before applying statistical tests. These tests aim to detect two primary types of nonstationarity: step changes (change points) and monotonic changes (trends). Such variations may be considered indicative of nonstationarity if they significantly deviate from normality in long-term records. Nonstationarity can be detected either in individual time series (point-based analysis) or across larger groups of stations (spatially coherent trends; (@Hall2014; @Slater2021).
 
 ### Change Point Analysis
 
 Change point analysis is a statistical technique used to detect points in a time series where the properties of the data change. In the univariate context, this analysis is relatively straightforward as it deals with a single variable. A widely used method for identifying change points in univariate time series is the Pettitt test (@Pettitt1979). This approach considers a time series as two samples represented by $x_{1}, \ldots, x_{t}$ and $x_{t+1}, \ldots, x_{N}$. Then, the Pettitt indices $U_{t, N}$ can be calculated as:
 
-$$
-U_{t, N}=\sum_{j=1}^{t} \sum_{i=1}^{N} \operatorname{sgn}\left(x_{j}-x_{i}\right) \quad (t=1, \quad \cdots, \quad N) \tag{2}
-$$
-
+```{=tex}
+\begin{equation}
+U_{t, N}=\sum_{j=1}^{t} \sum_{i=1}^{N} \operatorname{sgn}\left(x_{j}-x_{i}\right) \quad (t=1, \quad \cdots, \quad N)
+(\#eq:Pettittind)
+\end{equation}
+```
 where
 
 $$
@@ -144,11 +150,13 @@ $$
 
 The $p$ value of the $U_{t, N}$ can be computed as follows:
 
-$$
+```{=tex}
+\begin{equation}
 p \cong 2 \exp \left[\frac{-6\left(U_{t, N}\right)^{2}}{N^{3}+N^{2}}\right]
-$$
-
-While the Pettitt test effectively identifies change points in univariate time series, real-world data often involve multiple variables that can change simultaneously. In the multivariate context, detecting change points becomes more complex due to the higher dimensionality of the data. To address this complexity, Lavielle and Teyssière (2006) developed a method for identifying multiple change points in multivariate time series. Their approach involves segmenting the time series into several homogeneous segments, each assumed to follow a different multivariate distribution with distinct parameters.
+(\#eq:Pettittprob)
+\end{equation}
+```
+While the Pettitt test effectively identifies change points in univariate time series, real-world data often involve multiple variables that can change simultaneously. In the multivariate context, detecting change points becomes more complex due to the higher dimensionality of the data. To address this complexity, @lavielle2006detection developed a method for identifying multiple change points in multivariate time series. Their approach involves segmenting the time series into several homogeneous segments, each assumed to follow a different multivariate distribution with distinct parameters.
 
 The time series is divided into $K$ segments, where $K$ is the number of change points plus one. For each segment, the likelihood of the observed data is calculated based on the assumed multivariate distribution (e.g., multivariate normal). The method then optimizes a penalized likelihood criterion to balance the goodness of fit and model complexity, often using a penalty term similar to the Bayesian Information Criterion (BIC). Dynamic programming algorithms are employed to efficiently find the optimal segmentation that maximizes the penalized likelihood.
 
@@ -156,14 +164,16 @@ The time series is divided into $K$ segments, where $K$ is the number of change 
 
 The Mann-Kendall (MK) trend test method, endorsed by the World Meteorological Organization, is a widely used nonparametric approach for trend analysis. For a series $X=\left\{x_{1}, x_{2}, \ldots, x_{n}\right\}$, the standard normal statistic $Z$ is estimated as follows:
 
-$$
+```{=tex}
+\begin{equation}
 Z=\left\{\begin{array}{cc}
 (S-1) / \sqrt{\operatorname{var}(S)} & S>0 \\
 0 & S=0 \\
 (S+1) / \sqrt{\operatorname{var}(S)} & S<0
-\end{array}\right.\tag{3}
-$$
-
+\end{array}\right.
+(\#eq:MKZ)
+\end{equation}
+```
 where
 
 $$
@@ -179,9 +189,9 @@ $$
 ::: {style="border: 2px solid #000; padding: 10px; margin-top: 20px; background-color: #f0fbff;"}
 **Applications of Change Point Analysis in Detecting Nonstationarity**
 
-**Du et al. (2015):** This study applies the Mann-Kendall test to detect trends in low-flow series under climate change. Significant decreasing trends were detected at two stations, Huaxian and Xianyang, with Mann-Kendall statistics $Z_{MK}$ values of -2.71 and -3.63, respectively. The results highlight the impact of climate change on hydrological processes and the necessity of incorporating nonstationarity in trend analyses.
+@Du2015: This study applies the Mann-Kendall test to detect trends in low-flow series under climate change. Significant decreasing trends were detected at two stations, Huaxian and Xianyang, with Mann-Kendall statistics $Z_{MK}$ values of -2.71 and -3.63, respectively. The results highlight the impact of climate change on hydrological processes and the necessity of incorporating nonstationarity in trend analyses.
 
-**Wang et al. (2022):** In this study, change point analysis is applied using the Pettitt test and the Mann-Kendall trend test to detect nonstationarity in univariate time series. Specifically, the Pettitt test is utilized to identify significant change points in annual low-flow series. For instance, a significant change point in the low-flow series of the ZGP station in 1980 ($p < 0.1$) was detected, revealing modes of nonstationarity in the hydrological series. This analysis is illustrated in the table below, showing the results of the Pettitt test for low-flow series.
+@Wang2022: In this study, change point analysis is applied using the Pettitt test and the Mann-Kendall trend test to detect nonstationarity in univariate time series. Specifically, the Pettitt test is utilized to identify significant change points in annual low-flow series. For instance, a significant change point in the low-flow series of the ZGP station in 1980 ($p < 0.1$) was detected, revealing modes of nonstationarity in the hydrological series. This analysis is illustrated in the table below, showing the results of the Pettitt test for low-flow series.
 
 **Table: Results of Pettitt and MK tests of low-flow series**
 
@@ -194,7 +204,7 @@ $$
 
 Notes: The numerical values correspond to the $p$ values of the Pettitt and MK tests. The asterisks indicate significance at the 10% level. A value of 0.293 / 0.573 indicates $p$ values before and after a change point.
 
-**Jiang et al. (2015):** This study examines nonstationarities in low-flow series at Ankang and Huangzhuang Gauges and their dependence structure using both univariate and bivariate aspects. For the univariate analysis, the nonparametric Pettitt test identifies an abrupt change in the variance of $Q_{a}$ in 1991, though its mean remains stationary. For $Q_{h}$, changes in mean and variance are detected in 1971 and 1972, respectively. For the bivariate analysis, using Lavielle and Teyssière's (2006) method, a significant change in the dependence structure between $Q_{a}$ and $Q_{h}$ is found in 1970, indicating nonstationarity in both individual series and their dependence structure.
+@Jiang2015: This study examines nonstationarities in low-flow series at Ankang and Huangzhuang Gauges and their dependence structure using both univariate and bivariate aspects. For the univariate analysis, the nonparametric Pettitt test identifies an abrupt change in the variance of $Q_{a}$ in 1991, though its mean remains stationary. For $Q_{h}$, changes in mean and variance are detected in 1971 and 1972, respectively. For the bivariate analysis, using @lavielle2006detection method, a significant change in the dependence structure between $Q_{a}$ and $Q_{h}$ is found in 1970, indicating nonstationarity in both individual series and their dependence structure.
 :::
 
 ## Univariate Statistical Analysis
@@ -203,25 +213,29 @@ To effectively analyze and manage low-flow events, it is essential to understand
 
 ### Exceedance Probability of a Low-flow Event
 
-The low-flow characteristics of the flow regime are represented by the random variable $Z$. Focusing on water scarcity, we define the design low-flow quantile $z_{p_{0}}$, which has a probability $p_{0}$ in any given year that the streamflow falls below this quantile. The likelihood of a flood event exceeding a design flood quantile is commonly referred to as the exceedance probability or the exceeding probability (e.g., (@Salas2013; @Salas2014)). For a low-flow event, exceedance or exceeding indicates that the severity of lack of precipitation is surpassed, meaning the flow statistic value is lower than the design quantile (@Du2015).
+The low-flow characteristics of the flow regime are represented by the random variable $Z$. Focusing on water scarcity, we define the design low-flow quantile $z_{p_{0}}$, which has a probability $p_{0}$ in any given year that the streamflow falls below this quantile. The likelihood of a flood event exceeding a design flood quantile is commonly referred to as the exceedance probability or the exceeding probability (e.g. @Salas2013; @Salas2014). For a low-flow event, exceedance or exceeding indicates that the severity of lack of precipitation is surpassed, meaning the flow statistic value is lower than the design quantile (@Du2015).
 
 #### Stationary Case
 
-Under stationary conditions, the cumulative distribution function of $Z$ is denoted by $F_{Z}(z, {\theta})$, where ${\theta}$ represents the constant statistical parameter set. The aim is to analyze the future evolution of the return period and hydrological risk for a specific design low-flow determined at a particular year based on historical observed data. This particular year is typically defined as the base year or initial year, denoted by $t=0$. Therefore, the given design low-flow at $t=0$, corresponding to an initial return period $T_{0}$, can be derived using $z_{p_{0}} = F_{Z}^{-1}\left(p_{0}, \theta \right)$, where $p_{0}=1 / T_{0}$ and $F_{Z}^{-1}$ is the inverse function of $F_{Z}$ (similarly hereinafter). The period of years following the initial year is referred to as the "future" and initial year $t=0$ corresponds to the last observation year (@Cooley2013). In the stationary case, meaning the controlling environmental factors for future years remain the same as in the initial year $t=0$ $\theta$ is constant for every year, and the exceedance probability corresponding to the design quantile $z_{p_{0}}$ is $p_{0}$ for each future year (Fig. 1a), which can be expressed as:
+Under stationary conditions, the cumulative distribution function of $Z$ is denoted by $F_{Z}(z, {\theta})$, where ${\theta}$ represents the constant statistical parameter set. The aim is to analyze the future evolution of the return period and hydrological risk for a specific design low-flow determined at a particular year based on historical observed data. This particular year is typically defined as the base year or initial year, denoted by $t=0$. Therefore, the given design low-flow at $t=0$, corresponding to an initial return period $T_{0}$, can be derived using $z_{p_{0}} = F_{Z}^{-1}\left(p_{0}, \theta \right)$, where $p_{0}=1 / T_{0}$ and $F_{Z}^{-1}$ is the inverse function of $F_{Z}$ (similarly hereinafter). The period of years following the initial year is referred to as the "future" and initial year $t=0$ corresponds to the last observation year (@Cooley2013). In the stationary case, meaning the controlling environmental factors for future years remain the same as in the initial year $t=0$, $\theta$ is constant for every year, and the exceedance probability corresponding to the design quantile $z_{p_{0}}$ is $p_{0}$ for each future year (Figure \@ref(fig:fig1Gamze)a), which can be expressed as:
 
-$$
-p_{t}=F_{Z}\left(z_{p_{0}}, {\theta}\right)=p_{0}, \quad t=1,2, \ldots, \infty \tag{4}
-$$
-
+```{=tex}
+\begin{equation}
+p_{t}=F_{Z}\left(z_{p_{0}}, {\theta}\right)=p_{0}, \quad t=1,2, \ldots, \infty
+(\#eq:exprobstat)
+\end{equation}
+```
 #### Nonstationary Case
 
-Under nonstationary conditions, the cumulative distribution function of $Z$ is denoted by $F_{Z}\left(z, {\theta}_{t}\right)$, where ${\theta}_{t}$ varies with time or, more specifically, with meteorological variables. In the nonstationary case, the design low-flow quantile corresponding to the initial exceedance probability $p_{0}=1 / T_{0}$ can be derived from $z_{p_{0}}=F_{Z}^{-1}\left(p_{0}, {\theta}_{0}\right)$, where ${\theta}_{0}$ is the statistical parameter set for the initial year $t=0$. Since the statistical parameters change over time, the future exceedance probability corresponding to $z_{p_{0}}$ is no longer constant. The temporal variation in the exceedance probability corresponding to $z_{p_{0}}$ can be characterized by the way the low-flow distribution or, more specifically, the statistical parameters change over time (Fig. 1b) The exceedance probability for each future year can be obtained by:
+Under nonstationary conditions, the cumulative distribution function of $Z$ is denoted by $F_{Z}\left(z, {\theta}_{t}\right)$, where ${\theta}_{t}$ varies with time or, more specifically, with meteorological variables. In the nonstationary case, the design low-flow quantile corresponding to the initial exceedance probability $p_{0}=1 / T_{0}$ can be derived from $z_{p_{0}}=F_{Z}^{-1}\left(p_{0}, {\theta}_{0}\right)$, where ${\theta}_{0}$ is the statistical parameter set for the initial year $t=0$. Since the statistical parameters change over time, the future exceedance probability corresponding to $z_{p_{0}}$ is no longer constant. The temporal variation in the exceedance probability corresponding to $z_{p_{0}}$ can be characterized by the way the low-flow distribution or, more specifically, the statistical parameters change over time (Figure \@ref(fig:fig1Gamze)b) The exceedance probability for each future year can be obtained by:
 
-$$
-p_{t}=F_{Z}\left(z_{p_{0}}, {\theta}_{t}\right), \quad t=1,2, \ldots, \infty \tag{5}
-$$
-
-```{r fig1\\_gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval=TRUE, fig.cap="Schematic depicting the design low-flow quantile $z_{p_{0}}$ with (a) constant exceedance probability $p_{0}$, and (b) time-varying exceedance probabilities $p_{t}, t=1,2, \\ldots, \\infty$."}
+```{=tex}
+\begin{equation}
+p_{t}=F_{Z}\left(z_{p_{0}}, {\theta}_{t}\right), \quad t=1,2, \ldots, \infty
+(\#eq:exprobnonstat)
+\end{equation}
+```
+```{r fig1Gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval=TRUE, fig.cap="Schematic depicting the design low-flow quantile $z_{p_{0}}$ with (a) constant exceedance probability $p_{0}$, and (b) time-varying exceedance probabilities $p_{t}, t=1,2, \\ldots, \\infty$."}
 knitr::include_graphics("./work/06-lowflow/figures/Figure_1.png")
 ```
 
@@ -235,62 +249,78 @@ With the method of time-varying moment, deriving a value of a hydrological varia
 
 **Under stationary conditions**, if $X$ is the random variable representing the year of the first occurrence of a low-flow that exceeds (i.e., is lower than) the design quantile, then the occurrence of a low-flow $Z$ exceeding the design value $z_{p_{0}}$ for the first time in year $X=x$, $x=1,2, \ldots, \infty$, follows the geometric probability law (@Mood1974; @Salas2013, @Salas2014):
 
-$$
-f(x)=P(X=x)=\left(1-p_{0}\right)^{x-1} p_{0}, \quad x=1,2, \ldots, \infty  \tag{6}
-$$
+```{=tex}
+\begin{equation}
+f(x)=P(X=x)=\left(1-p_{0}\right)^{x-1} p_{0}, \quad x=1,2, \ldots, \infty
+(\#eq:ewtstatpdf)
+\end{equation}
+```
+Given that Equation \@ref(eq:ewtstatpdf) is based on the assumptions of independence and stationarity, the expected value of $X$—representing the return period (expected waiting time interpretation) of the low-flow exceeding the design quantile $z_{p_{0}}$ under stationary conditions, is:
 
-Given that Eq. (3) is based on the assumptions of independence and stationarity, the expected value of $X$—representing the return period (expected waiting time interpretation) of the low-flow exceeding the design quantile $z_{p_{0}}$ under stationary conditions, is:
+```{=tex}
+\begin{equation}
+T=E(X)=\sum_{x=1}^{\infty} x f(x)=1 / p_{0}
+(\#eq:ewtstat)
+\end{equation}
+```
+**Under nonstationary conditions**, the exceedance probability associated with $z_{p_{0}}$ is no longer constant (Figure \@ref(fig:fig1Gamze)b). Consequently, the geometric probability law, which takes into account time-varying exceedance probabilities $p_{t}$, is expressed as (@Cooley2013, @Salas2013, @Salas2014):
 
-$$
-T=E(X)=\sum_{x=1}^{\infty} x f(x)=1 / p_{0} \tag{7}
-$$
-
-**Under nonstationary conditions**, the exceedance probability associated with $z_{p_{0}}$ is no longer constant (Fig. 1b). Consequently, the geometric probability law, which takes into account time-varying exceedance probabilities $p_{t}$, is expressed as (@Cooley2013, @Salas2013, @Salas2014):
-
-$$
+```{=tex}
+\begin{equation}
 \begin{aligned}[b]
 f(x) & =P(X=x)=\left(1-p_{1}\right)\left(1-p_{2}\right) \ldots\left(1-p_{x-1}\right) p_{x} \\
 & =p_{x} \prod_{t=1}^{x-1}\left(1-p_{t}\right), \quad x=1,2, \ldots, \infty 
-\end{aligned}\tag{8}
-$$
-
+\end{aligned}
+(\#eq:ewtnonstatpdf)
+\end{equation}
+```
 Therefore, the EWT-return period $T$ for a low-flow event exceeding the design quantile $z_{p_{0}}$ under nonstationary conditions is:
 
-$$
- T=E(X)=\sum_{x=1}^{\infty} x f(x)=\sum_{x=1}^{\infty} x p_{x} \prod_{t=1}^{x-1}\left(1-p_{t}\right) \tag{9}
-$$
-
+```{=tex}
+\begin{equation}
+ T=E(X)=\sum_{x=1}^{\infty} x f(x)=\sum_{x=1}^{\infty} x p_{x} \prod_{t=1}^{x-1}\left(1-p_{t}\right)
+(\#eq:ewtnonstat)
+\end{equation}
+```
 #### Return Period Using Expected Number of Exceedances (ENE) Interpretation
 
 **Under stationary conditions**, if $M$ is the random variable representing the number of exceedances in $T$ years, then $M=\sum_{t=1}^{T} I\left(Z_{t}<z_{p_{0}}\right)$, where $I(\cdot)$ is the indicator function. In this scenario, $M$ follows a binomial distribution (@Cooley2013):
 
-$$
-f(m)=P(M=m)=\binom{T}{m} p_{0}^{m}\left(1-p_{0}\right)^{T-m} \tag{10}
-$$
-
+```{=tex}
+\begin{equation}
+f(m)=P(M=m)=\binom{T}{m} p_{0}^{m}\left(1-p_{0}\right)^{T-m}
+(\#eq:enestatpdf)
+\end{equation}
+```
 It follows that the expected value of $M$ is 1 :
 
-$$
-E(M)=\sum_{t=1}^{T} p_{0}=T p_{0}=1 \tag{11}
-$$
-
+```{=tex}
+\begin{equation}
+E(M)=\sum_{t=1}^{T} p_{0}=T p_{0}=1
+(\#eq:enestat)
+\end{equation}
+```
 Therefore, the return period (expected number of exceedances interpretation) for a low-flow event exceeding the design quantile $z_{p_{0}}$ under stationary conditions is $T=1 / p_{0}$.
 
 **Under nonstationary conditions**, the exceedance probability is not constant, and $M$ does not follow a binomial distribution. In this context, the expected number of exceedances is expressed as (@Cooley2013):
 
-$$
+```{=tex}
+\begin{equation}
 \begin{aligned}[b]
 E(M) & =\sum_{t=1}^{T} E\left[\left(Z_{t}<z_{p_{0}}\right)\right]=\sum_{t=1}^{T} P\left(Z_{t}<z_{p_{0}}\right)=\sum_{t=1}^{T} F_{Z}\left(z_{p_{0}}, {\theta}_{t}\right) \\
 & =\sum_{t=1}^{T} p_{t} 
-\end{aligned}\tag{12}
-$$
+\end{aligned}
+(\#eq:enenonstat)
+\end{equation}
+```
+The ENE-return period $T$ for a low-flow event exceeding the design quantile $z_{p_{0}}$ under nonstationary conditions can be derived by setting Equation \@ref(eq:enenonstat) equal to 1 and solving:
 
-The ENE-return period $T$ for a low-flow event exceeding the design quantile $z_{p_{0}}$ under nonstationary conditions can be derived by setting Eq. (12) equal to 1 and solving:
-
-$$
-\sum_{t=1}^{T} p_{t}=1 \tag{13} 
-$$
-
+```{=tex}
+\begin{equation}
+\sum_{t=1}^{T} p_{t}=1
+(\#eq:enenonstat1)
+\end{equation}
+```
 ### Hydrological Risk
 
 In practical applications of hydrological frequency analysis, the management question often revolves around risk. Specifically, for a design life of $n$ years, the hydrological risk $R$ is defined as the probability of a low-flow event exceeding the design value $z_{p_{0}}$ before or at year $n$. This risk can be derived from the complement perspective, meaning there is no exceedance during the design life of $n$ years.
@@ -299,28 +329,32 @@ As an example, consider a low-flow event with a return period of 100 years. The 
 
 **Under the assumptions of independence and stationarity**, the probability of the complement is $\left(1-p_{0}\right)^{n}$. Consequently, the hydrological risk under stationary conditions is given by (@Haan2002):
 
-$$
-R=1-\left(1-p_{0}\right)^{n} \tag{14}
-$$
-
+```{=tex}
+\begin{equation}
+R=1-\left(1-p_{0}\right)^{n}
+(\#eq:riskstat)
+\end{equation}
+```
 In recent years, hydrological **risk analysis under nonstationary conditions** has gained popularity (@Rootzen2013; @Salas2014; @Condon2015; @Serinaldi2015). This approach offers designers a different perspective from traditional return period and design level methods by incorporating the basic information of design life $n$ and time-varying exceedance probabilities $p_{t}$. Similar to the stationary case, for a design life of $n$ years, the probability of a low-flow event exceeding the design quantile $z_{p_{0}}$ before or at year $n$ under time-varying exceedance probabilities $p_{t}$ is:
 
-$$
-R=1-\left[\left(1-p_{1}\right)\left(1-p_{2}\right) \ldots\left(1-p_{n}\right)\right]=1-\prod_{t=1}^{n}\left(1-p_{t}\right) \tag{15}
-$$
-
+```{=tex}
+\begin{equation}
+R=1-\left[\left(1-p_{1}\right)\left(1-p_{2}\right) \ldots\left(1-p_{n}\right)\right]=1-\prod_{t=1}^{n}\left(1-p_{t}\right)
+(\#eq:risknonstat)
+\end{equation}
+```
 ::: {style="border: 2px solid #000; padding: 10px; margin-top: 20px; background-color: #f0fbff;"}
-**Return Period and Risk Results from Du et al. (2015)**
+**Return Period and Risk Results from @Du2015**
 
 **Nonstationary Return Period Using Meteorological Covariates**
 
-Figure 2 presents the return period and risk results using meteorological covariates (explained in the model selection part) for Huaxian and Xianyang stations.
+Figure \@ref(fig:fig2Gamze) presents the return period and risk results using meteorological covariates (explained in the model selection part) for Huaxian and Xianyang stations.
 
 -   **Panel (a) and (b)**: The black diagonal line represents the stationary case where $T = T_0$, meaning the return period remains constant over time as expected under stationary assumptions. The other lines depict the nonstationary return periods calculated using the meteorological covariates (temperature and precipitation). These lines show the variability in return periods under nonstationary conditions. The deviations from the diagonal line indicate the impact of changing climatic conditions on the frequency of low-flow events. In nonstationary cases, return periods are generally shorter than the stationary assumption, indicating more frequent low-flow events.
 
 -   **Panel (c) and (d)**: These panels illustrate the nonstationary hydrological risk $R$ over different design lives ($n$). The black solid line shows the stationary risk, providing a baseline for comparison. The nonstationary risk curves, calculated using the covariates, are generally higher than the stationary risk, especially for longer design lives. This indicates a greater likelihood of experiencing low-flow events in the future under nonstationary conditions. The comparison between stationary and nonstationary risks highlights the importance of incorporating nonstationary models in hydrological risk assessments to account for changing climatic conditions.
 
-```{r fig2\\_gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE, fig.cap="Nonstationary return period T and hydrological risk R of the Wei River"}
+```{r fig2Gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE, fig.cap="Nonstationary return period T and hydrological risk R of the Wei River"}
 knitr::include_graphics("./work/06-lowflow/figures/Figure_2.png")
 ```
 
@@ -357,7 +391,7 @@ knitr::include_graphics("./work/06-lowflow/figures/Figure_2.png")
 
 ### Nonstationary frequency analysis of low-flow series
 
-The standard method for calculating nonstationary return periods under the EWT and ENE interpretations, as well as the risk of a design quantile $z_{p_{0}}$ corresponding to an initial return period $T_{0}$, is outlined by Eqs. (9), (13), (15), respectively. A crucial aspect of this procedure is the derivation of time-varying exceedance probabilities $p_{t}$ (Eq. (5)) for future years. This process involves determining the relationships between the statistical parameters of the low-flow distribution and the explanatory variables, which is typically referred to as nonstationary frequency analysis.
+The standard method for calculating nonstationary return periods under the EWT and ENE interpretations, as well as the risk of a design quantile $z_{p_{0}}$ corresponding to an initial return period $T_{0}$, is outlined by Equations \@ref(eq:ewtnonstat), \@ref(eq:enenonstat1), \@ref(eq:risknonstat), respectively. A crucial aspect of this procedure is the derivation of time-varying exceedance probabilities $p_{t}$ (Equation \@ref(eq:exprobnonstat)) for future years. This process involves determining the relationships between the statistical parameters of the low-flow distribution and the explanatory variables, which is typically referred to as nonstationary frequency analysis.
 
 #### GAMLSS
 
@@ -365,23 +399,27 @@ The nonstationary low-flow series is modeled using the Generalized Additive Mode
 
 Given an $n$-length vector of the response variable $z^{T} = (z_{1}, \ldots, z_{n})$, let $g_{k}(\cdot)$, for $k = 1, 2, \ldots, p$, be known monotonic link functions relating the distribution parameters to explanatory variables and random effects through an additive model given by:
 
-$$
-g_{k}(\theta_{k}) = \eta_{k} = X_{k} \beta_{k} + \sum_{j=1}^{J_{k}} Z_{jk} \gamma_{jk}\tag{16}
-$$
-
+```{=tex}
+\begin{equation}
+g_{k}(\theta_{k}) = \eta_{k} = X_{k} \beta_{k} + \sum_{j=1}^{J_{k}} Z_{jk} \gamma_{jk}
+(\#eq:gamlss)
+\end{equation}
+```
 where $\eta_{k}$ and $\theta_{k}$ are vectors of length $n$ (e.g., $\theta_{k}^{T} = (\theta_{k}^{1}, \theta_{k}^{2}, \ldots, \theta_{k}^{n})$), $\beta_{k}^{T} = (\beta_{1k}, \beta_{2k}, \ldots, \beta_{Jkk})$ is a parameter vector of length $J_{k}$, $\mathbf{X}_{k}$ is a matrix of explanatory variables (i.e., covariates) of order $n \times J_{k}$, $Z_{jk}$ is a fixed known $n \times q_{jk}$ design matrix, and $\gamma_{jk}$ is a $q_{jk}$-dimensional random variable. The linear predictors $\eta_{k}$ for $k = 1, \ldots, p$ comprise a parametric component $\mathbf{X}_{k} \beta_{k}$ (linear functions of explanatory variables) and the additive component $Z_{jk} \gamma_{jk}$ (linear functions of stochastic variables). If $Z_{jk} = \mathrm{I}_{n}$, where $\mathrm{I}_{n}$ is an $n \times n$ identity matrix and $\gamma_{jk} = h_{jk} = h_{jk}(x_{jk})$ for all combinations of $j$ and $k$, we obtain the semi-parametric additive formulation of GAMLSS:
 
-$$
-g_{k}(\theta_{k}) = \eta_{k} = X_{k} \beta_{k} + \sum_{j=1}^{J_{k}} h_{jk}(x_{jk})\tag{17}
-$$
-
+```{=tex}
+\begin{equation}
+g_{k}(\theta_{k}) = \eta_{k} = X_{k} \beta_{k} + \sum_{j=1}^{J_{k}} h_{jk}(x_{jk})
+(\#eq:gamlsssemiparam)
+\end{equation}
+```
 where $\theta_{k}$ is the parameter vector of length $n$, $\mathbf{X}_{jk}$ is a matrix of explanatory variables of order $n \times m$, $\beta_{k}$ is a parameter vector of length $m$, and $h_{jk}$ denotes the functional dependence of the distribution parameters on explanatory variables $x_{jk}$, which is a column of matrix $\mathbf{X}_{jk}$. This dependence can be linear or smoothed using smoothing terms, and the smooth dependence is based on a cubic spline function (@Lopez2013).
 
-Various probability distributions have been suggested for modeling low-flow events (@Matalas1963; @Eratakulan1970; @Smakhtin2001; @Hewa2007; @Liu2015). Matalas (1963) investigated four distributions in modeling low-flow data from 34 streams and found that the Gumbel and Pearson-III distributions fit the data well and were more representative than the Lognormal and Pearson-V distributions. Eratakulan (1970) discovered that the Gamma and Weibull distributions were the most suitable for modeling the low-flow series from 37 stations in the Missouri River basin. Hewa et al. (2007) introduced the GEV distribution into the frequency analysis of low-flow data from 97 catchments in Victoria, Australia. Liu et al. (2015) tested six distributions for modeling the annual low flows at the Yichang station, China, under nonstationary conditions and found that the GEV distribution provided the best fit.
+Various probability distributions have been suggested for modeling low-flow events (@Matalas1963; @Eratakulan1970; @Smakhtin2001; @Hewa2007; @Liu2015). @Matalas1963 investigated four distributions in modeling low-flow data from 34 streams and found that the Gumbel and Pearson-III distributions fit the data well and were more representative than the Lognormal and Pearson-V distributions. @Eratakulan1970 discovered that the Gamma and Weibull distributions were the most suitable for modeling the low-flow series from 37 stations in the Missouri River basin. @Hewa2007 introduced the GEV distribution into the frequency analysis of low-flow data from 97 catchments in Victoria, Australia. @Liu2015 tested six distributions for modeling the annual low flows at the Yichang station, China, under nonstationary conditions and found that the GEV distribution provided the best fit.
 
-Based on these studies, five two-parameter distributions (Gamma (GA), Weibull (WEI), Gumbel (GU), Logistic (LO), and Lognormal (LOGNO)) and two three-parameter distributions (Pearson-III (P-III) and GEV) that are widely used in modeling low-flow data are listed in Table 1. Considering that the shape parameter $\kappa$ of the P-III and GEV distributions is quite sensitive and difficult to estimate, it is mostly assumed to be constant (@Coles2001; @Katz2002; @Gilroy2012; @Du2015). Nonstationarities in both the location $\mu$ and scale $\sigma$ parameters are examined through monotonic link functions $\mathrm{g}(\cdot)$.
+Based on these studies, five two-parameter distributions (Gamma (GA), Weibull (WEI), Gumbel (GU), Logistic (LO), and Lognormal (LOGNO)) and two three-parameter distributions (Pearson-III (P-III) and GEV) that are widely used in modeling low-flow data are listed in [Table 7.1](#table7.1Gamze). Considering that the shape parameter $\kappa$ of the P-III and GEV distributions is quite sensitive and difficult to estimate, it is mostly assumed to be constant (@Coles2001; @Katz2002; @Gilroy2012; @Du2015). Nonstationarities in both the location $\mu$ and scale $\sigma$ parameters are examined through monotonic link functions $\mathrm{g}(\cdot)$.
 
-::: {style="overflow-x: auto;"}
+::: {#table7.1Gamze style="overflow-x: auto;"}
 +--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
 | Distribution | Probability Density Function                                                                                                                                                                                                                                                                                                                                                                            | Moments                                                                                                                                                                                      | Link Functions                                                                             |
 +==============+=========================================================================================================================================================================================================================================================================================================================================================================================================+==============================================================================================================================================================================================+============================================================================================+
@@ -401,44 +439,52 @@ Based on these studies, five two-parameter distributions (Gamma (GA), Weibull (W
 +--------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
 :::
 
-**Table 1: Summary of the distributions used to model the low-flow series (@Du2015)**
+**Table 7.1: Summary of the distributions used to model the low-flow series (@Du2015)**
 
 #### Model Selection
 
 The optimal nonstationary model was selected by penalizing more complex models using the Akaike Information Criterion (AIC) (@Akaike1974) and the Bayesian Information Criterion (BIC) (@Schwarz1978). The AIC is calculated as:
 
-$$
-\mathrm{AIC}=-2 \ln (\mathrm{ML})+2 k \tag{18}
-$$
-
+```{=tex}
+\begin{equation}
+\mathrm{AIC}=-2 \ln (\mathrm{ML})+2 k
+(\#eq:AIC)
+\end{equation}
+```
 where ML is the maximum likelihood function of the models and $k$ is the number of independently adjusted parameters within the model. Theoretically, $-\infty < \mathrm{AIC} < \infty$. Similarly, BIC is calculated as:
 
-$$
-\mathrm{BIC}=-2 \ln (\mathrm{ML})+k \ln(n) \tag{19}
-$$
-
+```{=tex}
+\begin{equation}
+\mathrm{BIC}=-2 \ln (\mathrm{ML})+k \ln(n)
+(\#eq:BIC)
+\end{equation}
+```
 where $n$ is the number of observations. The model with the smallest AIC and BIC values is considered the optimal one.
 
 #### Goodness-of-fit
 
-While the information criterion value identifies the optimal model, it is not a measure of model performance. The goodness-of-fit of the selected optimal model was assessed qualitatively using the worm plots (Buuren and Fredriks, 2001) and centile curves diagnostic plots, and quantitatively using the statistics of the Filliben correlation coefficient (denoted by $F_{r}$) (@Filliben1975) and the Kolmogorov-Smirnov (KS) test (denoted by $\left.D_{KS}\right)$ (@Massey1951). $F_{r}$ and $\left.D_{KS}\right)$ are calculated by Eqs. (20) and (22), respectively:
+While the information criterion value identifies the optimal model, it is not a measure of model performance. The goodness-of-fit of the selected optimal model was assessed qualitatively using the worm plots (Buuren and Fredriks, 2001) and centile curves diagnostic plots, and quantitatively using the statistics of the Filliben correlation coefficient (denoted by $F_{r}$) (@Filliben1975) and the Kolmogorov-Smirnov (KS) test (denoted by $\left.D_{KS}\right)$ (@Massey1951). $F_{r}$ and $\left.D_{KS}\right)$ are calculated by Equations \@ref(eq:Filliben) and \@ref(eq:KS), respectively:
 
-$$
-F_{r}=\operatorname{Cor}(S, B)=\frac{\sum_{i=1}^{\tau}\left(S_{(i)}-\bar{S}\right)\left(B_{i}-\bar{B}\right)}{\sqrt{\sum_{i=1}^{\tau}\left(S_{(i)}-\bar{S}\right)^{2} \sum_{i=1}^{\tau}\left(B_{i}-\bar{B}\right)^{2}}} \tag{20}
-$$
-
+```{=tex}
+\begin{equation}
+F_{r}=\operatorname{Cor}(S, B)=\frac{\sum_{i=1}^{\tau}\left(S_{(i)}-\bar{S}\right)\left(B_{i}-\bar{B}\right)}{\sqrt{\sum_{i=1}^{\tau}\left(S_{(i)}-\bar{S}\right)^{2} \sum_{i=1}^{\tau}\left(B_{i}-\bar{B}\right)^{2}}}
+(\#eq:Filliben)
+\end{equation}
+```
 where $S_{(i)}$ are the ordered residuals obtained by sorting $\Phi^{-1}\left[F_{Z}\left(z_{i}, {\theta}{i}\right)\right]$ in ascending order for $1 \leqslant i \leqslant \tau$. Here, $\Phi^{-1}$ denotes the inverse function of the standard normal distribution, and $\tau$ represents the length of the observation period (similarly hereinafter). $B{i}$ are the standard normal order statistic medians calculated from $\Phi^{-1}\left(b_{i}\right)$, where $b_{i}$ are derived by:
 
 $$
-b_{i}=\left\{\begin{array}{lc}1-b_{\tau} & i=1 \\ (i-0.3175) /(\tau+0.365) & i=2,3, \ldots, \tau-1 \\ 0.5^{(1 / \tau)} & i=\tau\end{array}\right.\tag{21}
+b_{i}=\left\{\begin{array}{lc}1-b_{\tau} & i=1 \\ (i-0.3175) /(\tau+0.365) & i=2,3, \ldots, \tau-1 \\ 0.5^{(1 / \tau)} & i=\tau\end{array}\right.
 $$
 
 $F_{r}$ ranges from $(0,1]$, and an $F_{r}$ value greater than the critical value $F_{\alpha}$ indicates that the nonstationary model passes the goodness-of-fit test.
 
-$$
-D_{K S}=\max _{1 \leq i \leq \tau}\left|\hat{G}_{i}-G_{(i)}\right| \tag{22}
-$$
-
+```{=tex}
+\begin{equation}
+D_{K S}=\max _{1 \leq i \leq \tau}\left|\hat{G}_{i}-G_{(i)}\right|
+(\#eq:KS)
+\end{equation}
+```
 where $\hat{G}{i}$ are the empirical cumulative probabilities calculated as $i /(\tau+1)$, and $G{(i)}$ are the ordered theoretical cumulative probabilities obtained by sorting $F_{Z}\left(z_{i}, {\theta}{i}\right)$ in ascending order for $1 \leqslant i \leqslant \tau$. $D{KS}$ ranges from $[0,1]$, and a $D_{KS}$ value smaller than the critical value $D_{\alpha}$ indicates that the nonstationary model passes the goodness-of-fit test.
 
 To summarize, the main steps in deriving time-varying exceedance probabilities $p_{t}$ for future years are:
@@ -447,39 +493,39 @@ To summarize, the main steps in deriving time-varying exceedance probabilities $
 
 (ii) Calculating the design low-flow quantile $z_{p_{0}}$ corresponding to an initial return period $T_{0}$ from the quantile function $z_{p_{0}}=F_{Z}^{-1}\left(p_{0}, {\theta}_{0}\right)$, where $p_{0}=1 / T_{0}$ and ${\theta}_{0}$ is the fitted statistical parameter set of the initial year $t=0$.
 
-(iii) Deriving time-varying exceedance probabilities $p_{t}$ corresponding to $z_{p_{0}}$ for future years $t=1,2, \ldots, \infty$ (when using time as a covariate) or $t=1,2, \ldots, t_{\max }$ (when using meteorological covariates) from Eq. (5) where ${\theta}_{t}$ is calculated by extending the optimal nonstationary model from step (i) into the future under the respective case of covariates.
+(iii) Deriving time-varying exceedance probabilities $p_{t}$ corresponding to $z_{p_{0}}$ for future years $t=1,2, \ldots, \infty$ (when using time as a covariate) or $t=1,2, \ldots, t_{\max }$ (when using meteorological covariates) from Equation \@ref(eq:exprobnonstat)) where ${\theta}_{t}$ is calculated by extending the optimal nonstationary model from step (i) into the future under the respective case of covariates.
 
 ::: {style="border: 2px solid #000; padding: 10px; margin-top: 20px; background-color: #f0fbff;"}
 **Applications of Model Selection and Goodness of Fit**
 
 This table summarizes the model selection and goodness of fit for low flow series as analyzed in three different studies. Each study applied various statistical criteria to select the best-fit models for different hydrological stations. The goodness of fit measures include diagnostic tools like Worm plots, Kolmogorov-Smirnov test, and others. The selected distributions and their parameters are highlighted for each station.
 
-+-------------------------+---------------------------------+--------------------------+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Study                   | Selected Model for Each Station | Model Selection Criteria | Goodness of Fit                                                                       | Selected Distribution with Parameters                                                                                                                                                                                                                                                                                   |
-+=========================+=================================+==========================+=======================================================================================+=========================================================================================================================================================================================================================================================================================================================+
-| **Du et al. (2015)**    | Huaxian: Weibull                | AIC                      | Worm plots, Centile curves, Filliben Correlation Coefficient, Kolmogorov-Smirnov test | $\text{Huaxian}$: $\ln(\mu) \sim \text{Temp}$, $\ln(\sigma) \sim \text{Pr}$ <br> $\text{Xianyang}$: $\ln(\mu) \sim \text{Temp}$, $\ln(\sigma) \sim \text{constant}$                                                                                                                                                     |
-|                         |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-|                         | Xianyang: Gamma                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-+-------------------------+---------------------------------+--------------------------+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **Wang et al. (2022)**  | DPL: Weibull                    | AIC                      | Worm plots, Kolmogorov-Smirnov test                                                   | $\text{DPL}$: $\mu \sim \text{cs(Pr, 2)}$, $\sigma \sim \text{constant}$ <br> $\text{CTG}$: $\mu \sim \text{cs(Pr, 3)}$, $\sigma \sim \text{constant}$ <br> $\text{ZGP}$: $\mu \sim \text{cs(Pr, 2)} + \text{RI}$, $\sigma \sim \text{RI}$ <br> $\text{XX}$: $\mu \sim \text{cs(Pr, 2)}$, $\sigma \sim \text{constant}$ |
-|                         |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-|                         | CTG: Weibull                    |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-|                         |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-|                         | ZGP: Weibull                    |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-|                         |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-|                         | XX: Weibull                     |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-+-------------------------+---------------------------------+--------------------------+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **Jiang et al. (2015)** | Qa: Gamma                       | AICc                     | Worm plots, Kolmogorov-Smirnov test                                                   | $\text{Qa}$: $\mu \sim \text{constant}$, $\sigma \sim \ln(\text{RI}_a)$ <br> $\text{Qh}$: $\mu \sim \ln(\text{RI}_h)$, $\sigma \sim \text{constant}$                                                                                                                                                                    |
-|                         |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-|                         | Qh: Gamma                       |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
-+-------------------------+---------------------------------+--------------------------+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++------------+---------------------------------+--------------------------+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Study      | Selected Model for Each Station | Model Selection Criteria | Goodness of Fit                                                                       | Selected Distribution with Parameters                                                                                                                                                                                                                                                                                   |
++============+=================================+==========================+=======================================================================================+=========================================================================================================================================================================================================================================================================================================================+
+| @Du2015    | Huaxian: Weibull                | AIC                      | Worm plots, Centile curves, Filliben Correlation Coefficient, Kolmogorov-Smirnov test | $\text{Huaxian}$: $\ln(\mu) \sim \text{Temp}$, $\ln(\sigma) \sim \text{Pr}$ <br> $\text{Xianyang}$: $\ln(\mu) \sim \text{Temp}$, $\ln(\sigma) \sim \text{constant}$                                                                                                                                                     |
+|            |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
+|            | Xianyang: Gamma                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
++------------+---------------------------------+--------------------------+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| @Wang2022  | DPL: Weibull                    | AIC                      | Worm plots, Kolmogorov-Smirnov test                                                   | $\text{DPL}$: $\mu \sim \text{cs(Pr, 2)}$, $\sigma \sim \text{constant}$ <br> $\text{CTG}$: $\mu \sim \text{cs(Pr, 3)}$, $\sigma \sim \text{constant}$ <br> $\text{ZGP}$: $\mu \sim \text{cs(Pr, 2)} + \text{RI}$, $\sigma \sim \text{RI}$ <br> $\text{XX}$: $\mu \sim \text{cs(Pr, 2)}$, $\sigma \sim \text{constant}$ |
+|            |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
+|            | CTG: Weibull                    |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
+|            |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
+|            | ZGP: Weibull                    |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
+|            |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
+|            | XX: Weibull                     |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
++------------+---------------------------------+--------------------------+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| @Jiang2015 | Qa: Gamma                       | AICc                     | Worm plots, Kolmogorov-Smirnov test                                                   | $\text{Qa}$: $\mu \sim \text{constant}$, $\sigma \sim \ln(\text{RI}_a)$ <br> $\text{Qh}$: $\mu \sim \ln(\text{RI}_h)$, $\sigma \sim \text{constant}$                                                                                                                                                                    |
+|            |                                 |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
+|            | Qh: Gamma                       |                          |                                                                                       |                                                                                                                                                                                                                                                                                                                         |
++------------+---------------------------------+--------------------------+---------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
--   **Du et al. (2015)**:
+-   @Du2015:
     -   **Huaxian Station**: Selected Weibull distribution with temperature (Temp) and precipitation (Pr) as covariates.
     -   **Xianyang Station**: Selected Gamma distribution with temperature and a constant scale parameter.
--   **Wang et al. (2022)**:
+-   @Wang2022:
     -   Selected Weibull distribution for **DPL, CTG, ZGP**, and **XX** stations with various covariates. Precipitation was modeled using cubic splines (cs) and reservoir index (RI) was included for some stations.
--   **Jiang et al. (2015)**:
+-   @Jiang2015:
     -   Selected Gamma distribution for **Qa** and **Qh** low-flow series of the respective stations with reservoir index as covariate.
 
 These results underscore the importance of incorporating climatic variables (e.g., temperature and precipitation) and anthropogenic factors (e.g., reservoir index) into nonstationary models to better capture the variability and trends in low flow series. The use of cubic splines to model non-linear relationships and the selection of appropriate distributions based on AIC and other diagnostic tools (e.g., worm plots, Filliben correlation coefficient) ensure that the models are well-fitted to the observed data, thereby providing robust tools for hydrological analysis and water resource management.
@@ -493,50 +539,45 @@ One of the advanced methodologies in this domain is the use of copulas, which en
 
 Given the dynamic nature of hydrological processes influenced by climate change and human activities such as reservoir operations, it is crucial to account for nonstationarity in these analyses. This is where time-varying copulas come into play. Unlike static copulas, time-varying copulas allow the parameters defining the dependence structure to evolve over time, reflecting the changing environmental conditions.
 
-In this context, the content that will be presented here is heavily based on the methodologies and findings from the study "Bivariate frequency analysis of nonstationary low-flow series based on the time-varying copula" by Jiang et al (2015). This study exemplifies how time-varying copulas can effectively model the joint distribution of low-flow events under nonstationary conditions, taking into account both the marginal distributions and the evolving dependence structure.
+In this context, the content that will be presented here is heavily based on the methodologies and findings from the study "Bivariate frequency analysis of nonstationary low-flow series based on the time-varying copula" by @Jiang2015. This study exemplifies how time-varying copulas can effectively model the joint distribution of low-flow events under nonstationary conditions, taking into account both the marginal distributions and the evolving dependence structure.
 
 ### Joint Return Period Under Nonstationary Framework
 
-Three methods have been used to calculate the joint return period (JPR) of low-flow events in stationary bivariate frequency analysis: the AND method, corresponding to the probability $P(Y_{1} \leq y_{1} \wedge Y_{2} \leq y_{2})$; the OR method, corresponding to the probability $P(Y_{1} \leq y_{1} \vee Y_{2} \leq y_{2})$; and the Kendall (KEN) return period method. The Kendall return period, a multivariate return period first defined by Salvadori and De Michele (2004b), has been widely applied in analyzing the joint return periods of floods or droughts (@Salvadori2007, @Salvadori2010, @Salvadori2011, @DeMichele2013, @Graler2013, @Salvadori2013). The JPR using the KEN method for low-flow events is given by:
+Three methods have been used to calculate the joint return period (JPR) of low-flow events in stationary bivariate frequency analysis: the AND method, corresponding to the probability $P(Y_{1} \leq y_{1} \wedge Y_{2} \leq y_{2})$; the OR method, corresponding to the probability $P(Y_{1} \leq y_{1} \vee Y_{2} \leq y_{2})$; and the Kendall (KEN) return period method. The Kendall return period, a multivariate return period first defined by @salvadori2004return, has been widely applied in analyzing the joint return periods of floods or droughts (@Salvadori2007, @Salvadori2010, @Salvadori2011, @DeMichele2013, @Graler2013, @Salvadori2013). The JPR using the KEN method for low-flow events is given by:
 
-$$
+```{=tex}
+\begin{equation}
 \begin{aligned}[b]
 T_{KEN} &= \frac{\lambda}{P\left[C\left(u_{1}, u_{2} \mid \theta_{c}\right) \leq p_{KEN}\right]} \\
 &= \frac{\lambda}{P\left\{C\left[F_{1}\left(y_{1} \mid \boldsymbol{\theta}_{1}\right), F_{2}\left(y_{2} \mid \boldsymbol{\theta}_{2}\right) \mid \theta_{c}\right] < p_{KEN}\right\}}  \\
 &= \frac{\lambda}{K_{C}\left(p_{KEN}\right)}
-\end{aligned}\tag{23}
-$$
-
-where $\lambda$ is the average interarrival time between low-flow event occurrences. In this paper, the annual minimum low-flow series is investigated, so $\lambda$ is set to 1 (i.e., $\lambda = 1$). $K_{C}(\cdot)$ is the Kendall distribution function (@Genest1993, @Barbe1996, @Salvadori2007), which provides a univariate representation of multivariate information, and $p_{KEN}$ is a critical probability level corresponding to the value of $K_{C}(p_{KEN})$ (@Salvadori2011, @Salvadori2013).
+\end{aligned}
+(\#eq:ken)
+\end{equation}
+```
+where $\lambda$ is the average interarrival time between low-flow event occurrences. It is assumed here that the annual minimum low-flow series is investigated, so $\lambda$ is set to 1 (i.e., $\lambda = 1$). $K_{C}(\cdot)$ is the Kendall distribution function (@Genest1993, @Barbe1996, @Salvadori2007), which provides a univariate representation of multivariate information, and $p_{KEN}$ is a critical probability level corresponding to the value of $K_{C}(p_{KEN})$ (@Salvadori2011, @Salvadori2013).
 
 Similar to calculating the JPR of low-flow events in stationary bivariate frequency analysis, the JPRs for AND, OR, and KEN methods in nonstationary circumstances are defined as follows:
 
-$$
-\begin{aligned}
-T_{A N D}^{t}=\frac{1}{P\left(Y_{1} \leq y_{1} \wedge Y_{2} \leq y_{2}\right)}\\
-=\frac{1}{C\left[F_{1}\left(y_{1} \mid \boldsymbol{\theta}_{1}^{t}\right), F_{2}\left(y_{2} \mid \boldsymbol{\theta}_{2}^{t}\right) \mid \theta_{c}^{t}\right]} \\
-T_{O R}^{t}=\frac{1}{P\left(Y_{1} \leq y_{1} \vee Y_{2} \leq y_{2}\right)} \\
-=\frac{1}{P\left(Y_{1} \leq y_{1}\right)+P\left(Y_{2} \leq y_{2}\right)-P\left(Y_{1} \leq y_{1} \wedge Y_{2} \leq y_{2}\right)} \\
-=\frac{1}{F_{1}\left(y_{1} \mid \boldsymbol{\theta}_{1}^{t}\right)+F_{2}\left(y_{2} \mid \boldsymbol{\theta}_{2}^{t}\right)-C\left[F_{1}\left(y_{1} \mid \boldsymbol{\theta}_{1}^{t}\right), F_{2}\left(y_{2} \mid \boldsymbol{\theta}_{2}^{t}\right) \mid \theta_{c}^{t}\right]} 
-\end{aligned}\tag{24}
-$$
-
-$$
-T_{K E N}^{t}=\frac{1}{P\left[C\left(u_{1}^{t}, u_{2}^{t} \mid \theta_{c}^{t}\right) \leq p_{K E N}\right]}
-$$
-
-$$
-=\frac{1}{P\left\{C\left[F_{1}\left(y_{1} \mid \boldsymbol{\theta}_{1}^{t}\right), F_{2}\left(y_{2} \mid \boldsymbol{\theta}_{2}^{t}\right) \mid \theta_{c}^{t}\right]<p_{K E N}\right\}} \tag{25}
-$$
-
-$$
-=\frac{1}{K_{C}^{t}\left(p_{K E N}\right)}
-$$
-
+```{=tex}
+\begin{equation}
+\begin{split}
+T_{A N D}^{t} &= \frac{1}{P\left(Y_{1} \leq y_{1} \wedge Y_{2} \leq y_{2}\right)} \\
+&= \frac{1}{C\left[F_{1}\left(y_{1} \mid \boldsymbol{\theta}_{1}^{t}\right), F_{2}\left(y_{2} \mid  \boldsymbol{\theta}_{2}^{t}\right) \mid \theta_{c}^{t}\right]} \\
+T_{O R}^{t} &= \frac{1}{P\left(Y_{1} \leq y_{1} \vee Y_{2} \leq y_{2}\right)} \\
+&= \frac{1}{P\left(Y_{1} \leq y_{1}\right) + P\left(Y_{2} \leq y_{2}\right) - P\left(Y_{1} \leq y_{1} \wedge Y_{2} \leq y_{2}\right)} \\
+&= \frac{1}{F_{1}\left(y_{1} \mid \boldsymbol{\theta}_{1}^{t}\right) + F_{2}\left(y_{2} \mid \boldsymbol{\theta}_{2}^{t}\right) - C\left[F_{1}\left(y_{1} \mid \boldsymbol{\theta}_{1}^{t}\right), F_{2}\left(y_{2} \mid \boldsymbol{\theta}_{2}^{t}\right) \mid \theta_{c}^{t}\right]} \\
+T_{K E N}^{t} &= \frac{1}{P\left[C\left(u_{1}^{t}, u_{2}^{t} \mid \theta_{c}^{t}\right) \leq p_{K E N}\right]} \\
+&= \frac{1}{P\left\{C\left[F_{1}\left(y_{1} \mid \boldsymbol{\theta}_{1}^{t}\right), F_{2}\left(y_{2} \mid \boldsymbol{\theta}_{2}^{t}\right) \mid \theta_{c}^{t}\right] < p_{K E N}\right\}} \\
+&= \frac{1}{K_{C}^{t}\left(p_{K E N}\right)}
+\end{split}
+(\#eq:jpr)
+\end{equation}
+```
 ::: {style="border: 2px solid #000; padding: 10px; margin-top: 20px; background-color: #f0fbff;"}
-**Joint Return Period in Jiang et al. (2015)**
+**Joint Return Period in @Jiang2015**
 
-Jiang et al. (2015) analyzed the joint return period of low-flow events at the Ankang (Qa) and Huangzhuang (Qh) gauges on the Hanjiang River using a time-varying copula model. The study used three methods to calculate the JRP: AND, OR, and Kendall (KEN) methods.
+@Jiang2015 analyzed the joint return period of low-flow events at the Ankang (Qa) and Huangzhuang (Qh) gauges on the Hanjiang River using a time-varying copula model. The study used three methods to calculate the JRP: AND, OR, and Kendall (KEN) methods.
 
 **Time Variation in the Joint Return Periods**:
 
@@ -548,7 +589,7 @@ The JRP isolines of the design low-flow pairs for a given JRP of 50 years were c
 
 **Results**:
 
-```{r fig3\\_gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE, fig.cap="The isolines of design low-flow events with JRP=50 years for three different time periods of 1954-1967, 1968-1991 and 1992-2011"}
+```{r fig3Gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE, fig.cap="The isolines of design low-flow events with JRP=50 years for three different time periods of 1954-1967, 1968-1991 and 1992-2011"}
 knitr::include_graphics("./work/06-lowflow/figures/Figure_3.png")
 ```
 
@@ -567,16 +608,18 @@ These findings emphasize the importance of integrating nonstationary models and 
 
 Based on the definition of the copula (@nelsen2006, @Salvadori2007) the time-varying copula can be expressed as:
 
-$$
+```{=tex}
+\begin{equation}
 \begin{aligned}[b]
 H_{Y_{1}, Y_{2}}\left(y_{1}^{t}, y_{2}^{t}\right) & =C\left[F_{1}\left(y_{1}^{t} \mid \boldsymbol{\theta}_{1}^{t}\right), F_{2}\left(y_{2}^{t} \mid \boldsymbol{\theta}_{2}^{t}\right) \mid \theta_{c}^{t}\right]  \\
 & =C\left(u_{1}^{t}, u_{2}^{t} \mid \theta_{c}^{t}\right)
-\end{aligned}\tag{26}
-$$
-
+\end{aligned}
+(\#eq:copula)
+\end{equation}
+```
 where $C(\cdot)$ denotes the copula function, $F(\cdot)$ is the cumulative distribution function, $\boldsymbol{\theta}_{1}^{t}$ and $\boldsymbol{\theta}_{2}^{t}$ represent the time-varying marginal distribution parameters, and $\theta_{c}^{t}$ is the time-varying copula parameter. Additionally, the marginal probabilities $u_{1}^{t}$ and $u_{2}^{t}$ within the time-varying copula must both follow a uniform distribution over the interval $[0,1]$.
 
-According to Equation (27), three scenarios for the time-varying copula can be derived:
+According to \@ref(eq:copula), three scenarios for the time-varying copula can be derived:
 
 -   all the marginal distribution parameters are constant while the copula parameter is time-varying,
 
@@ -584,12 +627,14 @@ According to Equation (27), three scenarios for the time-varying copula can be d
 
 -   both at least one marginal distribution parameter and the copula parameter are time-varying.
 
-The implementation of the time-varying copula model in Equation (27) involves two major steps: first, determining the time variation in the marginal distributions, and second, modeling the evolution of the copula parameter. The first step is done under the GAMLSS framework we have discussed before. As the second step the copula parameter $\theta_{c}$ can be expressed as a linear function of the time-varying explanatory variables $x_{i}^{t} (i=1,2, \ldots, m)$ through a suitable link function $g_{c}(\cdot)$, as follows:
+The implementation of the time-varying copula model in \@ref(eq:copula) involves two major steps: first, determining the time variation in the marginal distributions, and second, modeling the evolution of the copula parameter. The first step is done under the GAMLSS framework we have discussed before. As the second step the copula parameter $\theta_{c}$ can be expressed as a linear function of the time-varying explanatory variables $x_{i}^{t} (i=1,2, \ldots, m)$ through a suitable link function $g_{c}(\cdot)$, as follows:
 
-$$
-g_{c}\left(\theta_{c}^{t}\right) = \beta_{0} + \sum_{i=1}^{m} \beta_{i} x_{i}^{t} \tag{27}
-$$
-
+```{=tex}
+\begin{equation}
+g_{c}\left(\theta_{c}^{t}\right) = \beta_{0} + \sum_{i=1}^{m} \beta_{i} x_{i}^{t}
+(\#eq:copulalinkfunc)
+\end{equation}
+```
 where $\beta_{0}, \beta_{1}, \ldots, \beta_{m}$ are the parameters represented by the vector $\boldsymbol{\beta} = \left(\beta_{0}, \beta_{1}, \ldots, \beta_{m}\right)^{\mathrm{T}}$. The link function $g_{c}(\cdot)$ depends on the domain of the copula parameter. For example, if $\theta_{c} \in \mathbb{R}$, then $g_{c}(\theta_{c}) = \theta_{c}$ (for the Frank copula), or if $\theta_{c} > 0$, then $g_{c}(\theta_{c}) = \log(\theta_{c})$ (for the GH and Clayton copulas). The time-varying copula parameters $\boldsymbol{\beta}_{i}$ are estimated by Inference Function for Margins (IFM) method (@Joe1997).
 
 ### Model Selection and Goodness-of-fit
@@ -599,9 +644,9 @@ Model selection in terms of copula functions involves evaluating different copul
 The goodness-of-fit of the time-varying copula model is evaluated by assessing the fit of both the two marginal distributions and the copula function. The goodness-of-fit test for the copula is conducted using Rosenblatt's probability integral transform (@Rosenblatt1952, @Genest2009).
 
 ::: {style="border: 2px solid #000; padding: 10px; margin-top: 20px; background-color: #f0fbff;"}
-**Chosen Copula Models and AICc Values in Jiang et al. (2015)**
+**Chosen Copula Models and AICc Values in @Jiang2015**
 
-The study by Jiang et al. (2015) focused on analyzing the time-varying dependence structure between the low-flow series at the Ankang (Qa) and Huangzhuang (Qh) gauges. The authors selected three Archimedean copulas (Frank, Gumbel-Hougaard (GH), and Clayton) due to their flexibility and ability to capture different dependence structures. The models were evaluated using two different explanatory variables: time and reservoir index (RI). The selection criteria include the corrected Akaike Information Criterion (AICc), which is preferred over the regular AIC when dealing with small sample sizes as it adjusts for the number of parameters in the model, providing a more accurate measure of model fit.
+The study by @Jiang2015 focused on analyzing the time-varying dependence structure between the low-flow series at the Ankang (Qa) and Huangzhuang (Qh) gauges. The authors selected three Archimedean copulas (Frank, Gumbel-Hougaard (GH), and Clayton) due to their flexibility and ability to capture different dependence structures. The models were evaluated using two different explanatory variables: time and reservoir index (RI). The selection criteria include the corrected Akaike Information Criterion (AICc), which is preferred over the regular AIC when dealing with small sample sizes as it adjusts for the number of parameters in the model, providing a more accurate measure of model fit.
 
 **With Time as the Explanatory Variable**
 
@@ -632,23 +677,23 @@ The results demonstrate that the Frank copula model, particularly when using the
 
 Hybrid dynamical–statistical (or statistical–dynamical) approaches offer several advantages over purely statistical or purely dynamical methods for predicting and projecting nonstationary extremes. In nonstationary hydrological analysis, a time or climate covariate can be used to detect changes in the distribution parameters. The benefit of using climate covariates is that climate model predictions or projections can then be utilized as covariates to estimate future changes.
 
-Hydrologists are interested in catchment-scale projections, but climate models operate at much larger resolutions, necessitating downscaling for use in process-based models. Due to the coarse spatial and temporal resolution of climate forecasts, downscaling is required to provide regional information at finer temporal and spatial scales (@Fowler2007, @Tian2017). Various statistical downscaling and bias correction methods are employed. In the following section, we will present the Statistical Downscaling Model employed by Du et al. (2015) in the context of low-flow events.
+Hydrologists are interested in catchment-scale projections, but climate models operate at much larger resolutions, necessitating downscaling for use in process-based models. Due to the coarse spatial and temporal resolution of climate forecasts, downscaling is required to provide regional information at finer temporal and spatial scales (@Fowler2007, @Tian2017). Various statistical downscaling and bias correction methods are employed. In the following section, we will present the Statistical Downscaling Model employed by @Du2015 in the context of low-flow events.
 
 ### Statistical Downscaling Model (SDSM)
 
-GCMs are tools used for predicting future time series of meteorological variables, thereby extending the time-varying exceedance probabilities described in Eqs. (13) and (15). The usefulness of GCMs for local impact studies is limited by their coarse spatial resolution, typically around 50,000 km², and their inability to resolve important sub-grid scale features such as clouds and topography which can be seen from the schematic illustration of general approach of SDSM Figure \@ref(fig:fig4) below. Therefore, the coarse spatial resolution of GCM data limits its direct application to local impact studies (@Wilby2002, @Wilby2007).
+GCMs are tools used for predicting future time series of meteorological variables, thereby extending the time-varying exceedance probabilities described in Equations \@ref(eq:enenonstat1) and \@ref(eq:risknonstat). The usefulness of GCMs for local impact studies is limited by their coarse spatial resolution, typically around 50,000 km², and their inability to resolve important sub-grid scale features such as clouds and topography which can be seen from the schematic illustration of general approach of SDSM Figure \@ref(fig:fig4Gamze) below. Therefore, the coarse spatial resolution of GCM data limits its direct application to local impact studies (@Wilby2002, @Wilby2007).
 
-```{r fig4\\_gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE, fig.cap="Schematic illustration of SDSM"}
+```{r fig4Gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE, fig.cap="Schematic illustration of SDSM"}
 knitr::include_graphics("./work/06-lowflow/figures/Figure_4.png")
 ```
 
 *Source: SDSM Project Team, 2024*
 
-This issue can be addressed through a technique known as downscaling. The statistical downscaling model (SDSM) developed by Wilby et al. (2002) serves as a decision support tool for assessing local climate change impacts. SDSM can be best described as a hybrid of stochastic weather generator and regression-based methods. It employs a robust statistical downscaling technique that combines a weather generator and multiple linear regression. SDSM uses large-scale daily circulation patterns and atmospheric moisture variables ($j = 1, 2, \ldots, n$) to linearly condition local-scale weather generator parameters (e.g., precipitation occurrence and intensity) at individual sites. It generates local weather scenarios by combining weather generator outputs with future climate scenarios projected by GCMs.
+This issue can be addressed through a technique known as downscaling. The statistical downscaling model (SDSM) developed by @Wilby2002 serves as a decision support tool for assessing local climate change impacts. SDSM can be best described as a hybrid of stochastic weather generator and regression-based methods. It employs a robust statistical downscaling technique that combines a weather generator and multiple linear regression. SDSM uses large-scale daily circulation patterns and atmospheric moisture variables ($j = 1, 2, \ldots, n$) to linearly condition local-scale weather generator parameters (e.g., precipitation occurrence and intensity) at individual sites. It generates local weather scenarios by combining weather generator outputs with future climate scenarios projected by GCMs.
 
-The diagram \@ref(fig:fig5) illustrates the general approach of SDSM, showing how it integrates both NCEP predictors and GCM predictors through a downscale predictand process. First, the NCEP predictors feed into a weather generator. Then, the simulated historical data coming from weather generator is assessed using the Nash-Sutcliffe efficiency (NSE) between the simulated and observed meteorological variables of interest. With the input of the GCMs large-scale predictors and outputs of the weather generator, future values for the meteorological variable of interest are generated by the scenario generator. Both the weather generator and the scenario generator contribute to the model output, which represents the localized weather patterns and events based on projected climate changes.
+Figure \@ref(fig:fig5Gamze) illustrates the general approach of SDSM, showing how it integrates both NCEP predictors and GCM predictors through a downscale predictand process. First, the NCEP predictors feed into a weather generator. Then, the simulated historical data coming from weather generator is assessed using the Nash-Sutcliffe efficiency (NSE) between the simulated and observed meteorological variables of interest. With the input of the GCMs large-scale predictors and outputs of the weather generator, future values for the meteorological variable of interest are generated by the scenario generator. Both the weather generator and the scenario generator contribute to the model output, which represents the localized weather patterns and events based on projected climate changes.
 
-```{r fig5\\_gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE, fig.cap="SDSM Climate Scenario Generation"}
+```{r fig5Gamze, cache=FALSE, out.width="80%", fig.align="center", echo=FALSE, eval = TRUE, fig.cap="SDSM Climate Scenario Generation"}
 knitr::include_graphics("./work/06-lowflow/figures/Figure_5.png")
 ```
 
@@ -658,40 +703,48 @@ It has been widely used in climate change research (Wilby and Dawson, 2013) and 
 
 Theoretically, the downscaling process with SDSM can be either unconditional or conditional on an event. For the unconditional process, a direct multiple linear regression equation is constructed between the unconditional predictand $y_{i}^{UC}$ and the chosen normalized large-scale predictors $\hat{u}_{i}^{j}$ on day $i$ (@Wilby2003, @Wetterhall2006):
 
-$$
-y_{i}^{U C}=\gamma_{0}+\sum_{j=1}^{l} \gamma_{j} \hat{u}_{i}^{j}+\varepsilon \tag{28}
-$$
-
+```{=tex}
+\begin{equation}
+y_{i}^{U C}=\gamma_{0}+\sum_{j=1}^{l} \gamma_{j} \hat{u}_{i}^{j}+\varepsilon
+(\#eq:sdsmuc)
+\end{equation}
+```
 where $\gamma_{j}$ are the estimated regression coefficients determined by the least squares method, $l$ is the number of selected predictors, and $\varepsilon$ is a normally distributed stochastic error term.
 
 For the conditional process, the conditional probability of predictand occurrence $\omega_{i}$ on day $i$ is directly represented as a multiple linear regression equation of $\hat{u}_{i}^{j}$:
 
-$$
-\omega_{i}=\eta_{0}+\sum_{j=1}^{l} \eta_{j} \hat{u}_{i}^{j}\tag{29}
-$$
-
+```{=tex}
+\begin{equation}
+\omega_{i}=\eta_{0}+\sum_{j=1}^{l} \eta_{j} \hat{u}_{i}^{j}
+(\#eq:sdsmucomega)
+\end{equation}
+```
 where $\eta_{j}$ are the estimated regression coefficients. If $\omega_{i} \leqslant r_{i}$, where $r_{i}$ is a uniformly distributed random number ($0 \leqslant r_{i} \leqslant 1$), the conditional predictand $y_{i}^{c}$ occurs with an amount of:
 
-$$
-y_{i}^{C}=F^{-1}\left[\Phi\left(Z_{i}\right)\right] \tag{30}
-$$
-
+```{=tex}
+\begin{equation}
+y_{i}^{C}=F^{-1}\left[\Phi\left(Z_{i}\right)\right]
+(\#eq:sdsmc)
+\end{equation}
+```
 where $F$ is the empirical distribution function of $y_{i}^{c}$, and $\Phi$ is the normal cumulative distribution function. $Z_{i}$ is the $z$-score for day $i$, expressed as $Z_{i}=\lambda_{0}+\sum_{j=1}^{l} \lambda_{j} \hat{u}{i}^{j}+\varepsilon$, where $\lambda{j}$ are the estimated regression coefficients.
 
 The simulation results were assessed by the Nash-Sutcliffe efficiency (NSE) between the simulated and observed Temp and Prep. NSE is calculated as (@Nash1970):
 
-$$
-N S E=1-\frac{\sum_{i=1}^{\tau}\left(Y_{i}^{\text {obs }}-Y_{i}^{\text {sim }}\right)^{2}}{\sum_{i=1}^{\tau}\left(Y_{i}^{\text {obs }}-Y^{\text {mean }}\right)^{2}}\tag{31}
-$$
-
+```{=tex}
+\begin{equation}
+N S E=1-\frac{\sum_{i=1}^{\tau}\left(Y_{i}^{\text {obs }}-Y_{i}^{\text {sim }}\right)^{2}}{\sum_{i=1}^{\tau}\left(Y_{i}^{\text {obs }}-Y^{\text {mean }}\right)^{2}}
+(\#eq:nse)
+\end{equation}
+```
 where $Y_{i}^{\text {obs }}$ are the observed meteorological variables, $Y_{i}^{\text {sim }}$ are the simulated values corresponding to $Y_{i}^{o b s}, Y^{\text {mean }}$ is the mean value of $Y_{i}^{\text {obs }}$. NSE ranges from $-\infty$ to 1, with $N S E=1$ being the perfect simulation.
 
 Typically, the predictand-predictor relationship in the SDSM, represented by the calibrated multiple linear regression equation, is assumed to be transferable to future projection periods (@Wilby2002, @Wilby2007, @Wilby2013, @Wetterhall2006, @Mullan2012). Using the large-scale predictors from GCMs as input, future scenarios of the meteorological variables of interest can then be derived, providing localized weather patterns and events based on projected climate changes.
 
 ::: {style="border: 2px solid #000; padding: 10px; margin-top: 20px; background-color: #f0fbff;"}
-**Statistical Downscaling Model (SDSM) in Du et al. (2015)**
+**Statistical Downscaling Model (SDSM) in @Du2015**
 
-Du et al. (2015) employed the Statistical Down Scaling Model developed by Wilby et al. (2002) as a decision support tool for assessing local climate change impacts.
+@Du2015 employed the Statistical Downscaling Model developed by @Wilby2002 as a decision support tool for assessing local climate change impacts.
 
 **Key Features of SDSM**:
 
@@ -712,8 +765,8 @@ Du et al. (2015) employed the Statistical Down Scaling Model developed by Wilby 
 **Results**:
 
 -   The simulated data for 1954-2009 showed adequate agreement with observed data, particularly for temperature. - Future projections indicated strong increasing trends in temperature for both Huaxian and Xianyang stations, while precipitation remained relatively stable for Huaxian.
--   The use of SDSM allowed Du et al. (2015) to effectively incorporate climate change projections into their nonstationary frequency analysis of low-flow events, providing valuable insights for water resource management under changing climatic conditions.
--   It should be noted that there are uncertainties in the downscaled future scenarios of meteorological variables used in this study. These uncertainties could be partially mitigated by exploring additional downscaling methods and different General Circulation Models (GCMs).
+-   The use of SDSM allowed @Du2015 to effectively incorporate climate change projections into their nonstationary frequency analysis of low-flow events, providing valuable insights for water resource management under changing climatic conditions.
+-   It should be noted that there are uncertainties in the downscaled future scenarios of meteorological variables used in this study. These uncertainties could be partially mitigated by exploring additional downscaling methods and different GCMs.
 :::
 
 ## Conclusion
